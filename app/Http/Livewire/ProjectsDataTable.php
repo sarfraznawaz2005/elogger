@@ -18,7 +18,7 @@ class ProjectsDataTable extends LivewireDatatable
             Column::name('description')->searchable(),
 
             NumberColumn::callback(['hours'], static function ($hours) {
-                return view('components.table-badge', ['value' => $hours, 'color' => 'green']);
+                return view('components.table-badge', ['value' => number_format($hours, 2), 'color' => 'green']);
             })->label('Hours'),
         ];
     }
