@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire;
 
+use App\Traits\InteractsWithEvents;
 use Illuminate\Database\Eloquent\Builder;
 use Mediconesystems\LivewireDatatables\Column;
 use Mediconesystems\LivewireDatatables\Http\Livewire\LivewireDatatable;
@@ -9,6 +10,10 @@ use Mediconesystems\LivewireDatatables\NumberColumn;
 
 class PendingEntriesDataTable extends LivewireDatatable
 {
+    use InteractsWithEvents;
+
+    protected $listeners = ['event-entry-saved' => 'onEvent'];
+
     public function builder(): Builder
     {
         return user()->pendingTodos()->getQuery();
@@ -30,8 +35,12 @@ class PendingEntriesDataTable extends LivewireDatatable
             NumberColumn::callback(['dated', 'time_start', 'time_end'], static function ($dated, $time_start, $time_end) {
                 $hours = getBCHoursDiff($dated, $time_start, $time_end);
 
-                return view('components.table-actions-badge', ['hours' => $hours, 'color' => 'green']);
+                return view('components.table-badge', ['value' => $hours, 'color' => 'green']);
             })->label('Total'),
+
+            Column::callback(['id', 'project.project_name'], static function ($id, $name) {
+                return view('components.table-actions-entry', ['id' => $id, 'name' => $name]);
+            })->label('Action')->alignCenter(),
         ];
     }
 }

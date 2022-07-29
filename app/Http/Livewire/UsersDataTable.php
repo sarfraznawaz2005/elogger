@@ -23,14 +23,14 @@ class UsersDataTable extends LivewireDatatable
                 $hours = (new User())->find($id)->pendingTodosHours();
                 $hours = number_format($hours, 2);
 
-                return view('components.table-actions-hours', ['hours' => $hours, 'color' => 'yellow']);
+                return view('components.table-badge', ['value' => $hours, 'color' => 'yellow']);
             })->label('Pending Hours')->sortable(),
 
             NumberColumn::callback(['id', 'id'], static function ($id) {
                 $hours = (new User())->find($id)->postedTodosHours();
                 $hours = number_format($hours, 2);
 
-                return view('components.table-actions-hours', ['hours' => $hours, 'color' => 'green']);
+                return view('components.table-badge', ['value' => $hours, 'color' => 'green']);
             })->label('Posted Hours')->sortable(),
         ];
     }
