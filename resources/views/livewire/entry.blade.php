@@ -1,5 +1,11 @@
 <div>
 
+    <?php
+        // https://github.com/livewire/livewire/issues/900
+        asort($todoLists);
+        asort($todos);
+    ?>
+
     <x-jet-button
         wire:loading.attr="disabled"
         wire:click="openModal"
