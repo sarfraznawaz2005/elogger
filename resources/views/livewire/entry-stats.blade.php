@@ -9,7 +9,7 @@
                     <p class="mt-1 text-sm text-gray-600">
                         <strong>
                         <span class="bg-green-100 text-green-800 text-2xl font-semibold mr-2 px-2.5 py-0.5 rounded dark:bg-green-200 dark:text-green-900">
-                            {{user()->pendingTodosHoursToday()}}
+                            {{$PendingTodosHoursToday}}
                         </span>
                         </strong>
                     </p>
@@ -25,7 +25,7 @@
                     <p class="mt-1 text-sm text-gray-600">
                         <strong>
                         <span class="bg-green-100 text-green-800 text-2xl font-semibold mr-2 px-2.5 py-0.5 rounded dark:bg-green-200 dark:text-green-900">
-                            {{user()->pendingTodosHours()}}
+                            {{$PendingTodosHoursTotal}}
                         </span>
                         </strong>
                     </p>
@@ -41,7 +41,7 @@
                     <p class="mt-1 text-sm text-gray-600">
                         <strong>
                         <span class="bg-green-100 text-green-800 text-2xl font-semibold mr-2 px-2.5 py-0.5 rounded dark:bg-green-200 dark:text-green-900">
-                            {{user()->postedTodosHours()}}
+                            {{$PostedTodosHoursTotal}}
                         </span>
                         </strong>
                     </p>

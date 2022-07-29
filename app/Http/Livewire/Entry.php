@@ -113,18 +113,22 @@ class Entry extends Component
 
         if ($diff < 0) {
             $this->dangerBanner('Start Time cannot be greater than End Time.');
+            return;
         }
 
         $todo->fill($data);
 
         if (!$todo->save()) {
             $this->dangerBanner('Unable to save entry!');
+            return;
         }
 
         session(['project_id' => $data['project_id']]);
         session(['todolist_id' => $data['todolist_id']]);
         session(['todo_id' => $data['todo_id']]);
         session(['description' => $data['description']]);
+
+        $this->emit('event-entry-created');
 
         $this->closeModal();
 

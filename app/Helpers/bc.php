@@ -317,7 +317,7 @@ function getTodoListTodos($todolistId): array
     return $finalData;
 }
 
-function getBCHoursDiff($date, $startTime, $endTime, $returnNegative = false): int
+function getBCHoursDiff($date, $startTime, $endTime, $returnNegative = false): string
 {
     $sTime = Carbon::parse($date . ' ' . $startTime);
     $eTime = Carbon::parse($date . ' ' . $endTime);
