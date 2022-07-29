@@ -60,6 +60,8 @@ class Entry extends Component
     {
         $this->validateOnly($propertyName);
 
+        // TODO: The sorting of todoLists and Todos gets lost due to livewire
+
         if (($propertyName === 'item.project_id') && $this->item['project_id']) {
             $this->todoLists = [];
             $this->todos = [];
