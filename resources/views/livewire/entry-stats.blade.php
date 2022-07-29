@@ -1,44 +1,54 @@
-<div class="bg-gray-200 overflow-hidden shadow-xl sm:rounded-lg p-4 my-4">
+<div class="bg-gray-200 overflow-hidden shadow-xl sm:rounded-lg p-3 my-4">
 
     <div class="grid grid-cols-3 sm:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 gap-6 w-full">
-        <div class="flex items-center relative p-4 w-full bg-white rounded-lg overflow-hidden shadow">
-            <x-jet-section-title>
-                <x-slot name="title">Pending Todos Hours Today</x-slot>
-                <x-slot name="description">
-                    <strong>
+        <div class="flex items-center relative p-2 w-full bg-white rounded-lg overflow-hidden shadow">
+            <div class="w-full text-center">
+                <div class="px-4 sm:px-0">
+                    <h3 class="text-lg font-medium text-gray-900">Pending Todos Hours Today</h3>
+
+                    <p class="mt-1 text-sm text-gray-600">
+                        <strong>
                         <span class="bg-green-100 text-green-800 text-2xl font-semibold mr-2 px-2.5 py-0.5 rounded dark:bg-green-200 dark:text-green-900">
                             {{user()->pendingTodosHoursToday()}}
                         </span>
-                    </strong>
-                </x-slot>
-            </x-jet-section-title>
+                        </strong>
+                    </p>
+                </div>
+            </div>
         </div>
 
-        <div class="flex items-center relative p-4 w-full bg-white rounded-lg overflow-hidden shadow">
-            <x-jet-section-title>
-                <x-slot name="title">Pending Todos Hours Total</x-slot>
-                <x-slot name="description">
-                    <strong>
+        <div class="flex items-center relative p-2 w-full bg-white rounded-lg overflow-hidden shadow">
+            <div class="w-full text-center">
+                <div class="px-4 sm:px-0">
+                    <h3 class="text-lg font-medium text-gray-900">Pending Todos Hours Total</h3>
+
+                    <p class="mt-1 text-sm text-gray-600">
+                        <strong>
                         <span class="bg-green-100 text-green-800 text-2xl font-semibold mr-2 px-2.5 py-0.5 rounded dark:bg-green-200 dark:text-green-900">
                             {{user()->pendingTodosHours()}}
                         </span>
-                    </strong>
-                </x-slot>
-            </x-jet-section-title>
+                        </strong>
+                    </p>
+                </div>
+            </div>
         </div>
 
-        <div class="flex items-center relative p-4 w-full bg-white rounded-lg overflow-hidden shadow">
-            <x-jet-section-title>
-                <x-slot name="title">Posted Todos Hours Total</x-slot>
-                <x-slot name="description">
-                    <strong>
+        <div class="flex items-center relative p-2 w-full bg-white rounded-lg overflow-hidden shadow">
+            <div class="w-full text-center">
+                <div class="px-4 sm:px-0">
+                    <h3 class="text-lg font-medium text-gray-900">Posted Todos Hours Total</h3>
+
+                    <p class="mt-1 text-sm text-gray-600">
+                        <strong>
                         <span class="bg-green-100 text-green-800 text-2xl font-semibold mr-2 px-2.5 py-0.5 rounded dark:bg-green-200 dark:text-green-900">
                             {{user()->postedTodosHours()}}
                         </span>
-                    </strong>
-                </x-slot>
-            </x-jet-section-title>
+                        </strong>
+                    </p>
+                </div>
+            </div>
         </div>
+
     </div>
 
 
