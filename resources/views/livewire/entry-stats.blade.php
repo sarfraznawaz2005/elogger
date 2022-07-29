@@ -4,7 +4,7 @@
         <div class="flex items-center relative p-2 w-full bg-white rounded-lg overflow-hidden shadow">
             <div class="w-full text-center">
                 <div class="px-4 sm:px-0">
-                    <h3 class="text-lg font-medium text-gray-900">Pending Todos Hours Today</h3>
+                    <h3 class="text-sm font-medium text-gray-900 sm:text-lg">Pending Todos Hours Today</h3>
 
                     <p class="mt-1 text-sm text-gray-600">
                         <strong>
@@ -20,7 +20,7 @@
         <div class="flex items-center relative p-2 w-full bg-white rounded-lg overflow-hidden shadow">
             <div class="w-full text-center">
                 <div class="px-4 sm:px-0">
-                    <h3 class="text-lg font-medium text-gray-900">Pending Todos Hours Total</h3>
+                    <h3 class="text-sm font-medium text-gray-900 sm:text-lg">Pending Todos Hours Total</h3>
 
                     <p class="mt-1 text-sm text-gray-600">
                         <strong>
@@ -36,7 +36,7 @@
         <div class="flex items-center relative p-2 w-full bg-white rounded-lg overflow-hidden shadow">
             <div class="w-full text-center">
                 <div class="px-4 sm:px-0">
-                    <h3 class="text-lg font-medium text-gray-900">Posted Todos Hours Total</h3>
+                    <h3 class="text-sm font-medium text-gray-900 sm:text-lg">Posted Todos Hours Total</h3>
 
                     <p class="mt-1 text-sm text-gray-600">
                         <strong>
