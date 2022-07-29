@@ -19,8 +19,8 @@
         <x-slot name="content">
 
             <div class="my-4">
-                <x-jet-label for="project_id" value="{{ __('Project') }}"/>
-                <select wire:model="project_id" class="mt-1 block w-full">
+                <x-jet-label for="item.project_id" value="{{ __('Project') }}"/>
+                <select wire:model="item.project_id" class="mt-1 block w-full">
                     <option value="" selected>Choose</option>
                     @foreach($projects as $projectId => $name)
                         <option value="{{ $projectId }}">{{ $name }}</option>
@@ -29,12 +29,12 @@
                 <x-jet-input-error for="item.project_id" class="mt-2"/>
             </div>
 
-            <x-loading wire:loading wire:target="project_id"></x-loading>
+            <x-loading wire:loading wire:target="item.project_id"></x-loading>
 
-            @if ($project_id)
-                <div wire:loading.remove wire:target="project_id" class="my-4">
-                    <x-jet-label for="todolist_id" value="{{ __('Todolist') }}"/>
-                    <select wire:model="todolist_id" class="mt-1 block w-full">
+            @if (isset($item['project_id']) && $item['project_id'])
+                <div wire:loading.remove wire:target="item.project_id" class="my-4">
+                    <x-jet-label for="item.todolist_id" value="{{ __('Todolist') }}"/>
+                    <select wire:model="item.todolist_id" class="mt-1 block w-full">
                         <option value="" selected>Choose</option>
                         @foreach($todoLists as $todoListId => $name)
                             <option value="{{ $todoListId }}">{{ $name }}</option>
@@ -44,12 +44,12 @@
                 </div>
             @endif
 
-            <x-loading wire:loading wire:target="todolist_id"></x-loading>
+            <x-loading wire:loading wire:target="item.todolist_id"></x-loading>
 
-            @if ($todolist_id)
-                <div wire:loading.remove wire:target="project_id, todolist_id" class="my-4">
-                    <x-jet-label for="todo_id" value="{{ __('Todo') }}"/>
-                    <select wire:model="todo_id" class="mt-1 block w-full">
+            @if (isset($item['todolist_id']) && $item['todolist_id'])
+                <div wire:loading.remove wire:target="item.project_id, item.todolist_id" class="my-4">
+                    <x-jet-label for="item.todo_id" value="{{ __('Todo') }}"/>
+                    <select wire:model="item.todo_id" class="mt-1 block w-full">
                         <option value="" selected>Choose</option>
                         @foreach($todos as $todoId => $name)
                             <option value="{{ $todoId }}">{{ $name }}</option>

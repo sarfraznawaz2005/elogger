@@ -16,10 +16,6 @@ class Entry extends Component
     public array $todoLists = [];
     public array $todos = [];
 
-    public ?string $project_id = null;
-    public ?string $todolist_id = null;
-    public ?string $todo_id = null;
-
     public ?array $item = null;
 
     public bool $isModalOpen = false;
@@ -63,46 +59,22 @@ class Entry extends Component
     /**
      * @throws JsonException
      */
-    public function updatedProjectId(): void
+    public function updated($propertyName): void
     {
-        if ($this->project_id) {
-
-            $this->item['project_id'] = $this->project_id;
-
+        if (($propertyName === 'item.project_id') && $this->item['project_id']) {
             $this->todoLists = [];
             $this->todos = [];
-            $this->todolist_id = null;
-            $this->todo_id = null;
-
-            $this->todoLists = json_decode($this->todoLists($this->project_id), true, 512, JSON_THROW_ON_ERROR);
-        } else {
-            $this->item['project_id'] = null;
-        }
-    }
-
-    /**
-     * @throws JsonException
-     */
-    public function updatedTodolistId(): void
-    {
-        if ($this->todolist_id) {
-            $this->item['todolist_id'] = $this->todolist_id;
-
-            $this->todos = [];
-            $this->todo_id = null;
-
-            $this->todos = json_decode($this->todos($this->todolist_id), true, 512, JSON_THROW_ON_ERROR);
-        } else {
             $this->item['todolist_id'] = null;
-        }
-    }
-
-    public function updatedTodoId(): void
-    {
-        if ($this->todo_id) {
-            $this->item['todo_id'] = $this->todo_id;
-        } else {
             $this->item['todo_id'] = null;
+
+            $this->todoLists = json_decode($this->todoLists($this->item['project_id']), true, 512, JSON_THROW_ON_ERROR);
+        }
+
+        if ($propertyName === 'item.todolist_id' && $this->item['todolist_id']) {
+            $this->todos = [];
+            $this->item['todo_id'] = null;
+
+            $this->todos = json_decode($this->todos($this->item['todolist_id']), true, 512, JSON_THROW_ON_ERROR);
         }
     }
 
