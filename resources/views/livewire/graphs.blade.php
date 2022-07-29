@@ -92,9 +92,9 @@
             chart.draw(data, options);
         }
 
-        @if (user()->isAdmin() && $allUsersHours)
+        @if ($allUsersHours && user()->isAdmin())
         google.charts.setOnLoadCallback(function () {
-            var data = google.visualization.arrayToDataTable([
+            const data = google.visualization.arrayToDataTable([
                 ['Person', 'Hours', {role: 'style'}],
                 <?php
                 foreach ($allUsersHours as $user) {
