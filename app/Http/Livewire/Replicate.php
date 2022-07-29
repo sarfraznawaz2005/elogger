@@ -43,6 +43,8 @@ class Replicate extends Component
             $newTodo->save();
         }
 
+        $this->emit('event-entry-saved');
+
         $this->closeModal();
 
         $this->banner('Replicated Successfully!');

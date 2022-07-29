@@ -12,7 +12,7 @@ class EntryStats extends Component
 {
     use InteractsWithEvents;
 
-    protected $listeners = ['event-entry-created' => 'onEvent'];
+    protected $listeners = ['event-entry-saved' => 'onEvent'];
 
     public function render(): Factory|View|Application
     {

@@ -128,7 +128,7 @@ class Entry extends Component
         session(['todo_id' => $data['todo_id']]);
         session(['description' => $data['description']]);
 
-        $this->emit('event-entry-created');
+        $this->emit('event-entry-saved');
 
         $this->closeModal();
 
