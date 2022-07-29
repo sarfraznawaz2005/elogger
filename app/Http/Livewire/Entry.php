@@ -6,6 +6,7 @@ use App\Traits\InteractsWithModal;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
+use Illuminate\Validation\ValidationException;
 use JsonException;
 use Laravel\Jetstream\InteractsWithBanner;
 use Livewire\Component;
@@ -57,10 +58,12 @@ class Entry extends Component
     }
 
     /**
-     * @throws JsonException
+     * @throws JsonException|ValidationException
      */
     public function updated($propertyName): void
     {
+        $this->validateOnly($propertyName);
+
         if (($propertyName === 'item.project_id') && $this->item['project_id']) {
             $this->todoLists = [];
             $this->todos = [];
@@ -104,6 +107,6 @@ class Entry extends Component
 
     public function create(): void
     {
-        $this->validate();
+        $validatedData = $this->validate();
     }
 }
