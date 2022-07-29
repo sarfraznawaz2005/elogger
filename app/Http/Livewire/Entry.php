@@ -107,6 +107,14 @@ class Entry extends Component
 
     public function create(): void
     {
-        $validatedData = $this->validate();
+        $data = $this->validate();
+        $data = $data['item'];
+
+        // make sure end time is greater than start time
+        $diff = getBCHoursDiff($data['dated'], $data['time_start'], $data['time_end'], true);
+
+        if ($diff < 0) {
+            $this->dangerBanner('Start Time cannot be greater than End Time.');
+        }
     }
 }

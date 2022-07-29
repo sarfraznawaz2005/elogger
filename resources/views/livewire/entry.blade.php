@@ -18,6 +18,8 @@
 
         <x-slot name="content">
 
+            <x-jet-banner wire:loading.remove />
+
             <div class="my-4">
                 <x-jet-label for="item.project_id" value="{{ __('Project') }}"/>
                 <select wire:model="item.project_id" class="mt-1 block w-full">
@@ -69,13 +71,13 @@
                 </div>
 
                 <div>
-                    <x-jet-label for="item.time_start" value="{{ __('Time Start') }}" />
+                    <x-jet-label for="item.time_start" value="{{ __('Start Time') }}" />
                     <x-jet-input id="item.time_start" type="time" class="mt-1 block w-full" wire:model="item.time_start" />
                     <x-jet-input-error for="item.time_start" class="mt-2" />
                 </div>
 
                 <div>
-                    <x-jet-label for="item.time_end" value="{{ __('Time End') }}" />
+                    <x-jet-label for="item.time_end" value="{{ __('End Time') }}" />
                     <x-jet-input id="item.time_end" type="time" class="mt-1 block w-full" wire:model="item.time_end" />
                     <x-jet-input-error for="item.time_end" class="mt-2" />
                 </div>
