@@ -18,7 +18,7 @@
 
         <x-slot name="content">
 
-            <div class="col-span-6 sm:col-span-4 my-4">
+            <div class="my-4">
                 <x-jet-label for="project_id" value="{{ __('Project') }}"/>
                 <select wire:model="project_id" class="mt-1 block w-full">
                     <option value="" selected>Choose</option>
@@ -32,7 +32,7 @@
             <x-loading wire:loading wire:target="project_id"></x-loading>
 
             @if ($project_id)
-                <div wire:loading.remove wire:target="project_id" class="col-span-6 sm:col-span-4 my-4">
+                <div wire:loading.remove wire:target="project_id" class="my-4">
                     <x-jet-label for="todolist_id" value="{{ __('Todolist') }}"/>
                     <select wire:model="todolist_id" class="mt-1 block w-full">
                         <option value="" selected>Choose</option>
@@ -47,7 +47,7 @@
             <x-loading wire:loading wire:target="todolist_id"></x-loading>
 
             @if ($todolist_id)
-                <div wire:loading.remove wire:target="project_id, todolist_id" class="col-span-6 sm:col-span-4 my-4">
+                <div wire:loading.remove wire:target="project_id, todolist_id" class="my-4">
                     <x-jet-label for="todo_id" value="{{ __('Todo') }}"/>
                     <select wire:model="todo_id" class="mt-1 block w-full">
                         <option value="" selected>Choose</option>
@@ -59,11 +59,39 @@
                 </div>
             @endif
 
+            <hr class="my-8">
+
+            <div class="grid grid-cols-3 sm:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 gap-6 w-full mb-4">
+                <div>
+                    <x-jet-label for="item.dated" value="{{ __('Date') }}" />
+                    <x-jet-input id="item.dated" type="date" class="mt-1 block w-full" wire:model.defer="item.dated" />
+                    <x-jet-input-error for="item.dated" class="mt-2" />
+                </div>
+
+                <div>
+                    <x-jet-label for="item.time_start" value="{{ __('Time Start') }}" />
+                    <x-jet-input id="item.time_start" type="time" class="mt-1 block w-full" wire:model.defer="item.time_start" />
+                    <x-jet-input-error for="item.time_start" class="mt-2" />
+                </div>
+
+                <div>
+                    <x-jet-label for="item.time_end" value="{{ __('Time End') }}" />
+                    <x-jet-input id="item.time_end" type="time" class="mt-1 block w-full" wire:model.defer="item.time_end" />
+                    <x-jet-input-error for="item.time_end" class="mt-2" />
+                </div>
+            </div>
+
+            <x-jet-label for="item.description" value="{{ __('Description') }}" />
+            <x-jet-input id="item.description" type="text" class="mt-1 block w-full" wire:model.defer="item.description" />
+            <x-jet-input-error for="item.description" class="mt-2" />
+
         </x-slot>
 
         <x-slot name="footer">
-            <x-jet-button wire:click="create" wire:loading.attr="disabled"
-                          class="mr-2 bg-blue-700 hover:bg-blue-800 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+            <x-jet-button
+                wire:click="create"
+                wire:loading.attr="disabled"
+                class="mr-2 bg-blue-700 hover:bg-blue-800 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                 {{ __('Add Entry')  }}
             </x-jet-button>
 

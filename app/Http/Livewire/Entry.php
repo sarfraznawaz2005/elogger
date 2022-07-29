@@ -28,12 +28,20 @@ class Entry extends Component
         'item.project_id' => 'required',
         'item.todolist_id' => 'required',
         'item.todo_id' => 'required',
+        'item.dated' => 'required',
+        'item.time_start' => 'required',
+        'item.time_end' => 'required',
+        'item.description' => 'required',
     ];
 
     protected array $messages = [
-        'item.project_id.required' => 'The Project field is required.',
-        'item.todolist_id.required' => 'The Todolist field is required.',
-        'item.todo_id.required' => 'The Todo field is required.',
+        'item.project_id.required' => 'This field is required.',
+        'item.todolist_id.required' => 'This field is required.',
+        'item.todo_id.required' => 'This field is required.',
+        'item.dated.required' => 'This field is required.',
+        'item.time_start.required' => 'This field is required.',
+        'item.time_end.required' => 'This field is required.',
+        'item.description.required' => 'This field is required.',
     ];
 
     public function boot(): void
