@@ -2,7 +2,7 @@
 
 namespace App\Http\Livewire;
 
-use App\Traits\InteractsWithEvents;
+use App\Traits\InteractsWithModal;
 use Illuminate\Database\Eloquent\Builder;
 use Mediconesystems\LivewireDatatables\Column;
 use Mediconesystems\LivewireDatatables\Http\Livewire\LivewireDatatable;
@@ -10,9 +10,7 @@ use Mediconesystems\LivewireDatatables\NumberColumn;
 
 class PendingEntriesDataTable extends LivewireDatatable
 {
-    use InteractsWithEvents;
-
-    protected $listeners = ['event-entry-saved' => 'onEvent'];
+    use InteractsWithModal;
 
     public function builder(): Builder
     {
@@ -38,8 +36,8 @@ class PendingEntriesDataTable extends LivewireDatatable
                 return view('components.table-badge', ['value' => $hours, 'color' => 'green']);
             })->label('Total'),
 
-            Column::callback(['id', 'project.project_name'], static function ($id, $name) {
-                return view('components.table-actions-entry', ['id' => $id, 'name' => $name]);
+            Column::callback(['id'], static function ($id) {
+                return view('components.table-actions-entry', ['id' => $id]);
             })->label('Action')->alignCenter(),
         ];
     }
