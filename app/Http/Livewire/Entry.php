@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire;
 
+use App\Traits\InteractsWithModal;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
@@ -12,13 +13,12 @@ use Livewire\Component;
 class Entry extends Component
 {
     use InteractsWithBanner;
+    use InteractsWithModal;
 
     public array $todoLists = [];
     public array $todos = [];
 
     public ?array $item = null;
-
-    public bool $isModalOpen = false;
 
     protected array $rules = [
         'item.project_id' => 'required',
@@ -100,16 +100,6 @@ class Entry extends Component
         } catch (JsonException) {
             return json_encode([], JSON_THROW_ON_ERROR);
         }
-    }
-
-    public function openModal(): void
-    {
-        $this->isModalOpen = true;
-    }
-
-    public function closeModal(): void
-    {
-        $this->isModalOpen = false;
     }
 
     public function create(): void

@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire;
 
+use App\Traits\InteractsWithModal;
 use Carbon\Carbon;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
@@ -12,24 +13,13 @@ use Livewire\Component;
 class Replicate extends Component
 {
     use InteractsWithBanner;
-
-    public bool $isModalOpen = false;
+    use InteractsWithModal;
 
     public string $replicateMessage = '';
 
     public function render(): Factory|View|Application
     {
         return view('livewire.replicate');
-    }
-
-    public function openModal(): void
-    {
-        $this->isModalOpen = true;
-    }
-
-    public function closeModal(): void
-    {
-        $this->isModalOpen = false;
     }
 
     public function replicate(): void
