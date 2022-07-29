@@ -32,6 +32,7 @@ class Entry extends Component
         asort($projects);
 
         if (isset($this->item['project_id']) && $this->item['project_id']) {
+            unset($this->item['todolist_id']);
             $this->todoLists = json_decode($this->todoLists($this->item['project_id']), true, 512, JSON_THROW_ON_ERROR);
         }
 

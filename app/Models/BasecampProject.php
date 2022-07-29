@@ -35,7 +35,7 @@ class BasecampProject extends Model
             }
         }
 
-        $array = collect($projectsData)->where('project-id', session('project_id'))->all();
+        $array = collect($projectsData)->where('project-id', request()->segment(2))->all();
 
         return array_values($array);
     }

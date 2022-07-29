@@ -15,7 +15,7 @@ class Stats extends Component
         $workDayCountMonth = getWorkingDaysCount(true) - user()->holidays_count;
 
         $workDays = "$workDayCount of $workDayCountMonth";
-        $hoursLogged = session('month_hours');
+        $hoursLogged = session('month_hours') ?? 0;
         $hoursTotal = (getWorkingDaysCount(true) - user()->holidays_count) * user()->working_hours_count;
 
         return view('livewire.stats', compact('workDays', 'hoursLogged', 'hoursTotal'));
