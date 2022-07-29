@@ -5,17 +5,19 @@
             <livewire:entry/>
         </div>
 
-        <div class="float-right">
-            <livewire:replicate/>
-        </div>
+        @if(user()->basecamp_api_user_id === '11816315')
+            <div class="float-right">
+                <livewire:replicate/>
+            </div>
+        @endif
 
         <div class="clear-both"></div>
 
         <livewire:entry-stats/>
 
-        <x-jet-section-border />
+        <x-jet-section-border/>
 
-        <livewire:pending-entries-data-table />
+        <livewire:pending-entries-data-table/>
 
     </div>
 </div>
