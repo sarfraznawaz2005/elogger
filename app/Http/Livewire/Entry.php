@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire;
 
+use App\Models\Todo;
 use App\Traits\InteractsWithModal;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
@@ -40,11 +41,6 @@ class Entry extends Component
         'item.time_end.required' => 'This field is required.',
         'item.description.required' => 'This field is required.',
     ];
-
-    public function boot(): void
-    {
-        $this->item['user_id'] = user()->id;
-    }
 
     /**
      * @return Factory|View|Application
@@ -105,10 +101,12 @@ class Entry extends Component
         }
     }
 
-    public function create(): void
+    public function create(Todo $todo): void
     {
         $data = $this->validate();
         $data = $data['item'];
+
+        $data['user_id'] = user()->id;
 
         // make sure end time is greater than start time
         $diff = getBCHoursDiff($data['dated'], $data['time_start'], $data['time_end'], true);
@@ -116,5 +114,20 @@ class Entry extends Component
         if ($diff < 0) {
             $this->dangerBanner('Start Time cannot be greater than End Time.');
         }
+
+        $todo->fill($data);
+
+        if (!$todo->save()) {
+            $this->dangerBanner('Unable to save entry!');
+        }
+
+        session(['project_id' => $data['project_id']]);
+        session(['todolist_id' => $data['todolist_id']]);
+        session(['todo_id' => $data['todo_id']]);
+        session(['description' => $data['description']]);
+
+        $this->closeModal();
+
+        $this->banner('Entry Saved Successfully!');
     }
 }
