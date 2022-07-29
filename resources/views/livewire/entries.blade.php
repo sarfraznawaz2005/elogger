@@ -13,5 +13,9 @@
 
         <livewire:entry-stats/>
 
+        <x-jet-section-border />
+
+        <livewire:pending-entries-data-table />
+
     </div>
 </div>

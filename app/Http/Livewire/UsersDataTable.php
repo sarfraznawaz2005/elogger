@@ -20,11 +20,17 @@ class UsersDataTable extends LivewireDatatable
             BooleanColumn::name('is_admin')->sortable(),
 
             NumberColumn::callback(['id'], static function ($id) {
-                return view('components.table-actions-hours', ['id' => $id, 'color' => 'yellow', 'method' => 'pendingTodosHours']);
+                $hours = (new User())->find($id)->pendingTodosHours();
+                $hours = number_format($hours, 2);
+
+                return view('components.table-actions-hours', ['hours' => $hours, 'color' => 'yellow']);
             })->label('Pending Hours')->sortable(),
 
             NumberColumn::callback(['id', 'id'], static function ($id) {
-                return view('components.table-actions-hours', ['id' => $id, 'color' => 'green', 'method' => 'postedTodosHours']);
+                $hours = (new User())->find($id)->postedTodosHours();
+                $hours = number_format($hours, 2);
+
+                return view('components.table-actions-hours', ['hours' => $hours, 'color' => 'green']);
             })->label('Posted Hours')->sortable(),
         ];
     }
