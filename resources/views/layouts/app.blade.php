@@ -27,6 +27,8 @@
 
             <!-- Page Content -->
             <main>
+                <livewire:refresh/>
+
                 {{ $slot }}
             </main>
         </div>

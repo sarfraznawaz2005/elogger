@@ -9,13 +9,6 @@ use Livewire\Component;
 
 class Dashboard extends Component
 {
-    public function boot(): void
-    {
-        if (!session('month_hours')) {
-            refreshData();
-        }
-    }
-
     public function render(): Factory|View|Application
     {
         return view('livewire.dashboard');
