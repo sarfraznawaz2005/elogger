@@ -47,12 +47,10 @@ class PendingEntriesDataTable extends LivewireDatatable
 
     public function deleteItem($id): void
     {
-        $todo = Todo::find($id);
+        if (Todo::find($id)->delete()) {
+            $this->banner('Entry Deleted Successfully!');
 
-        $todo->delete();
-
-        $this->banner('Entry Deleted Successfully!');
-
-        $this->emit('event-entries-updated');
+            $this->emit('event-entries-updated');
+        }
     }
 }
