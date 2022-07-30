@@ -2,8 +2,10 @@
 
 namespace App\Http\Livewire;
 
+use App\Models\Todo;
 use App\Traits\InteractsWithModal;
 use Illuminate\Database\Eloquent\Builder;
+use Laravel\Jetstream\InteractsWithBanner;
 use Mediconesystems\LivewireDatatables\Column;
 use Mediconesystems\LivewireDatatables\Http\Livewire\LivewireDatatable;
 use Mediconesystems\LivewireDatatables\NumberColumn;
@@ -11,6 +13,7 @@ use Mediconesystems\LivewireDatatables\NumberColumn;
 class PendingEntriesDataTable extends LivewireDatatable
 {
     use InteractsWithModal;
+    use InteractsWithBanner;
 
     public function builder(): Builder
     {
@@ -40,5 +43,16 @@ class PendingEntriesDataTable extends LivewireDatatable
                 return view('components.table-actions-entry', ['id' => $id]);
             })->label('Action')->alignCenter(),
         ];
+    }
+
+    public function deleteItem($id): void
+    {
+        $todo = Todo::find($id);
+
+        $todo->delete();
+
+        $this->banner('Entry Deleted Successfully!');
+
+        $this->emit('event-entries-updated');
     }
 }

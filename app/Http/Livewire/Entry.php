@@ -128,7 +128,7 @@ class Entry extends Component
         session(['todo_id' => $data['todo_id']]);
         session(['description' => $data['description']]);
 
-        $this->emit('event-entry-saved');
+        $this->emit('event-entries-updated');
         $this->emit('refreshLivewireDatatable');
 
         $this->closeModal();
