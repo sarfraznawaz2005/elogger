@@ -19,7 +19,8 @@ class Entry extends Component
 
     protected $listeners = [
         'onDeleteEntry' => 'delete',
-        'onEditEntry' => 'edit',
+        'onEditEntry' => 'onEditEntry',
+        'edit' => 'edit'
     ];
 
     public array $todoLists = [];
@@ -27,7 +28,10 @@ class Entry extends Component
 
     public ?array $item = null;
 
+    // used for edits
     public int $itemId = 0;
+
+    public bool $loading = false;
 
     protected array $rules = [
         'item.project_id' => 'required',
@@ -158,6 +162,13 @@ class Entry extends Component
         $this->banner('Entry Saved Successfully!');
     }
 
+    public function onEditEntry($id): void
+    {
+        $this->loading = true;
+
+        $this->emitSelf('edit', $id);
+    }
+
     /**
      * @throws JsonException
      */
@@ -179,6 +190,8 @@ class Entry extends Component
 
         $this->todoLists = json_decode($this->todoLists($todo->project_id), true, 512, JSON_THROW_ON_ERROR);
         $this->todos = json_decode($this->todos($todo->todolist_id), true, 512, JSON_THROW_ON_ERROR);
+
+        $this->loading = false;
 
         $this->openModal();
     }

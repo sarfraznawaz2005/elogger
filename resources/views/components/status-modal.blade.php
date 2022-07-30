@@ -15,9 +15,9 @@
              x-transition:leave="ease-in duration-200"
              x-transition:leave-start="opacity-100 translate-y-0 sm:scale-100"
              x-transition:leave-end="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
-             class="relative bg-gray-100 rounded-lg overflow-hidden shadow-xl transform transition-all sm:max-w-lg sm:w-full">
+             class="relative bg-gray-100 rounded-lg overflow-hidden shadow-xl transform transition-all sm:max-w-lg">
 
-            <div class="w-full">
+            <div class="w-auto">
                 {{ $content }}
             </div>
         </div>
