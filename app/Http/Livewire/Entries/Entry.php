@@ -181,6 +181,7 @@ class Entry extends Component
      */
     public function view($id): void
     {
+        // because we have disabled fields using $disabled attribute
         $this->edit($id);
     }
 
@@ -189,6 +190,9 @@ class Entry extends Component
      */
     public function edit($id): void
     {
+        // clear validation messages
+        $this->resetErrorBag();
+
         /** @noinspection ALL */
         $todo = Todo::findOrFail($id);
 

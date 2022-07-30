@@ -55,9 +55,7 @@
                     @endforeach
                 </select>
 
-                @if (!$disabled)
                     <x-jet-input-error for="item.project_id" class="mt-2"/>
-                @endif
             </div>
 
             <x-loading wire:loading wire:target="item.project_id"></x-loading>
@@ -72,9 +70,7 @@
                         @endforeach
                     </select>
 
-                    @if (!$disabled)
-                        <x-jet-input-error for="item.todolist_id" class="mt-2"/>
-                    @endif
+                    <x-jet-input-error for="item.todolist_id" class="mt-2"/>
                 </div>
             @endif
 
@@ -90,9 +86,7 @@
                         @endforeach
                     </select>
 
-                    @if (!$disabled)
-                        <x-jet-input-error for="item.todo_id" class="mt-2"/>
-                    @endif
+                    <x-jet-input-error for="item.todo_id" class="mt-2"/>
                 </div>
             @endif
 
@@ -104,9 +98,7 @@
                     <x-jet-input id="item.dated" type="date" class="mt-1 block w-full {{$disabled ? 'disabled:bg-slate-50 disabled:text-slate-500 disabled:border-slate-200 disabled:shadow-none' : ''}}" wire:model="item.dated"
                                  disabled="{{$disabled}}"/>
 
-                    @if (!$disabled)
-                        <x-jet-input-error for="item.dated" class="mt-2"/>
-                    @endif
+                    <x-jet-input-error for="item.dated" class="mt-2"/>
                 </div>
 
                 <div>
@@ -114,9 +106,7 @@
                     <x-jet-input id="item.time_start" type="time" class="mt-1 block w-full {{$disabled ? 'disabled:bg-slate-50 disabled:text-slate-500 disabled:border-slate-200 disabled:shadow-none' : ''}}" wire:model="item.time_start"
                                  disabled="{{$disabled}}"/>
 
-                    @if (!$disabled)
-                        <x-jet-input-error for="item.time_start" class="mt-2"/>
-                    @endif
+                    <x-jet-input-error for="item.time_start" class="mt-2"/>
                 </div>
 
                 <div>
@@ -124,9 +114,7 @@
                     <x-jet-input id="item.time_end" type="time" class="mt-1 block w-full {{$disabled ? 'disabled:bg-slate-50 disabled:text-slate-500 disabled:border-slate-200 disabled:shadow-none' : ''}}" wire:model="item.time_end"
                                  disabled="{{$disabled}}"/>
 
-                    @if (!$disabled)
-                        <x-jet-input-error for="item.time_end" class="mt-2"/>
-                    @endif
+                    <x-jet-input-error for="item.time_end" class="mt-2"/>
                 </div>
             </div>
 
@@ -134,9 +122,7 @@
             <x-jet-input id="item.description" type="text" class="mt-1 block w-full {{$disabled ? 'disabled:bg-slate-50 disabled:text-slate-500 disabled:border-slate-200 disabled:shadow-none' : ''}}" wire:model="item.description"
                          disabled="{{$disabled}}"/>
 
-            @if (!$disabled)
-                <x-jet-input-error for="item.description" class="mt-2"/>
-            @endif
+            <x-jet-input-error for="item.description" class="mt-2"/>
 
         </x-slot>
 
