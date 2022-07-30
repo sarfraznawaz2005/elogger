@@ -17,7 +17,7 @@
 
         <x-jet-section-border/>
 
-        <livewire:entries.pending-entries-data-table/>
+        <livewire:data-tables.pending-entries-data-table />
 
     </div>
 </div>

@@ -1,5 +1,10 @@
 #eLogger
  
+### Requirements
+- PHP 8.0
+
+
+### Installation
 - `composer install`
 - create database, run `php artisan migrate`
 - `npm install && npm run build`

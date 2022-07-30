@@ -1,8 +1,7 @@
 <?php
 
-namespace App\Http\Livewire\Entries;
+namespace App\Http\Livewire\DataTables;
 
-use App\Models\Todo;
 use App\Traits\InteractsWithModal;
 use Illuminate\Database\Eloquent\Builder;
 use Laravel\Jetstream\InteractsWithBanner;
@@ -25,9 +24,7 @@ class PendingEntriesDataTable extends LivewireDatatable
         return [
             Column::name('dated')->searchable()->label('Date')->sortable(),
 
-            Column::callback(['hours'], static function ($hours) {
-                return view('components.table-actions-badge', ['hours' => $hours, 'color' => 'green']);
-            })->name('project.project_name')->label('Project')->searchable()->sortable(),
+            Column::name('project.project_name')->label('Project')->searchable()->sortable(),
 
             Column::name('description')->searchable()->sortable(),
             Column::name('time_start')->sortable(),
@@ -41,7 +38,7 @@ class PendingEntriesDataTable extends LivewireDatatable
 
             Column::callback(['id'], static function ($id) {
                 return view('components.table-actions-entry', ['id' => $id]);
-            })->label('Action')->alignCenter(),
+            })->label('Action')->alignCenter()->excludeFromExport(),
         ];
     }
 }
