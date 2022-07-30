@@ -44,6 +44,7 @@ class Replicate extends Component
         }
 
         $this->emit('event-entry-saved');
+        $this->emit('refreshLivewireDatatable');
 
         $this->closeModal();
 

@@ -129,6 +129,7 @@ class Entry extends Component
         session(['description' => $data['description']]);
 
         $this->emit('event-entry-saved');
+        $this->emit('refreshLivewireDatatable');
 
         $this->closeModal();
 

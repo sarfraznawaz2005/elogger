@@ -13,13 +13,14 @@
             @foreach($projects as $project)
                 <tr class="bg-gray-100 border-b dark:bg-gray-800 dark:border-gray-700">
                     <td class="py-2 px-6">
-                        <a class="text-blue-600" href="{{route('project_hours', $project['project_id'])}}">
+                        <span
+                            class="font-bold text-sm font-semibold p-2 rounded">
                             {{$project['project_name']}}
-                        </a>
+                        </span>
                     </td>
                     <td class="py-2 px-6" style="text-align: right;">
                         <span
-                            class="font-bold bg-green-100 text-green-800 text-sm font-semibold mr-2 px-2.5 py-0.5 rounded dark:bg-green-200 dark:text-green-900">
+                            class="font-bold bg-green-100 text-green-800 text-sm font-semibold px-2 py-1 rounded dark:bg-green-200 dark:text-green-900">
                             {{number_format($project['hours'], 2)}}
                         </span>
                     </td>

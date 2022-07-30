@@ -19,14 +19,6 @@
                     <x-jet-nav-link href="{{ route('entries') }}" :active="request()->routeIs('entries')">
                         {{ __('Time Entry') }}
                     </x-jet-nav-link>
-
-                    @if (user()->isAdmin())
-                        <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                            <x-jet-nav-link href="{{ route('users') }}" :active="request()->routeIs('users')">
-                                {{ __('Users') }}
-                            </x-jet-nav-link>
-                        </div>
-                    @endif
                 </div>
 
             </div>
@@ -177,12 +169,6 @@
             <x-jet-responsive-nav-link href="{{ route('entries') }}" :active="request()->routeIs('entries')">
                 {{ __('Time Entry') }}
             </x-jet-responsive-nav-link>
-
-            @if (user()->isAdmin())
-                <x-jet-responsive-nav-link href="{{ route('users') }}" :active="request()->routeIs('users')">
-                    {{ __('Users') }}
-                </x-jet-responsive-nav-link>
-            @endif
         </div>
 
         <!-- Responsive Settings Options -->

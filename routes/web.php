@@ -13,8 +13,6 @@ Route::middleware([
 ])->group(function () {
 
     Route::get('/', Dashboard::class)->name('dashboard');
-    Route::get('/project_hours/{projectId}', Project::class)->name('project_hours');
-    Route::get('users', Users::class)->name('users');
     Route::get('entries', Entries::class)->name('entries');
 
 });
