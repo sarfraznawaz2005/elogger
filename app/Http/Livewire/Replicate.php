@@ -19,7 +19,7 @@ class Replicate extends Component
 
     public function render(): Factory|View|Application
     {
-        return view('livewire.replicate');
+        return view('livewire.entries.replicate');
     }
 
     public function replicate(): void

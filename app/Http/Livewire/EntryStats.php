@@ -21,7 +21,7 @@ class EntryStats extends Component
         $PostedTodosHoursTotal = number_format(user()->postedTodosHours(), 2);
 
         return view(
-            'livewire.entry-stats',
+            'livewire.entries.entry-stats',
             compact('PendingTodosHoursToday', 'PendingTodosHoursTotal', 'PostedTodosHoursTotal')
         );
     }

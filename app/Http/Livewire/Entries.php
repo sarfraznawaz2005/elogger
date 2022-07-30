@@ -11,6 +11,6 @@ class Entries extends Component
 {
     public function render(): Factory|View|Application
     {
-        return view('livewire.entries');
+        return view('livewire.entries.index');
     }
 }

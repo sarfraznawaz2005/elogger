@@ -50,7 +50,7 @@ class Entry extends Component
         $projects = user()->projectsAll->pluck('project_name', 'project_id')->toArray();
         asort($projects);
 
-        return view('livewire.entry', compact('projects'));
+        return view('livewire.entries.entry', compact('projects'));
     }
 
     /**
