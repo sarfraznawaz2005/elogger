@@ -23,21 +23,21 @@ class PendingEntriesDataTable extends LivewireDatatable
     public function columns(): array
     {
         return [
-            Column::name('dated')->searchable()->label('Date'),
+            Column::name('dated')->searchable()->label('Date')->sortable(),
 
             Column::callback(['hours'], static function ($hours) {
                 return view('components.table-actions-badge', ['hours' => $hours, 'color' => 'green']);
-            })->name('project.project_name')->label('Project'),
+            })->name('project.project_name')->label('Project')->searchable()->sortable(),
 
-            Column::name('description')->searchable(),
-            Column::name('time_start')->searchable(),
-            Column::name('time_end')->searchable(),
+            Column::name('description')->searchable()->sortable(),
+            Column::name('time_start')->sortable(),
+            Column::name('time_end')->sortable(),
 
             NumberColumn::callback(['dated', 'time_start', 'time_end'], static function ($dated, $time_start, $time_end) {
                 $hours = getBCHoursDiff($dated, $time_start, $time_end);
 
                 return view('components.table-badge', ['value' => $hours, 'color' => 'green']);
-            })->label('Total'),
+            })->label('Total')->sortable(),
 
             Column::callback(['id'], static function ($id) {
                 return view('components.table-actions-entry', ['id' => $id]);
