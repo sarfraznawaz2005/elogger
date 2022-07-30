@@ -38,7 +38,7 @@
                     </h3>
                     <div class="mt-2">
                         <div class="mt-10 flex justify-center">
-                            <x-jet-danger-button class="ml-3 mr-8" wire:click="deleteItem({{ $value }})" wire:loading.attr="disabled">
+                            <x-jet-danger-button class="ml-3 mr-8" wire:click="$emit('onDeleteEntry', {{$value}})" wire:loading.attr="disabled">
                                 {{ __('Delete') }}
                             </x-jet-danger-button>
 

@@ -17,10 +17,17 @@ class Entry extends Component
     use InteractsWithBanner;
     use InteractsWithModal;
 
+    protected $listeners = [
+        'onDeleteEntry' => 'delete',
+        'onEditEntry' => 'edit',
+    ];
+
     public array $todoLists = [];
     public array $todos = [];
 
     public ?array $item = null;
+
+    public int $itemId = 0;
 
     protected array $rules = [
         'item.project_id' => 'required',
@@ -101,7 +108,13 @@ class Entry extends Component
         }
     }
 
-    public function create(Todo $todo): void
+    public function create(): void
+    {
+        //$this->resetCreateForm();
+        $this->openModal();
+    }
+
+    public function save(): void
     {
         $data = $this->validate();
         $data = $data['item'];
@@ -116,7 +129,8 @@ class Entry extends Component
             return;
         }
 
-        $todo->fill($data);
+        /** @noinspection ALL */
+        $todo = Todo::updateOrCreate(['id' => $this->itemId], $data);
 
         if (!$todo->save()) {
             $this->dangerBanner('Unable to save entry!');
@@ -134,5 +148,40 @@ class Entry extends Component
         $this->closeModal();
 
         $this->banner('Entry Saved Successfully!');
+    }
+
+    /**
+     * @throws JsonException
+     */
+    public function edit($id): void
+    {
+        /** @noinspection ALL */
+        $todo = Todo::findOrFail($id);
+
+        $this->itemId = $id;
+        $this->name = $todo->name;
+
+        $this->item['project_id'] = $todo->project_id;
+        $this->item['todolist_id'] = $todo->todolist_id;
+        $this->item['todo_id'] = $todo->todo_id;
+        $this->item['dated'] = $todo->dated;
+        $this->item['time_start'] = $todo->time_start;
+        $this->item['time_end'] = $todo->time_end;
+        $this->item['description'] = $todo->description;
+
+        $this->todoLists = json_decode($this->todoLists($todo->project_id), true, 512, JSON_THROW_ON_ERROR);
+        $this->todos = json_decode($this->todos($todo->todolist_id), true, 512, JSON_THROW_ON_ERROR);
+
+        $this->openModal();
+    }
+
+    public function delete($id): void
+    {
+        if (Todo::find($id)->delete()) {
+            $this->banner('Entry Deleted Successfully!');
+
+            $this->emit('refreshLivewireDatatable');
+            $this->emit('event-entries-updated');
+        }
     }
 }
