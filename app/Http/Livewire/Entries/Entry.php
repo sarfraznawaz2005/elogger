@@ -111,11 +111,17 @@ class Entry extends Component
     public function create(): void
     {
         //$this->resetCreateForm();
+
+        // reset so that create form can be used again
+        $this->itemId = 0;
+
         $this->openModal();
     }
 
     public function save(): void
     {
+        $isCreate = $this->itemId === 0;
+
         $data = $this->validate();
         $data = $data['item'];
 
@@ -137,10 +143,12 @@ class Entry extends Component
             return;
         }
 
-        session(['project_id' => $data['project_id']]);
-        session(['todolist_id' => $data['todolist_id']]);
-        session(['todo_id' => $data['todo_id']]);
-        session(['description' => $data['description']]);
+        if ($isCreate) {
+            session(['project_id' => $data['project_id']]);
+            session(['todolist_id' => $data['todolist_id']]);
+            session(['todo_id' => $data['todo_id']]);
+            session(['description' => $data['description']]);
+        }
 
         $this->emit('event-entries-updated');
         $this->emit('refreshLivewireDatatable');
