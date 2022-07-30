@@ -18,9 +18,11 @@ class Entry extends Component
     use InteractsWithModal;
 
     protected $listeners = [
-        'onDeleteEntry' => 'delete',
+        'onViewEntry' => 'onViewEntry',
         'onEditEntry' => 'onEditEntry',
-        'edit' => 'edit'
+        'view' => 'view',
+        'edit' => 'edit',
+        'onDeleteEntry' => 'delete',
     ];
 
     public array $todoLists = [];
@@ -32,6 +34,7 @@ class Entry extends Component
     public int $itemId = 0;
 
     public bool $loading = false;
+    public bool $disabled = false;
 
     protected array $rules = [
         'item.project_id' => 'required',
@@ -114,7 +117,7 @@ class Entry extends Component
 
     public function create(): void
     {
-        //$this->resetCreateForm();
+        $this->disabled = false;
 
         // reset so that create form can be used again
         $this->itemId = 0;
@@ -124,7 +127,7 @@ class Entry extends Component
 
     public function save(): void
     {
-        $isCreate = $this->itemId === 0;
+        //$isCreate = $this->itemId === 0;
 
         $data = $this->validate();
         $data = $data['item'];
@@ -147,26 +150,38 @@ class Entry extends Component
             return;
         }
 
-        if ($isCreate) {
-            session(['project_id' => $data['project_id']]);
-            session(['todolist_id' => $data['todolist_id']]);
-            session(['todo_id' => $data['todo_id']]);
-            session(['description' => $data['description']]);
-        }
-
         $this->emit('event-entries-updated');
         $this->emit('refreshLivewireDatatable');
 
         $this->closeModal();
 
+        $this->resetForm();
+
         $this->banner('Entry Saved Successfully!');
+    }
+
+    public function onViewEntry($id): void
+    {
+        $this->loading = true;
+        $this->disabled = true;
+
+        $this->emitSelf('view', $id);
     }
 
     public function onEditEntry($id): void
     {
         $this->loading = true;
+        $this->disabled = false;
 
         $this->emitSelf('edit', $id);
+    }
+
+    /**
+     * @throws JsonException
+     */
+    public function view($id): void
+    {
+        $this->edit($id);
     }
 
     /**
@@ -205,5 +220,18 @@ class Entry extends Component
             $this->emit('refreshLivewireDatatable');
             $this->emit('event-entries-updated');
         }
+    }
+
+    public function resetForm(): void
+    {
+        unset(
+            $this->item['project_id'],
+            $this->item['todolist_id'],
+            $this->item['todo_id'],
+            $this->item['dated'],
+            $this->item['time_start'],
+            $this->item['time_end'],
+            $this->item['description']
+        );
     }
 }
