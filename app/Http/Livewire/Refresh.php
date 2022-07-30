@@ -9,12 +9,12 @@ use Livewire\Component;
 
 class Refresh extends Component
 {
-    public bool $refreshing = true;
+    public bool $loading = true;
 
     public function render(): Factory|View|Application
     {
         if (session('month_hours')) {
-            $this->refreshing = false;
+            $this->loading = false;
         }
 
         return view('livewire.refresh');

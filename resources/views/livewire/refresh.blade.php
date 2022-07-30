@@ -1,6 +1,6 @@
 <div wire:init="refresh">
 
-    <x-status-modal wire:model="refreshing">
+    <x-status-modal wire:model="loading">
         <x-slot name="content">
             <span class="py-2 px-5 mr-2 text-lg text-white font-bold bg-green-500 rounded-lg border inline-flex items-center w-full">
                 <svg class="inline mr-2 w-8 h-8 text-white animate-spin fill-green-700" viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">

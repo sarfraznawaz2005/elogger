@@ -12,7 +12,7 @@ class IndexDashboard extends Component
 {
     protected $listeners = ['refresh' => 'refresh'];
 
-    public bool $refreshing = false;
+    public bool $loading = false;
 
     public function render(): Factory|View|Application
     {
@@ -38,7 +38,7 @@ class IndexDashboard extends Component
 
     public function refreshClicked(): void
     {
-        $this->refreshing = true;
+        $this->loading = true;
 
         $this->emitSelf('refresh');
     }
