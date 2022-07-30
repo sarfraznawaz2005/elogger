@@ -23,6 +23,8 @@ class Entry extends Component
         'view' => 'view',
         'edit' => 'edit',
         'onDeleteEntry' => 'delete',
+        'onDuplicateEntry' => 'onDuplicateEntry',
+        'duplicate' => 'duplicate',
     ];
 
     public array $todoLists = [];
@@ -119,10 +121,11 @@ class Entry extends Component
     {
         $this->disabled = false;
 
-        // reset so that create form can be used again
-        $this->itemId = 0;
-
         $this->resetForm();
+
+        $this->item['dated'] = date('Y-m-d');
+        $this->item['time_start'] = date('H:i');
+        $this->item['time_end'] = date('H:i');
 
         $this->openModal();
     }
@@ -141,6 +144,11 @@ class Entry extends Component
 
         if ($diff < 0) {
             $this->dangerBanner('Start Time cannot be greater than End Time.');
+            return;
+        }
+
+        if ($diff === '0' || $diff === '0.00') {
+            $this->dangerBanner('Start Time and End Time cannot be same.');
             return;
         }
 
@@ -176,6 +184,14 @@ class Entry extends Component
         $this->emitSelf('edit', $id);
     }
 
+    public function onDuplicateEntry($id): void
+    {
+        $this->loading = true;
+        $this->disabled = false;
+
+        $this->emitSelf('duplicate', $id);
+    }
+
     /**
      * @throws JsonException
      */
@@ -197,7 +213,6 @@ class Entry extends Component
         $todo = Todo::findOrFail($id);
 
         $this->itemId = $id;
-        $this->name = $todo->name;
 
         $this->item['project_id'] = $todo->project_id;
         $this->item['todolist_id'] = $todo->todolist_id;
@@ -226,10 +241,41 @@ class Entry extends Component
         }
     }
 
+    /**
+     * @throws JsonException
+     */
+    public function duplicate($id): void
+    {
+        // clear validation messages
+        $this->resetErrorBag();
+
+        /** @noinspection ALL */
+        $todo = Todo::findOrFail($id);
+
+        $this->item['project_id'] = $todo->project_id;
+        $this->item['todolist_id'] = $todo->todolist_id;
+        $this->item['todo_id'] = $todo->todo_id;
+
+        $this->item['description'] = '';
+        $this->item['dated'] = date('Y-m-d');
+        $this->item['time_start'] = date('H:i');
+        $this->item['time_end'] = date('H:i');
+
+        $this->todoLists = json_decode($this->todoLists($todo->project_id), true, 512, JSON_THROW_ON_ERROR);
+        $this->todos = json_decode($this->todos($todo->todolist_id), true, 512, JSON_THROW_ON_ERROR);
+
+        $this->loading = false;
+
+        $this->openModal();
+    }
+
     public function resetForm(): void
     {
         // clear validation messages
         $this->resetErrorBag();
+
+        // reset so that create form can be used again
+        $this->itemId = 0;
 
         unset(
             $this->item['project_id'],
