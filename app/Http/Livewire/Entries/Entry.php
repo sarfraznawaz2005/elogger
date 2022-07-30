@@ -177,6 +177,7 @@ class Entry extends Component
 
     public function delete($id): void
     {
+        /** @noinspection ALL */
         if (Todo::find($id)->delete()) {
             $this->banner('Entry Deleted Successfully!');
 
