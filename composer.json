@@ -9,7 +9,6 @@
         "ext-curl": "*",
         "ext-simplexml": "*",
         "anlutro/l4-settings": "^1.1",
-        "calebporzio/sushi": "^2.4",
         "guzzlehttp/guzzle": "^7.2",
         "laravel/framework": "^9.19",
         "laravel/jetstream": "^2.10",

@@ -2,8 +2,6 @@
 
 use App\Http\Livewire\Dashboard;
 use App\Http\Livewire\Entries;
-use App\Http\Livewire\Project;
-use App\Http\Livewire\Users;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware([

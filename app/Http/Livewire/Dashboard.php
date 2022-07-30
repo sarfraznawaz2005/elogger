@@ -15,6 +15,7 @@ class Dashboard extends Component
             refreshData();
         }
     }
+
     public function render(): Factory|View|Application
     {
         return view('livewire.dashboard');

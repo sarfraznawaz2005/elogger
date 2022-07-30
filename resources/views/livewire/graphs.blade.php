@@ -14,13 +14,13 @@
                 <tr class="bg-gray-100 border-b dark:bg-gray-800 dark:border-gray-700">
                     <td class="py-2 px-6">
                         <span
-                            class="font-bold text-sm font-semibold p-2 rounded">
+                            class="font-bold text-sm font-semibold rounded mx-0">
                             {{$project['project_name']}}
                         </span>
                     </td>
                     <td class="py-2 px-6" style="text-align: right;">
                         <span
-                            class="font-bold bg-green-100 text-green-800 text-sm font-semibold px-2 py-1 rounded dark:bg-green-200 dark:text-green-900">
+                            class="font-bold bg-green-100 text-green-800 text-sm font-semibold mx-0 px-2 py-1 rounded dark:bg-green-200 dark:text-green-900">
                             {{number_format($project['hours'], 2)}}
                         </span>
                     </td>

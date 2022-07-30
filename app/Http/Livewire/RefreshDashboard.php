@@ -7,11 +7,11 @@ use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Livewire\Component;
 
-class Refresh extends Component
+class RefreshDashboard extends Component
 {
     public function render(): Factory|View|Application
     {
-        return view('livewire.refresh');
+        return view('livewire.refresh-dashboard');
     }
 
     public function refresh()
