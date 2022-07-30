@@ -10,6 +10,10 @@ use Livewire\Component;
 
 class IndexDashboard extends Component
 {
+    protected $listeners = ['refresh' => 'refresh'];
+
+    public bool $refreshing = false;
+
     public function render(): Factory|View|Application
     {
         $workDayCount = getWorkingDaysCount() - user()->holidays_count;
@@ -30,6 +34,13 @@ class IndexDashboard extends Component
             'livewire.dashboard.index',
             compact('workDays', 'hoursLogged', 'hoursTotal', 'projects', 'allUsersHours')
         );
+    }
+
+    public function refreshClicked(): void
+    {
+        $this->refreshing = true;
+
+        $this->emitSelf('refresh');
     }
 
     /** @noinspection ALL */
