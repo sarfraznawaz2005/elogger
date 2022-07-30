@@ -122,6 +122,8 @@ class Entry extends Component
         // reset so that create form can be used again
         $this->itemId = 0;
 
+        $this->resetForm();
+
         $this->openModal();
     }
 
@@ -154,8 +156,6 @@ class Entry extends Component
         $this->emit('refreshLivewireDatatable');
 
         $this->closeModal();
-
-        $this->resetForm();
 
         $this->banner('Entry Saved Successfully!');
     }
@@ -228,6 +228,9 @@ class Entry extends Component
 
     public function resetForm(): void
     {
+        // clear validation messages
+        $this->resetErrorBag();
+
         unset(
             $this->item['project_id'],
             $this->item['todolist_id'],
