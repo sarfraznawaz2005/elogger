@@ -8,7 +8,7 @@ use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Livewire\Component;
 
-class DashboardIndex extends Component
+class IndexDashboard extends Component
 {
     public function render(): Factory|View|Application
     {

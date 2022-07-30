@@ -7,7 +7,7 @@ use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Livewire\Component;
 
-class EntriesIndex extends Component
+class IndexEntries extends Component
 {
     public function render(): Factory|View|Application
     {

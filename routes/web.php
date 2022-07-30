@@ -1,7 +1,7 @@
 <?php
 
-use App\Http\Livewire\Dashboard\DashboardIndex;
-use App\Http\Livewire\Entries\EntriesIndex;
+use App\Http\Livewire\Dashboard\IndexDashboard;
+use App\Http\Livewire\Entries\IndexEntries;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware([
@@ -10,7 +10,7 @@ Route::middleware([
     'verified'
 ])->group(function () {
 
-    Route::get('/', DashboardIndex::class)->name('dashboard');
-    Route::get('entries', EntriesIndex::class)->name('entries');
+    Route::get('/', IndexDashboard::class)->name('dashboard');
+    Route::get('entries', IndexEntries::class)->name('entries');
 
 });
