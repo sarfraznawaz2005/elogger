@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Livewire;
+namespace App\Http\Livewire\Entries;
 
 use App\Traits\InteractsWithModal;
 use Carbon\Carbon;

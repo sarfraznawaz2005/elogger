@@ -2,22 +2,22 @@
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
 
         <div class="float-right ml-2">
-            <livewire:entry/>
+            <livewire:entries.entry/>
         </div>
 
         @if(user()->basecamp_api_user_id === '11816315')
             <div class="float-right">
-                <livewire:replicate/>
+                <livewire:entries.replicate/>
             </div>
         @endif
 
         <div class="clear-both"></div>
 
-        <livewire:entry-stats/>
+        <livewire:entries.entry-stats/>
 
         <x-jet-section-border/>
 
-        <livewire:pending-entries-data-table/>
+        <livewire:entries.pending-entries-data-table/>
 
     </div>
 </div>

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Livewire;
+namespace App\Http\Livewire\Dashboard;
 
 use App\Services\Data;
 use Illuminate\Contracts\Foundation\Application;
@@ -8,7 +8,7 @@ use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Livewire\Component;
 
-class Dashboard extends Component
+class DashboardIndex extends Component
 {
     public function render(): Factory|View|Application
     {

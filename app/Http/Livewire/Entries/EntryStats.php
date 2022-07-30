@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Livewire;
+namespace App\Http\Livewire\Entries;
 
 use App\Traits\InteractsWithEvents;
 use Illuminate\Contracts\Foundation\Application;
