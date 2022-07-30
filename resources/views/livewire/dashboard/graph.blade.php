@@ -44,7 +44,7 @@
             margin-left: 175px !important;
         }
 
-    /*   make google charts responsie  */
+        /*   make google charts responsie  */
         @media only screen and (max-width: 600px) {
             #piechart {
                 width: 100%;
