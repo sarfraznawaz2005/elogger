@@ -33,7 +33,7 @@
             <path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"/>
         </svg>
 
-        {{ __('Add New Entry') }}
+        {{ __('Add Entry') }}
     </x-jet-button>
 
     <x-jet-dialog-modal wire:model="isModalOpen">

@@ -14,6 +14,22 @@ class PendingEntriesDataTable extends LivewireDatatable
     use InteractsWithModal;
     use InteractsWithBanner;
 
+    public $persistSearch = false;
+    public $persistComplexQuery = false;
+    public $persistHiddenColumns = false;
+    public $persistSort = false;
+    public $persistPerPage = false;
+    public $persistFilters = false;
+
+    public $afterTableSlot = 'components.table-actions-post-delete-buttons';
+
+    public $hideable = [
+        'id',
+        'select',
+        'buttons',
+        'inline',
+    ];
+
     public function builder(): Builder
     {
         return user()->pendingTodos()->getQuery();
@@ -22,6 +38,11 @@ class PendingEntriesDataTable extends LivewireDatatable
     public function columns(): array
     {
         return [
+
+            Column::callback(['id', 'id'], static function ($id) {
+                return view('components.table-actions-checkbox', ['id' => $id]);
+            })->alignCenter()->excludeFromExport(),
+
             Column::name('dated')->searchable()->label('Date')->sortable(),
 
             Column::name('project.project_name')->label('Project')->searchable()->sortable(),
@@ -36,9 +57,11 @@ class PendingEntriesDataTable extends LivewireDatatable
                 return view('components.table-badge', ['value' => $hours, 'color' => 'green']);
             })->label('Total')->sortable(),
 
-            Column::callback(['id'], static function ($id) {
+            Column::callback(['id', 'id', 'id'], static function ($id) {
                 return view('components.table-actions-entry', ['id' => $id]);
             })->label('Action')->alignCenter()->excludeFromExport(),
         ];
     }
+
+
 }

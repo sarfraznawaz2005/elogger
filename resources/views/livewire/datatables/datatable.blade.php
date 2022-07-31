@@ -119,11 +119,11 @@
                             @endforeach
                         </div>
                     @endunless
-                    <div class="table-row bg-blue-100 divide-x divide-blue-200">
+                    <div class="table-row bg-gray-100 divide-x divide-gray-200">
                         @foreach($this->columns as $index => $column)
                             @if($column['hidden'])
                                 @if($hideable === 'inline')
-                                    <div class="table-cell w-5 overflow-hidden align-top bg-blue-100"></div>
+                                    <div class="table-cell w-5 overflow-hidden align-top bg-gray-100"></div>
                                 @endif
                             @elseif($column['type'] === 'checkbox')
                                 @include('datatables::filters.checkbox')
