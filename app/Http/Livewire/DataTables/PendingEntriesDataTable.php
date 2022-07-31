@@ -2,18 +2,13 @@
 
 namespace App\Http\Livewire\DataTables;
 
-use App\Traits\InteractsWithModal;
 use Illuminate\Database\Eloquent\Builder;
-use Laravel\Jetstream\InteractsWithBanner;
 use Mediconesystems\LivewireDatatables\Column;
 use Mediconesystems\LivewireDatatables\Http\Livewire\LivewireDatatable;
 use Mediconesystems\LivewireDatatables\NumberColumn;
 
 class PendingEntriesDataTable extends LivewireDatatable
 {
-    use InteractsWithModal;
-    use InteractsWithBanner;
-
     public $persistSearch = false;
     public $persistComplexQuery = false;
     public $persistHiddenColumns = false;

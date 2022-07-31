@@ -4,17 +4,17 @@ namespace App\Http\Livewire\Entries;
 
 use App\Models\Todo;
 use App\Traits\InteractsWithModal;
+use App\Traits\InteractsWithToast;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Validation\ValidationException;
 use JsonException;
-use Laravel\Jetstream\InteractsWithBanner;
 use Livewire\Component;
 
 class Entry extends Component
 {
-    use InteractsWithBanner;
+    use InteractsWithToast;
     use InteractsWithModal;
 
     protected $listeners = [
@@ -143,12 +143,12 @@ class Entry extends Component
         $diff = getBCHoursDiff($data['dated'], $data['time_start'], $data['time_end'], true);
 
         if ($diff < 0) {
-            $this->dangerBanner('Start Time cannot be greater than End Time.');
+            $this->danger('Start Time cannot be greater than End Time.');
             return;
         }
 
         if ($diff === '0' || $diff === '0.00') {
-            $this->dangerBanner('Start Time and End Time cannot be same.');
+            $this->danger('Start Time and End Time cannot be same.');
             return;
         }
 
@@ -156,7 +156,7 @@ class Entry extends Component
         $todo = Todo::updateOrCreate(['id' => $this->itemId], $data);
 
         if (!$todo->save()) {
-            $this->dangerBanner('Unable to save entry!');
+            $this->danger('Unable to save entry!');
             return;
         }
 
@@ -165,7 +165,7 @@ class Entry extends Component
 
         $this->closeModal();
 
-        $this->banner('Entry Saved Successfully!');
+        $this->success('Entry Saved Successfully!');
     }
 
     public function onViewEntry($id): void
@@ -234,7 +234,7 @@ class Entry extends Component
     {
         /** @noinspection ALL */
         if (Todo::find($id)->delete()) {
-            $this->banner('Entry Deleted Successfully!');
+            $this->success('Entry Deleted Successfully!');
 
             $this->emit('refreshLivewireDatatable');
             $this->emit('event-entries-updated');

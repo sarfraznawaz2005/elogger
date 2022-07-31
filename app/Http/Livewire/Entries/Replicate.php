@@ -3,17 +3,17 @@
 namespace App\Http\Livewire\Entries;
 
 use App\Traits\InteractsWithModal;
+use App\Traits\InteractsWithToast;
 use Carbon\Carbon;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
-use Laravel\Jetstream\InteractsWithBanner;
 use Livewire\Component;
 
 class Replicate extends Component
 {
-    use InteractsWithBanner;
     use InteractsWithModal;
+    use InteractsWithToast;
 
     public string $replicateMessage = '';
 
@@ -48,6 +48,6 @@ class Replicate extends Component
 
         $this->closeModal();
 
-        $this->banner('Replicated Successfully!');
+        $this->success('Replicated Successfully!');
     }
 }
