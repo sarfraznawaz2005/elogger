@@ -1,13 +1,14 @@
 <div>
     <br>
 
-    <div class="inline-flex items-center px-2 py-1 mb-4 text-sm font-medium text-center bg-yellow-200 rounded">
-        Selected Total:
-        <span
-            class="inline-flex justify-center items-center ml-2 p-1 text-xs font-bold bg-yellow-500 rounded">
+    <x-label-segmented class="mb-4" color="yellow">
+        <x-slot name="title">
+            Selected Total
+        </x-slot>
+        <x-slot name="value">
             0.00
-        </span>
-    </div>
+        </x-slot>
+    </x-label-segmented>
 
     <div class="flex">
         <div class="flex items-center mr-8 px-4 rounded border border-gray-300 dark:border-gray-700 bg-gray-200">
