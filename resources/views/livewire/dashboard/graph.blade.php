@@ -36,7 +36,7 @@
 
 </div>
 
-@push('styles')
+@push('css')
     <style>
         #piechart {
             width: 600px;
