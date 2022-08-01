@@ -1,8 +1,8 @@
 <div class="bg-white overflow-hidden shadow-md sm:rounded-lg p-4 my-4">
 
     <div class="overflow-x-auto relative">
-        <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-            <thead class="text-xs text-gray-700 uppercase bg-gray-200 dark:bg-gray-700 dark:text-gray-400">
+        <table class="w-full text-sm text-left text-gray-500">
+            <thead class="text-xs text-gray-700 uppercase bg-gray-200">
             <tr>
                 <th scope="col" class="py-3 px-6">Project Name</th>
                 <th scope="col" class="py-3 px-6" style="text-align: right;">Total Hours</th>
@@ -11,7 +11,7 @@
             <tbody>
 
             @foreach($projects as $project)
-                <tr class="bg-gray-100 border-b dark:bg-gray-800 dark:border-gray-700">
+                <tr class="bg-gray-100 border-b">
                     <td class="py-2 px-6">
                         <span
                             class="font-bold text-sm font-semibold rounded mx-0">
@@ -20,7 +20,7 @@
                     </td>
                     <td class="py-2 px-6" style="text-align: right;">
                         <span
-                            class="font-bold bg-green-100 text-green-800 text-sm font-semibold mx-0 px-2 py-1 rounded dark:bg-green-200 dark:text-green-900">
+                            class="font-bold bg-green-100 text-green-800 text-sm font-semibold mx-0 px-2 py-1 rounded">
                             {{number_format($project['hours'], 2)}}
                         </span>
                     </td>
