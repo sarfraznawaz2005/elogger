@@ -4,8 +4,10 @@ namespace App\Http\Livewire;
 
 use Livewire\Component;
 
+/** @noinspection ALL */
 class Offline extends Component
 {
+    /** @noinspection ALL */
     public function render(): string
     {
         return <<<'blade'

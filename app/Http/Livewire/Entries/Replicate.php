@@ -5,6 +5,7 @@ namespace App\Http\Livewire\Entries;
 use App\Traits\InteractsWithModal;
 use App\Traits\InteractsWithToast;
 use Carbon\Carbon;
+use Exception;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
@@ -26,7 +27,7 @@ class Replicate extends Component
     {
         try {
             $range = random_int(1, 5);
-        } catch (\Exception) {
+        } catch (Exception) {
         }
 
         $arr = ['addMinutes', 'subMinute'];

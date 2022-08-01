@@ -36,6 +36,7 @@ class IndexDashboard extends Component
         );
     }
 
+    /** @noinspection ALL */
     public function refreshClicked(): void
     {
         $this->loading = true;

@@ -8,6 +8,7 @@ class Refresh extends Component
 {
     public bool $loading = true;
 
+    /** @noinspection ALL */
     public function render(): string
     {
         if (session('month_hours')) {

@@ -168,6 +168,7 @@ class Entry extends Component
         $this->success('Entry Saved Successfully!');
     }
 
+    /** @noinspection ALL */
     public function onViewEntry($id): void
     {
         $this->loading = true;
@@ -184,6 +185,7 @@ class Entry extends Component
         $this->emitSelf('edit', $id);
     }
 
+    /** @noinspection ALL */
     public function onDuplicateEntry($id): void
     {
         $this->loading = true;
