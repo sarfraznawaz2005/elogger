@@ -31,6 +31,8 @@ class UpdateUserProfileInformation implements UpdatesUserProfileInformation
             'basecamp_org' => ['required', 'string', 'max:255'],
             'basecamp_api_key' => ['required', 'string', 'max:255'],
             'basecamp_api_user_id' => ['required', 'string', 'max:255'],
+            'working_hours_count' => ['required', 'integer', 'between:1,24'],
+            'holidays_count' => ['required', 'integer', 'between:0,31'],
             'photo' => ['nullable', 'mimes:jpg,jpeg,png', 'max:1024'],
         ], [
                 'basecamp_org_id.required' => "Basecamp Company ID is required!",
