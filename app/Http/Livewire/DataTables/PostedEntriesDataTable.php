@@ -6,7 +6,7 @@ use App\Traits\EntriesTableCommonTrait;
 use Illuminate\Database\Eloquent\Builder;
 use Mediconesystems\LivewireDatatables\Http\Livewire\LivewireDatatable;
 
-class PendingEntriesDataTable extends LivewireDatatable
+class PostedEntriesDataTable extends LivewireDatatable
 {
     use EntriesTableCommonTrait;
 
@@ -28,10 +28,10 @@ class PendingEntriesDataTable extends LivewireDatatable
     ];
 
     // custom options
-    public bool $isPendingTable = true;
+    public bool $isPendingTable = false;
 
     public function builder(): Builder
     {
-        return user()->pendingTodos()->getQuery();
+        return user()->postedTodos()->getQuery();
     }
 }

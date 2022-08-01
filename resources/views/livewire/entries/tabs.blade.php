@@ -34,7 +34,7 @@
 
         <div x-show="tab === 2" class="p-4 bg-gray-50 rounded-lg">
             <p class="text-sm text-gray-500">
-                Posted
+                <livewire:data-tables.posted-entries-data-table />
             </p>
         </div>
     </div>
