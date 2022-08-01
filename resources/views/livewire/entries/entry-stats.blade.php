@@ -1,5 +1,4 @@
-<div class="bg-gray-200 overflow-hidden shadow-md sm:rounded-lg p-3 my-4 mb-6">
-
+<div>
     <div class="grid grid-cols-3 sm:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 gap-6 w-full">
         <div class="flex items-center relative p-2 w-full bg-white rounded-lg overflow-hidden shadow">
             <div class="w-full text-center">
@@ -48,7 +47,5 @@
                 </div>
             </div>
         </div>
-
     </div>
-
 </div>

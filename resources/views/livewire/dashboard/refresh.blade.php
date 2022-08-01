@@ -1,6 +1,6 @@
 <div>
 
-    <div class="p-2 bg-white w-full rounded-lg overflow-hidden shadow my-4">
+    <div class="p-2 bg-white w-full rounded-lg overflow-hidden shadow-md my-4">
         <div class="text-center">
             <x-jet-button wire:loading.attr="disabled" wire:click="refreshClicked" class="bg-blue-700 hover:bg-blue-800 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
