@@ -32,7 +32,7 @@
         @if(!count($projects))
             <div class="w-auto inline-block flex justify-center items-center bg-gray-100 p-2">
                 <p class="text-sm">
-                    You don't have any projects with hours posted yet.
+                    You don't have any projects with hours posted this month yet.
                 </p>
             </div>
         @endif
