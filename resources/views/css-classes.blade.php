@@ -7,7 +7,7 @@ bg-blue-400 pl-2 border-green-500 border-blue-500 border-yellow-500
 disabled:bg-slate-50 disabled:text-slate-500 disabled:border-slate-200 disabled:shadow-none
 cursor-default border-b-0 text-gray-600 bg-gray-200 hover:bg-gray-100 hover:text-gray-700
 focus:outline-none focus:shadow-outline text-blue-600 hover:text-blue-800 bg-gray-100
-hover:text-gray-600 hover:bg-gray-100 border-l border-t border-r
+hover:text-gray-600 hover:bg-gray-100 border-l border-t border-r bg-blue-500
 ">
 
 </div>
