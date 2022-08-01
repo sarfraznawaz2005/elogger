@@ -1,6 +1,11 @@
 <div>
     <br>
 
+    <pre>
+        {{print_r($selectedItems)}}
+    </pre>
+
+
     <x-label-segmented class="mb-4" color="yellow" title="Selected Total" value="0.00" />
 
     <div class="flex">

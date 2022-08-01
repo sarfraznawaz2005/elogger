@@ -15,9 +15,7 @@
 
         <livewire:entries.entry-stats/>
 
-        <x-jet-section-border/>
-
-        <livewire:data-tables.pending-entries-data-table />
+        @include('livewire.entries.tabs')
 
     </div>
 </div>

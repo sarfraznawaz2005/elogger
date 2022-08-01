@@ -9,6 +9,7 @@ use Mediconesystems\LivewireDatatables\NumberColumn;
 
 class PendingEntriesDataTable extends LivewireDatatable
 {
+    // table specific options
     public $persistSearch = false;
     public $persistComplexQuery = false;
     public $persistHiddenColumns = false;
@@ -24,6 +25,10 @@ class PendingEntriesDataTable extends LivewireDatatable
         'buttons',
         'inline',
     ];
+
+    // custom options
+
+    public array $selectedItems = [];
 
     public function builder(): Builder
     {
