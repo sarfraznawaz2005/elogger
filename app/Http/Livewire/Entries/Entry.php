@@ -236,10 +236,10 @@ class Entry extends Component
     {
         /** @noinspection ALL */
         if (Todo::find($id)->delete()) {
-            $this->success('Entry Deleted Successfully!');
-
             $this->emit('refreshLivewireDatatable');
             $this->emit('event-entries-updated');
+
+            $this->success('Entry Deleted Successfully!');
         }
     }
 
