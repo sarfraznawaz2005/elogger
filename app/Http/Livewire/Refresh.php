@@ -2,10 +2,13 @@
 
 namespace App\Http\Livewire;
 
+use App\Traits\InteractsWithFlash;
 use Livewire\Component;
 
 class Refresh extends Component
 {
+    use InteractsWithFlash;
+
     public bool $loading = true;
 
     /** @noinspection ALL */
@@ -29,6 +32,8 @@ class Refresh extends Component
     {
         if (!session('month_hours')) {
             refreshData();
+
+            $this->success('Data Refreshed Successfully!');
 
             return redirect()->to('/');
         }

@@ -3,6 +3,7 @@
 namespace App\Http\Livewire\Dashboard;
 
 use App\Services\Data;
+use App\Traits\InteractsWithFlash;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
@@ -10,6 +11,8 @@ use Livewire\Component;
 
 class IndexDashboard extends Component
 {
+    use InteractsWithFlash;
+
     protected $listeners = ['refresh' => 'refresh'];
 
     public bool $loading = false;
@@ -48,6 +51,8 @@ class IndexDashboard extends Component
     public function refresh()
     {
         refreshData();
+
+        $this->success('Data Refreshed Successfully!');
 
         return redirect()->to('/');
     }

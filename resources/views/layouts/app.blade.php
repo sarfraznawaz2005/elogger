@@ -21,6 +21,7 @@
     </head>
     <body class="font-sans antialiased">
         <x-jet-banner />
+        <x-flash />
         <x-toast />
 
         <div class="min-h-screen bg-gray-100">
