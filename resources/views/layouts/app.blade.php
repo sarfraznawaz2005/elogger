@@ -29,6 +29,9 @@
             <!-- Page Content -->
             <main>
                 <livewire:refresh/>
+                <livewire:offline/>
+
+                <x-stats-checker/>
 
                 {{ $slot }}
             </main>

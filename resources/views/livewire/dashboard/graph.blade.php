@@ -28,6 +28,15 @@
             @endforeach
             </tbody>
         </table>
+
+        @if(!count($projects))
+            <div class="w-auto inline-block flex justify-center items-center bg-gray-100 p-2">
+                <p class="text-sm">
+                    You don't have any projects with hours posted yet.
+                </p>
+            </div>
+        @endif
+
     </div>
     <br><br>
 
@@ -37,22 +46,24 @@
 </div>
 
 @push('css')
-    <style>
-        #piechart {
-            width: 600px;
-            height: 400px;
-            margin-left: 175px !important;
-        }
-
-        /*   make google charts responsie  */
-        @media only screen and (max-width: 600px) {
+    @if(count($projects))
+        <style>
             #piechart {
-                width: 100%;
-                height: auto;
-                margin-left: 0 !important;
+                width: 600px;
+                height: 400px;
+                margin-left: 175px !important;
             }
-        }
-    </style>
+
+            /*   make google charts responsie  */
+            @media only screen and (max-width: 600px) {
+                #piechart {
+                    width: 100%;
+                    height: auto;
+                    margin-left: 0 !important;
+                }
+            }
+        </style>
+    @endif
 @endpush
 
 @if (count($projects))

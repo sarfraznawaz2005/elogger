@@ -20,7 +20,7 @@ class IndexDashboard extends Component
         $workDayCountMonth = getWorkingDaysCount(true) - user()->holidays_count;
 
         $workDays = "$workDayCount of $workDayCountMonth";
-        $hoursLogged = session('month_hours') ?? 0;
+        $hoursLogged = session('month_hours') === 'none' ? '0.00' : session('month_hours');
         $hoursTotal = (getWorkingDaysCount(true) - user()->holidays_count) * user()->working_hours_count;
 
         $allUsersHours = [];

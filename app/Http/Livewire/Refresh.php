@@ -2,22 +2,25 @@
 
 namespace App\Http\Livewire;
 
-use Illuminate\Contracts\Foundation\Application;
-use Illuminate\Contracts\View\Factory;
-use Illuminate\Contracts\View\View;
 use Livewire\Component;
 
 class Refresh extends Component
 {
     public bool $loading = true;
 
-    public function render(): Factory|View|Application
+    public function render(): string
     {
         if (session('month_hours')) {
             $this->loading = false;
         }
 
-        return view('livewire.refresh');
+        return <<<'blade'
+            <div wire:init="refresh">
+                <x-status-modal wire:model="loading">
+                    Please wait while we are refreshing data once...
+                </x-status-modal>
+            </div>
+        blade;
     }
 
     /** @noinspection ALL */

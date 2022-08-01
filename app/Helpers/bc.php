@@ -388,5 +388,9 @@ function refreshData()
     $monthHours = Data::getUserMonthlyHours(true);
     session(['month_hours' => $monthHours]);
 
+    if ($monthHours === 0.0) {
+        session(['month_hours' => 'none']);
+    }
+
     Data::getUserProjectlyHours(true);
 }
