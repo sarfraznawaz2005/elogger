@@ -45,7 +45,6 @@ trait EntriesTableCommonTrait
     public function updated($propertyName): void
     {
         if ($propertyName === 'selectedItems') {
-
             $selectedHours = $this->getSelectedData()['selectedHours'];
 
             $this->selectedTotal = array_sum($selectedHours);
