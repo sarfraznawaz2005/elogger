@@ -28,7 +28,7 @@
             @livewire('navigation-menu')
 
             <!-- Page Content -->
-            <main>
+            <main class="animate-in fade-in">
                 <livewire:refresh/>
                 <livewire:offline/>
 

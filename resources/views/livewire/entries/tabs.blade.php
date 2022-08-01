@@ -27,11 +27,11 @@
     </div>
 
     <div id="tabContent">
-        <div x-show="tab === 1" class="p-4 bg-gray-50 rounded-lg">
+        <div x-show="tab === 1" class="p-4 bg-gray-50 rounded-lg animate-in fade-in duration-500">
             <livewire:data-tables.pending-entries-data-table />
         </div>
 
-        <div x-show="tab === 2" class="p-4 bg-gray-50 rounded-lg">
+        <div x-show="tab === 2" class="p-4 bg-gray-50 rounded-lg animate-in fade-in duration-500">
             <livewire:data-tables.posted-entries-data-table />
         </div>
     </div>
