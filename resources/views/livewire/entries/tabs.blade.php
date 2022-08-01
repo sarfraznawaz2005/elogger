@@ -1,4 +1,4 @@
-<div x-data="{tab: 1}" class="bg-white">
+<div x-data="{tab: 1}" class="bg-gray-50">
     <div class="p-4">
         <ul class="flex flex-wrap text-sm font-medium text-center text-gray-500 border-b border-gray-200">
             <li class="mr-2">
