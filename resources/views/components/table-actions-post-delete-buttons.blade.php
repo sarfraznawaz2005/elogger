@@ -1,21 +1,21 @@
 <div>
     <br>
 
-    @if($isPendingTable)
-        <pre>
-            {{print_r($selectedItems)}}
-        </pre>
+    <pre>
+        {{print_r($selectedItems)}}
+    </pre>
 
+    @if($isPendingTable)
         <x-label-segmented class="mb-4" color="yellow" title="Selected Total" value="0.00"/>
     @endif
 
     <div class="flex">
-        <div class="flex items-center mr-8 px-4 rounded border border-gray-300 dark:border-gray-700 bg-gray-200">
+        <div class="flex items-center mr-8 px-4 rounded border border-gray-300 bg-gray-200">
             <input id="inline-checkbox"
                    type="checkbox"
-                   class="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                   class="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:outline-none">
 
-            <label for="inline-checkbox" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300 uppercase">
+            <label for="inline-checkbox" class="ml-2 text-sm font-medium text-gray-900 uppercase">
                 Select All
             </label>
         </div>
@@ -25,8 +25,8 @@
                 <x-jet-button
                     disabled
                     wire:loading.attr="disabled"
-                    wire:click="create"
-                    class="bg-green-700 hover:bg-green-800 focus:ring-green-300 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">
+                    wire:click="uploadSelected"
+                    class="bg-green-700 hover:bg-green-800">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24"
                          stroke="currentColor" stroke-width="2">
                         <path stroke-linecap="round" stroke-linejoin="round"
@@ -42,8 +42,8 @@
             <x-jet-danger-button
                 disabled
                 wire:loading.attr="disabled"
-                wire:click="openModal"
-                class="bg-red-700 hover:bg-red-800 focus:ring-red-300 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800">
+                wire:click="deleteSelected"
+                class="bg-red-700 hover:bg-red-800">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24"
                      stroke="currentColor" stroke-width="2">
                     <path stroke-linecap="round" stroke-linejoin="round"

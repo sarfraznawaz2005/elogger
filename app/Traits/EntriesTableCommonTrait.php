@@ -37,4 +37,8 @@ trait EntriesTableCommonTrait
             })->label('Action')->alignCenter()->excludeFromExport(),
         ];
     }
+
+    public function uploadSelected() {
+        $this->selectedItems = [];
+    }
 }
