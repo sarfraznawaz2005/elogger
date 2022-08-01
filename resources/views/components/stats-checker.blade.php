@@ -8,6 +8,7 @@
                     </svg>
                     <p class="font-bold text-sm text-white break-words">
                         Seems like new month has started, we have automatically reset your holidays count setting.
+                        Please refresh the page to see the changes.
                     </p>
                 </div>
             </div>
