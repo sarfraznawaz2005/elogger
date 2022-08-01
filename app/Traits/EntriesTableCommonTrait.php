@@ -42,11 +42,18 @@ trait EntriesTableCommonTrait
         ];
     }
 
+    public function booted(): void {
+        $this->selectedItems = [];
+        $this->selectedTotal = 0;
+    }
+
     public function updated($propertyName): void
     {
-        $selectedHours = $this->getSelectedData()['selectedHours'];
+        if ($propertyName === 'selectedItems') {
+            $selectedHours = $this->getSelectedData()['selectedHours'];
 
-        $this->selectedTotal = array_sum($selectedHours);
+            $this->selectedTotal = array_sum($selectedHours);
+        }
     }
 
     public function uploadSelected(): void
