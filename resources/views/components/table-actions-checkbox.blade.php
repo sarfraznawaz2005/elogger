@@ -1,1 +1,1 @@
-<input type="checkbox" class="check-entry" wire:model="selectedItems" value="{{$id}}"/>
+<input type="checkbox" class="check-entry" wire:model="selectedItems" value="{{$id}}|{{$hours}}"/>

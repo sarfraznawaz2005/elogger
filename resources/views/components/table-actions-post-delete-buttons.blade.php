@@ -1,12 +1,10 @@
 <div>
     <br>
 
-    <pre>
-        {{print_r($selectedItems)}}
-    </pre>
+    <pre>{{print_r($selectedItems)}}</pre>
 
     @if($isPendingTable)
-        <x-label-segmented class="mb-4" color="yellow" title="Selected Total" value="0.00"/>
+        <x-label-segmented class="mb-4" color="yellow" title="Selected Total" value="{{number_format($selectedTotal, 2)}}"/>
     @endif
 
     <div class="flex">
@@ -23,7 +21,7 @@
         @if($isPendingTable)
             <div class="flex items-center mr-2">
                 <x-jet-button
-                    disabled
+                    :disabled="!$selectedItems"
                     wire:loading.attr="disabled"
                     wire:click="uploadSelected"
                     class="bg-green-700 hover:bg-green-800">
@@ -40,7 +38,7 @@
 
         <div class="flex items-center mr-4">
             <x-jet-danger-button
-                disabled
+                :disabled="!$selectedItems"
                 wire:loading.attr="disabled"
                 wire:click="deleteSelected"
                 class="bg-red-700 hover:bg-red-800">
