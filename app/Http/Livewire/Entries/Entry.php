@@ -132,7 +132,7 @@ class Entry extends Component
 
     public function save(): void
     {
-        //$isCreate = $this->itemId === 0;
+        $isCreate = $this->itemId === 0;
 
         $data = $this->validate();
         $data = $data['item'];
@@ -165,7 +165,11 @@ class Entry extends Component
 
         $this->closeModal();
 
-        $this->success('Entry Saved Successfully!');
+        if ($isCreate) {
+            $this->success('Entry Created Successfully!');
+        } else {
+            $this->success('Entry Updated Successfully!');
+        }
     }
 
     /** @noinspection ALL */
@@ -248,6 +252,9 @@ class Entry extends Component
      */
     public function duplicate($id): void
     {
+        // reset so that create form can be used again
+        $this->itemId = 0;
+
         // clear validation messages
         $this->resetErrorBag();
 
