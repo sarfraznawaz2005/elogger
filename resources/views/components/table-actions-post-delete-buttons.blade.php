@@ -53,7 +53,7 @@
                         {{ __('Delete Selected') }}
                     </x-jet-danger-button>
 
-                    @include('components.delete-confirm', ['value' => $isPendingTable, 'function' => 'onDeleteSelected', 'title' => 'Are you sure you want to delete all selected entries ?'])
+                    @include('components.delete-confirm', ['value' => json_encode($selectedItems, JSON_THROW_ON_ERROR), 'function' => 'onDeleteSelected', 'title' => 'Are you sure you want to delete all selected entries ?'])
                 </div>
             </div>
         </div>

@@ -9,6 +9,7 @@ use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Validation\ValidationException;
+use JetBrains\PhpStorm\NoReturn;
 use JsonException;
 use Livewire\Component;
 
@@ -26,7 +27,7 @@ class Entry extends Component
         'onDuplicateEntry' => 'onDuplicateEntry',
         'duplicate' => 'duplicate',
         'onDeleteAllPosted' => 'deleteAllPosted',
-        'onDeleteSelectedEntries' => 'deleteSelectedEntries',
+        'onDeleteSelected' => 'deleteSelected',
     ];
 
     public array $todoLists = [];
@@ -250,22 +251,21 @@ class Entry extends Component
         }
     }
 
+    /** @noinspection ALL */
     public function deleteAllPosted(): void
     {
-        /** @noinspection ALL */
         if (Todo::whereStatus('posted')->delete()) {
             $this->emit('refreshLivewireDatatable');
             $this->emit('event-entries-updated');
 
-            $this->success('All Posted Entries Deleted Successfully!');
+            $this->success('All Selected Entries Deleted Successfully!');
         }
     }
 
-    public function deleteSelectedEntries($ids): void
+    public function deleteSelected($ids): void
     {
-        dd($ids);
         /** @noinspection ALL */
-        if (Todo::whereIn($ids)->delete()) {
+        if (Todo::whereIn('id', $ids)->delete()) {
             $this->emit('refreshLivewireDatatable');
             $this->emit('event-entries-updated');
 
