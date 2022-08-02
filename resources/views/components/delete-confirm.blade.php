@@ -26,7 +26,7 @@
         <div class="w-full">
             <div class="mt-3 text-center">
                 <h3 class="text-lg leading-6 font-medium text-gray-900">
-                    {{ __('Are you sure you want to delete ?') }}
+                    {{ __($title ?? 'Are you sure you want to delete ?') }}
                 </h3>
                 <div class="mt-2">
                     <div class="mt-10 flex justify-center">

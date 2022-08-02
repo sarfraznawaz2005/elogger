@@ -1,7 +1,7 @@
 <div>
     <br>
 
-    @if($isPendingTable)
+    @if($isPendingTable && !$this->results->isEmpty())
 
         {{--<pre>{{$checkedValues}}</pre>--}}
         {{--<pre>{{print_r($selectedItems)}}</pre>--}}
@@ -25,7 +25,6 @@
                 <x-jet-button
                     :disabled="!$selectedItems"
                     wire:loading.attr="disabled"
-                    wire:click="uploadSelected"
                     class="bg-green-700 hover:bg-green-800">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24"
                          stroke="currentColor" stroke-width="2">
@@ -33,24 +32,29 @@
                               d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"/>
                     </svg>
 
-                    {{ __('Upload') }}
+                    {{ __('Upload Selected') }}
                 </x-jet-button>
             </div>
 
-            <div class="flex items-center mr-4">
-                <x-jet-danger-button
-                    :disabled="!$selectedItems"
-                    wire:loading.attr="disabled"
-                    wire:click="deleteSelected"
-                    class="bg-red-700 hover:bg-red-800">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24"
-                         stroke="currentColor" stroke-width="2">
-                        <path stroke-linecap="round" stroke-linejoin="round"
-                              d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
-                    </svg>
+            <div class="flex items-center">
+                <div class="inline" x-data="{ open: {{ isset($open) && $open ? 'true' : 'false' }}, working: false }" x-cloak wire:key="delete-{{ $isPendingTable }}">
 
-                    {{ __('Delete') }}
-                </x-jet-danger-button>
+                    <x-jet-danger-button
+                        x-on:click="open = true"
+                        :disabled="!$selectedItems"
+                        wire:loading.attr="disabled"
+                        class="bg-red-700 hover:bg-red-800">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24"
+                             stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                  d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
+                        </svg>
+
+                        {{ __('Delete Selected') }}
+                    </x-jet-danger-button>
+
+                    @include('components.delete-confirm', ['value' => $isPendingTable, 'function' => 'onDeleteSelected', 'title' => 'Are you sure you want to delete all selected entries ?'])
+                </div>
             </div>
         </div>
 
@@ -77,21 +81,28 @@
 
     @endif
 
-    @if(!$isPendingTable)
+    @if(!$isPendingTable && !$this->results->isEmpty())
         <div class="flex">
             <div class="flex items-center">
-                <x-jet-danger-button
-                    wire:loading.attr="disabled"
-                    wire:click="deleteAllPosted"
-                    class="bg-red-700 hover:bg-red-800">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24"
-                         stroke="currentColor" stroke-width="2">
-                        <path stroke-linecap="round" stroke-linejoin="round"
-                              d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
-                    </svg>
 
-                    {{ __('Delete All') }}
-                </x-jet-danger-button>
+                <div class="inline" x-data="{ open: {{ isset($open) && $open ? 'true' : 'false' }}, working: false }" x-cloak wire:key="delete-{{ $isPendingTable }}">
+
+                    <x-jet-danger-button
+                        x-on:click="open = true"
+                        wire:loading.attr="disabled"
+                        class="bg-red-700 hover:bg-red-800">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24"
+                             stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                  d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
+                        </svg>
+
+                        {{ __('Delete All') }}
+                    </x-jet-danger-button>
+
+                    @include('components.delete-confirm', ['value' => $isPendingTable, 'function' => 'onDeleteAllPosted', 'title' => 'Are you sure you want to delete all posted entries ?'])
+                </div>
+
             </div>
         </div>
     @endif

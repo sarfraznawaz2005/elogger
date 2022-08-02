@@ -25,6 +25,8 @@ class Entry extends Component
         'onDeleteEntry' => 'delete',
         'onDuplicateEntry' => 'onDuplicateEntry',
         'duplicate' => 'duplicate',
+        'onDeleteAllPosted' => 'deleteAllPosted',
+        'onDeleteSelectedEntries' => 'deleteSelectedEntries',
     ];
 
     public array $todoLists = [];
@@ -245,6 +247,29 @@ class Entry extends Component
             $this->emit('event-entries-updated');
 
             $this->success('Entry Deleted Successfully!');
+        }
+    }
+
+    public function deleteAllPosted(): void
+    {
+        /** @noinspection ALL */
+        if (Todo::whereStatus('posted')->delete()) {
+            $this->emit('refreshLivewireDatatable');
+            $this->emit('event-entries-updated');
+
+            $this->success('All Posted Entries Deleted Successfully!');
+        }
+    }
+
+    public function deleteSelectedEntries($ids): void
+    {
+        dd($ids);
+        /** @noinspection ALL */
+        if (Todo::whereIn($ids)->delete()) {
+            $this->emit('refreshLivewireDatatable');
+            $this->emit('event-entries-updated');
+
+            $this->success('All Posted Entries Deleted Successfully!');
         }
     }
 

@@ -17,11 +17,7 @@ trait EntriesTableCommonTrait
 
     public function columns(): array
     {
-        return [
-
-            Column::callback(['id'], static function ($id) {
-                return view('components.table-actions-checkbox', ['id' => $id]);
-            })->alignCenter()->excludeFromExport(),
+        $columns = [
 
             Column::name('dated')->searchable()->label('Date')->sortable(),
 
@@ -37,10 +33,19 @@ trait EntriesTableCommonTrait
                 return view('components.table-badge', ['value' => $hours, 'color' => 'green']);
             })->label('Total')->sortable(),
 
-            Column::callback(['id', 'id', 'id'], function ($id) {
+            Column::callback(['id', 'id'], function ($id) {
                 return view('components.table-actions-entry', ['id' => $id, 'isPendingTable' => $this->isPendingTable]);
             })->label('Action')->alignCenter()->excludeFromExport(),
         ];
+
+        // add select checkbox to pending table only
+        if ($this->isPendingTable) {
+            array_unshift($columns, Column::callback(['id'], static function ($id) {
+                return view('components.table-actions-checkbox', ['id' => $id]);
+            })->alignCenter()->excludeFromExport());
+        }
+
+        return $columns;
     }
 
     public function booted(): void

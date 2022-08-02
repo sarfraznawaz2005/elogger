@@ -10,6 +10,12 @@ class PendingEntriesDataTable extends LivewireDatatable
 {
     use EntriesTableCommonTrait;
 
+    /*
+    protected $listeners = [
+        'onDeleteSelected' => 'onDeleteSelected',
+    ];
+    */
+
     // table specific options
     public $persistSearch = false;
     public $persistComplexQuery = false;
@@ -33,5 +39,10 @@ class PendingEntriesDataTable extends LivewireDatatable
     public function builder(): Builder
     {
         return user()->pendingTodos()->getQuery();
+    }
+
+    public function onDeleteSelected(): void
+    {
+        $this->emit('onDeleteSelectedEntries', $this->selectedItems);
     }
 }
