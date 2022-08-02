@@ -143,6 +143,14 @@ function getTotalWorkedHoursThisMonth($bcUserId = 0): int|string
     $data = getWorkedHoursData($bcUserId);
 
     if (isset($data['time-entry'])) {
+
+        // for when single record is returned
+        $entry = (array)$data['time-entry'];
+
+        if (isset($entry['hours'])) {
+            return number_format($entry['hours'], 2);
+        }
+
         foreach ($data['time-entry'] as $timeEntryXML) {
             $array = (array)$timeEntryXML;
 
