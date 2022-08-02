@@ -22,7 +22,10 @@
             </div>
 
             <div class="flex items-center mr-2">
+                <div class="inline" x-data="{ open: {{ isset($open) && $open ? 'true' : 'false' }}, working: false }" x-cloak wire:key="upload-selected-{{ uniqid('', true) }}">
+
                 <x-jet-button
+                    x-on:click="open = true"
                     :disabled="!$selectedItems"
                     wire:loading.attr="disabled"
                     class="bg-green-700 hover:bg-green-800">
@@ -34,10 +37,12 @@
 
                     {{ __('Upload Selected') }}
                 </x-jet-button>
+                    @include('components.delete-confirm', ['value' => json_encode($selectedItems, JSON_THROW_ON_ERROR), 'function' => 'onUploadSelected', 'title' => 'Are you sure you want to upload selected entries ?'])
+                </div>
             </div>
 
             <div class="flex items-center">
-                <div class="inline" x-data="{ open: {{ isset($open) && $open ? 'true' : 'false' }}, working: false }" x-cloak wire:key="delete-{{ $isPendingTable }}">
+                <div class="inline" x-data="{ open: {{ isset($open) && $open ? 'true' : 'false' }}, working: false }" x-cloak wire:key="delete-selected-{{ uniqid('', true) }}">
 
                     <x-jet-danger-button
                         x-on:click="open = true"
@@ -53,7 +58,7 @@
                         {{ __('Delete Selected') }}
                     </x-jet-danger-button>
 
-                    @include('components.delete-confirm', ['value' => json_encode($selectedItems, JSON_THROW_ON_ERROR), 'function' => 'onDeleteSelected', 'title' => 'Are you sure you want to delete all selected entries ?'])
+                    @include('components.delete-confirm', ['value' => json_encode($selectedItems, JSON_THROW_ON_ERROR), 'function' => 'onDeleteSelected', 'title' => 'Are you sure you want to delete selected entries ?'])
                 </div>
             </div>
         </div>
@@ -85,7 +90,7 @@
         <div class="flex">
             <div class="flex items-center">
 
-                <div class="inline" x-data="{ open: {{ isset($open) && $open ? 'true' : 'false' }}, working: false }" x-cloak wire:key="delete-{{ $isPendingTable }}">
+                <div class="inline" x-data="{ open: {{ isset($open) && $open ? 'true' : 'false' }}, working: false }" x-cloak wire:key="delete-posted-{{ uniqid('', true) }}">
 
                     <x-jet-danger-button
                         x-on:click="open = true"

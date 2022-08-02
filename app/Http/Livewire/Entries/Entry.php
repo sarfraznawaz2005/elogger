@@ -9,7 +9,6 @@ use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Validation\ValidationException;
-use JetBrains\PhpStorm\NoReturn;
 use JsonException;
 use Livewire\Component;
 
@@ -28,6 +27,7 @@ class Entry extends Component
         'duplicate' => 'duplicate',
         'onDeleteAllPosted' => 'deleteAllPosted',
         'onDeleteSelected' => 'deleteSelected',
+        'onUploadSelected' => 'uploadSelected',
     ];
 
     public array $todoLists = [];
@@ -258,7 +258,7 @@ class Entry extends Component
             $this->emit('refreshLivewireDatatable');
             $this->emit('event-entries-updated');
 
-            $this->success('All Selected Entries Deleted Successfully!');
+            $this->success('All Posted Entries Deleted Successfully!');
         }
     }
 
@@ -269,7 +269,7 @@ class Entry extends Component
             $this->emit('refreshLivewireDatatable');
             $this->emit('event-entries-updated');
 
-            $this->success('All Posted Entries Deleted Successfully!');
+            $this->success('Selected Entries Deleted Successfully!');
         }
     }
 
@@ -321,5 +321,13 @@ class Entry extends Component
             $this->item['time_end'],
             $this->item['description']
         );
+    }
+
+    public function uploadSelected($ids): void
+    {
+        $this->emit('refreshLivewireDatatable');
+        $this->emit('event-entries-updated');
+
+        $this->success('Selected Entries Posted Successfully!');
     }
 }
