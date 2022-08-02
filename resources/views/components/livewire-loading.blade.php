@@ -1,4 +1,5 @@
 <div
+    style="display: none;"
     x-data="{show:false}"
     x-show="show"
     x-init="
