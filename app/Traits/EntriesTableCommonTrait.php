@@ -10,7 +10,7 @@ trait EntriesTableCommonTrait
 {
     // custom options
     public array $selectedItems = [];
-    public int $selectedTotal = 0;
+    public float $selectedTotal = 0;
 
     // for select all functionality
     public string $checkedValues = '';
