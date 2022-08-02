@@ -3,11 +3,13 @@
 namespace App\Http\Livewire\Entries;
 
 use App\Models\Todo;
+use App\Services\Data;
 use App\Traits\InteractsWithModal;
 use App\Traits\InteractsWithToast;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
+use Illuminate\Support\Str;
 use Illuminate\Validation\ValidationException;
 use JsonException;
 use Livewire\Component;
@@ -325,9 +327,58 @@ class Entry extends Component
 
     public function uploadSelected($ids): void
     {
-        $this->emit('refreshLivewireDatatable');
-        $this->emit('event-entries-updated');
+        set_time_limit(0);
 
-        $this->success('Selected Entries Posted Successfully!');
+        $posted = '';
+
+        /** @noinspection ALL */
+        Todo::whereIn('id', $ids)->chunk(50, function ($todos) use (&$posted) {
+            foreach ($todos as $todo) {
+                $personId = user()->basecamp_api_user_id;
+                $hours = getBCHoursDiff($todo->dated, $todo->time_start, $todo->time_end);
+                $projectName = $todo->project->project_name;
+
+                // find out action endpoint to post to basecamp
+                $action = 'projects/' . $todo->project_id . '-' . Str::slug($projectName) . '/time_entries.xml';
+
+                $xmlData = <<<data
+                        <time-entry>
+                          <date>$todo->dated</date>
+                          <description>$todo->description</description>
+                          <hours>$hours</hours>
+                          <person-id>$personId</person-id>
+                          <todo-item-id>$todo->todo_id</todo-item-id>
+                        </time-entry>
+                data;
+
+                // send to basecamp
+                $responseHeader = postInfo($action, $xmlData);
+                //echo $responseHeader;exit;
+
+                // check to see if it was posted successfully to BC
+                if (Str::contains($responseHeader, 'Created') || Str::contains($responseHeader, '201')) {
+                    // update to do status
+                    $todo->status = 'posted';
+                    $todo->save();
+
+                    $posted = 'ok';
+                } else {
+                    $this->success('Todo "' . $todo->description . '" with hours of ' . $hours . ' could not be posted.');
+                }
+
+                // so that we do not send post request too fast to BC
+                sleep(1);
+            }
+        });
+
+        if ($posted === 'ok') {
+            $monthHours = Data::getUserMonthlyHours(true);
+            session(['month_hours' => $monthHours]);
+
+            $this->emit('refreshLivewireDatatable');
+            $this->emit('event-entries-updated');
+
+            $this->success('Selected Entries Posted Successfully!');
+        }
     }
 }
