@@ -20,6 +20,7 @@
         @stack('css')
     </head>
     <body class="font-sans antialiased">
+        <x-livewire-loading />
         <x-jet-banner />
         <x-flash />
         <x-toast />
