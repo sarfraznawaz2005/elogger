@@ -67,11 +67,6 @@ trait EntriesTableCommonTrait
         }
     }
 
-    public function uploadSelected(): void
-    {
-        $this->selectedItems = [];
-    }
-
     private function setTotalHoursValue(): void
     {
         $hours = 0;
