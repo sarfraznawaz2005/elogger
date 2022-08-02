@@ -12,6 +12,7 @@ trait EntriesTableCommonTrait
     public array $selectedItems = [];
     public int $selectedTotal = 0;
 
+    // for select all functionality
     public string $checkedValues = '';
 
     public function columns(): array
@@ -46,30 +47,39 @@ trait EntriesTableCommonTrait
     {
         $this->selectedItems = [];
         $this->selectedTotal = 0;
+        $this->selectedvalues = '';
     }
 
     public function updated($propertyName): void
     {
         if ($propertyName === 'selectedItems') {
-            $hours = 0;
-
-            /** @noinspection ALL */
-            $todos = Todo::whereIn('id', $this->selectedItems)->get();
-
-            foreach ($todos as $todo) {
-                $diff = (float)getBCHoursDiff($todo->dated, $todo->time_start, $todo->time_end);
-
-                $hours += $diff;
-            }
-
-            $this->selectedTotal = $hours;
+            $this->setTotalHoursValue();
         }
 
-        //dd($this->checkedValues);
+        if ($propertyName === 'checkedValues') {
+            $this->selectedItems = explode(',', $this->checkedValues);
+            $this->setTotalHoursValue();
+        }
     }
 
     public function uploadSelected(): void
     {
         $this->selectedItems = [];
+    }
+
+    private function setTotalHoursValue(): void
+    {
+        $hours = 0;
+
+        /** @noinspection ALL */
+        $todos = Todo::whereIn('id', $this->selectedItems)->get();
+
+        foreach ($todos as $todo) {
+            $diff = (float)getBCHoursDiff($todo->dated, $todo->time_start, $todo->time_end);
+
+            $hours += $diff;
+        }
+
+        $this->selectedTotal = $hours;
     }
 }
