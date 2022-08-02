@@ -73,21 +73,29 @@ class Data
         $data = getInfo("people");
 
         if (isset($data['person'])) {
-            foreach ($data['person'] as $xml) {
-                $array = (array)$xml;
 
-                // consider only company employees
-                if ($array['company-id'] !== user()->basecamp_org_id) {
-                    continue;
-                }
+            // for when single record is returned
+            $entry = (array)$data['person'];
 
-                if (isset($array['first-name'])) {
+            if (isset($entry['id'], $entry['first-name'])) {
+                $finalData[$entry['id']] = ucfirst($entry['first-name']) . ' ' . ucfirst($entry['last-name']);
+            } else {
+                foreach ($data['person'] as $xml) {
+                    $array = (array)$xml;
 
-                    if ($excludedUserIds && in_array($array['id'], $excludedUserIds, true)) {
+                    // consider only company employees
+                    if ($array['company-id'] !== user()->basecamp_org_id) {
                         continue;
                     }
 
-                    $finalData[$array['id']] = ucfirst($array['first-name']) . ' ' . ucfirst($array['last-name']);
+                    if (isset($array['first-name'])) {
+
+                        if ($excludedUserIds && in_array($array['id'], $excludedUserIds, true)) {
+                            continue;
+                        }
+
+                        $finalData[$array['id']] = ucfirst($array['first-name']) . ' ' . ucfirst($array['last-name']);
+                    }
                 }
             }
         }
@@ -140,28 +148,12 @@ class Data
             session(['all_users_hours' => $allUsersHours]);
         }
 
-        // add all projects first
-        $projects = getAllProjects();
-        //dd($projects);
-
-        foreach ($projects as $projectId => $name) {
-
-            $projectInstance = Project::firstOrNew([
-                'user_id' => user()->id,
-                'project_id' => $projectId,
-            ]);
-
-            $projectInstance->user_id = user()->id;
-            $projectInstance->project_id = $projectId;
-            $projectInstance->project_name = $name;
-
-            $projectInstance->save();
-        }
+        self::addUserProjects();
 
         $monthHours = self::getUserMonthlyHours();
         session(['month_hours' => $monthHours]);
 
-        if ($monthHours === 0.0) {
+        if ($monthHours === 0.0 || $monthHours === '0.00') {
             session(['month_hours' => 'none']);
         }
 
