@@ -10,8 +10,6 @@
  *
  */
 
-use App\Services\Data;
-use App\Models\Project;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Contracts\Auth\Authenticatable;
@@ -204,9 +202,17 @@ function getTotalWorkedHoursThisMonthAllProjects($bcUserId = 0): array
     $data = getWorkedHoursData($bcUserId);
 
     if (isset($data['time-entry'])) {
-        foreach ($data['time-entry'] as $timeEntryXML) {
-            $array = (array)$timeEntryXML;
-            $projectsData[] = $array;
+
+        // for when single record is returned
+        $entry = (array)$data['time-entry'];
+
+        if (isset($entry['hours'])) {
+            $projectsData[] = $entry;
+        } else {
+            foreach ($data['time-entry'] as $timeEntryXML) {
+                $array = (array)$timeEntryXML;
+                $projectsData[] = $array;
+            }
         }
     }
 
