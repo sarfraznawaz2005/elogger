@@ -188,7 +188,7 @@
             </div>
             @if($this->results->isEmpty())
                 <p class="p-3 text-sm text-center text-gray-600 uppercase">
-                    {{ __("No data available in table") }}
+                    {{ __("No data available") }}
                 </p>
             @endif
         </div>
