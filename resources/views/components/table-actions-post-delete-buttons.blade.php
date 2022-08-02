@@ -1,6 +1,7 @@
 <div>
     <br>
 
+    <pre>{{$checkedValues}}</pre>
     <pre>{{print_r($selectedItems)}}</pre>
 
     @if($isPendingTable)
@@ -54,12 +55,30 @@
         </div>
     </div>
 
+    <input type="hidden" id="checkedValues" wire:model="checkedValues">
+
 </div>
 
 @push('js')
     <script>
         document.querySelector('#select-all-checkbox').addEventListener('change', (e) => {
             const checkboxes = document.querySelectorAll('.check-entry');
+
+            checkboxes.forEach(checkbox => checkbox.checked = e.target.checked);
+
+            // set value of checkedValues with all checked checkboxes
+            const checkedValues = Array.from(checkboxes).filter(checkbox => checkbox.checked).map(checkbox => checkbox.value);
+            console.log(checkedValues);
+            console.log(checkedValues.toString());
+
+            // set value of checkedValues
+            document.querySelector('#checkedValues').value = checkedValues.toString();
+            document.querySelector('#checkedValues').dispatchEvent(new Event('input'));
+
+            //Livewire.emit('refreshLivewireDatatable');
+
+            /*
+            Livewire.stop();
 
             checkboxes.forEach(checkbox => {
                 checkbox.checked = e.target.checked;
@@ -69,7 +88,11 @@
                 }, 500);
             });
 
+            Livewire.restart();
+            Livewire.rescan();
+
             //Livewire.emit('refreshLivewireDatatable')
+            */
         }, true);
     </script>
 @endpush

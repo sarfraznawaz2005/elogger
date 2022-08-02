@@ -12,6 +12,8 @@ trait EntriesTableCommonTrait
     public array $selectedItems = [];
     public int $selectedTotal = 0;
 
+    public string $checkedValues = '';
+
     public function columns(): array
     {
         return [
@@ -62,6 +64,8 @@ trait EntriesTableCommonTrait
 
             $this->selectedTotal = $hours;
         }
+
+        //dd($this->checkedValues);
     }
 
     public function uploadSelected(): void
