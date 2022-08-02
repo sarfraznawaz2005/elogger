@@ -57,8 +57,13 @@ trait EntriesTableCommonTrait
         }
 
         if ($propertyName === 'checkedValues') {
-            $this->selectedItems = explode(',', $this->checkedValues);
-            $this->setTotalHoursValue();
+            if ($this->checkedValues) {
+                $this->selectedItems = explode(',', $this->checkedValues);
+                $this->setTotalHoursValue();
+            } else {
+                $this->selectedItems = [];
+                $this->selectedTotal = 0;
+            }
         }
     }
 
