@@ -103,4 +103,68 @@ class Data
 
         return (bool)$name;
     }
+
+    public static function refreshData(): void
+    {
+        set_time_limit(0);
+
+        $excludedUserIds = [
+            12026432
+        ];
+
+        $allUsersHours = [];
+
+        // refresh all users hours
+        $users = self::getAllUsers($excludedUserIds);
+        //dd($users);
+
+        if ($users && user()->isAdmin()) {
+            foreach ($users as $userId => $user) {
+                $nameArray = explode(' ', $user);
+                $name = $nameArray[0] . ' ' . $nameArray[1][0];
+
+                $hours = self::getUserMonthlyHours($userId);
+
+                if ($hours) {
+                    $allUsersHours[] = [
+                        'name' => $name,
+                        'hours' => $hours,
+                        'color' => substr(md5(mt_rand()), 0, 6),
+                    ];
+                }
+
+                // sort by max hours
+                $allUsersHours = collect($allUsersHours)->sortByDesc('hours');
+            }
+
+            session(['all_users_hours' => $allUsersHours]);
+        }
+
+        // add all projects first
+        $projects = getAllProjects();
+        //dd($projects);
+
+        foreach ($projects as $projectId => $name) {
+
+            $projectInstance = Project::firstOrNew([
+                'user_id' => user()->id,
+                'project_id' => $projectId,
+            ]);
+
+            $projectInstance->user_id = user()->id;
+            $projectInstance->project_id = $projectId;
+            $projectInstance->project_name = $name;
+
+            $projectInstance->save();
+        }
+
+        $monthHours = self::getUserMonthlyHours();
+        session(['month_hours' => $monthHours]);
+
+        if ($monthHours === 0.0) {
+            session(['month_hours' => 'none']);
+        }
+
+        self::getUserProjectlyHours(true);
+    }
 }

@@ -50,7 +50,7 @@ class IndexDashboard extends Component
     /** @noinspection ALL */
     public function refresh()
     {
-        refreshData();
+        Data::refreshData();
 
         $this->success('Data Refreshed Successfully!');
 
