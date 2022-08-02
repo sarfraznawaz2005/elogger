@@ -6,9 +6,7 @@
     asort($todos);
     ?>
 
-    <x-status-modal wire:model="loading">
-        Loading...
-    </x-status-modal>
+    <x-status-modal wire:model="loading">{{$loadingMessage}}</x-status-modal>
 
     <x-jet-button
         wire:loading.attr="disabled"

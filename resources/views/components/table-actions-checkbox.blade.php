@@ -1,1 +1,1 @@
-<input type="checkbox" class="check-entry" wire:model="selectedItems" value="{{$id}}|{{$hours}}"/>
+<input type="checkbox" id="{{$id}}" class="check-entry" wire:model.defer="selectedItems" value="{{$id}}"/>

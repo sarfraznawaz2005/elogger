@@ -68,7 +68,7 @@
 
 @if (count($projects))
 
-    <script src="https://www.gstatic.com/charts/loader.js"></script>
+    <script src="/js/charts.js"></script>
 
     <script>
         // Load google charts

@@ -4,16 +4,17 @@
     <pre>{{print_r($selectedItems)}}</pre>
 
     @if($isPendingTable)
-        <x-label-segmented class="mb-4" color="yellow" title="Selected Total" value="{{number_format($selectedTotal, 2)}}"/>
+        <x-label-segmented class="mb-4" color="yellow" title="Selected Total"
+                           value="{{number_format($selectedTotal, 2)}}"/>
     @endif
 
     <div class="flex">
         <div class="flex items-center mr-8 px-4 rounded border border-gray-300 bg-gray-200">
-            <input id="inline-checkbox"
+            <input id="select-all-checkbox"
                    type="checkbox"
                    class="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:outline-none">
 
-            <label for="inline-checkbox" class="ml-2 text-sm font-medium text-gray-900 uppercase">
+            <label for="select-all-checkbox" class="ml-2 text-sm font-medium text-gray-900 select-none uppercase">
                 Select All
             </label>
         </div>
@@ -53,5 +54,22 @@
         </div>
     </div>
 
-
 </div>
+
+@push('js')
+    <script>
+        document.querySelector('#select-all-checkbox').addEventListener('change', (e) => {
+            const checkboxes = document.querySelectorAll('.check-entry');
+
+            checkboxes.forEach(checkbox => {
+                checkbox.checked = e.target.checked;
+
+                setTimeout(() => {
+                    checkbox.dispatchEvent(new Event('change'));
+                }, 500);
+            });
+
+            //Livewire.emit('refreshLivewireDatatable')
+        }, true);
+    </script>
+@endpush

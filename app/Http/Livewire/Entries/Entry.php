@@ -35,8 +35,9 @@ class Entry extends Component
     // used for edits
     public int $itemId = 0;
 
-    public bool $loading = false;
     public bool $disabled = false;
+    public bool $loading = false;
+    public string $loadingMessage = 'Loading...';
 
     protected array $rules = [
         'item.project_id' => 'required',
