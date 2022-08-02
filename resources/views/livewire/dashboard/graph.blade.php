@@ -66,10 +66,9 @@
     @endif
 @endpush
 
+<script src="/js/charts.js"></script>
+
 @if (count($projects))
-
-    <script src="/js/charts.js"></script>
-
     <script>
         // Load google charts
         google.charts.load('current', {'packages': ['corechart']});
@@ -103,8 +102,14 @@
             const chart = new google.visualization.PieChart(document.getElementById('piechart'));
             chart.draw(data, options);
         }
+    </script>
+@endif
 
-        @if ($allUsersHours && user()->isAdmin())
+@if (count($allUsersHours))
+    <script>
+        // Load google charts
+        google.charts.load('current', {'packages': ['corechart']});
+
         google.charts.setOnLoadCallback(function () {
             const data = google.visualization.arrayToDataTable([
                 ['Person', 'Hours', {role: 'style'}],
@@ -130,12 +135,5 @@
             chart.draw(data, options);
         });
 
-        @endif
-
-        function random_rgba() {
-            const o = Math.round, r = Math.random, s = 255;
-            return 'rgba(' + o(r() * s) + ',' + o(r() * s) + ',' + o(r() * s) + ',' + r().toFixed(1) + ')';
-        }
     </script>
-
 @endif
