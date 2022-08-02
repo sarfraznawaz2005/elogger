@@ -30,7 +30,12 @@ trait EntriesTableCommonTrait
             NumberColumn::callback(['dated', 'time_start', 'time_end'], static function ($dated, $time_start, $time_end) {
                 $hours = getBCHoursDiff($dated, $time_start, $time_end);
 
-                return view('components.table-badge', ['value' => $hours, 'color' => 'green']);
+                return <<<html
+                    <span class="bg-green-100 text-green-800 text-md font-semibold px-2 py-1 rounded">
+                        $hours
+                    </span>
+                html;
+
             })->label('Total')->sortable(),
 
             Column::callback(['id', 'id'], function ($id) {
@@ -41,7 +46,9 @@ trait EntriesTableCommonTrait
         // add select checkbox to pending table only
         if ($this->isPendingTable) {
             array_unshift($columns, Column::callback(['id'], static function ($id) {
-                return view('components.table-actions-checkbox', ['id' => $id]);
+                return <<<html
+                    <input type="checkbox" class="check-entry" wire:model="selectedItems" value="$id"/>
+                html;
             })->alignCenter()->excludeFromExport());
         }
 
