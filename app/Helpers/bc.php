@@ -296,11 +296,19 @@ function getProjectTodoLists($projectId): array
     $data = getInfo("projects/$projectId/todo_lists");
 
     if (isset($data['todo-list'])) {
-        foreach ($data['todo-list'] as $xml) {
-            $array = (array)$xml;
 
-            if (isset($array['id'])) {
-                $finalData[$array['id']] = ucfirst($array['name']);
+        // for when single record is returned
+        $entry = (array)$data['todo-list'];
+
+        if (isset($entry['id'], $entry['name'])) {
+            $finalData[$entry['id']] = ucfirst($entry['name']);
+        } else {
+            foreach ($data['todo-list'] as $xml) {
+                $array = (array)$xml;
+
+                if (isset($array['id'])) {
+                    $finalData[$array['id']] = ucfirst($array['name']);
+                }
             }
         }
     }
@@ -317,11 +325,19 @@ function getTodoListTodos($todolistId): array
     $data = getInfo("todo_lists/$todolistId/todo_items");
 
     if (isset($data['todo-item'])) {
-        foreach ($data['todo-item'] as $xml) {
-            $array = (array)$xml;
 
-            if (isset($array['id'])) {
-                $finalData[$array['id']] = ucfirst($array['content']);
+        // for when single record is returned
+        $entry = (array)$data['todo-item'];
+
+        if (isset($entry['id'], $entry['name'])) {
+            $finalData[$entry['id']] = ucfirst($entry['content']);
+        } else {
+            foreach ($data['todo-item'] as $xml) {
+                $array = (array)$xml;
+
+                if (isset($array['id'])) {
+                    $finalData[$array['id']] = ucfirst($array['content']);
+                }
             }
         }
     }
