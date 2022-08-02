@@ -67,7 +67,6 @@
                 const checkedValues = Array.from(checkboxes).filter(checkbox => checkbox.checked).map(checkbox => checkbox.value);
                 //console.log(checkedValues.toString());
 
-                // set value of checkedValues
                 checkHidden.value = checkedValues.toString();
                 checkHidden.dispatchEvent(new Event('input'));
 
