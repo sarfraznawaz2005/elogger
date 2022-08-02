@@ -71,6 +71,7 @@
                 checkHidden.dispatchEvent(new Event('input'));
 
             }, false);
+
         </script>
 
     @endif
