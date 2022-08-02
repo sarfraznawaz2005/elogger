@@ -187,8 +187,8 @@
                 </div>
             </div>
             @if($this->results->isEmpty())
-                <p class="p-3 text-lg text-center">
-                    {{ __("There's Nothing to show at the moment") }}
+                <p class="p-3 text-sm text-center text-gray-600 uppercase">
+                    {{ __("No data available in table") }}
                 </p>
             @endif
         </div>
