@@ -22,7 +22,7 @@
             </div>
 
             <div class="flex items-center mr-2">
-                <div class="inline" x-data="{ open: {{ isset($open) && $open ? 'true' : 'false' }}, working: false }" x-cloak wire:key="upload-selected-{{ uniqid('', true) }}">
+                <div class="inline" x-data="{ open: {{ isset($confirmOpen) && $confirmOpen ? 'true' : 'false' }}, working: false }" x-cloak wire:key="upload-selected-{{ uniqid('', true) }}">
 
                 <x-jet-button
                     x-on:click="open = true"
@@ -42,7 +42,7 @@
             </div>
 
             <div class="flex items-center">
-                <div class="inline" x-data="{ open: {{ isset($open) && $open ? 'true' : 'false' }}, working: false }" x-cloak wire:key="delete-selected-{{ uniqid('', true) }}">
+                <div class="inline" x-data="{ open: {{ isset($confirmOpen) && $confirmOpen ? 'true' : 'false' }}, working: false }" x-cloak wire:key="delete-selected-{{ uniqid('', true) }}">
 
                     <x-jet-danger-button
                         x-on:click="open = true"
@@ -90,7 +90,7 @@
         <div class="flex">
             <div class="flex items-center">
 
-                <div class="inline" x-data="{ open: {{ isset($open) && $open ? 'true' : 'false' }}, working: false }" x-cloak wire:key="delete-posted-{{ uniqid('', true) }}">
+                <div class="inline" x-data="{ open: {{ isset($confirmOpen) && $confirmOpen ? 'true' : 'false' }}, working: false }" x-cloak wire:key="delete-posted-{{ uniqid('', true) }}">
 
                     <x-jet-danger-button
                         x-on:click="open = true"

@@ -44,6 +44,8 @@ class Entry extends Component
     public bool $loading = false;
     public string $loadingMessage = 'Loading...';
 
+    public bool $confirmOpen = false;
+
     protected array $rules = [
         'item.project_id' => 'required',
         'item.todolist_id' => 'required',
@@ -244,12 +246,16 @@ class Entry extends Component
 
     public function delete($id): void
     {
+        $this->confirmOpen = false;
+
         /** @noinspection ALL */
         if (Todo::find($id)->delete()) {
             $this->emit('refreshLivewireDatatable');
             $this->emit('event-entries-updated');
 
             $this->success('Entry Deleted Successfully!');
+        } else {
+            $this->danger('Unable to delete entry!');
         }
     }
 
@@ -261,6 +267,8 @@ class Entry extends Component
             $this->emit('event-entries-updated');
 
             $this->success('All Posted Entries Deleted Successfully!');
+        } else {
+            $this->danger('Unable to delete entries!');
         }
     }
 
@@ -272,6 +280,8 @@ class Entry extends Component
             $this->emit('event-entries-updated');
 
             $this->success('Selected Entries Deleted Successfully!');
+        } else {
+            $this->danger('Unable to delete entries!');
         }
     }
 
@@ -331,6 +341,10 @@ class Entry extends Component
 
         $posted = '';
 
+        $this->confirmOpen = false;
+        $this->loading = true;
+        $this->loadingMessage = 'Uploading, please wait...';
+
         /** @noinspection ALL */
         Todo::whereIn('id', $ids)->chunk(50, function ($todos) use (&$posted) {
             foreach ($todos as $todo) {
@@ -378,6 +392,7 @@ class Entry extends Component
             $this->emit('refreshLivewireDatatable');
             $this->emit('event-entries-updated');
 
+            $this->loading = false;
             $this->success('Selected Entries Uploaded Successfully!');
         }
     }
