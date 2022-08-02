@@ -2,6 +2,7 @@
 
 namespace App\Traits;
 
+use App\Models\Todo;
 use Mediconesystems\LivewireDatatables\Column;
 use Mediconesystems\LivewireDatatables\NumberColumn;
 
@@ -15,7 +16,7 @@ trait EntriesTableCommonTrait
     {
         return [
 
-            Column::callback(['id'],  static function ($id) {
+            Column::callback(['id'], static function ($id) {
                 return view('components.table-actions-checkbox', ['id' => $id]);
             })->alignCenter()->excludeFromExport(),
 
@@ -43,6 +44,24 @@ trait EntriesTableCommonTrait
     {
         $this->selectedItems = [];
         $this->selectedTotal = 0;
+    }
+
+    public function updated($propertyName): void
+    {
+        if ($propertyName === 'selectedItems') {
+            $hours = 0;
+
+            /** @noinspection ALL */
+            $todos = Todo::whereIn('id', $this->selectedItems)->get();
+
+            foreach ($todos as $todo) {
+                $diff = (float)getBCHoursDiff($todo->dated, $todo->time_start, $todo->time_end);
+
+                $hours += $diff;
+            }
+
+            $this->selectedTotal = $hours;
+        }
     }
 
     public function uploadSelected(): void

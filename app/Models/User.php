@@ -122,6 +122,7 @@ class User extends Authenticatable
             ->where('status', 'pending');
     }
 
+    /** @noinspection ALL */
     public function pendingTodosToday(): HasMany
     {
         return $this->hasMany(Todo::class)->with('project')
@@ -129,48 +130,48 @@ class User extends Authenticatable
             ->where('status', 'pending');
     }
 
-    public function pendingTodosHoursToday(): int|string
+    public function pendingTodosHoursToday(): float
     {
         $hours = 0;
 
         $todosToday = $this->pendingTodosToday;
 
         foreach ($todosToday as $todoToday) {
-            $diff = getBCHoursDiff($todoToday->dated, $todoToday->time_start, $todoToday->time_end);
+            $diff = (float)getBCHoursDiff($todoToday->dated, $todoToday->time_start, $todoToday->time_end);
 
             $hours += $diff;
         }
 
-        return $hours ?: '0.00';
+        return $hours;
     }
 
-    public function pendingTodosHours(): int|string
+    public function pendingTodosHours(): float
     {
         $hours = 0;
 
         $todosToday = $this->pendingTodos;
 
         foreach ($todosToday as $todoToday) {
-            $diff = getBCHoursDiff($todoToday->dated, $todoToday->time_start, $todoToday->time_end);
+            $diff = (float)getBCHoursDiff($todoToday->dated, $todoToday->time_start, $todoToday->time_end);
 
             $hours += $diff;
         }
 
-        return $hours ?: '0.00';
+        return $hours;
     }
 
-    public function postedTodosHours(): int|string
+    public function postedTodosHours(): float
     {
         $hours = 0;
 
         $todosToday = $this->postedTodos;
 
         foreach ($todosToday as $todoToday) {
-            $diff = getBCHoursDiff($todoToday->dated, $todoToday->time_start, $todoToday->time_end);
+            $diff = (float)getBCHoursDiff($todoToday->dated, $todoToday->time_start, $todoToday->time_end);
 
             $hours += $diff;
         }
 
-        return $hours ?: '0.00';
+        return $hours;
     }
 }
