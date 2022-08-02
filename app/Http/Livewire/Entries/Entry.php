@@ -42,9 +42,6 @@ class Entry extends Component
 
     public bool $disabled = false;
     public bool $loading = false;
-    public string $loadingMessage = 'Loading...';
-
-    public bool $confirmOpen = false;
 
     protected array $rules = [
         'item.project_id' => 'required',
@@ -246,8 +243,6 @@ class Entry extends Component
 
     public function delete($id): void
     {
-        $this->confirmOpen = false;
-
         /** @noinspection ALL */
         if (Todo::find($id)->delete()) {
             $this->emit('refreshLivewireDatatable');
@@ -341,10 +336,6 @@ class Entry extends Component
 
         $posted = '';
 
-        $this->confirmOpen = false;
-        $this->loading = true;
-        $this->loadingMessage = 'Uploading, please wait...';
-
         /** @noinspection ALL */
         Todo::whereIn('id', $ids)->chunk(50, function ($todos) use (&$posted) {
             foreach ($todos as $todo) {
@@ -389,10 +380,11 @@ class Entry extends Component
             $monthHours = Data::getUserMonthlyHours();
             session(['month_hours' => $monthHours]);
 
+            $this->dispatchBrowserEvent('hide-waiting-message');
+
             $this->emit('refreshLivewireDatatable');
             $this->emit('event-entries-updated');
 
-            $this->loading = false;
             $this->success('Selected Entries Uploaded Successfully!');
         }
     }

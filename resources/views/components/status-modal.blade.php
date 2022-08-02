@@ -1,4 +1,4 @@
-<div class="inline" x-data="{ open: @entangle($attributes->wire('model')).defer, working: false }" x-cloak wire:key="delete-{{ time() }}">
+<div class="inline" x-data="{ open: @entangle($attributes->wire('model')).defer, working: false }" x-cloak wire:key="delete-model-{{ uniqid('', true) }}">
 
     <div x-show="open"
          class="fixed z-50 bottom-0 inset-x-0 px-4 pb-4 sm:inset-0 sm:flex sm:items-center sm:justify-center">
