@@ -378,7 +378,7 @@ class Entry extends Component
             $this->emit('refreshLivewireDatatable');
             $this->emit('event-entries-updated');
 
-            $this->success('Selected Entries Posted Successfully!');
+            $this->success('Selected Entries Uploaded Successfully!');
         }
     }
 }
