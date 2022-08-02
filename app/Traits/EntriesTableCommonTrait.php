@@ -46,6 +46,7 @@ trait EntriesTableCommonTrait
         // add select checkbox to pending table only
         if ($this->isPendingTable) {
             array_unshift($columns, Column::callback(['id'], static function ($id) {
+                /** @noinspection ALL */
                 return <<<html
                     <input type="checkbox" class="check-entry" wire:model="selectedItems" value="$id"/>
                 html;
