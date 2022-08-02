@@ -3,8 +3,8 @@
     x-data="{show:false}"
     x-show="show"
     x-init="
-        Livewire.hook('message.sent', (message, component) => { show = true })
-        Livewire.hook('message.processed', (message, component) => { show = false })
+        Livewire.hook('message.sent', () => { show = true })
+        Livewire.hook('message.processed', () => { show = false })
     "
 >
 
