@@ -372,7 +372,7 @@ class Entry extends Component
         });
 
         if ($posted === 'ok') {
-            $monthHours = Data::getUserMonthlyHours(true);
+            $monthHours = Data::getUserMonthlyHours();
             session(['month_hours' => $monthHours]);
 
             $this->emit('refreshLivewireDatatable');

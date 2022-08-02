@@ -350,7 +350,7 @@ function refreshData()
             $nameArray = explode(' ', $user);
             $name = $nameArray[0] . ' ' . $nameArray[1][0];
 
-            $hours = Data::getUserMonthlyHours(true, $userId);
+            $hours = Data::getUserMonthlyHours($userId);
 
             if ($hours) {
                 $allUsersHours[] = [
@@ -385,7 +385,7 @@ function refreshData()
         $projectInstance->save();
     }
 
-    $monthHours = Data::getUserMonthlyHours(true);
+    $monthHours = Data::getUserMonthlyHours();
     session(['month_hours' => $monthHours]);
 
     if ($monthHours === 0.0) {

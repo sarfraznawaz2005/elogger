@@ -8,26 +8,16 @@
 
 namespace App\Services;
 
-use anlutro\LaravelSettings\Facades\Setting;
 use App\Models\Project;
 use Illuminate\Support\Facades\DB;
 
 class Data
 {
-    public static function getUserMonthlyHours($forceRefresh = false, $userId = 0): float|string
+    public static function getUserMonthlyHours($userId = 0): float|string
     {
         $userId = $userId ?: user()->basecamp_api_user_id;
 
-        if ($forceRefresh || !Setting::get("hours.$userId")) {
-            $totalHours = getTotalWorkedHoursThisMonth($userId);
-
-            Setting::set("hours.$userId", $totalHours);
-            Setting::save();
-        } else {
-            $totalHours = Setting::get("hours.$userId");
-        }
-
-        return $totalHours;
+        return getTotalWorkedHoursThisMonth($userId);
     }
 
     public static function getUserProjectlyHours($forceRefresh = false)
