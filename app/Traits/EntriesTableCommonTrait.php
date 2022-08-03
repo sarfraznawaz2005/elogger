@@ -24,8 +24,8 @@ trait EntriesTableCommonTrait
             Column::name('project.project_name')->label('Project')->searchable()->sortable(),
 
             Column::name('description')->searchable()->sortable(),
-            Column::name('time_start')->sortable(),
-            Column::name('time_end')->sortable(),
+            Column::name('time_start')->sortable()->alignCenter(),
+            Column::name('time_end')->sortable()->alignCenter(),
 
             NumberColumn::callback(['dated', 'time_start', 'time_end'], static function ($dated, $time_start, $time_end) {
                 $hours = getBCHoursDiff($dated, $time_start, $time_end);
@@ -36,7 +36,7 @@ trait EntriesTableCommonTrait
                     </span>
                 html;
 
-            })->label('Total')->sortable(),
+            })->label('Total')->sortable()->alignCenter(),
 
             Column::callback(['id', 'id'], function ($id) {
                 return view('components.table-actions-entry', ['id' => $id, 'isPendingTable' => $this->isPendingTable]);
