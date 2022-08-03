@@ -157,6 +157,9 @@ class Data
             session(['month_hours' => 'none']);
         }
 
+        // eg todos and todolists that were saved from entry page
+        session()->forget('app');
+
         self::getUserProjectlyHours(true);
     }
 }

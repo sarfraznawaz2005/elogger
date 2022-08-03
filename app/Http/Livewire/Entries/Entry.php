@@ -316,7 +316,17 @@ class Entry extends Component
     public function todoLists($projectId): bool|string
     {
         try {
-            return json_encode(getProjectTodoLists($projectId), JSON_THROW_ON_ERROR);
+
+            if (session()->has('app.todo-list-' . $projectId)) {
+                return session('app.todo-list-' . $projectId);
+            }
+
+            $todoLists = json_encode(getProjectTodoLists($projectId), JSON_THROW_ON_ERROR);
+
+            session()->put('app.todo-list-' . $projectId, $todoLists);
+
+            return $todoLists;
+
         } catch (JsonException) {
             return json_encode([], JSON_THROW_ON_ERROR);
         }
@@ -328,7 +338,17 @@ class Entry extends Component
     public function todos($todolistId): bool|string
     {
         try {
-            return json_encode(getTodoListTodos($todolistId), JSON_THROW_ON_ERROR);
+
+            if (session()->has('app.todos-' . $todolistId)) {
+                return session('app.todos-' . $todolistId);
+            }
+
+            $todos = json_encode(getTodoListTodos($todolistId), JSON_THROW_ON_ERROR);
+
+            session()->put('app.todos-' . $todolistId, $todos);
+
+            return $todos;
+
         } catch (JsonException) {
             return json_encode([], JSON_THROW_ON_ERROR);
         }
