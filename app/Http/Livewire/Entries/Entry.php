@@ -291,6 +291,7 @@ class Entry extends Component
         $this->item['project_id'] = $todo->project_id;
         $this->item['todolist_id'] = $todo->todolist_id;
         $this->item['todo_id'] = $todo->todo_id;
+        $this->item['description'] = $todo->description;
 
         $this->item['dated'] = date('Y-m-d');
         $this->item['time_start'] = date('H:i');
