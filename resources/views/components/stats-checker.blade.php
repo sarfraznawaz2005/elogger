@@ -13,5 +13,8 @@
         </div>
     </div>
 
-    {{user()->update(['holidays_count' => 0])}}
+    @php
+        user()->update(['holidays_count' => 0])
+    @endphp
+
 @endif
