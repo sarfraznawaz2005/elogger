@@ -8,7 +8,7 @@
 
 
 
-        <x-label-segmented class="mb-4" color="yellow" title="Selected Total"
+        <x-label-segmented class="mb-4" color="yellow" label="Selected Total"
                            value="{{number_format($selectedTotal, 2)}}"/>
 
         <div class="flex">

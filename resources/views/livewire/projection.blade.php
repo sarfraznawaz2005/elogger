@@ -6,12 +6,12 @@
 
     <x-label-segmented
         color="{{$currentColor}}"
-        title="Current"
+        label="Current"
         value="{{$cValue}}"/>
 
     <x-label-segmented
         color="{{$projectedColor}}"
-        title="Projected"
+        label="Projected"
         value="{{$pValue}}"/>
 
     <div class="inline" x-data="{ open: false, working: false }" x-cloak wire:key="projection-{{ uniqid('', true) }}">
