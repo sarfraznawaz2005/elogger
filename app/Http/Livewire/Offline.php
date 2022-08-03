@@ -5,13 +5,16 @@ namespace App\Http\Livewire;
 use Livewire\Component;
 
 /** @noinspection ALL */
+
 class Offline extends Component
 {
     /** @noinspection ALL */
     public function render(): string
     {
-        return <<<'blade'
-            <div class="pt-8" wire:offline>
+        $id = uniqid('', true);
+
+        return <<<blade
+            <div class="pt-8" wire:offline wire:key="offline-$id">
                 <div class="w-auto inline-block flex flex-row justify-center items-center">
                     <div class="p-2 text-sm text-white break-words flex items-center bg-red-500">
                         <div class="flex items-center justify-center">
