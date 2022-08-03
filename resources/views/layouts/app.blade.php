@@ -22,7 +22,7 @@
 <body class="font-sans antialiased">
 
 <livewire:refresh/>
-<x-livewire-loading/>
+<x-loading/>
 <x-jet-banner/>
 <x-flash/>
 <x-toast/>
