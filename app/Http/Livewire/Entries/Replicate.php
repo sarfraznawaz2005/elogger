@@ -46,7 +46,7 @@ class Replicate extends Component
             $newTodo->dated = date('Y-m-d');
             $newTodo->time_start = date('H:i', strtotime(Carbon::parse($pendingTodo->time_start)->{$arr[0]}($range)));
             $newTodo->time_end = date('H:i', strtotime(Carbon::parse($pendingTodo->time_end)->{$arr[0]}($range)));
-            $newTodo->description = $this->replicateMessage ?: $pendingTodo->description;
+            $newTodo->description = trim($this->replicateMessage) ?: $pendingTodo->description;
             $newTodo->save();
         }
 
