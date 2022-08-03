@@ -31,5 +31,5 @@
         </svg>
     </button>
 
-    @include('components.delete-confirm', ['value' => $id, 'function' => 'onDeleteEntry'])
+    @include('components.confirm', ['value' => $id, 'function' => 'onDeleteEntry'])
 </div>
