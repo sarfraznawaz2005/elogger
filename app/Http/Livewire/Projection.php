@@ -17,8 +17,8 @@ class Projection extends Component
         $pendingHours = user()->pendingTodosHoursToday();
         $workDayCount = getWorkingDaysCount();
 
-        $cValue = number_format($monthHours + $pendingHours, 2) . '/' . number_format(($workDayCount - user()->holidays_count) * user()->working_hours_count, 2);
-        $pValue = number_format(($monthHours) + user()->working_hours_count, 2) . '/' . number_format(($workDayCount - user()->holidays_count) * user()->working_hours_count, 2);
+        $cValue = round($monthHours + $pendingHours) . '/' . round(($workDayCount - user()->holidays_count) * user()->working_hours_count);
+        $pValue = round(($monthHours) + user()->working_hours_count) . '/' . round(($workDayCount - user()->holidays_count) * user()->working_hours_count);
 
         $currentColor = (round($monthHours + $pendingHours)) < (($workDayCount - user()->holidays_count) * user()->working_hours_count) ? 'blue' : 'green';
         $projectedColor = (round($monthHours) + user()->working_hours_count) < (($workDayCount - user()->holidays_count) * user()->working_hours_count) ? 'blue' : 'green';
