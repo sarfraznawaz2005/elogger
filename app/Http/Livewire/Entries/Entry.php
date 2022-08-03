@@ -31,35 +31,33 @@ class Entry extends Component
         'onUploadSelected' => 'uploadSelected',
     ];
 
+    public Todo $model;
+
+    // data needed on form
     public array $todoLists = [];
     public array $todos = [];
-
-    public ?array $item = null;
-
-    // used for edits
-    public int $itemId = 0;
 
     public bool $disabled = false;
 
     protected array $rules = [
-        'item.project_id' => 'required',
-        'item.todolist_id' => 'required',
-        'item.todo_id' => 'required',
-        'item.dated' => 'required',
-        'item.time_start' => 'required',
-        'item.time_end' => 'required',
-        'item.description' => 'required|min:5',
+        'model.project_id' => 'required',
+        'model.todolist_id' => 'required',
+        'model.todo_id' => 'required',
+        'model.dated' => 'required',
+        'model.time_start' => 'required',
+        'model.time_end' => 'required',
+        'model.description' => 'required|min:5',
     ];
 
     protected array $messages = [
-        'item.project_id.required' => 'This field is required.',
-        'item.todolist_id.required' => 'This field is required.',
-        'item.todo_id.required' => 'This field is required.',
-        'item.dated.required' => 'This field is required.',
-        'item.time_start.required' => 'This field is required.',
-        'item.time_end.required' => 'This field is required.',
-        'item.description.required' => 'This field is required.',
-        'item.description.min' => 'Must be minimum 5 characters.',
+        'model.project_id.required' => 'This field is required.',
+        'model.todolist_id.required' => 'This field is required.',
+        'model.todo_id.required' => 'This field is required.',
+        'model.dated.required' => 'This field is required.',
+        'model.time_start.required' => 'This field is required.',
+        'model.time_end.required' => 'This field is required.',
+        'model.description.required' => 'This field is required.',
+        'model.description.min' => 'Must be minimum 5 characters.',
     ];
 
     /**
@@ -78,23 +76,23 @@ class Entry extends Component
      */
     public function updated($propertyName): void
     {
-        if (($propertyName === 'item.project_id')) {
+        if (($propertyName === 'model.project_id')) {
             $this->todoLists = [];
             $this->todos = [];
-            $this->item['todolist_id'] = null;
-            $this->item['todo_id'] = null;
+            $this->model->todolist_id = null;
+            $this->model->todo_id = null;
 
-            if ($this->item['project_id']) {
-                $this->todoLists = json_decode($this->todoLists($this->item['project_id']), true, 512, JSON_THROW_ON_ERROR);
+            if ($this->model->project_id) {
+                $this->todoLists = json_decode($this->todoLists($this->model->project_id), true, 512, JSON_THROW_ON_ERROR);
             }
         }
 
-        if ($propertyName === 'item.todolist_id') {
+        if ($propertyName === 'model.todolist_id') {
             $this->todos = [];
-            $this->item['todo_id'] = null;
+            $this->model->todo_id = null;
 
-            if ($this->item['todolist_id']) {
-                $this->todos = json_decode($this->todos($this->item['todolist_id']), true, 512, JSON_THROW_ON_ERROR);
+            if ($this->model->todolist_id) {
+                $this->todos = json_decode($this->todos($this->model->todolist_id), true, 512, JSON_THROW_ON_ERROR);
             }
         }
     }
@@ -127,26 +125,24 @@ class Entry extends Component
     {
         $this->disabled = false;
 
-        $this->resetForm();
+        $this->model = new Todo();
+        $this->model->dated = date('Y-m-d');
+        $this->model->time_start = $this->model->time_end = date('H:i');
 
-        $this->item['dated'] = date('Y-m-d');
-        $this->item['time_start'] = date('H:i');
-        $this->item['time_end'] = date('H:i');
-
+        $this->resetErrorBag();
         $this->openModal();
     }
 
     public function save(): void
     {
-        $isCreate = $this->itemId === 0;
+        $isCreate = is_null($this->model->id);
 
-        $data = $this->validate();
-        $data = $data['item'];
+        $this->validate();
 
-        $data['user_id'] = user()->id;
+        $this->model->user_id = user()->id;
 
         // make sure end time is greater than start time
-        $diff = getBCHoursDiff($data['dated'], $data['time_start'], $data['time_end'], true);
+        $diff = getBCHoursDiff($this->model->dated, $this->model->time_start, $this->model->time_end, true);
 
         if ($diff < 0) {
             $this->danger('Start Time cannot be greater than End Time.');
@@ -158,10 +154,7 @@ class Entry extends Component
             return;
         }
 
-        /** @noinspection ALL */
-        $todo = Todo::updateOrCreate(['id' => $this->itemId], $data);
-
-        if (!$todo->save()) {
+        if (!$this->model->save()) {
             $this->danger('Unable to save entry!');
             return;
         }
@@ -179,68 +172,54 @@ class Entry extends Component
     }
 
     /** @noinspection ALL */
-    public function onViewEntry($id): void
+    public function onViewEntry(Todo $todo): void
     {
         $this->disabled = true;
 
-        $this->emitSelf('view', $id);
+        $this->emitSelf('view', $todo);
     }
 
-    public function onEditEntry($id): void
+    public function onEditEntry(Todo $todo): void
     {
         $this->disabled = false;
 
-        $this->emitSelf('edit', $id);
+        $this->emitSelf('edit', $todo);
     }
 
     /** @noinspection ALL */
-    public function onDuplicateEntry($id): void
+    public function onDuplicateEntry(Todo $todo): void
     {
         $this->disabled = false;
 
-        $this->emitSelf('duplicate', $id);
+        $this->emitSelf('duplicate', $todo);
     }
 
     /**
      * @throws JsonException
      */
-    public function view($id): void
+    public function view(Todo $todo): void
     {
         // because we have disabled fields using $disabled attribute
-        $this->edit($id);
+        $this->edit($todo);
     }
 
     /**
      * @throws JsonException
      */
-    public function edit($id): void
+    public function edit(Todo $todo): void
     {
-        // clear validation messages
+        $this->model = $todo;
+
+        $this->todoLists = json_decode($this->todoLists($this->model->project_id), true, 512, JSON_THROW_ON_ERROR);
+        $this->todos = json_decode($this->todos($this->model->todolist_id), true, 512, JSON_THROW_ON_ERROR);
+
         $this->resetErrorBag();
-
-        /** @noinspection ALL */
-        $todo = Todo::findOrFail($id);
-
-        $this->itemId = $id;
-
-        $this->item['project_id'] = $todo->project_id;
-        $this->item['todolist_id'] = $todo->todolist_id;
-        $this->item['todo_id'] = $todo->todo_id;
-        $this->item['dated'] = $todo->dated;
-        $this->item['time_start'] = $todo->time_start;
-        $this->item['time_end'] = $todo->time_end;
-        $this->item['description'] = $todo->description;
-
-        $this->todoLists = json_decode($this->todoLists($todo->project_id), true, 512, JSON_THROW_ON_ERROR);
-        $this->todos = json_decode($this->todos($todo->todolist_id), true, 512, JSON_THROW_ON_ERROR);
-
         $this->openModal();
     }
 
-    public function delete($id): void
+    public function delete(Todo $todo): void
     {
-        /** @noinspection ALL */
-        if (Todo::find($id)->delete()) {
+        if ($todo->delete()) {
             $this->emit('refreshLivewireDatatable');
             $this->emit('event-entries-updated');
 
@@ -263,9 +242,9 @@ class Entry extends Component
         }
     }
 
+    /** @noinspection ALL */
     public function deleteSelected($ids): void
     {
-        /** @noinspection ALL */
         if (Todo::whereIn('id', $ids)->delete()) {
             $this->emit('refreshLivewireDatatable');
             $this->emit('event-entries-updated');
@@ -279,49 +258,23 @@ class Entry extends Component
     /**
      * @throws JsonException
      */
-    public function duplicate($id): void
+    public function duplicate(Todo $todo): void
     {
-        // reset so that create form can be used again
-        $this->itemId = 0;
+        $this->model = new Todo();
 
-        // clear validation messages
+        $this->model->project_id = $todo->project_id;
+        $this->model->todolist_id = $todo->todolist_id;
+        $this->model->todo_id = $todo->todo_id;
+
+        $this->model->description = '';
+        $this->model->dated = date('Y-m-d');
+        $this->model->time_start = $this->model->time_end = date('H:i');
+
+        $this->todoLists = json_decode($this->todoLists($this->model->project_id), true, 512, JSON_THROW_ON_ERROR);
+        $this->todos = json_decode($this->todos($this->model->todolist_id), true, 512, JSON_THROW_ON_ERROR);
+
         $this->resetErrorBag();
-
-        /** @noinspection ALL */
-        $todo = Todo::findOrFail($id);
-
-        $this->item['project_id'] = $todo->project_id;
-        $this->item['todolist_id'] = $todo->todolist_id;
-        $this->item['todo_id'] = $todo->todo_id;
-        $this->item['description'] = $todo->description;
-
-        $this->item['dated'] = date('Y-m-d');
-        $this->item['time_start'] = date('H:i');
-        $this->item['time_end'] = date('H:i');
-
-        $this->todoLists = json_decode($this->todoLists($todo->project_id), true, 512, JSON_THROW_ON_ERROR);
-        $this->todos = json_decode($this->todos($todo->todolist_id), true, 512, JSON_THROW_ON_ERROR);
-
         $this->openModal();
-    }
-
-    public function resetForm(): void
-    {
-        // clear validation messages
-        $this->resetErrorBag();
-
-        // reset so that create form can be used again
-        $this->itemId = 0;
-
-        unset(
-            $this->item['project_id'],
-            $this->item['todolist_id'],
-            $this->item['todo_id'],
-            $this->item['dated'],
-            $this->item['time_start'],
-            $this->item['time_end'],
-            $this->item['description']
-        );
     }
 
     public function uploadSelected($ids): void
