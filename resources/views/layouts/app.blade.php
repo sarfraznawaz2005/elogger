@@ -20,6 +20,7 @@
     @stack('css')
 </head>
 <body class="font-sans antialiased">
+
 <x-livewire-loading/>
 <x-jet-banner/>
 <x-flash/>
@@ -40,6 +41,7 @@
             </div>
         </div>
     </main>
+
 </div>
 
 @stack('modals')
