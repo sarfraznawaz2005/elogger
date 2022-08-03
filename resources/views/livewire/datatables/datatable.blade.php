@@ -1,10 +1,11 @@
 <div>
     @includeIf($beforeTableSlot)
+
     <div class="relative">
         <div class="flex items-center justify-between mb-1">
             <div class="flex items-center h-10">
                 @if($this->searchableColumns()->count())
-                    <div class="flex rounded-lg w-96 shadow-sm">
+                    <div class="flex rounded-lg w-96 shadow-sm mb-4">
                         <div class="relative flex-grow focus-within:z-10">
                             <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
                                 <svg class="w-5 h-5 text-gray-400" viewBox="0 0 20 20" stroke="currentColor" fill="none">
@@ -85,7 +86,7 @@
         </div>
 
         @if($hideable === 'buttons')
-            <div class="p-2 grid grid-cols-8 gap-2">
+            <div class="p-2 grid grid-cols-8 gap-2 ">
                 @foreach($this->columns as $index => $column)
                     @if ($column['hideable'])
                         <button wire:click.prefetch="toggle('{{ $index }}')" class="px-3 py-2 rounded text-white text-xs focus:outline-none
@@ -97,7 +98,7 @@
             </div>
         @endif
 
-        <div wire:loading.class="opacity-50" class="rounded-lg @unless($complex || $this->hidePagination) rounded-b-none @endunless shadow-lg bg-white max-w-screen overflow-x-scroll border-2 @if($this->activeFilters) border-blue-500 @else border-transparent @endif @if($complex) rounded-b-none border-b-0 @endif">
+        <div wire:loading.class="opacity-50" class="rounded-lg @unless($complex || $this->hidePagination) rounded-b-none @endunless border-0 border-t border-l border-r border-gray-200 bg-white max-w-screen border-2 @if($this->activeFilters) border-blue-500 @else border-transparent @endif @if($complex) rounded-b-none border-b-0 @endif">
             <div>
                 <div class="table min-w-full align-middle">
                     @unless($this->hideHeader)
@@ -149,7 +150,7 @@
                         @endforeach
                     </div>
                     @foreach($this->results as $row)
-                        <div class="table-row p-1 {{ $this->rowClasses($row, $loop) }}">
+                        <div class="table-row p-1  {{ $this->rowClasses($row, $loop) }}">
                             @foreach($this->columns as $column)
                                 @if($column['hidden'])
                                     @if($hideable === 'inline')
@@ -161,7 +162,7 @@
                                     @include('datatables::label')
                                 @else
 
-                                    <div class="table-cell px-6 py-2 @unless($column['wrappable']) whitespace-nowrap truncate @endunless @if($column['contentAlign'] === 'right') text-right @elseif($column['contentAlign'] === 'center') text-center @else text-left @endif {{ $this->cellClasses($row, $column) }}">
+                                    <div class="border-b border-gray-200 table-cell px-6 py-2 @unless($column['wrappable']) whitespace-nowrap truncate @endunless @if($column['contentAlign'] === 'right') text-right @elseif($column['contentAlign'] === 'center') text-center @else text-left @endif {{ $this->cellClasses($row, $column) }}">
                                         {!! $row->{$column['name']} !!}
                                     </div>
                                 @endif

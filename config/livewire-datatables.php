@@ -95,9 +95,9 @@ return [
 
     'default_classes' => [
         'row' => [
-            'even' => 'divide-x divide-gray-100 text-sm text-gray-900 bg-white hover:bg-gray-100',
-            'odd' => 'divide-x divide-gray-100 text-sm text-gray-900 bg-white hover:bg-gray-100',
-            'selected' => 'divide-x divide-gray-100 text-sm text-gray-900 bg-yellow-50 hover:bg-yellow-100',
+            'even' => 'divide-x bg-white border-b border-gray-200 text-sm text-gray-900 bg-white hover:bg-gray-100',
+            'odd' => 'divide-x bg-white border-b border-gray-200 text-sm text-gray-900 bg-white hover:bg-gray-100',
+            'selected' => 'divide-x bg-white divide-y divide-gray-200 text-sm text-gray-900 bg-yellow-50 hover:bg-yellow-100',
         ],
         'cell' => 'whitespace-no-wrap text-sm text-gray-900 px-6 py-2',
     ],

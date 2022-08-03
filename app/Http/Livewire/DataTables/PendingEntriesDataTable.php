@@ -20,13 +20,6 @@ class PendingEntriesDataTable extends LivewireDatatable
 
     public $afterTableSlot = 'components.table-actions-post-delete-buttons';
 
-    public $hideable = [
-        'id',
-        'select',
-        'buttons',
-        'inline',
-    ];
-
     // custom options
     public bool $isPendingTable = true;
 
