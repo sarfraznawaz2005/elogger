@@ -41,7 +41,6 @@ class Entry extends Component
     public int $itemId = 0;
 
     public bool $disabled = false;
-    public bool $loading = false;
 
     protected array $rules = [
         'item.project_id' => 'required',
@@ -180,7 +179,6 @@ class Entry extends Component
     /** @noinspection ALL */
     public function onViewEntry($id): void
     {
-        $this->loading = true;
         $this->disabled = true;
 
         $this->emitSelf('view', $id);
@@ -188,7 +186,6 @@ class Entry extends Component
 
     public function onEditEntry($id): void
     {
-        $this->loading = true;
         $this->disabled = false;
 
         $this->emitSelf('edit', $id);
@@ -197,7 +194,6 @@ class Entry extends Component
     /** @noinspection ALL */
     public function onDuplicateEntry($id): void
     {
-        $this->loading = true;
         $this->disabled = false;
 
         $this->emitSelf('duplicate', $id);
@@ -235,8 +231,6 @@ class Entry extends Component
 
         $this->todoLists = json_decode($this->todoLists($todo->project_id), true, 512, JSON_THROW_ON_ERROR);
         $this->todos = json_decode($this->todos($todo->todolist_id), true, 512, JSON_THROW_ON_ERROR);
-
-        $this->loading = false;
 
         $this->openModal();
     }
@@ -305,8 +299,6 @@ class Entry extends Component
 
         $this->todoLists = json_decode($this->todoLists($todo->project_id), true, 512, JSON_THROW_ON_ERROR);
         $this->todos = json_decode($this->todos($todo->todolist_id), true, 512, JSON_THROW_ON_ERROR);
-
-        $this->loading = false;
 
         $this->openModal();
     }
@@ -379,8 +371,6 @@ class Entry extends Component
         if ($posted === 'ok') {
             $monthHours = Data::getUserMonthlyHours();
             session(['month_hours' => $monthHours]);
-
-            $this->dispatchBrowserEvent('hide-waiting-message');
 
             $this->emit('refreshLivewireDatatable');
             $this->emit('event-entries-updated');

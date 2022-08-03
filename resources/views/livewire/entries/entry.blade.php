@@ -5,9 +5,7 @@
     asort($todoLists);
     asort($todos);
     ?>
-
-    <x-status-modal wire:model="loading">Loading...</x-status-modal>
-
+    
     <x-jet-button
         wire:loading.attr="disabled"
         wire:click="create"
@@ -40,8 +38,6 @@
                     <x-jet-input-error for="item.project_id" class="mt-2"/>
             </div>
 
-            <x-loading wire:loading wire:target="item.project_id"></x-loading>
-
             @if (isset($item['project_id']) && $item['project_id'])
                 <div wire:loading.remove wire:target="item.project_id" class="my-4">
                     <x-jet-label for="item.todolist_id" value="{{ __('Todolist') }}"/>
@@ -55,8 +51,6 @@
                     <x-jet-input-error for="item.todolist_id" class="mt-2"/>
                 </div>
             @endif
-
-            <x-loading wire:loading wire:target="item.todolist_id"></x-loading>
 
             @if (isset($item['todolist_id']) && $item['todolist_id'])
                 <div wire:loading.remove wire:target="item.project_id, item.todolist_id" class="my-4">

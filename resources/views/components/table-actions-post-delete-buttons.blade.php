@@ -24,7 +24,7 @@
             </div>
 
             <div class="flex items-center mr-2">
-                <div x-init="document.addEventListener('hide-waiting-message', () => showLoading = false);" class="inline" x-data="{ open: false, working: false, showLoading: false }" x-cloak wire:key="upload-selected-{{ uniqid('', true) }}">
+                <div class="inline" x-data="{ open: false, working: false }" x-cloak wire:key="upload-selected-{{ uniqid('', true) }}">
 
                 <x-jet-button
                     x-on:click="open = true; working = false"
@@ -39,12 +39,12 @@
 
                     {{ __('Upload Selected') }}
                 </x-jet-button>
-                    @include('components.delete-confirm', ['value' => json_encode($selectedItems, JSON_THROW_ON_ERROR), 'function' => 'onUploadSelected', 'title' => 'Are you sure you want to upload selected entries ?', 'showLoading' => true])
+                    @include('components.delete-confirm', ['value' => json_encode($selectedItems, JSON_THROW_ON_ERROR), 'function' => 'onUploadSelected', 'title' => 'Are you sure you want to upload selected entries ?'])
                 </div>
             </div>
 
             <div class="flex items-center">
-                <div x-init="document.addEventListener('hide-waiting-message', () => showLoading = false);" class="inline" x-data="{ open: false, working: false, showLoading: false }" x-cloak wire:key="delete-selected-{{ uniqid('', true) }}">
+                <div class="inline" x-data="{ open: false, working: false }" x-cloak wire:key="delete-selected-{{ uniqid('', true) }}">
 
                     <x-jet-danger-button
                         x-on:click="open = true; working = false"
@@ -92,7 +92,7 @@
         <div class="flex">
             <div class="flex items-center">
 
-                <div x-init="document.addEventListener('hide-waiting-message', () => showLoading = false);" class="inline" x-data="{ open: false, working: false, showLoading: false }" x-cloak wire:key="delete-posted-{{ uniqid('', true) }}">
+                <div class="inline" x-data="{ open: false, working: false }" x-cloak wire:key="delete-posted-{{ uniqid('', true) }}">
 
                     <x-jet-danger-button
                         x-on:click="open = true; working = false"

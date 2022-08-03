@@ -218,7 +218,7 @@
                             </div>
                         </div>
 
-                        <div class="flex justify-end text-gray-600">
+                        <div class="flex justify-end text-gray-600 text-sm">
                             {{__('Results')}} {{ $this->results->firstItem() }} - {{ $this->results->lastItem() }} {{__('of')}}
                             {{ $this->results->total() }}
                         </div>
