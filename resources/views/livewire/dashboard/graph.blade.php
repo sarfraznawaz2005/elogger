@@ -1,4 +1,4 @@
-<div class="bg-white overflow-hidden shadow-md sm:rounded-lg p-4 my-4">
+<div class="bg-white overflow-hidden shadow-md sm:rounded-lg p-4">
 
     <div class="overflow-x-auto relative">
         <table class="w-full text-sm text-left text-gray-500">

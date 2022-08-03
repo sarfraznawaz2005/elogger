@@ -1,4 +1,4 @@
-<div class="bg-white overflow-hidden shadow-md sm:rounded-lg p-4 my-4">
+<div class="bg-white overflow-hidden shadow-md sm:rounded-lg p-4 mb-6">
 
     <div class="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2 gap-6 w-full">
         <div class="flex items-center relative p-4 w-full bg-gray-100 rounded-lg overflow-hidden shadow-md">
