@@ -97,28 +97,27 @@ class Entry extends Component
         }
     }
 
-    /**
-     * @throws JsonException
-     */
-    public function todoLists($projectId): bool|string
+    /** @noinspection ALL */
+    public function onViewEntry(Todo $todo): void
     {
-        try {
-            return json_encode(getProjectTodoLists($projectId), JSON_THROW_ON_ERROR);
-        } catch (JsonException) {
-            return json_encode([], JSON_THROW_ON_ERROR);
-        }
+        $this->disabled = true;
+
+        $this->emitSelf('view', $todo);
     }
 
-    /**
-     * @throws JsonException
-     */
-    public function todos($todolistId): bool|string
+    public function onEditEntry(Todo $todo): void
     {
-        try {
-            return json_encode(getTodoListTodos($todolistId), JSON_THROW_ON_ERROR);
-        } catch (JsonException) {
-            return json_encode([], JSON_THROW_ON_ERROR);
-        }
+        $this->disabled = false;
+
+        $this->emitSelf('edit', $todo);
+    }
+
+    /** @noinspection ALL */
+    public function onDuplicateEntry(Todo $todo): void
+    {
+        $this->disabled = false;
+
+        $this->emitSelf('duplicate', $todo);
     }
 
     public function create(): void
@@ -128,6 +127,51 @@ class Entry extends Component
         $this->model = new Todo();
         $this->model->dated = date('Y-m-d');
         $this->model->time_start = $this->model->time_end = date('H:i');
+
+        $this->resetErrorBag();
+        $this->openModal();
+    }
+
+    /**
+     * @throws JsonException
+     */
+    public function view(Todo $todo): void
+    {
+        // because we have disabled fields using $disabled attribute
+        $this->edit($todo);
+    }
+
+    /**
+     * @throws JsonException
+     */
+    public function edit(Todo $todo): void
+    {
+        $this->model = $todo;
+
+        $this->todoLists = json_decode($this->todoLists($this->model->project_id), true, 512, JSON_THROW_ON_ERROR);
+        $this->todos = json_decode($this->todos($this->model->todolist_id), true, 512, JSON_THROW_ON_ERROR);
+
+        $this->resetErrorBag();
+        $this->openModal();
+    }
+
+    /**
+     * @throws JsonException
+     */
+    public function duplicate(Todo $todo): void
+    {
+        $this->model = new Todo();
+
+        $this->model->project_id = $todo->project_id;
+        $this->model->todolist_id = $todo->todolist_id;
+        $this->model->todo_id = $todo->todo_id;
+
+        $this->model->description = '';
+        $this->model->dated = date('Y-m-d');
+        $this->model->time_start = $this->model->time_end = date('H:i');
+
+        $this->todoLists = json_decode($this->todoLists($this->model->project_id), true, 512, JSON_THROW_ON_ERROR);
+        $this->todos = json_decode($this->todos($this->model->todolist_id), true, 512, JSON_THROW_ON_ERROR);
 
         $this->resetErrorBag();
         $this->openModal();
@@ -171,52 +215,6 @@ class Entry extends Component
         }
     }
 
-    /** @noinspection ALL */
-    public function onViewEntry(Todo $todo): void
-    {
-        $this->disabled = true;
-
-        $this->emitSelf('view', $todo);
-    }
-
-    public function onEditEntry(Todo $todo): void
-    {
-        $this->disabled = false;
-
-        $this->emitSelf('edit', $todo);
-    }
-
-    /** @noinspection ALL */
-    public function onDuplicateEntry(Todo $todo): void
-    {
-        $this->disabled = false;
-
-        $this->emitSelf('duplicate', $todo);
-    }
-
-    /**
-     * @throws JsonException
-     */
-    public function view(Todo $todo): void
-    {
-        // because we have disabled fields using $disabled attribute
-        $this->edit($todo);
-    }
-
-    /**
-     * @throws JsonException
-     */
-    public function edit(Todo $todo): void
-    {
-        $this->model = $todo;
-
-        $this->todoLists = json_decode($this->todoLists($this->model->project_id), true, 512, JSON_THROW_ON_ERROR);
-        $this->todos = json_decode($this->todos($this->model->todolist_id), true, 512, JSON_THROW_ON_ERROR);
-
-        $this->resetErrorBag();
-        $this->openModal();
-    }
-
     public function delete(Todo $todo): void
     {
         if ($todo->delete()) {
@@ -253,28 +251,6 @@ class Entry extends Component
         } else {
             $this->danger('Unable to delete entries!');
         }
-    }
-
-    /**
-     * @throws JsonException
-     */
-    public function duplicate(Todo $todo): void
-    {
-        $this->model = new Todo();
-
-        $this->model->project_id = $todo->project_id;
-        $this->model->todolist_id = $todo->todolist_id;
-        $this->model->todo_id = $todo->todo_id;
-
-        $this->model->description = '';
-        $this->model->dated = date('Y-m-d');
-        $this->model->time_start = $this->model->time_end = date('H:i');
-
-        $this->todoLists = json_decode($this->todoLists($this->model->project_id), true, 512, JSON_THROW_ON_ERROR);
-        $this->todos = json_decode($this->todos($this->model->todolist_id), true, 512, JSON_THROW_ON_ERROR);
-
-        $this->resetErrorBag();
-        $this->openModal();
     }
 
     public function uploadSelected($ids): void
@@ -331,6 +307,30 @@ class Entry extends Component
             $this->emit('event-entries-updated');
 
             $this->success('Selected Entries Uploaded Successfully!');
+        }
+    }
+
+    /**
+     * @throws JsonException
+     */
+    public function todoLists($projectId): bool|string
+    {
+        try {
+            return json_encode(getProjectTodoLists($projectId), JSON_THROW_ON_ERROR);
+        } catch (JsonException) {
+            return json_encode([], JSON_THROW_ON_ERROR);
+        }
+    }
+
+    /**
+     * @throws JsonException
+     */
+    public function todos($todolistId): bool|string
+    {
+        try {
+            return json_encode(getTodoListTodos($todolistId), JSON_THROW_ON_ERROR);
+        } catch (JsonException) {
+            return json_encode([], JSON_THROW_ON_ERROR);
         }
     }
 }
