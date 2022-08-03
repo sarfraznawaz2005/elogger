@@ -31,7 +31,7 @@
                 <div class="mt-2">
                     <div class="mt-10 flex justify-center">
                         <x-jet-danger-button class="ml-3 mr-8" wire:click="$emit('{{$function}}', {{$value}})"
-                                             x-on:click="working = true" x-bind:disabled="working">
+                                             x-on:click="working = true; open = false" x-bind:disabled="working">
                             {{ __('Confirm') }}
                         </x-jet-danger-button>
 
