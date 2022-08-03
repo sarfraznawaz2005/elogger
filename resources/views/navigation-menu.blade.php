@@ -12,7 +12,8 @@
 
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <x-jet-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard', 'project_hours')">
+                    <x-jet-nav-link href="{{ route('dashboard') }}"
+                                    :active="request()->routeIs('dashboard', 'project_hours')">
                         {{ __('Dashboard') }}
                     </x-jet-nav-link>
 
@@ -82,6 +83,11 @@
             <!-- Settings Dropdown -->
                 <div class="ml-3 relative">
                     <x-jet-dropdown align="right" width="48">
+
+                        <x-slot name="navItems">
+                            <livewire:projection/>
+                        </x-slot>
+
                         <x-slot name="trigger">
                             @if (Laravel\Jetstream\Jetstream::managesProfilePhotos())
                                 <button
@@ -92,8 +98,6 @@
                             @else
 
                                 <span class="inline-flex rounded-md">
-
-                                    <livewire:projection/>
 
                                     <button type="button"
                                             class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none transition">

@@ -3,7 +3,6 @@
 namespace App\Http\Livewire\Dashboard;
 
 use App\Services\Data;
-use App\Traits\InteractsWithFlash;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
@@ -11,12 +10,6 @@ use Livewire\Component;
 
 class IndexDashboard extends Component
 {
-    use InteractsWithFlash;
-
-    protected $listeners = ['refresh' => 'refresh'];
-
-    public bool $loading = false;
-
     public function render(): Factory|View|Application
     {
         $workDayCount = getWorkingDaysCount() - user()->holidays_count;
@@ -37,23 +30,5 @@ class IndexDashboard extends Component
             'livewire.dashboard.index',
             compact('workDays', 'hoursUploaded', 'hoursTotal', 'projects', 'allUsersHours')
         );
-    }
-
-    /** @noinspection ALL */
-    public function refreshClicked(): void
-    {
-        $this->loading = true;
-
-        $this->emitSelf('refresh');
-    }
-
-    /** @noinspection ALL */
-    public function refresh()
-    {
-        Data::refreshData();
-
-        $this->success('Data Refreshed Successfully!');
-
-        return redirect()->to('/');
     }
 }
