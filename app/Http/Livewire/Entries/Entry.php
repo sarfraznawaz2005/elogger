@@ -10,7 +10,6 @@ use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Str;
-use Illuminate\Validation\ValidationException;
 use JsonException;
 use Livewire\Component;
 
@@ -74,26 +73,28 @@ class Entry extends Component
     }
 
     /**
-     * @throws JsonException|ValidationException
+     * @throws JsonException
      */
     public function updated($propertyName): void
     {
-        $this->validateOnly($propertyName);
-
-        if (($propertyName === 'item.project_id') && $this->item['project_id']) {
+        if (($propertyName === 'item.project_id')) {
             $this->todoLists = [];
             $this->todos = [];
             $this->item['todolist_id'] = null;
             $this->item['todo_id'] = null;
 
-            $this->todoLists = json_decode($this->todoLists($this->item['project_id']), true, 512, JSON_THROW_ON_ERROR);
+            if ($this->item['project_id']) {
+                $this->todoLists = json_decode($this->todoLists($this->item['project_id']), true, 512, JSON_THROW_ON_ERROR);
+            }
         }
 
-        if ($propertyName === 'item.todolist_id' && $this->item['todolist_id']) {
+        if ($propertyName === 'item.todolist_id') {
             $this->todos = [];
             $this->item['todo_id'] = null;
 
-            $this->todos = json_decode($this->todos($this->item['todolist_id']), true, 512, JSON_THROW_ON_ERROR);
+            if ($this->item['todolist_id']) {
+                $this->todos = json_decode($this->todos($this->item['todolist_id']), true, 512, JSON_THROW_ON_ERROR);
+            }
         }
     }
 

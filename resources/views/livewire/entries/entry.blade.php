@@ -5,7 +5,7 @@
     asort($todoLists);
     asort($todos);
     ?>
-    
+
     <x-jet-button
         wire:loading.attr="disabled"
         wire:click="create"
@@ -35,11 +35,11 @@
                     @endforeach
                 </select>
 
-                    <x-jet-input-error for="item.project_id" class="mt-2"/>
+                <x-jet-input-error for="item.project_id" class="mt-2"/>
             </div>
 
             @if (isset($item['project_id']) && $item['project_id'])
-                <div wire:loading.remove wire:target="item.project_id" class="my-4">
+                <div class="my-4">
                     <x-jet-label for="item.todolist_id" value="{{ __('Todolist') }}"/>
                     <select wire:model="item.todolist_id" class="mt-1 block w-full {{$disabled ? 'disabled:bg-slate-50 disabled:text-slate-500 disabled:border-slate-200 disabled:shadow-none' : ''}}" {{$disabled ? 'disabled' : ''}}>
                         <option value="" selected>Choose</option>
@@ -53,7 +53,7 @@
             @endif
 
             @if (isset($item['todolist_id']) && $item['todolist_id'])
-                <div wire:loading.remove wire:target="item.project_id, item.todolist_id" class="my-4">
+                <div class="my-4">
                     <x-jet-label for="item.todo_id" value="{{ __('Todo') }}"/>
                     <select wire:model="item.todo_id" class="mt-1 block w-full {{$disabled ? 'disabled:bg-slate-50 disabled:text-slate-500 disabled:border-slate-200 disabled:shadow-none' : ''}}" {{$disabled ? 'disabled' : ''}}>
                         <option value="" selected>Choose</option>
