@@ -48,7 +48,7 @@ class Entry extends Component
         'item.dated' => 'required',
         'item.time_start' => 'required',
         'item.time_end' => 'required',
-        'item.description' => 'required',
+        'item.description' => 'required|min:5',
     ];
 
     protected array $messages = [
@@ -59,6 +59,7 @@ class Entry extends Component
         'item.time_start.required' => 'This field is required.',
         'item.time_end.required' => 'This field is required.',
         'item.description.required' => 'This field is required.',
+        'item.description.min' => 'Must be minimum 5 characters.',
     ];
 
     /**
