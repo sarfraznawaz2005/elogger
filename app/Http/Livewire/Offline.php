@@ -14,7 +14,7 @@ class Offline extends Component
         $id = uniqid('', true);
 
         return <<<blade
-            <div class="pt-8" wire:offline wire:key="offline-$id">
+            <div class="mb-4" wire:offline wire:key="offline-$id">
                 <div class="w-auto inline-block flex flex-row justify-center items-center">
                     <div class="p-2 text-sm text-white break-words flex items-center bg-red-500">
                         <div class="flex items-center justify-center">

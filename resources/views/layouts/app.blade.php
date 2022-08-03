@@ -21,6 +21,7 @@
 </head>
 <body class="font-sans antialiased">
 
+<livewire:refresh/>
 <x-livewire-loading/>
 <x-jet-banner/>
 <x-flash/>
@@ -30,14 +31,13 @@
     @livewire('navigation-menu')
 
     <main>
-
-
         <div class="py-8">
-            <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-                <livewire:refresh/>
+
+            <div class="mx-auto">
                 <livewire:offline/>
                 <x-stats-checker/>
             </div>
+
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 bg-gray-200 py-4 rounded-lg">
                 {{ $slot }}
             </div>
