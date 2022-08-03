@@ -35,6 +35,12 @@ class Replicate extends Component
 
         $pendingTodos = user()->pendingTodos;
 
+        if (!$pendingTodos->count()) {
+            $this->closeModal();
+            $this->warning('There are no pending entries!');
+            return;
+        }
+
         foreach ($pendingTodos as $pendingTodo) {
             $newTodo = $pendingTodo->replicate();
             $newTodo->dated = date('Y-m-d');
