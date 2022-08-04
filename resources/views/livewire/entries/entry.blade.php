@@ -95,8 +95,8 @@
                     </div>
 
                     <div>
-                        <x-jet-label for="time_total" value="{{ __('Total') }}"/>
-                        <x-jet-input id="time_total" type="text" style="width:70px;" class="text-center bg-yellow-100 text-gray-700 text-md font-semibold" wire:model="time_total" disabled/>
+                        <x-jet-label for="timeTotal" value="{{ __('Total') }}"/>
+                        <x-jet-input id="timeTotal" type="text" style="width:70px;" class="text-center bg-yellow-100 text-gray-700 text-md font-semibold" wire:model="timeTotal" disabled/>
                     </div>
                 </div>
             </div>

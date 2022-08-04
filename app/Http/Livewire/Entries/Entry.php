@@ -39,7 +39,7 @@ class Entry extends Component
 
     public bool $disabled = false;
 
-    public string $time_total = '0.00';
+    public string $timeTotal = '0.00';
 
     protected array $rules = [
         'model.project_id' => 'required',
@@ -61,6 +61,11 @@ class Entry extends Component
         'model.description.required' => 'This field is required.',
         'model.description.min' => 'Must be minimum 5 characters.',
     ];
+
+    public function booted(): void
+    {
+        $this->timeTotal = '0.00';
+    }
 
     /**
      * @return Factory|View|Application
@@ -99,7 +104,7 @@ class Entry extends Component
         }
 
         if ($propertyName === 'model.time_start' || $propertyName === 'model.time_end') {
-            $this->time_total = getBCHoursDiff($this->model->dated, $this->model->time_start, $this->model->time_end);
+            $this->timeTotal = getBCHoursDiff($this->model->dated, $this->model->time_start, $this->model->time_end);
         }
     }
 
