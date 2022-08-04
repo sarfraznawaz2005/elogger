@@ -39,6 +39,8 @@ class Entry extends Component
 
     public bool $disabled = false;
 
+    public string $time_total = '0.00';
+
     protected array $rules = [
         'model.project_id' => 'required',
         'model.todolist_id' => 'required',
@@ -76,7 +78,7 @@ class Entry extends Component
      */
     public function updated($propertyName): void
     {
-        if (($propertyName === 'model.project_id')) {
+        if ($propertyName === 'model.project_id') {
             $this->todoLists = [];
             $this->todos = [];
             $this->model->todolist_id = null;
@@ -94,6 +96,10 @@ class Entry extends Component
             if ($this->model->todolist_id) {
                 $this->todos = json_decode($this->todos($this->model->todolist_id), true, 512, JSON_THROW_ON_ERROR);
             }
+        }
+
+        if ($propertyName === 'model.time_start' || $propertyName === 'model.time_end') {
+            $this->time_total = getBCHoursDiff($this->model->dated, $this->model->time_start, $this->model->time_end);
         }
     }
 
@@ -323,7 +329,9 @@ class Entry extends Component
 
             $todoLists = json_encode(getProjectTodoLists($projectId), JSON_THROW_ON_ERROR);
 
-            session()->put('app.todo-list-' . $projectId, $todoLists);
+            if ($todoLists) {
+                session()->put('app.todo-list-' . $projectId, $todoLists);
+            }
 
             return $todoLists;
 
@@ -345,7 +353,9 @@ class Entry extends Component
 
             $todos = json_encode(getTodoListTodos($todolistId), JSON_THROW_ON_ERROR);
 
-            session()->put('app.todos-' . $todolistId, $todos);
+            if ($todos) {
+                session()->put('app.todos-' . $todolistId, $todos);
+            }
 
             return $todos;
 
