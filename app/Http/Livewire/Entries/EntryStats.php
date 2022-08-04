@@ -2,7 +2,6 @@
 
 namespace App\Http\Livewire\Entries;
 
-use App\Traits\InteractsWithEvents;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
@@ -10,9 +9,7 @@ use Livewire\Component;
 
 class EntryStats extends Component
 {
-    use InteractsWithEvents;
-
-    protected $listeners = ['event-entries-updated' => 'onEvent'];
+    protected $listeners = ['event-entries-updated' => '$refresh'];
 
     public function render(): Factory|View|Application
     {

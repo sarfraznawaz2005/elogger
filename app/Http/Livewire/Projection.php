@@ -3,7 +3,6 @@
 namespace App\Http\Livewire;
 
 use App\Services\Data;
-use App\Traits\InteractsWithEvents;
 use App\Traits\InteractsWithFlash;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
@@ -12,11 +11,10 @@ use Livewire\Component;
 
 class Projection extends Component
 {
-    use InteractsWithEvents;
     use InteractsWithFlash;
 
     protected $listeners = [
-        'event-entries-updated' => 'onEvent',
+        'event-entries-updated' => '$refresh',
         'refreshClicked' => 'refreshClicked',
         'refresh' => 'refresh',
     ];

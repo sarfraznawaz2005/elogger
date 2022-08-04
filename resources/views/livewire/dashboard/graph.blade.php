@@ -1,4 +1,4 @@
-<div class="bg-white overflow-hidden shadow-md sm:rounded-lg p-4">
+<div class="bg-white overflow-hidden shadow-md sm:rounded-lg p-4" wire:ignore>
 
     <div class="overflow-x-auto relative">
         <table class="w-full text-sm text-left text-gray-500">
@@ -10,7 +10,7 @@
             </thead>
             <tbody>
 
-            @foreach($projects as $project)
+            @forelse($projects as $project)
                 <tr class="bg-gray-100 border-b">
                     <td class="py-2 px-6">
                         <span
@@ -25,17 +25,19 @@
                         </span>
                     </td>
                 </tr>
-            @endforeach
+            @empty
+                <tr>
+                    <td colspan="99">
+                        <div class="w-auto inline-block flex justify-center items-center bg-gray-100 p-2">
+                            <p class="text-sm">
+                                You don't have any projects with hours uploaded this month yet.
+                            </p>
+                        </div>
+                    </td>
+                </tr>
+            @endforelse
             </tbody>
         </table>
-
-        @if(!count($projects))
-            <div class="w-auto inline-block flex justify-center items-center bg-gray-100 p-2">
-                <p class="text-sm">
-                    You don't have any projects with hours uploaded this month yet.
-                </p>
-            </div>
-        @endif
 
     </div>
     <br><br>

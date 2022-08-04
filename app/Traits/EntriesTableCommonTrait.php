@@ -26,8 +26,14 @@ trait EntriesTableCommonTrait
             Column::name('project.project_name')->label('Project')->searchable()->sortable(),
 
             Column::name('description')->searchable()->sortable(),
-            Column::name('time_start')->sortable()->alignCenter(),
-            Column::name('time_end')->sortable()->alignCenter(),
+
+            Column::callback('time_start', static function ($time_start) {
+                return date('h:i A', strtotime($time_start));
+            })->label('Time Start')->sortable()->alignCenter(),
+
+            Column::callback('time_end', static function ($time_end) {
+                return date('h:i A', strtotime($time_end));
+            })->label('Time End')->sortable()->alignCenter(),
 
             NumberColumn::callback(['dated', 'time_start', 'time_end'], static function ($dated, $time_start, $time_end) {
                 $hours = getBCHoursDiff($dated, $time_start, $time_end);

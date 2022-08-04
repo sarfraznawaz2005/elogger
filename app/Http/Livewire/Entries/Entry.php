@@ -139,7 +139,7 @@ class Entry extends Component
         $this->model->dated = date('Y-m-d');
         $this->model->time_start = $this->model->time_end = date('H:i');
 
-        $this->resetErrorBag();
+        $this->clearValidation();
         $this->openModal();
     }
 
@@ -162,7 +162,9 @@ class Entry extends Component
         $this->todoLists = json_decode($this->todoLists($this->model->project_id), true, 512, JSON_THROW_ON_ERROR);
         $this->todos = json_decode($this->todos($this->model->todolist_id), true, 512, JSON_THROW_ON_ERROR);
 
-        $this->resetErrorBag();
+        $this->timeTotal = getBCHoursDiff($this->model->dated, $this->model->time_start, $this->model->time_end);
+
+        $this->clearValidation();
         $this->openModal();
     }
 
@@ -184,7 +186,7 @@ class Entry extends Component
         $this->todoLists = json_decode($this->todoLists($this->model->project_id), true, 512, JSON_THROW_ON_ERROR);
         $this->todos = json_decode($this->todos($this->model->todolist_id), true, 512, JSON_THROW_ON_ERROR);
 
-        $this->resetErrorBag();
+        $this->clearValidation();
         $this->openModal();
     }
 

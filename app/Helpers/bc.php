@@ -84,7 +84,7 @@ function postInfo($action, $xmlData): bool|string
     curl_setopt($session, CURLOPT_SSL_VERIFYPEER, true);
     curl_setopt($session, CURLOPT_CUSTOMREQUEST, "POST");
     curl_setopt($session, CURLOPT_POSTFIELDS, $xmlData);
-    curl_setopt($session, CURLOPT_HEADERFUNCTION, "HandleHeaderLine");
+    //curl_setopt($session, CURLOPT_HEADERFUNCTION, "HandleHeaderLine");
 
     curl_exec($session);
     curl_close($session);
