@@ -38,6 +38,7 @@ class Entry extends Component
     // others
     public string $timeTotal = '0.00';
     public bool $loading = false;
+    public string $modalTitle = 'Time Entry';
 
     protected array $rules = [
         'model.project_id' => 'required',
@@ -128,6 +129,8 @@ class Entry extends Component
         $this->model->dated = date('Y-m-d');
         $this->model->time_start = $this->model->time_end = date('H:i');
 
+        $this->modalTitle = 'Add Entry';
+
         $this->clearValidation();
         $this->openModal();
     }
@@ -150,6 +153,8 @@ class Entry extends Component
         $this->todoLists = json_decode($this->fetchTodoLists($this->model->project_id), true, 512, JSON_THROW_ON_ERROR);
         $this->todos = json_decode($this->fetchTodos($this->model->todolist_id), true, 512, JSON_THROW_ON_ERROR);
 
+        $this->modalTitle = 'Add Entry';
+
         $this->clearValidation();
         $this->openModal();
 
@@ -167,6 +172,8 @@ class Entry extends Component
         $this->todos = json_decode($this->fetchTodos($this->model->todolist_id), true, 512, JSON_THROW_ON_ERROR);
 
         $this->timeTotal = getBCHoursDiff($this->model->dated, $this->model->time_start, $this->model->time_end);
+
+        $this->modalTitle = 'Edit Entry';
 
         $this->clearValidation();
         $this->openModal();

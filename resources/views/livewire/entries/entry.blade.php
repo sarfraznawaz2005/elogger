@@ -25,7 +25,7 @@
     <x-jet-dialog-modal wire:model="isModalOpen">
 
         <x-slot name="title">
-            Todo Entry
+            {{$modalTitle}}
         </x-slot>
 
         <x-slot name="content">

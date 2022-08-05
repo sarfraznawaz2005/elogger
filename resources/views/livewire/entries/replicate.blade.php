@@ -13,7 +13,7 @@
     <x-jet-dialog-modal wire:model="isModalOpen">
 
         <x-slot name="title">
-            Are you sure to replicate ?
+            Confirm To Replicate All Pending Entries
         </x-slot>
 
         <x-slot name="content">
