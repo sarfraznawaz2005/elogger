@@ -1,4 +1,5 @@
 <div
+     wire:ignore
      style="display: none;"
      x-data="{show:true, style:'info', message:''}"
      x-show="show && message"

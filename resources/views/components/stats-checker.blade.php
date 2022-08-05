@@ -1,5 +1,5 @@
 @if(getWorkingDaysCount() - user()->holidays_count <= 0)
-    <div class="w-auto inline-block flex justify-center items-center mb-4">
+    <div class="w-auto inline-block flex justify-center items-center mb-4" wire:ignore>
         <div class="p-2 text-sm text-white break-words flex items-center bg-blue-500">
             <div class="flex items-center justify-center">
                 <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="info-circle" class="w-4 h-4 mr-2 fill-current" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">

@@ -120,7 +120,7 @@
 
         <!-- Total Holidays This Month -->
         <div class="col-span-6 sm:col-span-4">
-            <x-jet-label for="holidays_count" value="{{ __('Total Public Holidays This Month (Excluding Sat/Sun)') }}" />
+            <x-jet-label for="holidays_count" value="{{ __('Total Public Holidays taken this month so far (Excluding Sat/Sun)') }}" />
             <x-jet-input id="holidays_count" type="text" class="mt-1 block w-full" wire:model.defer="state.holidays_count" autocomplete="holidays_count" />
             <x-jet-input-error for="holidays_count" class="mt-2" />
         </div>

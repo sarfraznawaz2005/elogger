@@ -1,6 +1,7 @@
 @props(['style' => session('toast.style', 'info'), 'message' => session('toast.message')])
 
 <div
+     wire:ignore
      style="display: none;"
      x-data="{{ json_encode(['show' => session()->has('toast'), 'style' => $style, 'message' => $message]) }}"
      x-show="show && message"
