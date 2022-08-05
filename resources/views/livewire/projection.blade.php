@@ -26,7 +26,7 @@
             label="Projected"
             value="{{$pValue}}"/>
 
-        <div title="{{$title}}">{!! $icon !!}</div>
+        <div data-title="{{$title}}">{!! $icon !!}</div>
 
     </div>
 

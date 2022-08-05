@@ -2,6 +2,32 @@
 @tailwind components;
 @tailwind utilities;
 
+/* custom css */
+
 [x-cloak] {
     display: none !important;
+}
+
+[data-title]:hover:after {
+    opacity: 1;
+    transition: all 0.1s ease 0.5s;
+    visibility: visible;
+}
+[data-title]:after {
+    content: attr(data-title);
+    position: absolute;
+    bottom: -1.6em;
+    left: 100%;
+    padding: 5px 10px;
+    font-size: 12px;
+    color: #fff;
+    white-space: nowrap;
+    border-radius: 5px;
+    background: #444;
+    opacity: 0;
+    z-index: 99999;
+    visibility: hidden;
+}
+[data-title] {
+    position: relative;
 }
