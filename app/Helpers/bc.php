@@ -274,11 +274,11 @@ function getAllProjects(): array
             foreach ($data['project'] as $xml) {
                 $array = (array)$xml;
 
-                if (isset($array['id'], $array['company'])) {
+                if (isset($array['id'], $array['company']) && $array['status'] === 'active') {
                     $finalData[$array['id']] = ucfirst($array['name']);
                 }
             }
-        } else if (isset($project['id'], $project['company'])) {
+        } else if (isset($project['id'], $project['company']) && $project['status'] === 'active') {
             $finalData[$project['id']] = ucfirst($project['name']);
         }
 
