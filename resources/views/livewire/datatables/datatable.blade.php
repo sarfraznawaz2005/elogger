@@ -1,5 +1,4 @@
 <div>
-    @includeIf($beforeTableSlot)
 
     <div class="relative">
         <div class="flex items-center justify-between mb-1">
@@ -98,7 +97,9 @@
             </div>
         @endif
 
-        <div wire:loading.class="opacity-50" class="rounded-lg @unless($complex || $this->hidePagination) rounded-b-none @endunless border-0 border-t border-l border-r border-gray-200 bg-white max-w-screen border-2 @if($this->activeFilters) border-blue-500 @else border-transparent @endif @if($complex) rounded-b-none border-b-0 @endif">
+        @includeIf($beforeTableSlot)
+
+        <div wire:loading.class="opacity-50" class="rounded-lg mt-4 @unless($complex || $this->hidePagination) rounded-b-none @endunless border-0 border-t border-l border-r border-gray-200 bg-white max-w-screen border-2 @if($this->activeFilters) border-blue-500 @else border-transparent @endif @if($complex) rounded-b-none border-b-0 @endif">
             <div>
                 <div class="table min-w-full align-middle">
                     @unless($this->hideHeader)
