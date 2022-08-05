@@ -45,10 +45,11 @@ class Projection extends Component
         $isHappy = !((round($monthHours) + user()->working_hours_count) < (($workDayCount - user()->holidays_count) * user()->working_hours_count));
 
         $icon = $isHappy ? $happy : $sad;
+        $title = $isHappy ? 'I am happy ;-)' : 'Make me happy please!';
 
         return view(
             'livewire.projection',
-            compact('cValue', 'pValue', 'icon')
+            compact('cValue', 'pValue', 'icon', 'title')
         );
     }
 
