@@ -28,8 +28,6 @@
 
                 <x-jet-button
                     x-on:click="open = true; working = false"
-                    x-on:click.away="open = false"
-                    x-on:keydown.window.escape="open = false"
                     :disabled="!$selectedItems"
                     wire:loading.attr="disabled"
                     class="bg-green-700 hover:bg-green-800">
@@ -50,8 +48,6 @@
 
                     <x-jet-danger-button
                         x-on:click="open = true; working = false"
-                        x-on:click.away="open = false"
-                        x-on:keydown.window.escape="open = false"
                         :disabled="!$selectedItems"
                         wire:loading.attr="disabled"
                         class="bg-red-700 hover:bg-red-800">
@@ -100,8 +96,6 @@
 
                     <x-jet-danger-button
                         x-on:click="open = true; working = false"
-                        x-on:click.away="open = false"
-                        x-on:keydown.window.escape="open = false"
                         wire:loading.attr="disabled"
                         class="bg-red-700 hover:bg-red-800">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24"
