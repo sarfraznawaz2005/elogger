@@ -23,6 +23,18 @@ class Projection extends Component
 
     public function render(): Factory|View|Application
     {
+        $sad = <<< icon
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-9 w-9" fill="#FFF700" viewBox="0 0 24 24" stroke="#A49F03" stroke-width="1.5">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+        icon;
+
+        $happy = <<< icon
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-9 w-9" fill="#FFF700" viewBox="0 0 24 24" stroke="#A49F03" stroke-width="1.5">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M14.828 14.828a4 4 0 01-5.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+        icon;
+
         $monthHours = session('month_hours') === 'none' ? '0.00' : session('month_hours');
         $pendingHours = user()->pendingTodosHoursToday();
         $workDayCount = getWorkingDaysCount();
@@ -30,12 +42,13 @@ class Projection extends Component
         $cValue = round($monthHours + $pendingHours) . '/' . round(($workDayCount - user()->holidays_count) * user()->working_hours_count);
         $pValue = round(($monthHours) + user()->working_hours_count) . '/' . round(($workDayCount - user()->holidays_count) * user()->working_hours_count);
 
-        $currentColor = (round($monthHours + $pendingHours)) < (($workDayCount - user()->holidays_count) * user()->working_hours_count) ? 'blue' : 'green';
-        $projectedColor = (round($monthHours) + user()->working_hours_count) < (($workDayCount - user()->holidays_count) * user()->working_hours_count) ? 'blue' : 'green';
+        $isHappy = !((round($monthHours) + user()->working_hours_count) < (($workDayCount - user()->holidays_count) * user()->working_hours_count));
+
+        $icon = $isHappy ? $happy : $sad;
 
         return view(
             'livewire.projection',
-            compact('cValue', 'pValue', 'currentColor', 'projectedColor')
+            compact('cValue', 'pValue', 'icon')
         );
     }
 
