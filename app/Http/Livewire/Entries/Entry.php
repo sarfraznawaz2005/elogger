@@ -295,7 +295,7 @@ class Entry extends Component
 
                     $posted = 'ok';
                 } else {
-                    $this->success('Todo "' . $todo->description . '" with hours of ' . $hours . ' could not be posted.');
+                    $this->success('Entry "' . $todo->description . '" with hours of ' . $hours . ' could not be posted.');
                 }
 
                 // so that we do not send post request too fast to BC
