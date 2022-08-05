@@ -12,11 +12,13 @@ class IndexDashboard extends Component
 {
     public function render(): Factory|View|Application
     {
-        $workDayCount = getWorkingDaysCount() - user()->holidays_count;
+        //$workDayCount = getWorkingDaysCount() - user()->holidays_count;
+        $workDayCount = getWorkingDaysCount();
         $workDayCountMonth = getWorkingDaysCount(true) - user()->holidays_count;
 
         $workDays = "$workDayCount of $workDayCountMonth";
         $hoursUploaded = session('month_hours') === 'none' ? '0.00' : session('month_hours');
+        $hoursProjected = session('month_hours') + (($workDayCountMonth - $workDayCount) * user()->working_hours_count);
         $hoursTotal = (getWorkingDaysCount(true) - user()->holidays_count) * user()->working_hours_count;
 
         $allUsersHours = [];
@@ -28,7 +30,7 @@ class IndexDashboard extends Component
 
         return view(
             'livewire.dashboard.index',
-            compact('workDays', 'hoursUploaded', 'hoursTotal', 'projects', 'allUsersHours')
+            compact('workDays', 'hoursUploaded', 'hoursProjected', 'hoursTotal', 'projects', 'allUsersHours')
         );
     }
 }

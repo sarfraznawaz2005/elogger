@@ -168,13 +168,14 @@ function getWorkingDaysCount($allMonth = false): int
     $workdays = [];
     $month = date('n'); // Month ID, 1 through to 12.
     $year = date('Y'); // Year in 4 digit 2009 format.
-    $startDate = new DateTime(date('Y-m-1'));
+    //$startDate = new DateTime(date('Y-m-1'));
 
     if ($allMonth) {
-        $days = date('t');
-        $datetime2 = new DateTime(date("Y-m-$days"));
-        $interval = $startDate->diff($datetime2);
-        $day_count = $interval->days; // days from 1st of month to today
+        //$days = date('t');
+        //$datetime2 = new DateTime(date("Y-m-$days"));
+        //$interval = $startDate->diff($datetime2);
+        //$day_count = $interval->days; // days from 1st of month to today
+        $day_count = date('t');
     } else {
         $day_count = date('d');
     }
