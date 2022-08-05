@@ -6,10 +6,7 @@
         {{--<pre>{{$checkedValues}}</pre>--}}
         {{--<pre>{{print_r($selectedItems)}}</pre>--}}
 
-
-
-        <x-label-segmented class="mb-4" color="yellow" label="Selected Total"
-                           value="{{number_format($selectedTotal, 2)}}"/>
+        <x-label-segmented class="mb-4" color="yellow" label="Selected Total" value="{{number_format($selectedTotal, 2)}}"/>
 
         <div class="flex">
 
