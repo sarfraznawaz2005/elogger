@@ -19,6 +19,8 @@ class Entry extends Component
     use InteractsWithModal;
 
     protected $listeners = [
+        'onDuplicateEntry' => 'onDuplicateEntry',
+        'onEditEntry' => 'onEditEntry',
         'edit' => 'edit',
         'duplicate' => 'duplicate',
         'onDeleteEntry' => 'delete',
@@ -33,7 +35,9 @@ class Entry extends Component
     public array $todoLists = [];
     public array $todos = [];
 
+    // others
     public string $timeTotal = '0.00';
+    public bool $loading = false;
 
     protected array $rules = [
         'model.project_id' => 'required',
@@ -84,7 +88,7 @@ class Entry extends Component
             $this->model->todo_id = null;
 
             if ($this->model->project_id) {
-                $this->todoLists = json_decode($this->todoLists($this->model->project_id), true, 512, JSON_THROW_ON_ERROR);
+                $this->todoLists = json_decode($this->fetchTodoLists($this->model->project_id), true, 512, JSON_THROW_ON_ERROR);
             }
         }
 
@@ -93,13 +97,29 @@ class Entry extends Component
             $this->model->todo_id = null;
 
             if ($this->model->todolist_id) {
-                $this->todos = json_decode($this->todos($this->model->todolist_id), true, 512, JSON_THROW_ON_ERROR);
+                $this->todos = json_decode($this->fetchTodos($this->model->todolist_id), true, 512, JSON_THROW_ON_ERROR);
             }
         }
 
         if ($propertyName === 'model.time_start' || $propertyName === 'model.time_end') {
             $this->timeTotal = getBCHoursDiff($this->model->dated, $this->model->time_start, $this->model->time_end);
         }
+    }
+
+    /** @noinspection ALL */
+    public function onDuplicateEntry(Todo $todo): void
+    {
+        $this->loading = true;
+
+        $this->emitSelf('duplicate', $todo);
+    }
+
+    /** @noinspection ALL */
+    public function onEditEntry(Todo $todo): void
+    {
+        $this->loading = true;
+
+        $this->emitSelf('edit', $todo);
     }
 
     public function create(): void
@@ -127,11 +147,13 @@ class Entry extends Component
         $this->model->dated = date('Y-m-d');
         $this->model->time_start = $this->model->time_end = date('H:i');
 
-        $this->todoLists = json_decode($this->todoLists($this->model->project_id), true, 512, JSON_THROW_ON_ERROR);
-        $this->todos = json_decode($this->todos($this->model->todolist_id), true, 512, JSON_THROW_ON_ERROR);
+        $this->todoLists = json_decode($this->fetchTodoLists($this->model->project_id), true, 512, JSON_THROW_ON_ERROR);
+        $this->todos = json_decode($this->fetchTodos($this->model->todolist_id), true, 512, JSON_THROW_ON_ERROR);
 
         $this->clearValidation();
         $this->openModal();
+
+        $this->loading = false;
     }
 
     /**
@@ -141,13 +163,15 @@ class Entry extends Component
     {
         $this->model = $todo;
 
-        $this->todoLists = json_decode($this->todoLists($this->model->project_id), true, 512, JSON_THROW_ON_ERROR);
-        $this->todos = json_decode($this->todos($this->model->todolist_id), true, 512, JSON_THROW_ON_ERROR);
+        $this->todoLists = json_decode($this->fetchTodoLists($this->model->project_id), true, 512, JSON_THROW_ON_ERROR);
+        $this->todos = json_decode($this->fetchTodos($this->model->todolist_id), true, 512, JSON_THROW_ON_ERROR);
 
         $this->timeTotal = getBCHoursDiff($this->model->dated, $this->model->time_start, $this->model->time_end);
 
         $this->clearValidation();
         $this->openModal();
+
+        $this->loading = false;
     }
 
     public function save(): void
@@ -286,7 +310,7 @@ class Entry extends Component
     /**
      * @throws JsonException
      */
-    public function todoLists($projectId): bool|string
+    public function fetchTodoLists($projectId): bool|string
     {
         try {
 
@@ -310,7 +334,7 @@ class Entry extends Component
     /**
      * @throws JsonException
      */
-    public function todos($todolistId): bool|string
+    public function fetchTodos($todolistId): bool|string
     {
         try {
 

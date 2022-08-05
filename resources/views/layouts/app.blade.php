@@ -21,11 +21,11 @@
 </head>
 <body class="font-sans antialiased">
 
-<livewire:refresh/>
-<x-loading/>
+{{--<x-loading/>--}}
 <x-jet-banner/>
 <x-flash/>
 <x-toast/>
+<livewire:refresh/>
 
 <div class="min-h-screen bg-gray-100">
     @livewire('navigation-menu')

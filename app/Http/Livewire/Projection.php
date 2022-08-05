@@ -65,6 +65,7 @@ class Projection extends Component
     public function refresh()
     {
         Data::refreshData();
+        // session()->forget('app');
 
         $this->success('Data Refreshed Successfully!');
 
