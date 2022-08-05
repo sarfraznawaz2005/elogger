@@ -19,13 +19,9 @@ class Entry extends Component
     use InteractsWithModal;
 
     protected $listeners = [
-        'onViewEntry' => 'onViewEntry',
-        'onEditEntry' => 'onEditEntry',
-        'view' => 'view',
         'edit' => 'edit',
-        'onDeleteEntry' => 'delete',
-        'onDuplicateEntry' => 'onDuplicateEntry',
         'duplicate' => 'duplicate',
+        'onDeleteEntry' => 'delete',
         'onDeleteAllPosted' => 'deleteAllPosted',
         'onDeleteSelected' => 'deleteSelected',
         'onUploadSelected' => 'uploadSelected',
@@ -36,8 +32,6 @@ class Entry extends Component
     // data needed on form
     public array $todoLists = [];
     public array $todos = [];
-
-    public bool $disabled = false;
 
     public string $timeTotal = '0.00';
 
@@ -108,61 +102,11 @@ class Entry extends Component
         }
     }
 
-    /** @noinspection ALL */
-    public function onViewEntry(Todo $todo): void
-    {
-        $this->disabled = true;
-
-        $this->emitSelf('view', $todo);
-    }
-
-    public function onEditEntry(Todo $todo): void
-    {
-        $this->disabled = false;
-
-        $this->emitSelf('edit', $todo);
-    }
-
-    /** @noinspection ALL */
-    public function onDuplicateEntry(Todo $todo): void
-    {
-        $this->disabled = false;
-
-        $this->emitSelf('duplicate', $todo);
-    }
-
     public function create(): void
     {
-        $this->disabled = false;
-
         $this->model = new Todo();
         $this->model->dated = date('Y-m-d');
         $this->model->time_start = $this->model->time_end = date('H:i');
-
-        $this->clearValidation();
-        $this->openModal();
-    }
-
-    /**
-     * @throws JsonException
-     */
-    public function view(Todo $todo): void
-    {
-        // because we have disabled fields using $disabled attribute
-        $this->edit($todo);
-    }
-
-    /**
-     * @throws JsonException
-     */
-    public function edit(Todo $todo): void
-    {
-        $this->model = $todo;
-
-        $this->todoLists = json_decode($this->todoLists($this->model->project_id), true, 512, JSON_THROW_ON_ERROR);
-        $this->todos = json_decode($this->todos($this->model->todolist_id), true, 512, JSON_THROW_ON_ERROR);
-
-        $this->timeTotal = getBCHoursDiff($this->model->dated, $this->model->time_start, $this->model->time_end);
 
         $this->clearValidation();
         $this->openModal();
@@ -185,6 +129,22 @@ class Entry extends Component
 
         $this->todoLists = json_decode($this->todoLists($this->model->project_id), true, 512, JSON_THROW_ON_ERROR);
         $this->todos = json_decode($this->todos($this->model->todolist_id), true, 512, JSON_THROW_ON_ERROR);
+
+        $this->clearValidation();
+        $this->openModal();
+    }
+
+    /**
+     * @throws JsonException
+     */
+    public function edit(Todo $todo): void
+    {
+        $this->model = $todo;
+
+        $this->todoLists = json_decode($this->todoLists($this->model->project_id), true, 512, JSON_THROW_ON_ERROR);
+        $this->todos = json_decode($this->todos($this->model->todolist_id), true, 512, JSON_THROW_ON_ERROR);
+
+        $this->timeTotal = getBCHoursDiff($this->model->dated, $this->model->time_start, $this->model->time_end);
 
         $this->clearValidation();
         $this->openModal();
