@@ -293,7 +293,7 @@ function getProjectTodoLists($projectId): array
 {
     $finalData = [];
 
-    $data = getInfo("projects/$projectId/todo_lists");
+    $data = getInfo("projects/$projectId/todo_lists", '?filter=pending');
 
     if (isset($data['todo-list'])) {
 
@@ -330,12 +330,14 @@ function getTodoListTodos($todolistId): array
         $entry = (array)$data['todo-item'];
 
         if (isset($entry['id'], $entry['name'])) {
-            $finalData[$entry['id']] = ucfirst($entry['content']);
+            if ($entry['completed'] !== 'true') {
+                $finalData[$entry['id']] = ucfirst($entry['content']);
+            }
         } else {
             foreach ($data['todo-item'] as $xml) {
                 $array = (array)$xml;
 
-                if (isset($array['id'])) {
+                if (isset($array['id']) && $array['completed'] !== 'true') {
                     $finalData[$array['id']] = ucfirst($array['content']);
                 }
             }
