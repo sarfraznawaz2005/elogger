@@ -1,6 +1,9 @@
 <div class="bg-white overflow-hidden shadow-md sm:rounded-lg p-4">
 
     <div class="overflow-x-auto relative">
+
+        <strong class="text-gray-600">Project Wise Hours Distribution</strong>
+
         <table class="w-full text-sm text-left text-gray-500">
             <thead class="text-xs text-gray-700 uppercase bg-gray-200">
             <tr>
@@ -43,7 +46,11 @@
     <br><br>
 
     <div id="piechart"></div>
-    <div id="linechart"></div>
+    <br>
+
+    <x-panel title="All Users Hours Chart">
+        <div id="linechart"></div>
+    </x-panel>
 
 </div>
 
@@ -125,7 +132,7 @@
             // Optional; add a title and set the width and height of the chart
             const options = {
                 "legend": "none",
-                "title": "All Users Hours",
+                "title": "",
                 "vAxis": {title: "Hours"},
                 "hAxis": {title: "User", "minValue": 1, "maxValue": 5},
                 "width": "100%",

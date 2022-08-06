@@ -38,9 +38,7 @@
                 <x-stats-checker/>
             </div>
 
-            <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 bg-gray-200 py-8 rounded-lg">
-                {{ $slot }}
-            </div>
+            {{ $slot }}
         </div>
     </main>
 

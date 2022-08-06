@@ -6,7 +6,7 @@
     </x-slot>
 
     <div>
-        <div class="max-w-7xl mx-auto">
+        <x-panel title="Settings">
             @if (Laravel\Fortify\Features::canUpdateProfileInformation())
                 @livewire('profile.update-profile-information-form')
 
@@ -40,6 +40,6 @@
                     @livewire('profile.delete-user-form')
                 </div>
             @endif
-        </div>
+        </x-panel>
     </div>
 </x-app-layout>
