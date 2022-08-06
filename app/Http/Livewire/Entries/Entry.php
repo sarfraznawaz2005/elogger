@@ -26,6 +26,7 @@ class Entry extends Component
         'onDeleteAllPosted' => 'deleteAllPosted',
         'onDeleteSelected' => 'deleteSelected',
         'onUploadSelected' => 'uploadSelected',
+        'onDeleteFromBasecamp' => 'deleteFromBasecamp',
     ];
 
     public Todo $model;
@@ -120,6 +121,14 @@ class Entry extends Component
         $this->loading = true;
 
         $this->emitSelf('edit', $todo);
+    }
+
+    /** @noinspection ALL */
+    public function onDeleteFromBasecamp(Todo $todo): void
+    {
+        $this->loading = true;
+
+        $this->emitSelf('deleteFromBasecamp', $todo);
     }
 
     public function create(): void
@@ -281,12 +290,19 @@ class Entry extends Component
                 data;
 
                 // send to basecamp
-                $responseHeader = postInfo($action, $xmlData);
-                //echo $responseHeader;exit;
+                $response = postInfo($action, $xmlData);
 
                 // check to see if it was posted successfully to BC
-                if (Str::contains($responseHeader, 'Created') || Str::contains($responseHeader, '201')) {
-                    // update to do status
+                if ($response && $response['code'] === 201) {
+
+                    // get created item id
+                    $timeEntryId = getResourceCreatedId($response['content']);
+
+                    // update entry with basecamp item id
+                    if ($timeEntryId) {
+                        $todo->time_id = $timeEntryId;
+                    }
+
                     $todo->status = 'posted';
                     $todo->save();
 
@@ -310,6 +326,32 @@ class Entry extends Component
             $this->success('Selected Entries Uploaded Successfully!');
         }
     }
+
+    /** @noinspection ALL */
+    public function deleteFromBasecamp(Todo $todo): void
+    {
+        if (!$todo->time_id) {
+            $this->danger('This Entry Cannot Be Deleted From Basecamp!');
+            return;
+        }
+
+        $responseCode = deleteResource("time_entries/" . $todo->time_id);
+
+        if ($responseCode !== 200) {
+            $this->danger('Entry Could Not Be Deleted From Basecamp!');
+            return;
+        }
+
+        if ($todo->delete()) {
+            $this->emit('refreshLivewireDatatable');
+            $this->emit('event-entries-updated');
+
+            $this->success('Entry Deleted Successfully!');
+        }
+
+        $this->loading = false;
+    }
+
 
     /**
      * @throws JsonException

@@ -17,6 +17,7 @@ class Todo extends Model
         'time_end',
         'description',
         'status',
+        'time_id',
     ];
 
     /**

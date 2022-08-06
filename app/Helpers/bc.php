@@ -31,9 +31,9 @@ function getInfo($action, string $queryString = ''): array|string
     curl_setopt($session, CURLOPT_HTTPGET, 1);
     curl_setopt($session, CURLOPT_HEADER, false);
     curl_setopt($session, CURLOPT_USERAGENT, 'eteamid.basecamphq.com (sarfraz@eteamid.com)');
+    curl_setopt($session, CURLOPT_USERPWD, apiKey() . ":X");
     curl_setopt($session, CURLOPT_HTTPHEADER, ['Accept: application/xml', 'Content-Type: application/xml']);
     curl_setopt($session, CURLOPT_RETURNTRANSFER, true);
-    curl_setopt($session, CURLOPT_USERPWD, apiKey() . ":X");
     curl_setopt($session, CURLOPT_SSL_VERIFYPEER, true);
 
     $response = curl_exec($session);
@@ -51,13 +51,12 @@ function getInfo($action, string $queryString = ''): array|string
     return $response;
 }
 
-function postInfo($action, $xmlData): bool|string
+function postInfo($action, $xmlData): array|bool
 {
+    /** @noinspection ALL */
     if (!credentialsOk()) {
-        return '';
+        return false;
     }
-
-    @unlink('headers');
 
     $url = 'https://' . companyName() . '.basecamphq.com/' . $action;
 
@@ -65,26 +64,64 @@ function postInfo($action, $xmlData): bool|string
     curl_setopt($session, CURLOPT_URL, $url);
     curl_setopt($session, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
     curl_setopt($session, CURLOPT_USERAGENT, 'eteamid.basecamphq.com (sarfraz@eteamid.com)');
-    curl_setopt($session, CURLOPT_HTTPHEADER, ['Accept: application/xml', 'Content-Type: application/xml']);
-    curl_setopt($session, CURLOPT_RETURNTRANSFER, true);
     curl_setopt($session, CURLOPT_USERPWD, apiKey() . ":X");
+    curl_setopt($session, CURLOPT_HTTPHEADER, ['Accept: application/xml', 'Content-Type: application/xml']);
+    curl_setopt($session, CURLOPT_FOLLOWLOCATION, false);
+    curl_setopt($session, CURLOPT_RETURNTRANSFER, true);
     curl_setopt($session, CURLOPT_SSL_VERIFYPEER, true);
-    curl_setopt($session, CURLOPT_CUSTOMREQUEST, "POST");
+    curl_setopt($session, CURLOPT_HEADER, true);
+    curl_setopt($session, CURLOPT_POST, true);
     curl_setopt($session, CURLOPT_POSTFIELDS, $xmlData);
-    //curl_setopt($session, CURLOPT_HEADERFUNCTION, "HandleHeaderLine");
+
+    $data = curl_exec($session);
+
+    curl_close($session);
+
+    return [
+        'code' => curl_getinfo($session, CURLINFO_HTTP_CODE),
+        'content' => $data
+    ];
+}
+
+function deleteResource($action): int|bool
+{
+    /** @noinspection ALL */
+    if (!credentialsOk()) {
+        return false;
+    }
+
+    $url = 'https://' . companyName() . '.basecamphq.com/' . $action;
+
+    $session = curl_init();
+    curl_setopt($session, CURLOPT_URL, $url);
+    curl_setopt($session, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
+    curl_setopt($session, CURLOPT_USERAGENT, 'eteamid.basecamphq.com (sarfraz@eteamid.com)');
+    curl_setopt($session, CURLOPT_USERPWD, apiKey() . ":X");
+    curl_setopt($session, CURLOPT_HTTPHEADER, ['Accept: application/xml', 'Content-Type: application/xml']);
+    curl_setopt($session, CURLOPT_FOLLOWLOCATION, false);
+    curl_setopt($session, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($session, CURLOPT_SSL_VERIFYPEER, true);
+    curl_setopt($session, CURLOPT_HEADER, false);
+    curl_setopt($session, CURLOPT_POST, true);
+    curl_setopt($session, CURLOPT_CUSTOMREQUEST, 'DELETE');
 
     curl_exec($session);
     curl_close($session);
 
-    return file_get_contents('headers');
+    return curl_getinfo($session, CURLINFO_HTTP_CODE);
 }
 
-/** @noinspection ALL */
-function HandleHeaderLine($curl, $header_line)
+function getResourceCreatedId($content): array|string|null
 {
-    file_put_contents('headers', $header_line);
+    preg_match('#location: .+#', $content, $matches);
 
-    return $header_line;
+    if (isset($matches[0])) {
+        $id = @array_slice(explode('/', $matches[0]), -1)[0];
+
+        return preg_replace('/\D/', '', $id);
+    }
+
+    return '';
 }
 
 function companyName()
