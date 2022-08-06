@@ -7,7 +7,7 @@
     ?>
 
     <x-status-modal wire:model="loading">
-        Loading...
+        {{$loadingMessage}}
     </x-status-modal>
 
     <x-jet-button

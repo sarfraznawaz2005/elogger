@@ -25,8 +25,10 @@ class Entry extends Component
         'onDeleteEntry' => 'delete',
         'onDeleteAllPosted' => 'deleteAllPosted',
         'onDeleteSelected' => 'deleteSelected',
-        'onUploadSelected' => 'uploadSelected',
-        'onDeleteFromBasecamp' => 'deleteFromBasecamp',
+        'onUploadSelected' => 'onUploadSelected',
+        'uploadSelected' => 'uploadSelected',
+        'onDeleteFromBasecamp' => 'onDeleteFromBasecamp',
+        'deleteFromBasecamp' => 'deleteFromBasecamp',
     ];
 
     public Todo $model;
@@ -37,7 +39,10 @@ class Entry extends Component
 
     // others
     public string $timeTotal = '0.00';
+
     public bool $loading = false;
+    public string $loadingMessage = 'Loading...';
+
     public string $modalTitle = 'Time Entry';
 
     protected array $rules = [
@@ -63,6 +68,7 @@ class Entry extends Component
 
     public function booted(): void
     {
+        $this->loadingMessage = 'Loading...';
         $this->timeTotal = '0.00';
     }
 
@@ -124,8 +130,18 @@ class Entry extends Component
     }
 
     /** @noinspection ALL */
+    public function onUploadSelected($ids): void
+    {
+        $this->loadingMessage = 'Please wait...';
+        $this->loading = true;
+
+        $this->emitSelf('uploadSelected', $ids);
+    }
+
+    /** @noinspection ALL */
     public function onDeleteFromBasecamp(Todo $todo): void
     {
+        $this->loadingMessage = 'Please wait...';
         $this->loading = true;
 
         $this->emitSelf('deleteFromBasecamp', $todo);
@@ -322,6 +338,8 @@ class Entry extends Component
 
             $this->emit('refreshLivewireDatatable');
             $this->emit('event-entries-updated');
+
+            $this->loading = false;
 
             $this->success('Selected Entries Uploaded Successfully!');
         }
