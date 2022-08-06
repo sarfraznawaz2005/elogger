@@ -2,7 +2,6 @@
 
 namespace App\Http\Livewire;
 
-use App\Services\Data;
 use App\Traits\InteractsWithFlash;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
@@ -35,7 +34,7 @@ class Projection extends Component
             </svg>
         icon;
 
-        $monthHours = session('month_hours') === 'none' ? '0.00' : session('month_hours');
+        $monthHours = monthHoursUploaded();
         $pendingHours = user()->pendingTodosHoursToday();
         $workDayCount = getWorkingDaysCount();
 
@@ -64,7 +63,7 @@ class Projection extends Component
     /** @noinspection ALL */
     public function refresh()
     {
-        Data::refreshData();
+        refreshData();
         // session()->forget('app');
 
         $this->success('Data Refreshed Successfully!');

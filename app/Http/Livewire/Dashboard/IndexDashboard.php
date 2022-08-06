@@ -2,7 +2,6 @@
 
 namespace App\Http\Livewire\Dashboard;
 
-use App\Services\Data;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
@@ -14,15 +13,15 @@ class IndexDashboard extends Component
     {
         //$workDayCount = getWorkingDaysCount() - user()->holidays_count;
         $workDayCount = getWorkingDaysCount();
-        $workDayCountMonth = getWorkingDaysCount(true) - user()->holidays_count;
+        $workDayCountMonth = workDayCountMonth();
 
         $workDays = "$workDayCount of $workDayCountMonth";
-        $hoursUploaded = session('month_hours') === 'none' ? '0.00' : session('month_hours');
-        $hoursProjected = session('month_hours') + (($workDayCountMonth - $workDayCount) * user()->working_hours_count);
-        $hoursTotal = (getWorkingDaysCount(true) - user()->holidays_count) * user()->working_hours_count;
+        $hoursUploaded = monthHoursUploaded();
+        $hoursProjected = monthProjectedHours($workDayCount, $workDayCountMonth);
+        $hoursTotal = workMonthRequiredHours($workDayCountMonth);
 
         $allUsersHours = [];
-        $projects = collect(Data::getUserProjectlyHours())->sortByDesc('hours');
+        $projects = collect(getUserProjectlyHours())->sortByDesc('hours');
 
         if (session('all_users_hours') && user()->isAdmin()) {
             $allUsersHours = session('all_users_hours');

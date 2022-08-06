@@ -20,6 +20,12 @@
                     <x-jet-nav-link href="{{ route('entries') }}" :active="request()->routeIs('entries')">
                         {{ __('Time Entry') }}
                     </x-jet-nav-link>
+
+                    @if (user()->isAdmin())
+                        <x-jet-nav-link href="{{ route('users') }}" :active="request()->routeIs('users')">
+                            {{ __('Users') }}
+                        </x-jet-nav-link>
+                    @endif
                 </div>
 
             </div>
@@ -173,6 +179,12 @@
             <x-jet-responsive-nav-link href="{{ route('entries') }}" :active="request()->routeIs('entries')">
                 {{ __('Time Entry') }}
             </x-jet-responsive-nav-link>
+
+            @if (user()->isAdmin())
+                <x-jet-responsive-nav-link href="{{ route('users') }}" :active="request()->routeIs('users')">
+                    {{ __('Users') }}
+                </x-jet-responsive-nav-link>
+            @endif
         </div>
 
         <!-- Responsive Settings Options -->

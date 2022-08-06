@@ -3,7 +3,6 @@
 namespace App\Http\Livewire\Entries;
 
 use App\Models\Todo;
-use App\Services\Data;
 use App\Traits\InteractsWithModal;
 use App\Traits\InteractsWithToast;
 use Illuminate\Contracts\Foundation\Application;
@@ -304,7 +303,7 @@ class Entry extends Component
         });
 
         if ($posted === 'ok') {
-            $monthHours = Data::getUserMonthlyHours();
+            $monthHours = getUserMonthlyHours();
             session(['month_hours' => $monthHours]);
 
             $this->emit('refreshLivewireDatatable');

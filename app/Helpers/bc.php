@@ -10,19 +10,6 @@
  *
  */
 
-use App\Models\User;
-use Carbon\Carbon;
-use Illuminate\Contracts\Auth\Authenticatable;
-
-/**
- * Returns instance of logged in user.
- *
- * @return Authenticatable|User
- */
-function user(): User|Authenticatable
-{
-    return auth()->user();
-}
 
 /**
  * Get's info from basecamp
@@ -92,6 +79,7 @@ function postInfo($action, $xmlData): bool|string
     return file_get_contents('headers');
 }
 
+/** @noinspection ALL */
 function HandleHeaderLine($curl, $header_line)
 {
     file_put_contents('headers', $header_line);
@@ -119,9 +107,12 @@ function credentialsOk(): bool
     return !(!trim(companyName()) || !trim(apiKey()) || !trim(bcUserId()));
 }
 
-##############################################################
-## DATA FUNCTIONS
-##############################################################
+function checkConnection($bcUserId): bool
+{
+    $name = getPersonName($bcUserId);
+
+    return (bool)$name;
+}
 
 function getWorkedHoursData($bcUserId = 0): array|string
 {
@@ -161,38 +152,6 @@ function getTotalWorkedHoursThisMonth($bcUserId = 0): int|string
     }
 
     return $hours;
-}
-
-function getWorkingDaysCount($allMonth = false): int
-{
-    $workdays = [];
-    $month = date('n'); // Month ID, 1 through to 12.
-    $year = date('Y'); // Year in 4 digit 2009 format.
-    //$startDate = new DateTime(date('Y-m-1'));
-
-    if ($allMonth) {
-        //$days = date('t');
-        //$datetime2 = new DateTime(date("Y-m-$days"));
-        //$interval = $startDate->diff($datetime2);
-        //$day_count = $interval->days; // days from 1st of month to today
-        $day_count = date('t');
-    } else {
-        $day_count = date('d');
-    }
-
-    //loop through all days
-    for ($i = 1; $i <= $day_count; $i++) {
-        $date = $year . '/' . $month . '/' . $i; //format date
-        $get_name = date('l', strtotime($date)); //get week day
-        $day_name = substr($get_name, 0, 3); // Trim day name to 3 chars
-
-        //if not a weekend add day to array
-        if ($day_name !== 'Sun' && $day_name !== 'Sat') {
-            $workdays[] = $i;
-        }
-    }
-
-    return count($workdays);
 }
 
 function getTotalWorkedHoursThisMonthAllProjects($bcUserId = 0): array
@@ -247,6 +206,7 @@ function getPersonName($id)
     return $data['first-name'] ?? '';
 }
 
+/** @noinspection ALL */
 function getTodoListName($id)
 {
     $data = getInfo("todo_lists/$id");
@@ -350,16 +310,42 @@ function getTodoListTodos($todolistId): array
     return $finalData;
 }
 
-function getBCHoursDiff($date, $startTime, $endTime, $returnNegative = false): string
+function getAllUsers(array $excludedUserIds = []): array
 {
-    $sTime = Carbon::parse($date . ' ' . $startTime);
-    $eTime = Carbon::parse($date . ' ' . $endTime);
+    $finalData = [];
 
-    $diffInMinutes = $sTime->diffInMinutes($eTime, false);
+    $data = getInfo("people");
 
-    if ($diffInMinutes < 0 && !$returnNegative) {
-        return number_format(0, 2);
+    if (isset($data['person'])) {
+
+        // for when single record is returned
+        $entry = (array)$data['person'];
+
+        if (isset($entry['id'], $entry['first-name'])) {
+            $finalData[$entry['id']] = ucfirst($entry['first-name']) . ' ' . ucfirst($entry['last-name']);
+        } else {
+            foreach ($data['person'] as $xml) {
+                $array = (array)$xml;
+
+                // consider only company employees
+                if ($array['company-id'] !== user()->basecamp_org_id) {
+                    continue;
+                }
+
+                if (isset($array['first-name'])) {
+
+                    if ($excludedUserIds && in_array($array['id'], $excludedUserIds, true)) {
+                        continue;
+                    }
+
+                    $finalData[$array['id']] = ucfirst($array['first-name']) . ' ' . ucfirst($array['last-name']);
+                }
+            }
+        }
     }
 
-    return number_format($diffInMinutes / 60, 2);
+    asort($finalData);
+
+    return $finalData;
 }
+

@@ -2,7 +2,6 @@
 
 namespace App\Http\Livewire;
 
-use App\Services\Data;
 use App\Traits\InteractsWithFlash;
 use Livewire\Component;
 
@@ -32,7 +31,7 @@ class Refresh extends Component
     public function refresh()
     {
         if (!session('month_hours')) {
-            Data::refreshData();
+            refreshData();
 
             $this->success('Data Refreshed Successfully!');
 
