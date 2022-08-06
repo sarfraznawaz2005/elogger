@@ -2,8 +2,6 @@
 
     <div class="overflow-x-auto relative">
 
-        <strong class="text-gray-600">Project Wise Hours Distribution</strong>
-
         <table class="w-full text-sm text-left text-gray-500">
             <thead class="text-xs text-gray-700 uppercase bg-gray-200">
             <tr>
@@ -43,88 +41,65 @@
         </table>
 
     </div>
-    <br><br>
-
-    <div id="piechart"></div>
     <br>
 
+    <x-panel title="Project Wise Distribution Chart">
+        <div id="projects_chart" class="flex"></div>
+    </x-panel>
+
     <x-panel title="All Users Hours Chart">
-        <div id="linechart"></div>
+        <div id="users_chart" class="flex"></div>
     </x-panel>
 
 </div>
 
-@push('css')
-    @if(count($projects))
-        <style>
-            #piechart {
-                width: 600px;
-                height: 400px;
-                margin-left: 175px !important;
-            }
-
-            /*   make google charts responsie  */
-            @media only screen and (max-width: 600px) {
-                #piechart {
-                    width: 100%;
-                    height: auto;
-                    margin-left: 0 !important;
-                }
-            }
-        </style>
-    @endif
-@endpush
-
 <script src="/js/charts.js"></script>
+
+<script>
+    google.charts.load('current', {'packages': ['corechart']});
+</script>
 
 @if (count($projects))
     <script>
-        // Load google charts
-        google.charts.load('current', {'packages': ['corechart']});
-        google.charts.setOnLoadCallback(drawPieChart);
-
-        function drawPieChart() {
+        google.charts.setOnLoadCallback(function () {
             const data = google.visualization.arrayToDataTable([
-                ['Project', 'Hours'],
+                ['Person', 'Hours', {role: 'style'}],
                 <?php
-                foreach ($projects as $project) {
-                    echo "['$project[project_name]', $project[hours]],\n";
+                $color = substr(md5(mt_rand()), 0, 6);
+
+                foreach ($projects as $index => $project) {
+                    $color = substr(md5($index + mt_rand()), 0, 6);
+                    echo "['$project[project_name]', $project[hours], '$color'],\n";
                 }
                 ?>
             ]);
 
             // Optional; add a title and set the width and height of the chart
             const options = {
-                'title': 'Project Wise Hours Distribution',
-                'width': '30%',
-                'height': '30%',
-                'legend': 'left',
-                'chartArea': {
-                    left: "0",
-                    top: "0",
-                    height: "100%",
-                    width: "100%"
-                }
+                "legend": "top",
+                "title": "",
+                "pieHole": 0.4,
+                "vAxis": {title: "Hours"},
+                "hAxis": {title: "Project", "minValue": 1, "maxValue": 5},
+                "height": 500
             };
 
             // Display the chart inside the <div> element with id="piechart"
-            const chart = new google.visualization.PieChart(document.getElementById('piechart'));
+            const chart = new google.visualization.PieChart(document.querySelector('#projects_chart'));
             chart.draw(data, options);
-        }
+        });
     </script>
 @endif
 
 @if (count($allUsersHours))
     <script>
-        // Load google charts
-        google.charts.load('current', {'packages': ['corechart']});
-
         google.charts.setOnLoadCallback(function () {
             const data = google.visualization.arrayToDataTable([
                 ['Person', 'Hours', {role: 'style'}],
                 <?php
-                foreach ($allUsersHours as $user) {
-                    echo "['$user[name]', $user[hours], '$user[color]'],\n";
+                foreach ($allUsersHours as $index => $user) {
+                    $color = substr(md5($index + mt_rand()), 0, 6);
+                    echo "['$user[name]', $user[hours], '$color'],\n";
                 }
                 ?>
             ]);
@@ -135,14 +110,12 @@
                 "title": "",
                 "vAxis": {title: "Hours"},
                 "hAxis": {title: "User", "minValue": 1, "maxValue": 5},
-                "width": "100%",
                 "height": 500
             };
 
             // Display the chart inside the <div> element with id="piechart"
-            const chart = new google.visualization.ColumnChart(document.getElementById('linechart'));
+            const chart = new google.visualization.ColumnChart(document.querySelector('#users_chart'));
             chart.draw(data, options);
         });
-
     </script>
 @endif
