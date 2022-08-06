@@ -243,10 +243,9 @@ class Entry extends Component
         }
     }
 
-    /** @noinspection ALL */
     public function deleteSelected($ids): void
     {
-        if (Todo::whereIn('id', $ids)->delete()) {
+        if (Todo::query()->whereIn('id', $ids)->delete()) {
             $this->emit('refreshLivewireDatatable');
             $this->emit('event-entries-updated');
 
@@ -262,8 +261,7 @@ class Entry extends Component
 
         $posted = '';
 
-        /** @noinspection ALL */
-        Todo::whereIn('id', $ids)->chunk(50, function ($todos) use (&$posted) {
+        Todo::query()->whereIn('id', $ids)->chunk(50, function ($todos) use (&$posted) {
             foreach ($todos as $todo) {
                 $personId = user()->basecamp_api_user_id;
                 $hours = getBCHoursDiff($todo->dated, $todo->time_start, $todo->time_end);

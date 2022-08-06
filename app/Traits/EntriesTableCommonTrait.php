@@ -92,8 +92,7 @@ trait EntriesTableCommonTrait
     {
         $hours = 0;
 
-        /** @noinspection ALL */
-        $todos = Todo::whereIn('id', $this->selectedItems)->get();
+        $todos = Todo::query()->whereIn('id', $this->selectedItems)->get();
 
         foreach ($todos as $todo) {
             $diff = (float)getBCHoursDiff($todo->dated, $todo->time_start, $todo->time_end);

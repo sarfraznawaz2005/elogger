@@ -9,7 +9,6 @@ use Mediconesystems\LivewireDatatables\Http\Livewire\LivewireDatatable;
 use Mediconesystems\LivewireDatatables\NumberColumn;
 
 /** @noinspection ALL */
-
 class UsersDataTable extends LivewireDatatable
 {
     public $model = User::class;
