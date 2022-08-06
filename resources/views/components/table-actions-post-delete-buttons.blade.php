@@ -9,21 +9,21 @@
         <div class="flex w-full justify-between">
 
             <div class="flex items-center justify-start">
-                <div class="flex items-center mr-4 py-2 px-4 rounded border border-gray-300 bg-gray-200 justify-between">
+                <div class="flex items-center mr-2 py-2 px-4 rounded border border-gray-300 bg-white justify-between">
                     <input id="select-all-checkbox"
                            type="checkbox"
-                           class="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:outline-none">
+                           class="w-4 h-4 focus:outline-none">
 
                     <label for="select-all-checkbox"
-                           class="ml-2 text-sm font-medium text-gray-900 select-none uppercase">
+                           class="ml-2 text-sm font-medium text-gray-900 select-none">
                         Select All
                     </label>
                 </div>
 
                 <div class="inline-flex items-center pl-2 text-sm font-medium text-center bg-yellow-200 border-yellow-500 mr-2">
                     Selected Total
-                    <div class="inline-flex justify-center items-center ml-1 p-2.5 text-gray-800 text-sm font-bold bg-yellow-400">
-                        {{number_format($selectedTotal, 2)}}}
+                    <div class="inline-flex justify-center items-center ml-1 p-2 text-gray-800 text-sm font-bold bg-yellow-400">
+                        {{number_format($selectedTotal, 2)}}
                     </div>
                 </div>
 

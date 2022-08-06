@@ -27,12 +27,16 @@
     </div>
 
     <div id="tabContent">
-        <div x-show="tab === 1" id="pendingTable" class="p-4 bg-gray-50 rounded-lg animate-in fade-in duration-500">
-            <livewire:data-tables.pending-entries-data-table />
+        <div x-show="tab === 1" id="pendingTable" class="p-4 rounded-lg animate-in fade-in duration-500">
+            <x-panel>
+                <livewire:data-tables.pending-entries-data-table />
+            </x-panel>
         </div>
 
         <div x-show="tab === 2" id="postedTable" class="p-4 bg-gray-50 rounded-lg animate-in fade-in duration-500">
-            <livewire:data-tables.posted-entries-data-table />
+            <x-panel>
+                <livewire:data-tables.posted-entries-data-table />
+            </x-panel>
         </div>
     </div>
 
