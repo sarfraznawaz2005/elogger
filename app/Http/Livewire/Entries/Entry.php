@@ -327,7 +327,8 @@ class Entry extends Component
                     $this->danger('Entry "' . $todo->description . '" with hours of ' . $hours . ' could not be posted.');
                 }
 
-                // so that we do not send post request too fast to BC
+                // So that we do not send post request too fast to BC
+                // 10 post requests per second is the limit
                 sleep(1);
             }
         });
