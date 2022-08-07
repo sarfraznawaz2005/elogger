@@ -3,7 +3,7 @@
 <div class="max-w-7xl mx-auto p-0 border-0 m-0 mb-4">
 
     @if (isset($title))
-    <div class="bg-{{$color}}-300 text-gray-500 py-3 px-6 font-bold rounded-t-lg">
+    <div class="bg-{{$color}}-300 text-gray-600 py-3 px-6 font-bold rounded-t-lg">
         {{$title}}
     </div>
     @endif
