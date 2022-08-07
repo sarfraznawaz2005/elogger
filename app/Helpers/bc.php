@@ -11,6 +11,23 @@
  */
 
 
+function getCurlInstance(): CurlHandle|bool
+{
+    $email = auth()->check() ? user()->email : 'riaz@eteamid.com';
+
+    $session = curl_init();
+
+    curl_setopt($session, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
+    curl_setopt($session, CURLOPT_USERAGENT, "eteamid.basecamphq.com ($email)");
+    curl_setopt($session, CURLOPT_USERPWD, apiKey() . ":X");
+    curl_setopt($session, CURLOPT_HTTPHEADER, ['Accept: application/xml', 'Content-Type: application/xml']);
+    curl_setopt($session, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($session, CURLOPT_SSL_VERIFYPEER, true);
+    curl_setopt($session, CURLOPT_FOLLOWLOCATION, false);
+
+    return $session;
+}
+
 /**
  * Get's info from basecamp
  * @param $action
@@ -25,16 +42,10 @@ function getInfo($action, string $queryString = ''): array|string
 
     $url = 'https://' . companyName() . '.basecamphq.com/' . $action . '/' . $queryString;
 
-    $session = curl_init();
+    $session = getCurlInstance();
     curl_setopt($session, CURLOPT_URL, $url);
-    curl_setopt($session, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
-    curl_setopt($session, CURLOPT_HTTPGET, 1);
+    curl_setopt($session, CURLOPT_HTTPGET, true);
     curl_setopt($session, CURLOPT_HEADER, false);
-    curl_setopt($session, CURLOPT_USERAGENT, 'eteamid.basecamphq.com (sarfraz@eteamid.com)');
-    curl_setopt($session, CURLOPT_USERPWD, apiKey() . ":X");
-    curl_setopt($session, CURLOPT_HTTPHEADER, ['Accept: application/xml', 'Content-Type: application/xml']);
-    curl_setopt($session, CURLOPT_RETURNTRANSFER, true);
-    curl_setopt($session, CURLOPT_SSL_VERIFYPEER, true);
 
     $response = curl_exec($session);
     curl_close($session);
@@ -53,22 +64,14 @@ function getInfo($action, string $queryString = ''): array|string
 
 function postInfo($action, $xmlData): array|bool
 {
-    /** @noinspection ALL */
     if (!credentialsOk()) {
         return false;
     }
 
     $url = 'https://' . companyName() . '.basecamphq.com/' . $action;
 
-    $session = curl_init();
+    $session = getCurlInstance();
     curl_setopt($session, CURLOPT_URL, $url);
-    curl_setopt($session, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
-    curl_setopt($session, CURLOPT_USERAGENT, 'eteamid.basecamphq.com (sarfraz@eteamid.com)');
-    curl_setopt($session, CURLOPT_USERPWD, apiKey() . ":X");
-    curl_setopt($session, CURLOPT_HTTPHEADER, ['Accept: application/xml', 'Content-Type: application/xml']);
-    curl_setopt($session, CURLOPT_FOLLOWLOCATION, false);
-    curl_setopt($session, CURLOPT_RETURNTRANSFER, true);
-    curl_setopt($session, CURLOPT_SSL_VERIFYPEER, true);
     curl_setopt($session, CURLOPT_HEADER, true);
     curl_setopt($session, CURLOPT_POST, true);
     curl_setopt($session, CURLOPT_POSTFIELDS, $xmlData);
@@ -85,22 +88,14 @@ function postInfo($action, $xmlData): array|bool
 
 function deleteResource($action): int|bool
 {
-    /** @noinspection ALL */
     if (!credentialsOk()) {
         return false;
     }
 
     $url = 'https://' . companyName() . '.basecamphq.com/' . $action;
 
-    $session = curl_init();
+    $session = getCurlInstance();
     curl_setopt($session, CURLOPT_URL, $url);
-    curl_setopt($session, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
-    curl_setopt($session, CURLOPT_USERAGENT, 'eteamid.basecamphq.com (sarfraz@eteamid.com)');
-    curl_setopt($session, CURLOPT_USERPWD, apiKey() . ":X");
-    curl_setopt($session, CURLOPT_HTTPHEADER, ['Accept: application/xml', 'Content-Type: application/xml']);
-    curl_setopt($session, CURLOPT_FOLLOWLOCATION, false);
-    curl_setopt($session, CURLOPT_RETURNTRANSFER, true);
-    curl_setopt($session, CURLOPT_SSL_VERIFYPEER, true);
     curl_setopt($session, CURLOPT_HEADER, false);
     curl_setopt($session, CURLOPT_POST, true);
     curl_setopt($session, CURLOPT_CUSTOMREQUEST, 'DELETE');
@@ -144,11 +139,11 @@ function credentialsOk(): bool
     return !(!trim(companyName()) || !trim(apiKey()) || !trim(bcUserId()));
 }
 
-function checkConnection($bcUserId): bool
+function checkConnection(): bool
 {
-    $name = getPersonName($bcUserId);
+    $data = getInfo('me');
 
-    return (bool)$name;
+    return isset($data['email-address']);
 }
 
 function getWorkedHoursData($bcUserId = 0): array|string
@@ -236,6 +231,7 @@ function getProjectName($id)
     return $data['name'] ?? '';
 }
 
+/** @noinspection ALL */
 function getPersonName($id)
 {
     $data = getInfo("people/$id");
