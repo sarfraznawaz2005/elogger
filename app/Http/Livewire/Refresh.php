@@ -46,6 +46,7 @@ class Refresh extends Component
             session()->forget('not_connected');
 
             refreshData();
+            // session()->forget('app');
 
             $this->success('Data Refreshed Successfully!');
 
