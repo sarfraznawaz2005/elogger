@@ -17,6 +17,7 @@ class Refresh extends Component
         if (session('month_hours')) {
             $this->loading = false;
 
+            # important otherwise component loaded without need
             return '';
         }
 
