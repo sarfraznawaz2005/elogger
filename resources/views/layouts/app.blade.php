@@ -45,9 +45,11 @@
 </div>
 
 @stack('modals')
+@stack('js')
+
+<x-celebrate/>
 
 @livewireScripts
 
-@stack('js')
 </body>
 </html>
