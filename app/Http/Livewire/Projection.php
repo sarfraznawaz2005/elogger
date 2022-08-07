@@ -60,13 +60,13 @@ class Projection extends Component
 
         // celebrate when required hours are reached
         if ($isHappy && !$this->celebrated && !session()->has('celebrated')) {
-            $this->dispatchBrowserEvent('celebrate');
+            session()->put('celebrated', true);
 
             // also using this local variable because session takes place on page reload
             // so we handle both page reload and otherwise scenarios
             $this->celebrated = true;
 
-            session()->put('celebrated', true);
+            $this->dispatchBrowserEvent('celebrate');
         }
 
         return view(
