@@ -35,6 +35,7 @@
 
             <div class="mx-auto">
                 <livewire:offline/>
+                <x-bc-connection-checker/>
                 <x-stats-checker/>
             </div>
 

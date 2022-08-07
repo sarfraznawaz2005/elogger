@@ -19,6 +19,7 @@ class Projection extends Component
     ];
 
     public bool $loading = false;
+    public bool $celebrated = false;
 
     public function render(): Factory|View|Application
     {
@@ -35,20 +36,42 @@ class Projection extends Component
         icon;
 
         $monthHours = monthHoursUploaded();
-        $pendingHours = user()->pendingTodosHoursToday();
+        $pendingHours = user()->pendingTodosHours();
+        $pendingHoursToday = user()->pendingTodosHoursToday();
         $workDayCount = getWorkingDaysCount();
 
         $cValue = round($monthHours + $pendingHours) . '/' . round(($workDayCount - user()->holidays_count) * user()->working_hours_count);
-        $pValue = round(($monthHours) + user()->working_hours_count) . '/' . round(($workDayCount - user()->holidays_count) * user()->working_hours_count);
+        //$pValue = round(($monthHours) + user()->working_hours_count) . '/' . round(($workDayCount - user()->holidays_count) * user()->working_hours_count);
 
-        $isHappy = !((round($monthHours) + user()->working_hours_count) < (($workDayCount - user()->holidays_count) * user()->working_hours_count));
+        // projected when adding 8 eg working_hours_count
+        $isHappy = !(($monthHours + ($pendingHours - $pendingHoursToday) + user()->working_hours_count) < (($workDayCount - user()->holidays_count) * user()->working_hours_count));
+        //dump($monthHours + ($pendingHours - $pendingHoursToday) + user()->working_hours_count);
+
+        if ($pendingHoursToday >= user()->working_hours_count) {
+            $isHappy = !(($monthHours + ($pendingHours - $pendingHoursToday) + $pendingHoursToday) < (($workDayCount - user()->holidays_count) * user()->working_hours_count));
+        }
+
+        if (getWorkingDaysCount() - user()->holidays_count <= 0) {
+            $isHappy = false;
+        }
 
         $icon = $isHappy ? $happy : $sad;
         $title = $isHappy ? 'I am happy ;-)' : 'I am sad...';
 
+        // celebrate when required hours are reached
+        if ($isHappy && !$this->celebrated && !session()->has('celebrated')) {
+            $this->dispatchBrowserEvent('celebrate');
+
+            // also using this local variable because session takes place on page reload
+            // so we handle both page reload and otherwise scenarios
+            $this->celebrated = true;
+
+            session()->put('celebrated', true);
+        }
+
         return view(
             'livewire.projection',
-            compact('cValue', 'pValue', 'icon', 'title')
+            compact('cValue', 'icon', 'title')
         );
     }
 
@@ -63,6 +86,16 @@ class Projection extends Component
     /** @noinspection ALL */
     public function refresh()
     {
+        if (!checkConnection()) {
+            $this->danger('We are unable to communicate with Basecamp API, make sure you are connected to internet & your settings are correct.');
+
+            session()->put('not_connected', true);
+
+            return redirect()->to('/');
+        }
+
+        session()->forget('not_connected');
+
         refreshData();
         // session()->forget('app');
 

@@ -14,18 +14,13 @@
                 </svg>
             </x-jet-button>
 
-            @include('components.confirm', ['value' => $pValue, 'function' => 'refreshClicked', 'title' => 'Are you sure you want to refresh data ?'])
+            @include('components.confirm', ['value' => $cValue, 'function' => 'refreshClicked', 'title' => 'Are you sure you want to refresh data ?'])
         </div>
 
         <x-label-segmented
             color="green"
-            label="Current"
+            label="Progress"
             value="{{$cValue}}"/>
-
-        <x-label-segmented
-            color="green"
-            label="Projected"
-            value="{{$pValue}}"/>
 
         <div class="cartoon" data-title="{{$title}}">{!! $icon !!}</div>
 

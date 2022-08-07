@@ -1,7 +1,7 @@
 <script>
     document.addEventListener('celebrate', () => {
         startConfetti();
-        setTimeout(removeConfetti, 3000)
+        setTimeout(removeConfetti, 5000);
     });
 </script>
 

@@ -1,88 +1,90 @@
 <div>
 
     <div class="relative">
-        <div class="flex items-center justify-between mb-1">
-            <div class="flex items-center h-10">
-                @if($this->searchableColumns()->count())
-                    <div class="flex rounded-lg w-96 shadow-sm mb-4">
-                        <div class="relative flex-grow focus-within:z-10">
-                            <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-                                <svg class="w-5 h-5 text-gray-400" viewBox="0 0 20 20" stroke="currentColor" fill="none">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                                </svg>
-                            </div>
-                            <input wire:model.debounce.500ms="search" class="block w-full py-3 pl-10 text-sm border-gray-300 leading-4 rounded-md shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50 focus:outline-none" placeholder="{{__('Search in')}} {{ $this->searchableColumns()->map->label->join(', ') }}" type="text" />
-                            <div class="absolute inset-y-0 right-0 flex items-center pr-2">
-                                <button wire:click="$set('search', null)" class="text-gray-300 hover:text-red-600 focus:outline-none">
-                                    <x-icons.x-circle class="w-5 h-5 stroke-current" />
-                                </button>
+        @if(count($this->results))
+            <div class="flex items-center justify-between mb-1">
+                <div class="flex items-center h-10">
+                    @if($this->searchableColumns()->count())
+                        <div class="flex rounded-lg w-96 shadow-sm mb-4">
+                            <div class="relative flex-grow focus-within:z-10">
+                                <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                                    <svg class="w-5 h-5 text-gray-400" viewBox="0 0 20 20" stroke="currentColor" fill="none">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                                    </svg>
+                                </div>
+                                <input wire:model.debounce.500ms="search" class="block w-full py-3 pl-10 text-sm border-gray-300 leading-4 rounded-md shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50 focus:outline-none" placeholder="{{__('Search in')}} {{ $this->searchableColumns()->map->label->join(', ') }}" type="text" />
+                                <div class="absolute inset-y-0 right-0 flex items-center pr-2">
+                                    <button wire:click="$set('search', null)" class="text-gray-300 hover:text-red-600 focus:outline-none">
+                                        <x-icons.x-circle class="w-5 h-5 stroke-current" />
+                                    </button>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                @endif
-            </div>
-
-            @if($this->activeFilters)
-                <span class="text-xl text-blue-400 uppercase">@lang('Filter active')</span>
-            @endif
-
-            <div class="flex flex-wrap items-center space-x-1">
-                <x-icons.cog wire:loading class="text-gray-400 h-9 w-9 animate-spin" />
+                    @endif
+                </div>
 
                 @if($this->activeFilters)
-                    <button wire:click="clearAllFilters" class="flex items-center px-3 text-xs font-medium tracking-wider text-red-500 uppercase bg-white border border-red-400 space-x-2 rounded-md leading-4 hover:bg-red-200 focus:outline-none"><span>{{ __('Reset') }}</span>
-                        <x-icons.x-circle class="m-2" />
-                    </button>
+                    <span class="text-xl text-blue-400 uppercase">@lang('Filter active')</span>
                 @endif
 
-                @if(count($this->massActionsOptions))
-                    <div class="flex items-center justify-center space-x-1">
-                        <label for="datatables_mass_actions">{{ __('With selected') }}:</label>
-                        <select wire:model="massActionOption" class="px-3 text-xs font-medium tracking-wider uppercase bg-white border border-green-400 space-x-2 rounded-md leading-4 focus:outline-none" id="datatables_mass_actions">
-                            <option value="">{{ __('Choose...') }}</option>
-                            @foreach($this->massActionsOptions as $group => $items)
-                                @if(!$group)
-                                    @foreach($items as $item)
-                                        <option value="{{$item['value']}}">{{$item['label']}}</option>
-                                    @endforeach
-                                @else
-                                    <optgroup label="{{$group}}">
+                <div class="flex flex-wrap items-center space-x-1">
+                    <x-icons.cog wire:loading class="text-gray-400 h-9 w-9 animate-spin" />
+
+                    @if($this->activeFilters)
+                        <button wire:click="clearAllFilters" class="flex items-center px-3 text-xs font-medium tracking-wider text-red-500 uppercase bg-white border border-red-400 space-x-2 rounded-md leading-4 hover:bg-red-200 focus:outline-none"><span>{{ __('Reset') }}</span>
+                            <x-icons.x-circle class="m-2" />
+                        </button>
+                    @endif
+
+                    @if(count($this->massActionsOptions))
+                        <div class="flex items-center justify-center space-x-1">
+                            <label for="datatables_mass_actions">{{ __('With selected') }}:</label>
+                            <select wire:model="massActionOption" class="px-3 text-xs font-medium tracking-wider uppercase bg-white border border-green-400 space-x-2 rounded-md leading-4 focus:outline-none" id="datatables_mass_actions">
+                                <option value="">{{ __('Choose...') }}</option>
+                                @foreach($this->massActionsOptions as $group => $items)
+                                    @if(!$group)
                                         @foreach($items as $item)
                                             <option value="{{$item['value']}}">{{$item['label']}}</option>
                                         @endforeach
-                                    </optgroup>
-                                @endif
-                            @endforeach
-                        </select>
-                        <button
-                            wire:click="massActionOptionHandler"
-                            class="flex items-center px-4 py-2 text-xs font-medium tracking-wider text-green-500 uppercase bg-white border border-green-400 rounded-md leading-4 hover:bg-green-200 focus:outline-none" type="submit" title="Submit"
-                        >Go</button>
-                    </div>
-                @endif
+                                    @else
+                                        <optgroup label="{{$group}}">
+                                            @foreach($items as $item)
+                                                <option value="{{$item['value']}}">{{$item['label']}}</option>
+                                            @endforeach
+                                        </optgroup>
+                                    @endif
+                                @endforeach
+                            </select>
+                            <button
+                                wire:click="massActionOptionHandler"
+                                class="flex items-center px-4 py-2 text-xs font-medium tracking-wider text-green-500 uppercase bg-white border border-green-400 rounded-md leading-4 hover:bg-green-200 focus:outline-none" type="submit" title="Submit"
+                            >Go</button>
+                        </div>
+                    @endif
 
-                @if($exportable)
-                    <div x-data="{ init() {
-                        window.livewire.on('startDownload', link => window.open(link, '_blank'))
-                        } }" x-init="init">
-                        <button wire:click="export" class="flex items-center px-3 text-xs font-medium tracking-wider text-green-500 uppercase bg-white border border-green-400 space-x-2 rounded-md leading-4 hover:bg-green-200 focus:outline-none"><span>{{ __('Export') }}</span>
-                            <x-icons.excel class="m-2" /></button>
-                    </div>
-                @endif
+                    @if($exportable)
+                        <div x-data="{ init() {
+                            window.livewire.on('startDownload', link => window.open(link, '_blank'))
+                            } }" x-init="init">
+                            <button wire:click="export" class="flex items-center px-3 text-xs font-medium tracking-wider text-green-500 uppercase bg-white border border-green-400 space-x-2 rounded-md leading-4 hover:bg-green-200 focus:outline-none"><span>{{ __('Export') }}</span>
+                                <x-icons.excel class="m-2" /></button>
+                        </div>
+                    @endif
 
-                @if($hideable === 'select')
-                    @include('datatables::hide-column-multiselect')
-                @endif
+                    @if($hideable === 'select')
+                        @include('datatables::hide-column-multiselect')
+                    @endif
 
-                @foreach ($columnGroups as $name => $group)
-                    <button wire:click="toggleGroup('{{ $name }}')"
-                            class="px-3 py-2 text-xs font-medium tracking-wider text-green-500 uppercase bg-white border border-green-400 rounded-md leading-4 hover:bg-green-200 focus:outline-none">
-                        <span class="flex items-center h-5">{{ isset($this->groupLabels[$name]) ? __($this->groupLabels[$name]) : __('Toggle :group', ['group' => $name]) }}</span>
-                    </button>
-                @endforeach
-                @includeIf($buttonsSlot)
+                    @foreach ($columnGroups as $name => $group)
+                        <button wire:click="toggleGroup('{{ $name }}')"
+                                class="px-3 py-2 text-xs font-medium tracking-wider text-green-500 uppercase bg-white border border-green-400 rounded-md leading-4 hover:bg-green-200 focus:outline-none">
+                            <span class="flex items-center h-5">{{ isset($this->groupLabels[$name]) ? __($this->groupLabels[$name]) : __('Toggle :group', ['group' => $name]) }}</span>
+                        </button>
+                    @endforeach
+                    @includeIf($buttonsSlot)
+                </div>
             </div>
-        </div>
+        @endif
 
         @if($hideable === 'buttons')
             <div class="p-2 grid grid-cols-8 gap-2 ">

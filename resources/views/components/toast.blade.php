@@ -12,7 +12,7 @@
             });
             "
 >
-    <div class="fixed left-4 bottom-4 z-50 rounded-lg overflow-hidden shadow-xl transform transition-all sm:max-w-lg x-transition duration-500 animate-in slide-in-from-left">
+    <div class="fixed left-4 bottom-4 z-50 w-auto rounded-lg overflow-hidden shadow-xl transform transition-all x-transition duration-500 animate-in slide-in-from-left">
 
         <div class="bg-blue-500 shadow border border-blue-500 flex items-center text-center" role="alert" x-show="style == 'info'">
             <div class="p-3 text-sm text-white break-words flex items-center">

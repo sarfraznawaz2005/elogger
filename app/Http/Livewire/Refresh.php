@@ -16,6 +16,8 @@ class Refresh extends Component
     {
         if (session('month_hours')) {
             $this->loading = false;
+
+            return '';
         }
 
         return <<<'blade'
@@ -31,6 +33,18 @@ class Refresh extends Component
     public function refresh()
     {
         if (!session('month_hours')) {
+
+            if (!checkConnection()) {
+                $this->danger('We are unable to communicate with Basecamp API, make sure you are connected to internet & your settings are correct.');
+
+                session(['month_hours' => 'none']);
+                session()->put('not_connected', true);
+
+                return redirect()->to('/');
+            }
+
+            session()->forget('not_connected');
+
             refreshData();
 
             $this->success('Data Refreshed Successfully!');

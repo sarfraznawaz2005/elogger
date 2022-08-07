@@ -1,12 +1,21 @@
-@if(!checkConnection())
-    <div class="w-auto inline-block flex justify-center items-center mb-4" wire:ignore>
-        <div class="p-2 text-sm text-white break-words flex items-center bg-red-500">
-            <div class="flex items-center justify-center">
-                <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="info-circle" class="w-4 h-4 mr-2 fill-current" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
-                    <path fill="currentColor" d="M256 8C119.043 8 8 119.083 8 256c0 136.997 111.043 248 248 248s248-111.003 248-248C504 119.083 392.957 8 256 8zm0 110c23.196 0 42 18.804 42 42s-18.804 42-42 42-42-18.804-42-42 18.804-42 42-42zm56 254c0 6.627-5.373 12-12 12h-88c-6.627 0-12-5.373-12-12v-24c0-6.627 5.373-12 12-12h12v-64h-12c-6.627 0-12-5.373-12-12v-24c0-6.627 5.373-12 12-12h64c6.627 0 12 5.373 12 12v100h12c6.627 0 12 5.373 12 12v24z"></path>
-                </svg>
+@if(session()->has('not_connected'))
+    <div class="w-auto inline-block flex justify-center items-center mb-4" x-data="{}">
+        <div class="p-3 text-sm text-white break-words flex items-center rounded-lg bg-red-400">
+            <div class="flex items-center justify-center text-center">
                 <div class="font-bold text-sm text-white break-words">
                     We are unable to communicate with Basecamp API, make sure you are connected to internet & your settings are correct.
+                    <br><br>
+                    If you think this is wrong, try refreshing data using button below.
+                    <br><br>
+
+                    <x-jet-button x-on:click="window.livewire.emit('refreshClicked')" wire:loading.attr="disabled" data-title="Refresh Data" class="bg-blue-600 px-2.5 hover:bg-blue-800 mr-2 border-0">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/>
+                        </svg>
+
+                        {{ __('Refresh Data') }}
+                    </x-jet-button>
+
                 </div>
             </div>
         </div>
