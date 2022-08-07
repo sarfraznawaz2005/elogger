@@ -7,7 +7,7 @@
                 </div>
 
                 <p class="mb-2">We are unable to communicate with Basecamp API, make sure you are connected to internet & your settings are correct.</p>
-                <p class="mb-4">If you think this is wrong, try again using button below.</p>
+                <p class="mb-4">You can try again using button below.</p>
 
                 <x-jet-button x-on:click="window.livewire.emit('refreshClicked')" wire:loading.attr="disabled" data-title="Refresh Data" class="bg-gray-700 px-2.5 hover:bg-blue-600 mr-2 border-0">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
