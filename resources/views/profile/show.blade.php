@@ -6,6 +6,9 @@
     </x-slot>
 
     <div>
+
+        <x-bc-connection-checker/>
+
         <x-panel title="Settings">
             @if (Laravel\Fortify\Features::canUpdateProfileInformation())
                 @livewire('profile.update-profile-information-form')
