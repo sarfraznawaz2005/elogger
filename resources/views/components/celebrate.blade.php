@@ -1,11 +1,8 @@
 @if (!session()->has('celebrated'))
     <script>
-        document.addEventListener('celebrate', event => {
-            console.log(event);
-            if (event.detail.shouldCelebrate === true) {
-                startConfetti();
-                setTimeout(removeConfetti, 5000);
-            }
+        document.addEventListener('celebrate', () => {
+            startConfetti();
+            setTimeout(removeConfetti, 5000);
         });
     </script>
 
