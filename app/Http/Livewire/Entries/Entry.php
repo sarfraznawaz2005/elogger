@@ -324,7 +324,7 @@ class Entry extends Component
 
                     $posted = 'ok';
                 } else {
-                    $this->success('Entry "' . $todo->description . '" with hours of ' . $hours . ' could not be posted.');
+                    $this->danger('Entry "' . $todo->description . '" with hours of ' . $hours . ' could not be posted.');
                 }
 
                 // so that we do not send post request too fast to BC
@@ -336,12 +336,15 @@ class Entry extends Component
             $monthHours = getUserMonthlyHours();
             session(['month_hours' => $monthHours]);
 
+            $this->loading = false;
+
             $this->emit('refreshLivewireDatatable');
             $this->emit('event-entries-updated');
 
-            $this->loading = false;
-
             $this->success('Selected Entries Uploaded Successfully!');
+        } else {
+            $this->loading = false;
+            $this->danger('Entries Could Not Be Upload!');
         }
     }
 
@@ -349,6 +352,7 @@ class Entry extends Component
     public function deleteFromBasecamp(Todo $todo): void
     {
         if (!$todo->time_id) {
+            $this->loading = false;
             $this->danger('This Entry Cannot Be Deleted From Basecamp!');
             return;
         }
@@ -356,20 +360,22 @@ class Entry extends Component
         $responseCode = deleteResource("time_entries/" . $todo->time_id);
 
         if ($responseCode !== 200) {
+            $this->loading = false;
             $this->danger('Entry Could Not Be Deleted From Basecamp!');
             return;
         }
 
         if ($todo->delete()) {
+            $this->loading = false;
             $this->emit('refreshLivewireDatatable');
             $this->emit('event-entries-updated');
 
             $this->success('Entry Deleted Successfully!');
+        } else {
+            $this->loading = false;
+            $this->danger('Entry Deleted From Basecamp But Could Not Delete Locally!');
         }
-
-        $this->loading = false;
     }
-
 
     /**
      * @throws JsonException
