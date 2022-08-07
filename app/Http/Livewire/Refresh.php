@@ -32,19 +32,18 @@ class Refresh extends Component
     /** @noinspection ALL */
     public function refresh()
     {
+        if (!checkConnection()) {
+            $this->danger('We are unable to communicate with Basecamp API, make sure you are connected to internet & your settings are correct.');
+
+            session(['month_hours' => 'none']);
+            session()->put('not_connected', true);
+
+            return redirect()->to('/');
+        }
+
+        session()->forget('not_connected');
+
         if (!session('month_hours')) {
-
-            if (!checkConnection()) {
-                $this->danger('We are unable to communicate with Basecamp API, make sure you are connected to internet & your settings are correct.');
-
-                session(['month_hours' => 'none']);
-                session()->put('not_connected', true);
-
-                return redirect()->to('/');
-            }
-
-            session()->forget('not_connected');
-
             refreshData();
             //session(['month_hours' => 30]);
             //session()->forget('app');
