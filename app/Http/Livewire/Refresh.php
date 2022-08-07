@@ -47,7 +47,7 @@ class Refresh extends Component
 
             refreshData();
             //session(['month_hours' => 'none']);
-            // session()->forget('app');
+            //session()->forget('app');
 
             $this->success('Data Refreshed Successfully!');
 
