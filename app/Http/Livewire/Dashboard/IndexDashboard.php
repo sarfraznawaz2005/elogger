@@ -11,6 +11,8 @@ class IndexDashboard extends Component
 {
     public function render(): Factory|View|Application
     {
+        //session()->forget('celebrated');
+
         //$workDayCount = getWorkingDaysCount() - user()->holidays_count;
         $workDayCount = getWorkingDaysCount();
         $workDayCountMonth = workDayCountMonth();
