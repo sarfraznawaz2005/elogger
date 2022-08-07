@@ -164,11 +164,7 @@ class Entry extends Component
      */
     public function duplicate(Todo $todo): void
     {
-        $this->model = new Todo();
-
-        $this->model->project_id = $todo->project_id;
-        $this->model->todolist_id = $todo->todolist_id;
-        $this->model->todo_id = $todo->todo_id;
+        $this->model = $todo->replicate();
 
         $this->model->description = '';
         $this->model->dated = date('Y-m-d');
