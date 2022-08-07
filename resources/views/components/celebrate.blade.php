@@ -1,9 +1,25 @@
 @if (!session()->has('celebrated'))
     <script>
         document.addEventListener('celebrate', () => {
+
+            // celebrate once a day only
+            if (localStorage.lastCelebrated) {
+                if ((localStorage.lastCelebrated - Date.now()) / (1000 * 60 * 60 * 24) >= 1) {
+                    localStorage.lastCelebrated = Date.now();
+
+                    celebrate();
+                }
+            } else {
+                localStorage.lastCelebrated = Date.now();
+
+                celebrate();
+            }
+        });
+
+        function celebrate() {
             startConfetti();
             setTimeout(removeConfetti, 5000);
-        });
+        }
     </script>
 
     <script>
