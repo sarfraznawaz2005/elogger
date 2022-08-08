@@ -237,11 +237,11 @@ function getTotalWorkedHoursThisMonthAllProjects($bcUserId = 0): array
     return collect($finalData)->sortByDesc('hours')->toArray();
 }
 
-function getProjectName($id)
+function getProjectName($id): string
 {
     $data = getInfo("projects/$id");
 
-    return $data['name'] ?? '';
+    return ucwords($data['name']) ?? '';
 }
 
 /** @noinspection ALL */
@@ -282,11 +282,11 @@ function getAllProjects(): array
                 $array = (array)$xml;
 
                 if (isset($array['id'], $array['company']) && $array['status'] === 'active') {
-                    $finalData[$array['id']] = ucfirst($array['name']);
+                    $finalData[$array['id']] = ucwords($array['name']);
                 }
             }
         } else if (isset($project['id'], $project['company']) && $project['status'] === 'active') {
-            $finalData[$project['id']] = ucfirst($project['name']);
+            $finalData[$project['id']] = ucwords($project['name']);
         }
 
     }
@@ -308,13 +308,13 @@ function getProjectTodoLists($projectId): array
         $entry = (array)$data['todo-list'];
 
         if (isset($entry['id'], $entry['name'])) {
-            $finalData[$entry['id']] = ucfirst($entry['name']);
+            $finalData[$entry['id']] = ucwords($entry['name']);
         } else {
             foreach ($data['todo-list'] as $xml) {
                 $array = (array)$xml;
 
                 if (isset($array['id'])) {
-                    $finalData[$array['id']] = ucfirst($array['name']);
+                    $finalData[$array['id']] = ucwords($array['name']);
                 }
             }
         }
@@ -338,14 +338,14 @@ function getTodoListTodos($todolistId): array
 
         if (isset($entry['id'], $entry['name'])) {
             if ($entry['completed'] !== 'true') {
-                $finalData[$entry['id']] = ucfirst($entry['content']);
+                $finalData[$entry['id']] = ucwords($entry['content']);
             }
         } else {
             foreach ($data['todo-item'] as $xml) {
                 $array = (array)$xml;
 
                 if (isset($array['id']) && $array['completed'] !== 'true') {
-                    $finalData[$array['id']] = ucfirst($array['content']);
+                    $finalData[$array['id']] = ucwords($array['content']);
                 }
             }
         }
@@ -368,7 +368,7 @@ function getAllUsers(array $excludedUserIds = []): array
         $entry = (array)$data['person'];
 
         if (isset($entry['id'], $entry['first-name'])) {
-            $finalData[$entry['id']] = ucfirst($entry['first-name']) . ' ' . ucfirst($entry['last-name']);
+            $finalData[$entry['id']] = ucwords($entry['first-name']) . ' ' . ucwords($entry['last-name']);
         } else {
             foreach ($data['person'] as $xml) {
                 $array = (array)$xml;
@@ -384,7 +384,7 @@ function getAllUsers(array $excludedUserIds = []): array
                         continue;
                     }
 
-                    $finalData[$array['id']] = ucfirst($array['first-name']) . ' ' . ucfirst($array['last-name']);
+                    $finalData[$array['id']] = ucwords($array['first-name']) . ' ' . ucwords($array['last-name']);
                 }
             }
         }
