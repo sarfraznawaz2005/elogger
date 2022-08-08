@@ -1,7 +1,11 @@
 <div>
 
     <div class="relative">
+
         @if(count($this->results))
+
+            @includeIf($totalSlot)
+
             <div class="flex items-center justify-between mb-1">
                 <div class="flex items-center h-10">
                     @if($this->searchableColumns()->count())
@@ -84,6 +88,7 @@
                     @includeIf($buttonsSlot)
                 </div>
             </div>
+
         @endif
 
         @if($hideable === 'buttons')

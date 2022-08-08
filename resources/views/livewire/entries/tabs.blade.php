@@ -1,5 +1,5 @@
 <div x-data="{tab: 1}" class="bg-gray-50 rounded-lg shadow-md">
-    <div class="p-4">
+    <div class="p-4 pb-0">
         <ul class="flex flex-wrap text-sm font-medium text-center text-gray-500 border-b border-gray-200">
             <li class="mr-2">
                 <a href="!#0" @click.prevent="tab = 1"

@@ -18,12 +18,12 @@ class PendingEntriesDataTable extends LivewireDatatable
     public $persistPerPage = false;
     public $persistFilters = false;
 
-    public bool $hidePageSize = false;
-
     public $beforeTableSlot = 'components.table-actions-post-delete-buttons';
 
     // custom options
+    public bool $hidePageSize = false;
     public bool $isPendingTable = true;
+    public string $totalSlot = 'components.table-totals';
 
     public function builder(): Builder
     {

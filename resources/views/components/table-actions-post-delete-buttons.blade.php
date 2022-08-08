@@ -20,7 +20,7 @@
                     </label>
                 </div>
 
-                <div class="inline-flex items-center pl-2 text-sm font-medium text-center bg-yellow-200 border-yellow-500 mr-2">
+                <div class="inline-flex items-center pl-2 text-sm font-semibold text-center bg-yellow-200 border-yellow-500 mr-2">
                     Selected Total
                     <div class="inline-flex justify-center items-center ml-1 p-2 text-gray-800 text-sm font-bold bg-yellow-400">
                         {{number_format($selectedTotal, 2)}}
