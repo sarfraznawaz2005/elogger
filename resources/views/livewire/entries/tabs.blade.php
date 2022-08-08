@@ -1,7 +1,7 @@
 <div x-data="{tab: 1}" class="bg-gray-50 rounded-lg shadow-md">
     <div class="p-6 pb-0">
         <ul class="flex flex-wrap text-sm font-medium text-center text-gray-500">
-            <li class="mr-2">
+            <li class="mr-1">
                 <a href="!#0" @click.prevent="tab = 1"
                    :class="{'text-gray-600 bg-gray-200 active': tab === 1, 'text-gray-500 bg-gray-100 hover:bg-gray-200': tab !== 1}"
                    class="inline-flex font-bold p-3 rounded-t-lg"
@@ -12,7 +12,7 @@
                     Pending Entries
                 </a>
             </li>
-            <li class="mr-2">
+            <li class="mr-1">
                 <a href="!#0" @click.prevent="tab = 2"
                    :class="{'text-gray-600 bg-gray-200 active': tab === 2, 'text-gray-500 bg-gray-100 hover:bg-gray-200': tab !== 2}"
                    class="inline-flex font-bold p-3 rounded-t-lg"
