@@ -4,10 +4,8 @@
 
         @if(count($this->results))
 
-            @includeIf($totalSlot)
-
-            <div class="flex items-center justify-between mb-1">
-                <div class="flex items-center h-10">
+            <div class="flex justify-between">
+                <div>
                     @if($this->searchableColumns()->count())
                         <div class="flex rounded-lg w-96 shadow-sm mb-4">
                             <div class="relative flex-grow focus-within:z-10">
@@ -25,6 +23,17 @@
                             </div>
                         </div>
                     @endif
+                </div>
+                <div>
+                    @includeIf($totalSlot)
+                </div>
+            </div>
+
+
+
+            <div class="flex items-center justify-between mb-1">
+                <div class="flex items-center h-10">
+
                 </div>
 
                 @if($this->activeFilters)
