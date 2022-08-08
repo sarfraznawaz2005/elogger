@@ -33,7 +33,7 @@
             </x-panel>
         </div>
 
-        <div x-show="tab === 2" id="postedTable" class="p-4 bg-gray-50 rounded-lg animate-in fade-in duration-500">
+        <div x-show="tab === 2" id="postedTable" class="p-4 rounded-lg animate-in fade-in duration-500">
             <x-panel>
                 <livewire:data-tables.posted-entries-data-table />
             </x-panel>
