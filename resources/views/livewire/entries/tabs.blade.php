@@ -1,5 +1,5 @@
 <div x-data="{tab: 1}" class="bg-gray-50 rounded-lg shadow-md">
-    <div class="p-4 pb-0">
+    <div class="p-6 pb-0">
         <ul class="flex flex-wrap text-sm font-medium text-center text-gray-500 border-b border-gray-200">
             <li class="mr-2">
                 <a href="!#0" @click.prevent="tab = 1"
@@ -27,13 +27,13 @@
     </div>
 
     <div id="tabContent">
-        <div x-show="tab === 1" id="pendingTable" class="p-4 rounded-lg animate-in fade-in duration-500">
+        <div x-show="tab === 1" id="pendingTable" class="p-6 pb-2.5 rounded-lg animate-in fade-in duration-500">
             <x-panel>
                 <livewire:data-tables.pending-entries-data-table />
             </x-panel>
         </div>
 
-        <div x-show="tab === 2" id="postedTable" class="p-4 rounded-lg animate-in fade-in duration-500">
+        <div x-show="tab === 2" id="postedTable" class="p-6 pb-2.5 rounded-lg animate-in fade-in duration-500">
             <x-panel>
                 <livewire:data-tables.posted-entries-data-table />
             </x-panel>
