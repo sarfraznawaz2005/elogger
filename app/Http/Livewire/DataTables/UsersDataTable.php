@@ -77,7 +77,7 @@ class UsersDataTable extends LivewireDatatable
                 $workDayCountMonth = workDayCountMonth($holidaysCount);
 
                 $hoursTotal = workMonthRequiredHours($workDayCountMonth, $workingHoursCount);
-                $hoursProjected = monthProjectedHours($workDayCount, $workDayCountMonth, false, $bcId, $workingHoursCount, $modelInstance);
+                $hoursProjected = monthProjectedHours($workDayCount, $workDayCountMonth, true, $bcId, $workingHoursCount, $modelInstance);
 
                 return <<<html
                     <span class="bg-green-100 text-green-800 text-md font-semibold px-2 py-1 rounded">
