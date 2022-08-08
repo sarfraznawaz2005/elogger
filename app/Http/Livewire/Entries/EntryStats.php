@@ -14,7 +14,7 @@ class EntryStats extends Component
     public function render(): Factory|View|Application
     {
         $PendingTodosHoursToday = number_format(user()->pendingTodosHoursToday(), 2);
-        $PendingTodosHoursTotal = number_format(user()->pendingTodosHours(), 2);
+        $PendingTodosHoursTotal = number_format(user()->pendingTodosHoursMonth(), 2);
         $PostedTodosHoursTotal = number_format(user()->postedTodosHours(), 2);
 
         return view(

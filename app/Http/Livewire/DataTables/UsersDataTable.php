@@ -9,6 +9,7 @@ use Mediconesystems\LivewireDatatables\Http\Livewire\LivewireDatatable;
 use Mediconesystems\LivewireDatatables\NumberColumn;
 
 /** @noinspection ALL */
+
 class UsersDataTable extends LivewireDatatable
 {
     public $model = User::class;
@@ -38,8 +39,8 @@ class UsersDataTable extends LivewireDatatable
             Column::name('email')->label('Email')->searchable()->sortable(),
             BooleanColumn::name('is_admin')->label('Admin')->sortable()->alignCenter(),
 
-            NumberColumn::callback(['id', 'id'], static function () use (&$modelInstance) {
-                $hours = number_format($modelInstance->pendingTodosHours(), 2);
+            NumberColumn::callback(['id', 'id'], static function ($id) use (&$modelInstance) {
+                $hours = number_format($modelInstance->pendingTodosHoursMonth($id), 2);
 
                 return <<<html
                     <span class="bg-green-100 text-green-800 text-md font-semibold px-2 py-1 rounded">
@@ -47,10 +48,10 @@ class UsersDataTable extends LivewireDatatable
                     </span>
                 html;
 
-            })->label('Pending Hours')->sortable()->alignCenter(),
+            })->label('Pending Month')->sortable()->alignCenter(),
 
-            NumberColumn::callback(['id', 'id', 'id'], static function () use (&$modelInstance) {
-                $hours = number_format($modelInstance->postedTodosHours(), 2);
+            NumberColumn::callback(['id', 'id', 'id'], static function ($id) use (&$modelInstance) {
+                $hours = number_format($modelInstance->pendingTodosHours($id), 2);
 
                 return <<<html
                     <span class="bg-green-100 text-green-800 text-md font-semibold px-2 py-1 rounded">
@@ -58,14 +59,25 @@ class UsersDataTable extends LivewireDatatable
                     </span>
                 html;
 
-            })->label('Uploaded Hours')->sortable()->alignCenter(),
+            })->label('Pending Total')->sortable()->alignCenter(),
 
-            Column::callback(['basecamp_api_user_id', 'holidays_count', 'working_hours_count'], static function ($bcId, $holidaysCount, $workingHoursCount) {
+            NumberColumn::callback(['id', 'id', 'id', 'id'], static function ($id) use (&$modelInstance) {
+                $hours = number_format($modelInstance->postedTodosHours($id), 2);
+
+                return <<<html
+                    <span class="bg-green-100 text-green-800 text-md font-semibold px-2 py-1 rounded">
+                        $hours
+                    </span>
+                html;
+
+            })->label('Uploaded Total')->sortable()->alignCenter(),
+
+            Column::callback(['basecamp_api_user_id', 'holidays_count', 'working_hours_count'], static function ($bcId, $holidaysCount, $workingHoursCount) use (&$modelInstance) {
                 $workDayCount = getWorkingDaysCount();
                 $workDayCountMonth = workDayCountMonth($holidaysCount);
 
                 $hoursTotal = workMonthRequiredHours($workDayCountMonth, $workingHoursCount);
-                $hoursProjected = monthProjectedHours($workDayCount, $workDayCountMonth, $bcId, $workingHoursCount);
+                $hoursProjected = monthProjectedHours($workDayCount, $workDayCountMonth, $bcId, $workingHoursCount, $modelInstance);
 
                 return <<<html
                     <span class="bg-green-100 text-green-800 text-md font-semibold px-2 py-1 rounded">

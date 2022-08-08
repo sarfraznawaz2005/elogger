@@ -36,7 +36,7 @@ class Projection extends Component
         icon;
 
         $monthHours = monthHoursUploaded();
-        $pendingHours = user()->pendingTodosHours();
+        $pendingHours = user()->pendingTodosHoursMonth();
         $pendingHoursToday = user()->pendingTodosHoursToday();
         $workDayCount = getWorkingDaysCount();
 

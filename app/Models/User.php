@@ -130,13 +130,17 @@ class User extends Authenticatable
             ->where('status', 'pending');
     }
 
-    public function pendingTodosHoursToday(): float
+    public function pendingTodosHoursToday($userId = 0): float
     {
         $hours = 0;
 
-        $todosToday = $this->pendingTodosToday;
+        if ($userId) {
+            $todos = $this->pendingTodosToday()->where('user_id', $userId)->get();
+        } else {
+            $todos = $this->pendingTodosToday;
+        }
 
-        foreach ($todosToday as $todoToday) {
+        foreach ($todos as $todoToday) {
             $diff = (float)getBCHoursDiff($todoToday->dated, $todoToday->time_start, $todoToday->time_end);
 
             $hours += $diff;
@@ -145,13 +149,20 @@ class User extends Authenticatable
         return $hours;
     }
 
-    public function pendingTodosHours(): float
+    public function pendingTodosHoursMonth($userId = 0): float
     {
         $hours = 0;
 
-        $todosToday = $this->pendingTodos;
+        if ($userId) {
+            $todos = $this->pendingTodos()
+                ->where('user_id', $userId)
+                ->whereMonth('dated', date('m'))
+                ->get();
+        } else {
+            $todos = $this->pendingTodos()->whereMonth('dated', date('m'))->get();
+        }
 
-        foreach ($todosToday as $todoToday) {
+        foreach ($todos as $todoToday) {
             $diff = (float)getBCHoursDiff($todoToday->dated, $todoToday->time_start, $todoToday->time_end);
 
             $hours += $diff;
@@ -160,13 +171,36 @@ class User extends Authenticatable
         return $hours;
     }
 
-    public function postedTodosHours(): float
+    public function pendingTodosHours($userId = 0): float
     {
         $hours = 0;
 
-        $todosToday = $this->postedTodos;
+        if ($userId) {
+            $todos = $this->pendingTodos()->where('user_id', $userId)->get();
+        } else {
+            $todos = $this->pendingTodos;
+        }
 
-        foreach ($todosToday as $todoToday) {
+        foreach ($todos as $todoToday) {
+            $diff = (float)getBCHoursDiff($todoToday->dated, $todoToday->time_start, $todoToday->time_end);
+
+            $hours += $diff;
+        }
+
+        return $hours;
+    }
+
+    public function postedTodosHours($userId = 0): float
+    {
+        $hours = 0;
+
+        if ($userId) {
+            $todos = $this->postedTodos()->where('user_id', $userId)->get();
+        } else {
+            $todos = $this->postedTodos;
+        }
+
+        foreach ($todos as $todoToday) {
             $diff = (float)getBCHoursDiff($todoToday->dated, $todoToday->time_start, $todoToday->time_end);
 
             $hours += $diff;

@@ -68,7 +68,7 @@ function getBCHoursDiff($date, $startTime, $endTime, $returnNegative = false): s
     return number_format($diffInMinutes / 60, 2);
 }
 
-function getUserMonthlyHours($userId = 0): float|string
+function getUserMonthUploadedHours($userId = 0): float|string
 {
     $userId = $userId ?: user()->basecamp_api_user_id;
 
@@ -136,7 +136,7 @@ function refreshData(): void
             $nameArray = explode(' ', $user);
             $name = $nameArray[0] . ' ' . $nameArray[1][0];
 
-            $hours = getUserMonthlyHours($userId);
+            $hours = getUserMonthUploadedHours($userId);
 
             if ($hours) {
                 $allUsersHours[] = [
@@ -155,7 +155,7 @@ function refreshData(): void
 
     addUserProjects();
 
-    $monthHours = getUserMonthlyHours();
+    $monthHours = getUserMonthUploadedHours();
     session(['month_hours' => $monthHours]);
 
     if ($monthHours === 0.0 || $monthHours === '0.00') {
@@ -175,14 +175,17 @@ function workDayCountMonth($holidayCount = 0)
     return getWorkingDaysCount(true) - $holidayCount;
 }
 
-function monthProjectedHours($workDayCount, $workDayCountMonth, $bsasecampUserId = 0, $workingHoursCount = 0): string
+function monthProjectedHours($workDayCount, $workDayCountMonth, $bsasecampUserId = 0, $workingHoursCount = 0, $user = null): string
 {
     $bsasecampUserId = $bsasecampUserId ?: user()->basecamp_api_user_id;
     $workingHoursCount = $workingHoursCount ?: user()->working_hours_count;
+    $user = $user ?: user();
 
-    $monthHours = getUserMonthlyHours($bsasecampUserId);
+    $pendingHoursMonth = $user->pendingTodosHoursMonth();
+    $monthHoursUploaded = getUserMonthUploadedHours($bsasecampUserId);
+    //dump($monthHoursUploaded);
 
-    return number_format($monthHours + (($workDayCountMonth - $workDayCount) * $workingHoursCount), 2);
+    return number_format($monthHoursUploaded + $pendingHoursMonth + (($workDayCountMonth - $workDayCount) * $workingHoursCount), 2);
 }
 
 function workMonthRequiredHours($workDayCountMonth, $workingHoursCount = 0): float|int

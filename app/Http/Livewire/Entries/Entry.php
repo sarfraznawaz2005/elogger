@@ -108,9 +108,7 @@ class Entry extends Component
             }
         }
 
-        if ($propertyName === 'model.time_start' || $propertyName === 'model.time_end') {
-            $this->timeTotal = getBCHoursDiff($this->model->dated, $this->model->time_start, $this->model->time_end);
-        }
+        $this->timeTotal = getBCHoursDiff($this->model->dated, $this->model->time_start, $this->model->time_end);
     }
 
     /** @noinspection ALL */
@@ -330,7 +328,7 @@ class Entry extends Component
         });
 
         if ($posted === 'ok') {
-            $monthHours = getUserMonthlyHours();
+            $monthHours = getUserMonthUploadedHours();
             session(['month_hours' => $monthHours]);
 
             $this->loading = false;
