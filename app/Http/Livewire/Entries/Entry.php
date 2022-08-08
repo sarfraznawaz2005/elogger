@@ -328,7 +328,7 @@ class Entry extends Component
         });
 
         if ($posted === 'ok') {
-            $monthHours = getUserMonthUploadedHours();
+            $monthHours = getUserMonthUploadedHours(0, true);
             session(['month_hours' => $monthHours]);
 
             $this->loading = false;

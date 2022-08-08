@@ -1,4 +1,7 @@
 <?php
+
+use App\Models\User;
+
 /**
  * Created by PhpStorm.
  * User: Sarfraz
@@ -157,9 +160,19 @@ function getWorkedHoursData($bcUserId = 0): array|string
     return getInfo('time_entries', $query);
 }
 
-function getTotalWorkedHoursThisMonth($bcUserId = 0): int|string
+function getTotalWorkedHoursThisMonth($bcUserId = 0, $forceRefresh = false): int|string
 {
     $hours = 0;
+
+    if (!$forceRefresh) {
+        $user = User::query()->where('basecamp_api_user_id', $bcUserId)->first();
+
+        if ($user) {
+            $hours = $user->projects->sum('hours');
+        }
+
+        return number_format($hours, 2);
+    }
 
     $data = getWorkedHoursData($bcUserId);
 

@@ -23,7 +23,11 @@ class IndexDashboard extends Component
         $hoursTotal = workMonthRequiredHours($workDayCountMonth);
 
         $allUsersHours = [];
-        $projects = collect(getUserProjectlyHours())->sortByDesc('hours');
+        $projects = collect([]);
+
+        if (session('month_hours')) {
+            $projects = collect(getUserProjectlyHours())->sortByDesc('hours');
+        }
 
         if (session('all_users_hours') && user()->isAdmin()) {
             $allUsersHours = session('all_users_hours');
