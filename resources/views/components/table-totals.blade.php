@@ -11,7 +11,7 @@
         <x-label-segmented
             class="font-semibold mr-0"
             color="blue"
-            label="Posted Total"
+            label="Uploaded Total"
             value="{{number_format(user()->postedTodosHours(), 2)}}"/>
     @endif
 </div>
