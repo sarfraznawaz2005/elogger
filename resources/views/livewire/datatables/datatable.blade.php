@@ -25,7 +25,9 @@
                     @endif
                 </div>
                 <div>
-                    @includeIf($totalSlot)
+                    @if (isset($totalSlot))
+                        @include($totalSlot)
+                    @endif
                 </div>
             </div>
 
