@@ -7,7 +7,7 @@
 
         @if (!$loading)
             <div wire:ignore>
-                <x-panel title="Users">
+                <x-panel title="Users (Data This Month)">
                     <livewire:data-tables.users-data-table/>
                 </x-panel>
             </div>

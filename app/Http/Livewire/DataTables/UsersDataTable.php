@@ -48,21 +48,10 @@ class UsersDataTable extends LivewireDatatable
                     </span>
                 html;
 
-            })->label('Pending Month')->sortable()->alignCenter(),
-
-            NumberColumn::callback(['id', 'id', 'id'], static function ($id) use (&$modelInstance) {
-                $hours = number_format($modelInstance->pendingTodosHours($id), 2);
-
-                return <<<html
-                    <span class="bg-green-100 text-green-800 text-md font-semibold px-2 py-1 rounded">
-                        $hours
-                    </span>
-                html;
-
-            })->label('Pending Total')->sortable()->alignCenter(),
+            })->label('Pending Hours')->sortable()->alignCenter(),
 
             NumberColumn::callback(['id', 'id', 'id', 'id'], static function ($id) use (&$modelInstance) {
-                $hours = number_format($modelInstance->postedTodosHours($id), 2);
+                $hours = getUserMonthUploadedHours($modelInstance->basecamp_api_user_id, true);
 
                 return <<<html
                     <span class="bg-green-100 text-green-800 text-md font-semibold px-2 py-1 rounded">
@@ -70,7 +59,7 @@ class UsersDataTable extends LivewireDatatable
                     </span>
                 html;
 
-            })->label('Uploaded Total')->sortable()->alignCenter(),
+            })->label('Uploaded Hours')->sortable()->alignCenter(),
 
             Column::callback(['basecamp_api_user_id', 'holidays_count', 'working_hours_count'], static function ($bcId, $holidaysCount, $workingHoursCount) use (&$modelInstance) {
                 $workDayCount = getWorkingDaysCount();

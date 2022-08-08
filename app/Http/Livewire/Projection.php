@@ -35,20 +35,20 @@ class Projection extends Component
             </svg>
         icon;
 
-        $monthHours = monthHoursUploaded();
-        $pendingHours = user()->pendingTodosHoursMonth();
+        $monthHoursUploaded = monthHoursUploaded();
+        $pendingHoursMonth = user()->pendingTodosHoursMonth();
         $pendingHoursToday = user()->pendingTodosHoursToday();
         $workDayCount = getWorkingDaysCount();
 
-        $cValue = round($monthHours + $pendingHours) . '/' . round(($workDayCount - user()->holidays_count) * user()->working_hours_count);
-        //$pValue = round(($monthHours) + user()->working_hours_count) . '/' . round(($workDayCount - user()->holidays_count) * user()->working_hours_count);
+        $cValue = round($monthHoursUploaded + $pendingHoursMonth) . '/' . round(($workDayCount - user()->holidays_count) * user()->working_hours_count);
+        //$pValue = round(($monthHoursUploaded) + user()->working_hours_count) . '/' . round(($workDayCount - user()->holidays_count) * user()->working_hours_count);
 
         // projected when adding 8 eg working_hours_count
-        $isHappy = !(($monthHours + ($pendingHours - $pendingHoursToday) + user()->working_hours_count) < (($workDayCount - user()->holidays_count) * user()->working_hours_count));
-        //dump($monthHours + ($pendingHours - $pendingHoursToday) + user()->working_hours_count);
+        $isHappy = !(($monthHoursUploaded + ($pendingHoursMonth - $pendingHoursToday) + user()->working_hours_count) < (($workDayCount - user()->holidays_count) * user()->working_hours_count));
+        //dump($monthHoursUploaded + ($pendingHoursMonth - $pendingHoursToday) + user()->working_hours_count);
 
         if ($pendingHoursToday >= user()->working_hours_count) {
-            $isHappy = !(($monthHours + ($pendingHours - $pendingHoursToday) + $pendingHoursToday) < (($workDayCount - user()->holidays_count) * user()->working_hours_count));
+            $isHappy = !(($monthHoursUploaded + ($pendingHoursMonth - $pendingHoursToday) + $pendingHoursToday) < (($workDayCount - user()->holidays_count) * user()->working_hours_count));
         }
 
         if (getWorkingDaysCount() - user()->holidays_count <= 0) {
