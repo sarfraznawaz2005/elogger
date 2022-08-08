@@ -14,6 +14,8 @@ class IndexUsers extends Component
 
     public function render(): Factory|View|Application
     {
+        abort_if(!user()->isAdmin(), 403);
+
         return view('livewire.users.index');
     }
 
