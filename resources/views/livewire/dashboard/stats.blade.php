@@ -32,7 +32,7 @@
                     <h3 class="text-sm font-medium text-gray-900 sm:text-lg">Hours Projected</h3>
 
                     <p class="mt-1 text-sm text-gray-600">
-                        <strong class="text-2xl">{{number_format($hoursProjected, 2)}} of {{$hoursTotal}}</strong>
+                        <strong class="text-2xl">{{$hoursProjected}} of {{$hoursTotal}}</strong>
                     </p>
                 </div>
             </div>
