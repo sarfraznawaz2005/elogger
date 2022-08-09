@@ -123,6 +123,9 @@ function addUserProjects(): void
 
 function refreshData(): void
 {
+    // eg todos and todolists that were saved from entry page
+    session()->forget('app');
+
     if (!checkConnection()) {
         session()->put('month_hours', 'none');
 
@@ -167,9 +170,6 @@ function refreshData(): void
     if ($monthHours === 0.0 || $monthHours === '0.00') {
         session()->put('month_hours', 'none');
     }
-
-    // eg todos and todolists that were saved from entry page
-    session()->forget('app');
 
     getUserProjectlyHours(true);
 }
