@@ -10,26 +10,23 @@
 
     @vite(['resources/js/app.js'])
 
-    @livewireStyles
+    <livewire:styles />
 
     @stack('css')
 </head>
 <body class="font-sans antialiased">
 
-{{--<x-loading/>--}}
-<x-jet-banner/>
 <x-flash/>
 <x-toast/>
 <livewire:refresh/>
 
 <div class="min-h-screen bg-gray-100">
-    @livewire('navigation-menu')
+    <livewire:navigation-menu/>
 
     <main>
         <div class="py-8">
 
             <div class="mx-auto">
-                <livewire:offline/>
                 <x-bc-connection-checker/>
                 <x-stats-checker/>
             </div>
@@ -45,7 +42,7 @@
 
 <x-celebrate/>
 
-@livewireScripts
+<livewire:scripts />
 
 </body>
 </html>

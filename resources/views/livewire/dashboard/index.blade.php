@@ -1,6 +1,8 @@
-<div wire:ignore>
+<div>
     <x-panel title="Dashboard">
-        @include('livewire.dashboard.stats')
+        <div wire:ignore>
+            @include('livewire.dashboard.stats')
+        </div>
         @include('livewire.dashboard.graph')
     </x-panel>
 </div>

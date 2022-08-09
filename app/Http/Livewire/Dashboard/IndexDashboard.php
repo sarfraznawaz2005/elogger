@@ -9,6 +9,8 @@ use Livewire\Component;
 
 class IndexDashboard extends Component
 {
+    public bool $loading = true;
+
     public function render(): Factory|View|Application
     {
         //session()->forget('celebrated');
@@ -37,5 +39,10 @@ class IndexDashboard extends Component
             'livewire.dashboard.index',
             compact('workDays', 'hoursUploaded', 'hoursProjected', 'hoursTotal', 'projects', 'allUsersHours')
         );
+    }
+
+    public function loadCharts(): void
+    {
+        $this->loading = false;
     }
 }
