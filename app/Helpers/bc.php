@@ -144,6 +144,11 @@ function credentialsOk(): bool
 
 function checkConnection(): bool
 {
+    // account must be setup first.
+    if (!hasBasecampSetup()) {
+        return true;
+    }
+
     $data = getInfo('me');
 
     return isset($data['email-address']);

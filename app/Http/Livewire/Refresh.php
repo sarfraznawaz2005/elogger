@@ -14,7 +14,7 @@ class Refresh extends Component
     /** @noinspection ALL */
     public function render(): string
     {
-        if (session('month_hours')) {
+        if (session('month_hours') || !hasBasecampSetup()) {
             $this->loading = false;
 
             # important otherwise component loaded without need
@@ -36,8 +36,12 @@ class Refresh extends Component
         if (!checkConnection()) {
             $this->danger('We are unable to communicate with Basecamp API, make sure you are connected to internet & your settings are correct.');
 
-            session(['month_hours' => 'none']);
+            session()->put('month_hours', 'none');
             session()->put('not_connected', true);
+
+            // strange but needed this otherwise session was not being set
+            // most likely livewire was refreshing page quickly again.
+            sleep(1);
 
             return redirect()->to('/');
         }

@@ -13,12 +13,12 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('projects', function (Blueprint $table) {
+        Schema::create('projects', static function (Blueprint $table) {
             $table->id();
             $table->integer('user_id')->index();
-            $table->string('project_id');
+            $table->string('project_id')->index();
             $table->string('project_name');
-            $table->string('hours')->nullable()->default(0);            
+            $table->string('hours')->nullable()->default(0);
             $table->timestamps();
         });
     }

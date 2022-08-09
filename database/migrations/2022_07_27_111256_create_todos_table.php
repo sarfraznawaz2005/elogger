@@ -12,12 +12,12 @@ return new class extends Migration {
      */
     public function up()
     {
-        Schema::create('todos', function (Blueprint $table) {
+        Schema::create('todos', static function (Blueprint $table) {
             $table->id();
             $table->integer('user_id')->index();
-            $table->string('project_id');
-            $table->string('todolist_id');
-            $table->string('todo_id');
+            $table->string('project_id')->index();
+            $table->string('todolist_id')->index();
+            $table->string('todo_id')->index();
             $table->date('dated');
             $table->string('time_start');
             $table->string('time_end');

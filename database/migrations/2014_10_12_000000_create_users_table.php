@@ -13,7 +13,7 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('users', function (Blueprint $table) {
+        Schema::create('users', static function (Blueprint $table) {
             $table->id();
             $table->string('name');
             $table->string('email')->unique();
@@ -26,7 +26,7 @@ return new class extends Migration
             $table->string('basecamp_org_id')->nullable();
             $table->string('basecamp_org')->nullable();
             $table->string('basecamp_api_key')->nullable();
-            $table->string('basecamp_api_user_id')->nullable();
+            $table->string('basecamp_api_user_id')->index()->nullable();
             $table->string('working_hours_count')->default(8);
             $table->string('holidays_count')->default(0);
             $table->timestamps();

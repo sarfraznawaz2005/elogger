@@ -40,7 +40,7 @@ class Projection extends Component
         $pendingHoursToday = user()->pendingTodosHoursToday();
         $workDayCount = getWorkingDaysCount();
         $holidayCount = user()->holidays_count;
-        $workingHoursCount = user()->holidays_count;
+        $workingHoursCount = user()->working_hours_count;
 
         $cValue = round($monthHoursUploaded + $pendingHoursMonth) . '/' . round(($workDayCount - $holidayCount) * $workingHoursCount);
         //$pValue = round(($monthHoursUploaded) + $workingHoursCount) . '/' . round(($workDayCount - $holidayCount) * $workingHoursCount);
@@ -92,6 +92,10 @@ class Projection extends Component
             $this->danger('We are unable to communicate with Basecamp API, make sure you are connected to internet & your settings are correct.');
 
             session()->put('not_connected', true);
+
+            // strange but needed this otherwise session was not being set
+            // most likely livewire was refreshing page quickly again.
+            sleep(1);
 
             return redirect()->to('/');
         }

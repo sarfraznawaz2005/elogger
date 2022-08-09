@@ -123,6 +123,12 @@ function addUserProjects(): void
 
 function refreshData(): void
 {
+    if (!checkConnection()) {
+        session()->put('month_hours', 'none');
+
+        return;
+    }
+
     set_time_limit(0);
 
     $allUsersHours = [];
@@ -150,16 +156,16 @@ function refreshData(): void
             $allUsersHours = collect($allUsersHours)->sortByDesc('hours');
         }
 
-        session(['all_users_hours' => $allUsersHours]);
+        session()->put('all_users_hours', $allUsersHours);
     }
 
     addUserProjects();
 
     $monthHours = getUserMonthUploadedHours(0, true);
-    session(['month_hours' => $monthHours]);
+    session()->put('month_hours', $monthHours);
 
     if ($monthHours === 0.0 || $monthHours === '0.00') {
-        session(['month_hours' => 'none']);
+        session()->put('month_hours', 'none');
     }
 
     // eg todos and todolists that were saved from entry page
@@ -198,4 +204,9 @@ function workMonthRequiredHours($workDayCountMonth, $workingHoursCount = 0): flo
 function monthHoursUploaded()
 {
     return session('month_hours') === 'none' ? '0.00' : session('month_hours');
+}
+
+function hasBasecampSetup(): bool
+{
+    return user()->basecamp_api_key && user()->basecamp_api_user_id;
 }
