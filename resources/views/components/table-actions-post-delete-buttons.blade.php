@@ -11,9 +11,7 @@
             <div class="flex items-center justify-start">
                 <div class="flex items-center mr-2 py-2 px-4 rounded border border-gray-300 bg-white justify-between"
                      x-data="{checked:false}"
-                     x-init="
-                            window.livewire.on('refreshLivewireDatatable', () => checked = false)
-                        "
+                     x-init="window.livewire.on('refreshLivewireDatatable', () => checked = false)"
                 >
 
                     <input id="select-all-checkbox"
@@ -27,9 +25,11 @@
                     </label>
                 </div>
 
-                <div class="inline-flex items-center pl-2 text-sm font-semibold text-center bg-yellow-200 border-yellow-500 mr-2">
+                <div
+                    class="inline-flex items-center pl-2 text-sm font-semibold text-center bg-yellow-200 border-yellow-500 mr-2">
                     Selected Total
-                    <div class="inline-flex justify-center items-center ml-1 p-2 text-gray-800 text-sm font-bold bg-yellow-400">
+                    <div
+                        class="inline-flex justify-center items-center ml-1 p-2 text-gray-800 text-sm font-bold bg-yellow-400">
                         {{number_format($selectedTotal, 2)}}
                     </div>
                 </div>
@@ -37,7 +37,8 @@
 
             <div class="flex items-center justify-end">
                 <div class="flex items-center mr-2">
-                    <div class="inline" x-data="{ open: false, working: false }" x-cloak wire:key="upload-selected-{{ uniqid('', true) }}">
+                    <div class="inline" x-data="{ open: false, working: false }" x-cloak
+                         wire:key="upload-selected-{{ uniqid('', true) }}">
 
                         <x-jet-button
                             x-on:click="open = true; working = false"
