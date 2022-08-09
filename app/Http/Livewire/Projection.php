@@ -39,19 +39,20 @@ class Projection extends Component
         $pendingHoursMonth = user()->pendingTodosHoursMonth();
         $pendingHoursToday = user()->pendingTodosHoursToday();
         $workDayCount = getWorkingDaysCount();
+        $holidayCount = user()->holidays_count;
 
-        $cValue = round($monthHoursUploaded + $pendingHoursMonth) . '/' . round(($workDayCount - user()->holidays_count) * user()->working_hours_count);
-        //$pValue = round(($monthHoursUploaded) + user()->working_hours_count) . '/' . round(($workDayCount - user()->holidays_count) * user()->working_hours_count);
+        $cValue = round($monthHoursUploaded + $pendingHoursMonth) . '/' . round(($workDayCount - $holidayCount) * user()->working_hours_count);
+        //$pValue = round(($monthHoursUploaded) + user()->working_hours_count) . '/' . round(($workDayCount - $holidayCount) * user()->working_hours_count);
 
         // projected when adding 8 eg working_hours_count
-        $isHappy = !(($monthHoursUploaded + ($pendingHoursMonth - $pendingHoursToday) + user()->working_hours_count) < (($workDayCount - user()->holidays_count) * user()->working_hours_count));
+        $isHappy = !(($monthHoursUploaded + ($pendingHoursMonth - $pendingHoursToday) + user()->working_hours_count) < (($workDayCount - $holidayCount) * user()->working_hours_count));
         //dump($monthHoursUploaded + ($pendingHoursMonth - $pendingHoursToday) + user()->working_hours_count);
 
         if ($pendingHoursToday >= user()->working_hours_count) {
-            $isHappy = !(($monthHoursUploaded + ($pendingHoursMonth - $pendingHoursToday) + $pendingHoursToday) < (($workDayCount - user()->holidays_count) * user()->working_hours_count));
+            $isHappy = !(($monthHoursUploaded + ($pendingHoursMonth - $pendingHoursToday) + $pendingHoursToday) < (($workDayCount - $holidayCount) * user()->working_hours_count));
         }
 
-        if ($workDayCount - user()->holidays_count <= 0) {
+        if ($workDayCount - $holidayCount <= 0) {
             $isHappy = false;
         }
 
