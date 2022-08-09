@@ -12,6 +12,7 @@
     src: local(''),
     url('../../fonts/nunito-v25-latin-regular.woff2') format('woff2'),
     url('../../fonts/nunito-v25-latin-regular.woff') format('woff');
+    font-display: swap;
 }
 
 /* nunito-600 - latin */
@@ -22,6 +23,7 @@
     src: local(''),
     url('../../fonts/nunito-v25-latin-600.woff2') format('woff2'),
     url('../../fonts/nunito-v25-latin-600.woff') format('woff');
+    font-display: swap;
 }
 
 /* nunito-700 - latin */
@@ -32,6 +34,7 @@
     src: local(''),
     url('../../fonts/nunito-v25-latin-700.woff2') format('woff2'),
     url('../../fonts/nunito-v25-latin-700.woff') format('woff');
+    font-display: swap;
 }
 
 /* misc */

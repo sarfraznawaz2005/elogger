@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "87cfa7c77d2ef81813e7c1142ac141ad",
+    "content-hash": "64237c6e4ca9124d96c303432d430774",
     "packages": [
         {
             "name": "bacon/bacon-qr-code",
@@ -2018,6 +2018,53 @@
                 }
             ],
             "time": "2022-04-17T13:12:02+00:00"
+        },
+        {
+            "name": "lexo/defer-vite",
+            "version": "1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/lexo-mpuzovic/defer-vite.git",
+                "reference": "bf5afccb3daa9ba1e7a029538acd51b43f546484"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/lexo-mpuzovic/defer-vite/zipball/bf5afccb3daa9ba1e7a029538acd51b43f546484",
+                "reference": "bf5afccb3daa9ba1e7a029538acd51b43f546484",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^8.0.2"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "LEXO\\DeferVite\\Providers\\DeferViteServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "LEXO\\DeferVite\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Miljan Puzović",
+                    "email": "mpuzovic@lexo.ch"
+                }
+            ],
+            "description": "Simple Laravel package to add defer attribute to Vite script assets.",
+            "support": {
+                "issues": "https://github.com/lexo-mpuzovic/defer-vite/issues",
+                "source": "https://github.com/lexo-mpuzovic/defer-vite/tree/v1.0.0"
+            },
+            "time": "2022-07-15T09:09:51+00:00"
         },
         {
             "name": "livewire/livewire",

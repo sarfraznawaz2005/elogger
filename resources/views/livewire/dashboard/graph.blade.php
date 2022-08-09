@@ -79,9 +79,10 @@
 
 </div>
 
-<script src="/js/charts.js" defer></script>
-
 <div wire:init="loadCharts">
+
+    <script src="/js/charts.js" defer></script>
+
     @if (!$loading)
 
         <script>
