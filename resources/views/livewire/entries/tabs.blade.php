@@ -27,7 +27,7 @@
     </div>
 
     <div id="tabContent">
-        <div x-show="tab === 1" id="pendingTable" class="px-6 pb-2.5 animate-in fade-in duration-500">
+        <div x-show="tab === 1" id="pendingTable" class="px-6 pb-2.5" x-transition.duration.100>
             <div class="max-w-7xl mx-auto p-0 border-0 m-0 mb-4">
                 <div class="p-6 bg-gray-200 text-gray-800 rounded-b-lg rounded-r-lg">
                     <livewire:data-tables.pending-entries-data-table />
@@ -35,7 +35,7 @@
             </div>
         </div>
 
-        <div x-show="tab === 2" id="postedTable" class="px-6 pb-2.5 animate-in fade-in duration-500">
+        <div x-show="tab === 2" id="postedTable" class="px-6 pb-2.5" x-transition.duration.100>
             <div class="max-w-7xl mx-auto p-0 border-0 m-0 mb-4">
                 <div class="p-6 bg-gray-200 text-gray-800 rounded-b-lg rounded-r-lg">
                     <livewire:data-tables.posted-entries-data-table />
