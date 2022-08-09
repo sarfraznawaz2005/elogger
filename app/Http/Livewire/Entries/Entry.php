@@ -240,12 +240,28 @@ class Entry extends Component
     public function delete(Todo $todo): void
     {
         if ($todo->delete()) {
+
+            // if we call refreshLivewireDatatable first celebrate will not work
+            // this is delebrate as we don't want to celebrate on delete
+
             $this->emit('refreshLivewireDatatable');
             $this->emit('event-entries-updated');
 
             $this->success('Entry Deleted Successfully!');
         } else {
             $this->danger('Unable to delete entry!');
+        }
+    }
+
+    public function deleteSelected($ids): void
+    {
+        if (Todo::query()->whereIn('id', $ids)->delete()) {
+            $this->emit('refreshLivewireDatatable');
+            $this->emit('event-entries-updated');
+
+            $this->success('Selected Entries Deleted Successfully!');
+        } else {
+            $this->danger('Unable to delete entries!');
         }
     }
 
@@ -257,18 +273,6 @@ class Entry extends Component
             $this->emit('event-entries-updated');
 
             $this->success('All Posted Entries Deleted Successfully!');
-        } else {
-            $this->danger('Unable to delete entries!');
-        }
-    }
-
-    public function deleteSelected($ids): void
-    {
-        if (Todo::query()->whereIn('id', $ids)->delete()) {
-            $this->emit('refreshLivewireDatatable');
-            $this->emit('event-entries-updated');
-
-            $this->success('Selected Entries Deleted Successfully!');
         } else {
             $this->danger('Unable to delete entries!');
         }
@@ -333,8 +337,8 @@ class Entry extends Component
 
             $this->loading = false;
 
-            $this->emit('refreshLivewireDatatable');
             $this->emit('event-entries-updated');
+            $this->emit('refreshLivewireDatatable');
 
             $this->success('Selected Entries Uploaded Successfully!');
         } else {

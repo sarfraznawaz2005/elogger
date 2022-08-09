@@ -68,6 +68,10 @@ class Projection extends Component
             // so we handle both page reload and otherwise scenarios
             $this->celebrated = true;
 
+            // strange but needed this otherwise session was not being set
+            // most likely some livewire stuff.
+            sleep(1);
+
             $this->dispatchBrowserEvent('celebrate');
         }
 
