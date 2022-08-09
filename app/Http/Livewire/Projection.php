@@ -13,25 +13,66 @@ class Projection extends Component
     use InteractsWithFlash;
 
     protected $listeners = [
-        'event-entries-updated' => 'setData',
+        'event-entries-updated' => '$refresh',
         'refreshClicked' => 'refreshClicked',
         'refresh' => 'refresh',
     ];
 
-    public string $cValue;
-    public string $icon;
-    public string $title;
-    public string $pendingHoursToday;
-    public string $pendingHoursMonth;
-    public string $monthHoursUploaded;
-
     public bool $loading = false;
-    public bool $loadingStats = true;
     public bool $celebrated = false;
 
     public function render(): Factory|View|Application
     {
-        return view('livewire.projection');
+        $sad = <<< 'icon'
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-9 w-9" fill="#FFF700" viewBox="0 0 24 24" stroke="#A49F03" stroke-width="1.5">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+        icon;
+
+        $happy = <<< 'icon'
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-9 w-9" fill="#FFF700" viewBox="0 0 24 24" stroke="#A49F03" stroke-width="1.5">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M14.828 14.828a4 4 0 01-5.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+        icon;
+
+        $monthHoursUploaded = monthHoursUploaded();
+        $pendingHoursMonth = user()->pendingTodosHoursMonth();
+        $pendingHoursToday = user()->pendingTodosHoursToday();
+        $workDayCount = getWorkingDaysCount();
+
+        $cValue = round($monthHoursUploaded + $pendingHoursMonth) . '/' . round(($workDayCount - user()->holidays_count) * user()->working_hours_count);
+        //$pValue = round(($monthHoursUploaded) + user()->working_hours_count) . '/' . round(($workDayCount - user()->holidays_count) * user()->working_hours_count);
+
+        // projected when adding 8 eg working_hours_count
+        $isHappy = !(($monthHoursUploaded + ($pendingHoursMonth - $pendingHoursToday) + user()->working_hours_count) < (($workDayCount - user()->holidays_count) * user()->working_hours_count));
+        //dump($monthHoursUploaded + ($pendingHoursMonth - $pendingHoursToday) + user()->working_hours_count);
+
+        if ($pendingHoursToday >= user()->working_hours_count) {
+            $isHappy = !(($monthHoursUploaded + ($pendingHoursMonth - $pendingHoursToday) + $pendingHoursToday) < (($workDayCount - user()->holidays_count) * user()->working_hours_count));
+        }
+
+        if (getWorkingDaysCount() - user()->holidays_count <= 0) {
+            $isHappy = false;
+        }
+
+        $icon = $isHappy ? $happy : $sad;
+        $title = $isHappy ? 'I am happy ;-)' : 'I am sad...';
+
+        // celebrate when required hours are reached
+        if ($isHappy && !$this->celebrated && !session()->has('celebrated')) {
+            session()->put('celebrated', true);
+
+            // also using this local variable because session takes place on page reload
+            // so we handle both page reload and otherwise scenarios
+            $this->celebrated = true;
+
+            $this->dispatchBrowserEvent('celebrate');
+        }
+
+        return view(
+            'livewire.projection',
+            compact('cValue', 'icon', 'title', 'pendingHoursToday', 'pendingHoursMonth', 'monthHoursUploaded', 'workDayCount')
+        );
     }
 
     /** @noinspection ALL */
@@ -61,63 +102,5 @@ class Projection extends Component
         $this->success('Data Refreshed Successfully!');
 
         return redirect()->to('/');
-    }
-
-
-    /** @noinspection ALL */
-    public function loadProjection(): void
-    {
-        $this->setData();
-
-        $this->loadingStats = false;
-    }
-
-    public function setData(): void
-    {
-        $sad = <<< 'icon'
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-9 w-9" fill="#FFF700" viewBox="0 0 24 24" stroke="#A49F03" stroke-width="1.5">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-            </svg>
-        icon;
-
-        $happy = <<< 'icon'
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-9 w-9" fill="#FFF700" viewBox="0 0 24 24" stroke="#A49F03" stroke-width="1.5">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M14.828 14.828a4 4 0 01-5.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-            </svg>
-        icon;
-
-        $this->monthHoursUploaded = monthHoursUploaded() ?? '0.00';
-        $this->pendingHoursMonth = user()->pendingTodosHoursMonth();
-        $this->pendingHoursToday = user()->pendingTodosHoursToday();
-        $workDayCount = getWorkingDaysCount();
-
-        $this->cValue = round($this->monthHoursUploaded + $this->pendingHoursMonth) . '/' . round(($workDayCount - user()->holidays_count) * user()->working_hours_count);
-        //$pValue = round(($this->monthHoursUploaded) + user()->working_hours_count) . '/' . round(($workDayCount - user()->holidays_count) * user()->working_hours_count);
-
-        // projected when adding 8 eg working_hours_count
-        $isHappy = !(($this->monthHoursUploaded + ($this->pendingHoursMonth - $this->pendingHoursToday) + user()->working_hours_count) < (($workDayCount - user()->holidays_count) * user()->working_hours_count));
-        //dump($this->monthHoursUploaded + ($this->pendingHoursMonth - $this->pendingHoursToday) + user()->working_hours_count);
-
-        if ($this->pendingHoursToday >= user()->working_hours_count) {
-            $isHappy = !(($this->monthHoursUploaded + ($this->pendingHoursMonth - $this->pendingHoursToday) + $this->pendingHoursToday) < (($workDayCount - user()->holidays_count) * user()->working_hours_count));
-        }
-
-        if (getWorkingDaysCount() - user()->holidays_count <= 0) {
-            $isHappy = false;
-        }
-
-        $this->icon = $isHappy ? $happy : $sad;
-        $this->title = $isHappy ? 'I am happy ;-)' : 'I am sad...';
-
-        // celebrate when required hours are reached
-        if ($isHappy && !$this->celebrated && !session()->has('celebrated')) {
-            session()->put('celebrated', true);
-
-            // also using this local variable because session takes place on page reload
-            // so we handle both page reload and otherwise scenarios
-            $this->celebrated = true;
-
-            $this->dispatchBrowserEvent('celebrate');
-        }
     }
 }
