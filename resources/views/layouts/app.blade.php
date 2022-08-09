@@ -38,11 +38,14 @@
 </div>
 
 @stack('modals')
-@stack('js')
 
 <x-celebrate/>
 
+<script src="/js/notyf.min.js"></script>
+
 <livewire:scripts />
+
+@stack('js')
 
 <script>
     window.paceOptions = {

@@ -4,14 +4,6 @@ namespace App\Traits;
 
 trait InteractsWithFlash
 {
-    protected function info($message): void
-    {
-        session()->flash('toast', [
-            'style' => 'info',
-            'message' => $message,
-        ]);
-    }
-
     protected function success($message): void
     {
         session()->flash('toast', [
@@ -20,18 +12,10 @@ trait InteractsWithFlash
         ]);
     }
 
-    protected function warning($message): void
-    {
-        session()->flash('toast', [
-            'style' => 'warning',
-            'message' => $message,
-        ]);
-    }
-
     protected function danger($message): void
     {
         session()->flash('toast', [
-            'style' => 'danger',
+            'style' => 'error',
             'message' => $message,
         ]);
     }

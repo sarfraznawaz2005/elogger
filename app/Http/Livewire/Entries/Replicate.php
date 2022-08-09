@@ -38,7 +38,7 @@ class Replicate extends Component
 
         if (!$pendingTodos->count()) {
             $this->closeModal();
-            $this->warning('There are no pending entries!');
+            $this->danger('There are no pending entries!');
             return;
         }
 
