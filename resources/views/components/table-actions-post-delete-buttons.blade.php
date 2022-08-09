@@ -30,8 +30,7 @@
 
             <div class="flex items-center justify-end">
                 <div class="flex items-center mr-2">
-                    <div class="inline" x-data="{ open: false, working: false }" x-cloak
-                         wire:key="upload-selected-{{ uniqid('', true) }}">
+                    <div class="inline" x-data="{ open: false, working: false }" x-cloak wire:key="upload-selected-{{ uniqid('', true) }}">
 
                         <x-jet-button
                             x-on:click="open = true; working = false"
