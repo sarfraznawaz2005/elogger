@@ -113,7 +113,13 @@
 
         @includeIf($beforeTableSlot)
 
-        <div wire:loading.class="opacity-50" class="mt-2 @unless($complex || $this->hidePagination) rounded-b-none @endunless border-0 bg-white max-w-screen @if($this->activeFilters) border-blue-500 @else border-transparent @endif @if($complex) rounded-b-none border-b-0 @endif">
+        <div class="relative mt-2 @unless($complex || $this->hidePagination) rounded-b-none @endunless border-0 bg-white max-w-screen @if($this->activeFilters) border-blue-500 @else border-transparent @endif @if($complex) rounded-b-none border-b-0 @endif">
+
+            <div
+                wire:loading
+                class="absolute top-0 left-0 right-0 bottom-0 w-full z-50 overflow-hidden bg-gray-700 bg-opacity-25 flex flex-col items-center justify-center">
+            </div>
+
             <div>
                 <div class="table min-w-full align-middle">
                     @unless($this->hideHeader)
