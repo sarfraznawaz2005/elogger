@@ -1,6 +1,6 @@
 <div class="bg-white overflow-hidden shadow-md sm:rounded-lg p-4">
 
-    <div class="overflow-x-auto relative">
+    <div class="overflow-x-auto relative" wire:ignore>
 
         <table class="w-full text-sm text-left text-gray-500">
             <thead class="text-xs text-gray-700 uppercase bg-gray-200">
