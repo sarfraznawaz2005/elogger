@@ -44,5 +44,16 @@
 
 <livewire:scripts />
 
+<script>
+    window.paceOptions = {
+        ajax: false,
+        elements: false,
+        restartOnPushState: false,
+        restartOnRequestAfter: false
+    }
+</script>
+
+<script src="/js/pace.min.js"></script>
+
 </body>
 </html>
