@@ -102,7 +102,7 @@
             <div class="p-2 grid grid-cols-8 gap-2 ">
                 @foreach($this->columns as $index => $column)
                     @if ($column['hideable'])
-                        <button wire:click.prefetch="toggle('{{ $index }}')" class="px-3 py-2 rounded text-white text-xs focus:outline-none
+                        <button wire:click="toggle('{{ $index }}')" class="px-3 py-2 rounded text-white text-xs focus:outline-none
                         {{ $column['hidden'] ? 'bg-blue-100 hover:bg-blue-300 text-blue-600' : 'bg-blue-500 hover:bg-blue-800' }}">
                             {{ $column['label'] }}
                         </button>
