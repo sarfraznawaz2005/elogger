@@ -71,7 +71,7 @@ class Projection extends Component
 
         return view(
             'livewire.projection',
-            compact('cValue', 'icon', 'title')
+            compact('cValue', 'icon', 'title', 'pendingHoursToday', 'pendingHoursMonth', 'monthHoursUploaded', 'workDayCount')
         );
     }
 

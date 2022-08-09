@@ -22,7 +22,7 @@
             label="Progress"
             value="{{$cValue}}"/>
 
-        <div class="cartoon" data-title="{{$title}}">{!! $icon !!}</div>
+        <div class="cartoon" data-score="{{$monthHoursUploaded + ($pendingHoursMonth - $pendingHoursToday) + user()->working_hours_count}}" data-title="{{$title}}">{!! $icon !!}</div>
 
     </div>
 
