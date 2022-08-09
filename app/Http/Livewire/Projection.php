@@ -23,13 +23,13 @@ class Projection extends Component
 
     public function render(): Factory|View|Application
     {
-        $sad = <<< icon
+        $sad = <<< 'icon'
             <svg xmlns="http://www.w3.org/2000/svg" class="h-9 w-9" fill="#FFF700" viewBox="0 0 24 24" stroke="#A49F03" stroke-width="1.5">
               <path stroke-linecap="round" stroke-linejoin="round" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
             </svg>
         icon;
 
-        $happy = <<< icon
+        $happy = <<< 'icon'
             <svg xmlns="http://www.w3.org/2000/svg" class="h-9 w-9" fill="#FFF700" viewBox="0 0 24 24" stroke="#A49F03" stroke-width="1.5">
               <path stroke-linecap="round" stroke-linejoin="round" d="M14.828 14.828a4 4 0 01-5.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
             </svg>
