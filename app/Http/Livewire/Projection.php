@@ -40,16 +40,17 @@ class Projection extends Component
         $pendingHoursToday = user()->pendingTodosHoursToday();
         $workDayCount = getWorkingDaysCount();
         $holidayCount = user()->holidays_count;
+        $workingHoursCount = user()->holidays_count;
 
-        $cValue = round($monthHoursUploaded + $pendingHoursMonth) . '/' . round(($workDayCount - $holidayCount) * user()->working_hours_count);
-        //$pValue = round(($monthHoursUploaded) + user()->working_hours_count) . '/' . round(($workDayCount - $holidayCount) * user()->working_hours_count);
+        $cValue = round($monthHoursUploaded + $pendingHoursMonth) . '/' . round(($workDayCount - $holidayCount) * $workingHoursCount);
+        //$pValue = round(($monthHoursUploaded) + $workingHoursCount) . '/' . round(($workDayCount - $holidayCount) * $workingHoursCount);
 
         // projected when adding 8 eg working_hours_count
-        $isHappy = !(($monthHoursUploaded + ($pendingHoursMonth - $pendingHoursToday) + user()->working_hours_count) < (($workDayCount - $holidayCount) * user()->working_hours_count));
-        //dump($monthHoursUploaded + ($pendingHoursMonth - $pendingHoursToday) + user()->working_hours_count);
+        $isHappy = !(($monthHoursUploaded + ($pendingHoursMonth - $pendingHoursToday) + $workingHoursCount) < (($workDayCount - $holidayCount) * $workingHoursCount));
+        //dump($monthHoursUploaded + ($pendingHoursMonth - $pendingHoursToday) + $workingHoursCount);
 
-        if ($pendingHoursToday >= user()->working_hours_count) {
-            $isHappy = !(($monthHoursUploaded + ($pendingHoursMonth - $pendingHoursToday) + $pendingHoursToday) < (($workDayCount - $holidayCount) * user()->working_hours_count));
+        if ($pendingHoursToday >= $workingHoursCount) {
+            $isHappy = !(($monthHoursUploaded + ($pendingHoursMonth - $pendingHoursToday) + $pendingHoursToday) < (($workDayCount - $holidayCount) * $workingHoursCount));
         }
 
         if ($workDayCount - $holidayCount <= 0) {

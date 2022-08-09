@@ -23,6 +23,7 @@ class Replicate extends Component
         return view('livewire.entries.replicate');
     }
 
+    /** @noinspection ALL */
     public function replicate(): void
     {
         try {
