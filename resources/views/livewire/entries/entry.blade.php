@@ -34,7 +34,7 @@
 
             <div
                 wire:loading wire:target="model.project_id, model.todolist_id"
-                class="fixed top-0 left-0 right-0 bottom-0 w-full z-50 overflow-hidden bg-gray-700 bg-opacity-25 flex flex-col items-center justify-center">
+                class="fixed top-0 left-0 right-0 bottom-0 w-full z-50 overflow-hidden bg-gray-700 bg-opacity-10 flex flex-col items-center justify-center">
             </div>
 
             <div wire:key="dropdown_div">
