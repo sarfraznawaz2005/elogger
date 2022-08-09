@@ -56,7 +56,9 @@ trait EntriesTableCommonTrait
             array_unshift($columns, Column::callback(['id'], static function ($id) {
                 /** @noinspection ALL */
                 return <<<html
-                    <input type="checkbox" class="check-entry" wire:model="selectedItems" value="$id"/>
+                    <div wire:ignore wire:key="table-checkbox-$id">
+                        <input type="checkbox" class="check-entry" wire:model="selectedItems" value="$id"/>
+                    </div>
                 html;
             })->alignCenter()->excludeFromExport());
         }

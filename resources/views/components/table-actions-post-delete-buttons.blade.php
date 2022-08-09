@@ -1,4 +1,4 @@
-<div>
+<div wire:key="table-actions-top">
     <br>
 
     @if($isPendingTable && !$this->results->isEmpty())
