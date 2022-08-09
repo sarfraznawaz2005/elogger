@@ -296,7 +296,7 @@ class Entry extends Component
                 $xmlData = <<<data
                         <time-entry>
                           <date>$todo->dated</date>
-                          <description>$todo->description</description>
+                          <description><![CDATA[$todo->description]]></description>
                           <hours>$hours</hours>
                           <person-id>$personId</person-id>
                           <todo-item-id>$todo->todo_id</todo-item-id>
