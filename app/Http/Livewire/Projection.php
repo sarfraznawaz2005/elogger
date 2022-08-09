@@ -51,7 +51,7 @@ class Projection extends Component
             $isHappy = !(($monthHoursUploaded + ($pendingHoursMonth - $pendingHoursToday) + $pendingHoursToday) < (($workDayCount - user()->holidays_count) * user()->working_hours_count));
         }
 
-        if (getWorkingDaysCount() - user()->holidays_count <= 0) {
+        if ($workDayCount - user()->holidays_count <= 0) {
             $isHappy = false;
         }
 
