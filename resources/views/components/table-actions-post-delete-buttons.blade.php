@@ -9,7 +9,7 @@
         <div class="flex w-full justify-between">
 
             <div class="flex items-center justify-start">
-                <div class="flex items-center mr-2 py-2 px-4 rounded border border-gray-300 bg-white justify-between">
+                <div class="flex items-center mr-2 py-2 px-4 rounded border border-gray-300 bg-white justify-between" wire:ignore>
                     <input id="select-all-checkbox"
                            type="checkbox"
                            class="w-4 h-4 focus:outline-none">
@@ -26,7 +26,6 @@
                         {{number_format($selectedTotal, 2)}}
                     </div>
                 </div>
-
             </div>
 
             <div class="flex items-center justify-end">
