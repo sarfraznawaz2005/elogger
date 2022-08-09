@@ -31,12 +31,8 @@
                 </div>
             </div>
 
-
-
             <div class="flex items-center justify-between mb-1">
-                <div class="flex items-center h-10">
-
-                </div>
+                <div class="flex items-center h-10"></div>
 
                 @if($this->activeFilters)
                     <span class="text-xl text-blue-400 uppercase">@lang('Filter active')</span>
