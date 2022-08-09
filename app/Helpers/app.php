@@ -175,7 +175,7 @@ function workDayCountMonth($holidayCount = 0)
     return getWorkingDaysCount(true) - $holidayCount;
 }
 
-function monthProjectedHours($workDayCount, $workDayCountMonth, $forceRefresh = false, $bsasecampUserId = 0, $workingHoursCount = 0, $user = null): string
+function monthProjectedHours($workDayCountMonth, $forceRefresh = false, $bsasecampUserId = 0, $workingHoursCount = 0, $user = null): string
 {
     $bsasecampUserId = $bsasecampUserId ?: user()->basecamp_api_user_id;
     $workingHoursCount = $workingHoursCount ?: user()->working_hours_count;
@@ -185,7 +185,7 @@ function monthProjectedHours($workDayCount, $workDayCountMonth, $forceRefresh = 
     $monthHoursUploaded = getUserMonthUploadedHours($bsasecampUserId, $forceRefresh);
     //dump($monthHoursUploaded);
 
-    return number_format($monthHoursUploaded + $pendingHoursMonth + (($workDayCountMonth - $workDayCount) * $workingHoursCount), 2);
+    return number_format($monthHoursUploaded + $pendingHoursMonth + (($workDayCountMonth - getWorkingDaysCount()) * $workingHoursCount), 2);
 }
 
 function workMonthRequiredHours($workDayCountMonth, $workingHoursCount = 0): float|int

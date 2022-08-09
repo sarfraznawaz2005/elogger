@@ -62,11 +62,10 @@ class UsersDataTable extends LivewireDatatable
             })->label('Uploaded Hours')->sortable()->alignCenter(),
 
             Column::callback(['basecamp_api_user_id', 'holidays_count', 'working_hours_count'], static function ($bcId, $holidaysCount, $workingHoursCount) use (&$modelInstance) {
-                $workDayCount = getWorkingDaysCount();
                 $workDayCountMonth = workDayCountMonth($holidaysCount);
 
                 $hoursTotal = workMonthRequiredHours($workDayCountMonth, $workingHoursCount);
-                $hoursProjected = monthProjectedHours($workDayCount, $workDayCountMonth, true, $bcId, $workingHoursCount, $modelInstance);
+                $hoursProjected = monthProjectedHours($workDayCountMonth, true, $bcId, $workingHoursCount, $modelInstance);
 
                 return <<<html
                     <span class="bg-green-100 text-green-800 text-md font-semibold px-2 py-1 rounded">
