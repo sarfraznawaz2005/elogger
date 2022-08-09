@@ -21,7 +21,7 @@ class IndexDashboard extends Component
 
         $workDays = "$workDayCount of $workDayCountMonth";
         $hoursUploaded = monthHoursUploaded();
-        $hoursProjected = monthProjectedHours($workDayCountMonth);
+        $hoursProjected = monthProjectedHours($workDayCountMonth + user()->holidays_count);
         $hoursTotal = workMonthRequiredHours($workDayCountMonth);
 
         $allUsersHours = [];
