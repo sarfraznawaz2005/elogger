@@ -182,6 +182,10 @@ function monthProjectedHours($workDayCountMonth, $holidayCount = 0, $forceRefres
     $holidayCount = $holidayCount ?: user()->holidays_count;
     $user = $user ?: user();
 
+    if (!hasBasecampSetup($user)) {
+        return '0';
+    }
+
     $pendingHoursMonth = $user->pendingTodosHoursMonth();
     $monthHoursUploaded = getUserMonthUploadedHours($bsasecampUserId, $forceRefresh);
     //dump($monthHoursUploaded);
@@ -202,7 +206,9 @@ function monthHoursUploaded()
     return session('month_hours') === 'none' ? '0.00' : session('month_hours');
 }
 
-function hasBasecampSetup(): bool
+function hasBasecampSetup($user = null): bool
 {
-    return user()->basecamp_api_key && user()->basecamp_api_user_id;
+    $user = $user ?: user();
+
+    return $user->basecamp_api_key && $user->basecamp_api_user_id;
 }

@@ -51,6 +51,15 @@ class UsersDataTable extends LivewireDatatable
             })->label('Pending Hours')->sortable()->alignCenter(),
 
             NumberColumn::callback(['id', 'id', 'id', 'id'], static function ($id) use (&$modelInstance) {
+
+                if (!hasBasecampSetup($modelInstance)) {
+                    return <<<html
+                        <span class="bg-green-100 text-green-800 text-md font-semibold px-2 py-1 rounded">
+                            0.00
+                        </span>
+                    html;
+                }
+
                 $hours = getUserMonthUploadedHours($modelInstance->basecamp_api_user_id, true);
 
                 return <<<html
