@@ -113,21 +113,21 @@
                 <tr class="bg-white border-b">
                     <td class="font-bold text-md py-4 uppercase py-2 px-6 text-left">Total</td>
                     <td>&nbsp;</td>
-                    <td><span class="bg-gray-200 font-bold text-lg p-2 rounded">{{$totalRequired}}</span></td>
-                    <td><span class="bg-gray-200 font-bold text-lg p-2 rounded">{{$totalLogged}}</span></td>
-                    <td><span class="{{$totalDiff < 0 ? 'bg-red-200' : 'bg-gray-200'}} font-bold text-lg p-2 rounded">{{$totalDiff}}</span></td>
+                    <td><span class="bg-gray-200 font-bold text-md p-2 rounded">{{$totalRequired}}</span></td>
+                    <td><span class="bg-gray-200 font-bold text-md p-2 rounded">{{$totalLogged}}</span></td>
+                    <td><span class="{{$totalDiff < 0 ? 'bg-red-200' : 'bg-gray-200'}} font-bold text-md p-2 rounded">{{$totalDiff}}</span></td>
                 </tr>
 
                 <tr class="bg-white border-b">
                     <td class="font-bold text-md py-4 uppercase py-2 px-6 text-left">Final Hours</td>
                     <td colspan="3">&nbsp;</td>
-                    <td><span class="{{$finalHours < 0 ? 'bg-red-200' : 'bg-gray-200'}} font-bold text-lg p-2 rounded">{{$finalHours}}</span></td>
+                    <td><span class="{{$finalHours < 0 ? 'bg-red-200' : 'bg-green-200'}} font-bold text-lg p-2 rounded">{{$finalHours}}</span></td>
                 </tr>
 
                 <tr class="bg-white">
                     <td class="font-bold text-md py-4 uppercase py-2 px-6 text-left">Hours Average</td>
                     <td colspan="3">&nbsp;</td>
-                    <td><span class="{{$hoursAvg !== '0.00' && $hoursAvg < 8 ? 'bg-red-200' : 'bg-gray-200'}} font-bold text-lg p-2 rounded">{{$hoursAvg}}</span></td>
+                    <td><span class="{{$hoursAvg !== '0.00' && $hoursAvg < 8 ? 'bg-red-200' : 'bg-green-200'}} font-bold text-lg p-2 rounded">{{$hoursAvg}}</span></td>
                 </tr>
 
                 </tbody>

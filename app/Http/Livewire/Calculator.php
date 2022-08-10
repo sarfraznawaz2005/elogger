@@ -27,17 +27,16 @@ class Calculator extends Component
     protected array $rules = [
         'allowedLeaves' => 'required|integer|between:0,500',
         'absents' => 'required|integer|between:0,100',
-        'items.*.working_days' => 'required|integer|between:0,31',
-        'items.*.required_hours' => 'required|integer|between:0,500',
+        'items.*.working_days' => 'sometimes|integer|between:1,31',
+        'items.*.required_hours' => 'sometimes|integer',
     ];
 
     protected array $messages = [
         'items.*.working_days.required' => 'Working Days field :index is required.',
         'items.*.working_days.integer' => 'Working Days field :index must be a number.',
-        'items.*.working_days.between' => 'Working Days field :index value must be between 0 to 31.',
+        'items.*.working_days.between' => 'Working Days field :index value must be between 1 to 31.',
         'items.*.required_hours.required' => 'Required Hours field :index is required.',
         'items.*.required_hours.integer' => 'Required Hours field :index must be a number.',
-        'items.*.required_hours.between' => 'Required Hours field :index value must be between 0 to 500.',
     ];
 
     /**
@@ -47,12 +46,12 @@ class Calculator extends Component
     {
         // defaults
         $this->items = [
-            1 => ['month' => '', 'working_days' => '0', 'required_hours' => '0', 'logged_hours' => '0', 'diff' => '0'],
-            2 => ['month' => '', 'working_days' => '0', 'required_hours' => '0', 'logged_hours' => '0', 'diff' => '0'],
-            3 => ['month' => '', 'working_days' => '0', 'required_hours' => '0', 'logged_hours' => '0', 'diff' => '0'],
-            4 => ['month' => '', 'working_days' => '0', 'required_hours' => '0', 'logged_hours' => '0', 'diff' => '0'],
-            5 => ['month' => '', 'working_days' => '0', 'required_hours' => '0', 'logged_hours' => '0', 'diff' => '0'],
-            6 => ['month' => '', 'working_days' => '0', 'required_hours' => '0', 'logged_hours' => '0', 'diff' => '0'],
+            1 => ['month' => '', 'working_days' => '', 'required_hours' => '', 'logged_hours' => '0', 'diff' => '0'],
+            2 => ['month' => '', 'working_days' => '', 'required_hours' => '', 'logged_hours' => '0', 'diff' => '0'],
+            3 => ['month' => '', 'working_days' => '', 'required_hours' => '', 'logged_hours' => '0', 'diff' => '0'],
+            4 => ['month' => '', 'working_days' => '', 'required_hours' => '', 'logged_hours' => '0', 'diff' => '0'],
+            5 => ['month' => '', 'working_days' => '', 'required_hours' => '', 'logged_hours' => '0', 'diff' => '0'],
+            6 => ['month' => '', 'working_days' => '', 'required_hours' => '', 'logged_hours' => '0', 'diff' => '0'],
         ];
 
         $this->months = json_encode([
@@ -96,30 +95,54 @@ class Calculator extends Component
                         $this->getLoggedHoursTotal(getWorkedHoursDataForPeriod(date("Y-$month-1"), date("Y-$month-$daysCount")));
 
                 } else {
-                    $this->items[$index]['working_days'] = 0;
-                    $this->items[$index]['logged_hours'] = 0;
+                    $this->items[$index]['diff'] = '0';
+                    $this->items[$index]['working_days'] = '';
+                    $this->items[$index]['logged_hours'] = '0';
+                    $this->items[$index]['required_hours'] = '';
                 }
 
-                $this->items[$index]['required_hours'] = $this->items[$index]['working_days'] * 8;
+                if ($this->items[$index]['working_days']) {
+                    $this->items[$index]['required_hours'] = $this->items[$index]['working_days'] * 8;
+                }
             }
 
             if (Str::contains($propertyName, '.working_days')) {
                 if ($this->items[$index]['working_days'] < 0) {
-                    $this->items[$index]['required_hours'] = 0;
+                    $this->items[$index]['required_hours'] = '';
                 } else {
                     $this->items[$index]['required_hours'] = $this->items[$index]['working_days'] * 8;
                 }
             }
 
-            $this->items[$index]['diff'] = $this->items[$index]['logged_hours'] - $this->items[$index]['required_hours'];
+            if ($this->items[$index]['logged_hours'] && $this->items[$index]['required_hours']) {
+                $this->items[$index]['diff'] = $this->items[$index]['logged_hours'] - $this->items[$index]['required_hours'];
+            }
         }
 
+        $items = collect($this->items)->where('month', '!=', '');
+
+        $this->totalRequired = round($items->sum('required_hours'));
+        $this->totalLogged = round($items->sum('logged_hours'));
+        $this->totalDiff = round($items->sum('diff'));
+
+        $this->finalHours = round($this->totalDiff + (int)$this->allowedLeaves);
+        $this->hoursAvg = number_format($this->totalLogged / ($items->sum('working_days') - $this->absents), 2);
     }
 
+    /*
     public function calculate(): void
     {
-        dd($this->items);
+        $this->validate();
+
+        $items = collect($this->items)->where('month', '!=', '');
+
+        $this->totalRequired = $items->sum('required_hours');
+        $this->totalLogged = $items->sum('logged_hours');
+        $this->totalDiff = $items->sum('diff');
+        $this->finalHours = $this->totalRequired - $this->totalLogged;
+        $this->hoursAvg = $this->totalLogged / $items->count();
     }
+    */
 
     // private functions
 
