@@ -190,8 +190,7 @@ function monthProjectedHours($workDayCountMonth, $holidayCount = 0, $forceRefres
     $monthHoursUploaded = getUserMonthUploadedHours($bsasecampUserId, $forceRefresh);
     //dump($monthHoursUploaded);
 
-    // +1 for today assuming hours are uploaded at day end
-    return round($monthHoursUploaded + $pendingHoursMonth + ((($workDayCountMonth - (getWorkingDaysCount() - $holidayCount)) + 1) * $workingHoursCount));
+    return round($monthHoursUploaded + $pendingHoursMonth + ((($workDayCountMonth - (getWorkingDaysCount() - $holidayCount))) * $workingHoursCount));
 }
 
 function workMonthRequiredHours($workDayCountMonth, $workingHoursCount = 0): float|int
