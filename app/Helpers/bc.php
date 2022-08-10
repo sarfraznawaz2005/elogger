@@ -165,6 +165,16 @@ function getWorkedHoursData($bcUserId = 0): array|string
     return getInfo('time_entries', $query);
 }
 
+function getWorkedHoursDataForPeriod($startDate, $endDate): array|string
+{
+    $userId = bcUserId();
+
+    $query = "report?&subject_id=$userId&from=$startDate&to=$endDate&commit=Create+report";
+    //dd($query);
+
+    return getInfo('time_entries', $query);
+}
+
 function getTotalWorkedHoursThisMonth($bcUserId = 0, $forceRefresh = false): int|string
 {
     $hours = 0;
