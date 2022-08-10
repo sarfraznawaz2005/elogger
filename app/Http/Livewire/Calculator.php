@@ -18,10 +18,10 @@ class Calculator extends Component
 
     public string $months = '';
 
-    public string $totalRequired = '0.00';
-    public string $totalLogged = '0.00';
-    public string $totalDiff = '0.00';
-    public string $finalHours = '0.00';
+    public string $totalRequired = '0';
+    public string $totalLogged = '0';
+    public string $totalDiff = '0';
+    public string $finalHours = '0';
     public string $hoursAvg = '0.00';
 
     protected array $rules = [
@@ -121,12 +121,39 @@ class Calculator extends Component
 
         $items = collect($this->items)->where('month', '!=', '');
 
+        // set default of 0 if empty
+        $items = $items->map(function ($item) {
+            if (!$item['working_days']) {
+                $item['working_days'] = 0;
+            }
+
+            if (!$item['required_hours']) {
+                $item['required_hours'] = 0;
+            }
+
+            if (!$item['diff']) {
+                $item['diff'] = 0;
+            }
+
+            return $item;
+        });
+
+        // for final hours
         $this->totalRequired = round($items->sum('required_hours'));
         $this->totalLogged = round($items->sum('logged_hours'));
         $this->totalDiff = round($items->sum('diff'));
 
         $this->finalHours = round($this->totalDiff + (int)$this->allowedLeaves);
-        $this->hoursAvg = number_format($this->totalLogged / ($items->sum('working_days') - $this->absents), 2);
+
+        // for hours avg
+        $workingDaysSum = $items->sum('working_days');
+
+        if ($workingDaysSum - $this->absents > 0) {
+            $this->hoursAvg = number_format($this->totalLogged / ($workingDaysSum - $this->absents), 2);
+        } else {
+            $this->hoursAvg = '0.00';
+        }
+
     }
 
     /*
