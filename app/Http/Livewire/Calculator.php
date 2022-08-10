@@ -96,8 +96,8 @@ class Calculator extends Component
 
                 } else {
                     $this->items[$index]['diff'] = '0';
-                    $this->items[$index]['working_days'] = '';
                     $this->items[$index]['logged_hours'] = '0';
+                    $this->items[$index]['working_days'] = '';
                     $this->items[$index]['required_hours'] = '';
                 }
 
