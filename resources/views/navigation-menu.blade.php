@@ -21,6 +21,10 @@
                         {{ __('Time Entry') }}
                     </x-jet-nav-link>
 
+                    <x-jet-nav-link href="{{ route('calculator') }}" :active="request()->routeIs('calculator')">
+                        {{ __('Calculator') }}
+                    </x-jet-nav-link>
+
                     @if (user()->isAdmin())
                         <x-jet-nav-link href="{{ route('users') }}" :active="request()->routeIs('users')">
                             {{ __('Users') }}
@@ -178,6 +182,10 @@
 
             <x-jet-responsive-nav-link href="{{ route('entries') }}" :active="request()->routeIs('entries')">
                 {{ __('Time Entry') }}
+            </x-jet-responsive-nav-link>
+
+            <x-jet-responsive-nav-link href="{{ route('calculator') }}" :active="request()->routeIs('calculator')">
+                {{ __('Calculator') }}
             </x-jet-responsive-nav-link>
 
             @if (user()->isAdmin())

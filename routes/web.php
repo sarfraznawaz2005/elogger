@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Livewire\Calculator;
 use App\Http\Livewire\Dashboard\IndexDashboard;
 use App\Http\Livewire\Entries\IndexEntries;
 use App\Http\Livewire\Users\IndexUsers;
@@ -13,6 +14,7 @@ Route::middleware([
 
     Route::get('/', IndexDashboard::class)->name('dashboard');
     Route::get('entries', IndexEntries::class)->name('entries');
+    Route::get('calculator', Calculator::class)->name('calculator');
     Route::get('users', IndexUsers::class)->name('users');
 
 });
