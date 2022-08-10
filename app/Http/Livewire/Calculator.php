@@ -14,11 +14,19 @@ class Calculator extends Component
     public array $items = [];
 
     public string $allowedLeaves = '72';
+    public string $absents = '0';
 
     public string $months = '';
 
+    public string $totalRequired = '0.00';
+    public string $totalLogged = '0.00';
+    public string $totalDiff = '0.00';
+    public string $finalHours = '0.00';
+    public string $hoursAvg = '0.00';
+
     protected array $rules = [
         'allowedLeaves' => 'required|integer|between:0,500',
+        'absents' => 'required|integer|between:0,100',
         'items.*.working_days' => 'required|integer|between:0,31',
         'items.*.required_hours' => 'required|integer|between:0,500',
     ];
@@ -48,18 +56,18 @@ class Calculator extends Component
         ];
 
         $this->months = json_encode([
-            '1' => 'January',
-            '2' => 'February',
-            '3' => 'March',
-            '4' => 'April',
-            '5' => 'May',
-            '6' => 'June',
-            '7' => 'July',
-            '8' => 'August',
-            '9' => 'September',
-            '10' => 'October',
-            '11' => 'November',
-            '12' => 'December'
+            1 => 'January',
+            2 => 'February',
+            3 => 'March',
+            4 => 'April',
+            5 => 'May',
+            6 => 'June',
+            7 => 'July',
+            8 => 'August',
+            9 => 'September',
+            10 => 'October',
+            11 => 'November',
+            12 => 'December'
         ], JSON_THROW_ON_ERROR);
     }
 
@@ -72,7 +80,7 @@ class Calculator extends Component
     {
         $this->validate();
 
-        if ($propertyName !== 'allowedLeaves') {
+        if ($propertyName !== 'allowedLeaves' && $propertyName !== 'absents') {
 
             $index = explode('.', $propertyName)[1];
 

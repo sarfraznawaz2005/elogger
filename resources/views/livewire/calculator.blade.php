@@ -16,6 +16,25 @@
             <table class="table-auto overflow-x-auto text-sm text-center text-gray-700 mx-auto">
                 <thead>
 
+                <tr>
+                    <th>
+                        <div class="overflow-x-auto mx-auto mb-4">
+                            <div class="overflow-x-auto flex items-center">
+                                <x-jet-label for="allowedLeaves" value="{{ __('Allowed Leaves') }}" class="mr-2 font-bold"/>
+                                <x-jet-input id="allowedLeaves" type="text" class="w-16 text-center" wire:model="allowedLeaves"/>
+                            </div>
+                        </div>
+                    </th>
+                    <th colspan="4">
+                        <div class="overflow-x-auto mx-auto mb-4">
+                            <div class="overflow-x-auto flex items-center">
+                                <x-jet-label for="absents" value="{{ __('Total Absents') }}" class="mr-2 font-bold"/>
+                                <x-jet-input id="absents" type="text" class="w-16 text-center" wire:model="absents"/>
+                            </div>
+                        </div>
+                    </th>
+                </tr>
+
                 <tr class="text-xs text-gray-600 uppercase bg-gray-100">
                     <th scope="col" class="py-4 px-6">
                         Month
@@ -91,24 +110,24 @@
                     <td colspan="99"><hr></td>
                 </tr>
 
-                <tr class="bg-white">
+                <tr class="bg-white border-b">
                     <td class="font-bold text-md py-4 uppercase py-2 px-6 text-left">Total</td>
                     <td>&nbsp;</td>
-                    <td><span>0.00</span></td>
-                    <td><span>0.00</span></td>
-                    <td><span>0.00</span></td>
+                    <td><span class="bg-gray-200 font-bold text-lg p-2 rounded">{{$totalRequired}}</span></td>
+                    <td><span class="bg-gray-200 font-bold text-lg p-2 rounded">{{$totalLogged}}</span></td>
+                    <td><span class="{{$totalDiff < 0 ? 'bg-red-200' : 'bg-gray-200'}} font-bold text-lg p-2 rounded">{{$totalDiff}}</span></td>
                 </tr>
 
-                <tr class="bg-white">
-                    <td class="font-bold text-md py-4 uppercase py-2 px-6 text-left">Allowed Leaves</td>
-                    <td colspan="3">&nbsp;</td>
-                    <td><x-jet-input id="allowedLeaves" type="text" class="w-16 text-center" wire:model="allowedLeaves"/></td>
-                </tr>
-
-                <tr class="bg-white">
+                <tr class="bg-white border-b">
                     <td class="font-bold text-md py-4 uppercase py-2 px-6 text-left">Final Hours</td>
                     <td colspan="3">&nbsp;</td>
-                    <td><span>0.00</span></td>
+                    <td><span class="{{$finalHours < 0 ? 'bg-red-200' : 'bg-gray-200'}} font-bold text-lg p-2 rounded">{{$finalHours}}</span></td>
+                </tr>
+
+                <tr class="bg-white">
+                    <td class="font-bold text-md py-4 uppercase py-2 px-6 text-left">Hours Average</td>
+                    <td colspan="3">&nbsp;</td>
+                    <td><span class="{{$hoursAvg !== '0.00' && $hoursAvg < 8 ? 'bg-red-200' : 'bg-gray-200'}} font-bold text-lg p-2 rounded">{{$hoursAvg}}</span></td>
                 </tr>
 
                 </tbody>
@@ -117,7 +136,10 @@
             <div class="flex justify-center pt-4">
                 <x-jet-button wire:loading.attr="disabled" wire:click="calculate"
                               class="bg-green-700 ml-4 hover:bg-green-800">
-                    {{ __('Save Calculation') }}
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
+                    </svg>
+                    {{ __('Calculate') }}
                 </x-jet-button>
             </div>
         </div>
