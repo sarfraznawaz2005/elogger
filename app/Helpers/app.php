@@ -188,9 +188,17 @@ function monthProjectedHours($workDayCountMonth, $holidayCount = 0, $forceRefres
 
     $pendingHoursMonth = $user->pendingTodosHoursMonth();
     $monthHoursUploaded = getUserMonthUploadedHours($bsasecampUserId, $forceRefresh);
-    //dump($monthHoursUploaded);
 
-    return round($monthHoursUploaded + $pendingHoursMonth + ((($workDayCountMonth - (getWorkingDaysCount() - $holidayCount))) * $workingHoursCount));
+    // projected until today
+    $pendingHoursToday = $user->pendingTodosHoursToday();
+    $add = $pendingHoursToday > $workingHoursCount ? $pendingHoursToday : $workingHoursCount;
+    $projectedUntilToday = round($monthHoursUploaded + ($pendingHoursMonth - $pendingHoursToday) + $add);
+
+    // projected of coming days
+    $totalComingDays = round(($workDayCountMonth - (getWorkingDaysCount() - $holidayCount)) * $workingHoursCount);
+    //dd($workDayCountMonth - (getWorkingDaysCount() - $holidayCount), $projectedUntilToday, $totalComingDays);
+
+    return round($projectedUntilToday + $totalComingDays);
 }
 
 function workMonthRequiredHours($workDayCountMonth, $workingHoursCount = 0): float|int
