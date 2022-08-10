@@ -71,6 +71,19 @@ class Calculator extends Component
             11 => 'November',
             12 => 'December'
         ], JSON_THROW_ON_ERROR);
+
+        // get data from db if saved
+
+        if (user()->calculations) {
+            $data = json_decode(user()->calculations, false, 512, JSON_THROW_ON_ERROR);
+
+            $this->absents = $data->absents ?: 0;
+            $this->allowedLeaves = $data->allowed_leaves ?: 72;
+            $this->items = json_decode(json_encode($data->items, JSON_THROW_ON_ERROR), true, 512, JSON_THROW_ON_ERROR);
+
+            $this->calculate();
+        }
+
     }
 
     public function render(): Factory|View|Application
@@ -127,6 +140,8 @@ class Calculator extends Component
 
     private function calculate(): void
     {
+        $this->validate();
+
         $items = collect($this->items)->where('month', '!=', '');
 
         // set default of 0 if empty
@@ -168,8 +183,7 @@ class Calculator extends Component
      */
     public function save(): void
     {
-        $this->validate(); // just in case
-        $this->calculate(); // to filter correct values
+        $this->calculate(); // to validate and filter out invalid data
 
         $data = [
             'items' => $this->items,
