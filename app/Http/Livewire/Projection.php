@@ -54,9 +54,9 @@ class Projection extends Component
         // projected when adding 8 eg working_hours_count
 
         $add = $pendingHoursToday > $workingHoursCount ? $pendingHoursToday : $workingHoursCount;
-        $projected = $monthHoursUploaded + ($pendingHoursMonth - $pendingHoursToday) + $add;
+        $projected = round($monthHoursUploaded + ($pendingHoursMonth - $pendingHoursToday) + $add);
 
-        $isHappy = !($projected < (($workDayCount - $holidayCount) * $workingHoursCount));
+        $isHappy = !($projected < round(($workDayCount - $holidayCount) * $workingHoursCount));
         //dump($monthHoursUploaded + ($pendingHoursMonth - $pendingHoursToday) + $workingHoursCount);
 
         if ($workDayCount - $holidayCount <= 0) {
