@@ -52,12 +52,11 @@ class Projection extends Component
         //$pValue = round(($monthHoursUploaded) + $workingHoursCount) . '/' . round(($workDayCount - $holidayCount) * $workingHoursCount);
 
         // projected when adding 8 eg working_hours_count
-        $isHappy = !(($monthHoursUploaded + ($pendingHoursMonth - $pendingHoursToday) + $workingHoursCount) < (($workDayCount - $holidayCount) * $workingHoursCount));
-        //dump($monthHoursUploaded + ($pendingHoursMonth - $pendingHoursToday) + $workingHoursCount);
 
-        if ($pendingHoursToday >= $workingHoursCount) {
-            $isHappy = !(($monthHoursUploaded + ($pendingHoursMonth - $pendingHoursToday) + $pendingHoursToday) < (($workDayCount - $holidayCount) * $workingHoursCount));
-        }
+        $add = $pendingHoursToday > $workingHoursCount ? $pendingHoursToday : $workingHoursCount;
+
+        $isHappy = !(($monthHoursUploaded + ($pendingHoursMonth - $pendingHoursToday) + $add) < (($workDayCount - $holidayCount) * $workingHoursCount));
+        //dump($monthHoursUploaded + ($pendingHoursMonth - $pendingHoursToday) + $workingHoursCount);
 
         if ($workDayCount - $holidayCount <= 0) {
             $isHappy = false;
