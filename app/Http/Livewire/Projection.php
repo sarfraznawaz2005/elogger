@@ -54,8 +54,9 @@ class Projection extends Component
         // projected when adding 8 eg working_hours_count
 
         $add = $pendingHoursToday > $workingHoursCount ? $pendingHoursToday : $workingHoursCount;
+        $projected = $monthHoursUploaded + ($pendingHoursMonth - $pendingHoursToday) + $add;
 
-        $isHappy = !(($monthHoursUploaded + ($pendingHoursMonth - $pendingHoursToday) + $add) < (($workDayCount - $holidayCount) * $workingHoursCount));
+        $isHappy = !($projected < (($workDayCount - $holidayCount) * $workingHoursCount));
         //dump($monthHoursUploaded + ($pendingHoursMonth - $pendingHoursToday) + $workingHoursCount);
 
         if ($workDayCount - $holidayCount <= 0) {
@@ -82,7 +83,7 @@ class Projection extends Component
 
         return view(
             'livewire.projection',
-            compact('cValue', 'icon', 'title', 'pendingHoursToday', 'pendingHoursMonth', 'monthHoursUploaded', 'workDayCount')
+            compact('cValue', 'icon', 'title', 'projected')
         );
     }
 
