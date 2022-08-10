@@ -33,6 +33,7 @@ class User extends Authenticatable
         'basecamp_api_user_id',
         'working_hours_count',
         'holidays_count',
+        'calculations',
     ];
 
     /**
@@ -190,6 +191,7 @@ class User extends Authenticatable
         return $hours;
     }
 
+    /** @noinspection ALL */
     public function postedTodosHours($userId = 0): float
     {
         $hours = 0;

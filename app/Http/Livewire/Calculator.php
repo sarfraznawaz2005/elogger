@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire;
 
+use App\Traits\InteractsWithToast;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
@@ -11,6 +12,8 @@ use Livewire\Component;
 
 class Calculator extends Component
 {
+    use InteractsWithToast;
+
     public array $items = [];
 
     public string $allowedLeaves = '72';
@@ -119,6 +122,11 @@ class Calculator extends Component
             }
         }
 
+        $this->calculate();
+    }
+
+    private function calculate(): void
+    {
         $items = collect($this->items)->where('month', '!=', '');
 
         // set default of 0 if empty
@@ -153,25 +161,32 @@ class Calculator extends Component
         } else {
             $this->hoursAvg = '0.00';
         }
-
     }
 
-    /*
-    public function calculate(): void
+    /**
+     * @throws JsonException
+     */
+    public function save(): void
     {
-        $this->validate();
+        $this->validate(); // just in case
+        $this->calculate(); // to filter correct values
 
-        $items = collect($this->items)->where('month', '!=', '');
+        $data = [
+            'items' => $this->items,
+            'absents' => $this->absents,
+            'allowed_leaves' => $this->allowedLeaves,
+        ];
 
-        $this->totalRequired = $items->sum('required_hours');
-        $this->totalLogged = $items->sum('logged_hours');
-        $this->totalDiff = $items->sum('diff');
-        $this->finalHours = $this->totalRequired - $this->totalLogged;
-        $this->hoursAvg = $this->totalLogged / $items->count();
+        $updated = user()->update(['calculations' => json_encode($data, JSON_THROW_ON_ERROR)]);
+
+        if ($updated) {
+            $this->success('Calculations Saved Successfully!');
+        } else {
+            $this->danger('Calculations Could Not Be Saved!');
+        }
     }
-    */
 
-    // private functions
+    //// private functions ////
 
     private function getWorkingDaysCount($month): int
     {
