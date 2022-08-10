@@ -1,4 +1,19 @@
 @if (!session()->has('celebrated'))
+
+    @php
+        if (!user()->reg_celeb) {
+            user()->reg_celeb = true;
+            user()->save();
+
+            echo '<script>';
+            echo '  window.addEventListener(\'DOMContentLoaded\', () => {';
+            echo '      startConfetti();';
+            echo '      setTimeout(removeConfetti, 5000);';
+            echo '  });';
+            echo '</script>';
+        }
+    @endphp
+
     <script>
         document.addEventListener('celebrate', () => {
             startConfetti();

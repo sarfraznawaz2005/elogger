@@ -29,6 +29,7 @@ return new class extends Migration
             $table->string('basecamp_api_user_id')->index()->nullable();
             $table->string('working_hours_count')->default(8);
             $table->string('holidays_count')->default(0);
+            $table->boolean('reg_celeb')->default(0);
             $table->timestamps();
         });
     }

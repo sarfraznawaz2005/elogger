@@ -39,9 +39,9 @@
 
 @stack('modals')
 
-<x-celebrate/>
-
 <script src="/js/notyf.min.js"></script>
+
+<x-celebrate/>
 
 <livewire:scripts />
 
