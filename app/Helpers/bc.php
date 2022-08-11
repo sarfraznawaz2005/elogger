@@ -215,15 +215,14 @@ function getTotalWorkedHoursThisMonth($bcUserId = 0, $forceRefresh = false): int
 }
 
 /** @noinspection ALL */
-function getTotalWorkedHoursForSingleDate($bcUserId = 0): int|string
+function getTotalWorkedHoursForSingleDateCurrentMonth($dayNumber = 0, $bcUserId = 0): int|string
 {
     $hours = 0;
 
     $userId = bcUserId($bcUserId);
-    $sDate = date('Y-m-d');
-    $eDate = date('Y-m-d');
+    $date = $dayNumber ? date("Y-m-$dayNumber") : date('Y-m-d');
 
-    $query = "report?&subject_id=$userId&from=$sDate&to=$eDate&commit=Create+report";
+    $query = "report?&subject_id=$userId&from=$date&to=$date&commit=Create+report";
 
     $data = getInfo('time_entries', $query);
 
