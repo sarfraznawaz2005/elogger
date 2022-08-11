@@ -109,7 +109,13 @@ class Calculator extends Component
     {
         $this->validate();
 
-        if ($propertyName !== 'allowedLeaves' && $propertyName !== 'absents' && $propertyName !== 'year') {
+        $excludedProperties = [
+            'year',
+            'absents',
+            'allowedLeaves',
+        ];
+
+        if (!in_array($propertyName, $excludedProperties, true)) {
 
             $workingHoursCount = (int)user()->working_hours_count ?: 8;
 
