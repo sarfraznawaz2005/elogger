@@ -333,7 +333,11 @@ class Entry extends Component
 
         if ($posted === 'ok') {
             $monthHours = getUserMonthUploadedHours(0, true);
+
             session(['month_hours' => $monthHours]);
+
+            // for strange livewire reasons so that session can persist
+            sleep(1);
 
             $this->loading = false;
 
