@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Livewire;
+namespace App\Http\Livewire\Calculator;
 
 use App\Traits\InteractsWithToast;
 use Illuminate\Contracts\Foundation\Application;
@@ -10,7 +10,7 @@ use Illuminate\Support\Str;
 use JsonException;
 use Livewire\Component;
 
-class Calculator extends Component
+class IndexCalculator extends Component
 {
     use InteractsWithToast;
 
@@ -102,7 +102,7 @@ class Calculator extends Component
 
     public function render(): Factory|View|Application
     {
-        return view('livewire.calculator');
+        return view('livewire.calculator.index');
     }
 
     public function updated($propertyName): void

@@ -23,8 +23,8 @@
                 label="Progress"
                 value="{{$cValue}}"/>
 
-            <div class="inline" x-data="{tooltip: '{{$title}}'}">
-                <div class="cartoon" data-score="{{$projected}}" x-tooltip="tooltip">{!! $icon !!}</div>
+            <div data-score="{{$projected}}" class="inline" x-data="{tooltip: '{{$title}}'}">
+                <div class="cartoon" x-tooltip="tooltip">{!! $icon !!}</div>
             </div>
 
         </div>
