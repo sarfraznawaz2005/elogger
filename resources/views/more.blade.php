@@ -1,5 +1,4 @@
 https://github.com/spatie/emoji (http://unicode.org/emoji/charts/full-emoji-list.html)
-pending/posted table full width
 view monthly uploaded hours for days so far
 
 --------------------------------------------------------------------------------

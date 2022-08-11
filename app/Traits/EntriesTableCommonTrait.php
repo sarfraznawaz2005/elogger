@@ -27,7 +27,7 @@ trait EntriesTableCommonTrait
             Column::name('project.project_name')->label('Project')->searchable()->sortable(),
 
             Column::callback('description', static function ($description) {
-                $text = Str::limit($description, 30);
+                $text = Str::limit($description, 60);
 
                 return <<<html
                     <div class="inline" x-data="{tooltip: '$description'}">
