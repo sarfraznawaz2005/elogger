@@ -25,11 +25,23 @@
                             </div>
                         </div>
                     </th>
-                    <th colspan="4">
+                    <th>
                         <div class="overflow-x-auto mx-auto mb-4">
                             <div class="overflow-x-auto flex items-center">
                                 <x-jet-label for="absents" value="{{ __('Total Absents') }}" class="mr-2 font-bold"/>
                                 <x-jet-input id="absents" type="text" class="w-16 text-center" wire:model="absents"/>
+                            </div>
+                        </div>
+                    </th>
+                    <th colspan="3">
+                        <div class="overflow-x-auto mx-auto mb-4">
+                            <div class="overflow-x-auto flex items-center justify-end">
+                                <x-jet-label for="year" value="{{ __('Year') }}" class="mr-2 font-bold"/>
+                                <select wire:model="year" class="w-32">
+                                    @foreach($years as $year)
+                                        <option value="{{ $year }}">{{ $year }}</option>
+                                    @endforeach
+                                </select>
                             </div>
                         </div>
                     </th>
@@ -145,7 +157,7 @@
 
             <div class="flex justify-center pt-4">
                 <div class="inline" x-data="{ open: false, working: false }" x-cloak wire:key="confirm-calc">
-                    <x-jet-button x-on:click="open = true" wire:loading.attr="disabled" class="bg-green-700 ml-4 hover:bg-green-800">
+                    <x-jet-button x-on:click="open = true" class="bg-green-700 ml-4 hover:bg-green-800">
                         {{ __('Save Calculations') }}
                     </x-jet-button>
 

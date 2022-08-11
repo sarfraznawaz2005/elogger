@@ -20,14 +20,16 @@ class Calculator extends Component
 
     public string $allowedLeaves = '72';
     public string $absents = '0';
-
-    public string $months = '';
+    public string $year = '';
 
     public string $totalRequired = '0';
     public string $totalLogged = '0';
     public string $totalDiff = '0';
     public string $finalHours = '0';
     public string $hoursAvg = '0.00';
+
+    public string $months = '';
+    public array $years = [];
 
     protected array $rules = [
         'allowedLeaves' => 'required|integer|between:0,500',
@@ -74,11 +76,19 @@ class Calculator extends Component
             12 => 'December'
         ], JSON_THROW_ON_ERROR);
 
-        // get data from db if saved
+        $this->year = date('Y');
+
+        // add few years in past and future
+        for ($i = (int)date('Y') - 3; $i <= (int)date('Y') + 3; $i++) {
+            $this->years[$i] = $i;
+        }
+
+        //// get saved data from db if any ////
 
         if (user()->calculations) {
             $data = json_decode(user()->calculations, false, 512, JSON_THROW_ON_ERROR);
 
+            $this->year = $data->year ?: date('Y');
             $this->absents = $data->absents ?: 0;
             $this->allowedLeaves = $data->allowed_leaves ?: 72;
             $this->items = json_decode(json_encode($data->items, JSON_THROW_ON_ERROR), true, 512, JSON_THROW_ON_ERROR);
@@ -97,7 +107,7 @@ class Calculator extends Component
     {
         $this->validate();
 
-        if ($propertyName !== 'allowedLeaves' && $propertyName !== 'absents') {
+        if ($propertyName !== 'allowedLeaves' && $propertyName !== 'absents' && $propertyName !== 'year') {
 
             $index = explode('.', $propertyName)[1];
 
@@ -107,10 +117,10 @@ class Calculator extends Component
 
                     $this->items[$index]['working_days'] = $this->getWorkingDaysCount($this->items[$index]['month']);
 
-                    $daysCount = cal_days_in_month(CAL_GREGORIAN, $month, date('Y'));
+                    $daysCount = cal_days_in_month(CAL_GREGORIAN, $month, $this->year);
 
                     $this->items[$index]['logged_hours'] =
-                        $this->getLoggedHoursTotal(getWorkedHoursDataForPeriod(date("Y-$month-1"), date("Y-$month-$daysCount")));
+                        $this->getLoggedHoursTotal(getWorkedHoursDataForPeriod(date("$this->year-$month-1"), date("$this->year-$month-$daysCount")));
 
                 } else {
                     $this->items[$index]['diff'] = '0';
@@ -189,6 +199,7 @@ class Calculator extends Component
 
         $data = [
             'items' => $this->items,
+            'year' => $this->year,
             'absents' => $this->absents,
             'allowed_leaves' => $this->allowedLeaves,
         ];
@@ -208,7 +219,7 @@ class Calculator extends Component
     {
         $workdays = [];
 
-        $year = date('Y');
+        $year = $this->year;
 
         $daysCount = cal_days_in_month(CAL_GREGORIAN, $month, $year);
 
