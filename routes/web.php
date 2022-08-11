@@ -5,6 +5,10 @@ use App\Http\Livewire\Dashboard\IndexDashboard;
 use App\Http\Livewire\Entries\IndexEntries;
 use App\Http\Livewire\Users\IndexUsers;
 use Illuminate\Support\Facades\Route;
+use Rap2hpoutre\LaravelLogViewer\LogViewerController;
+
+// logs
+Route::get('logs', [LogViewerController::class, 'index']);
 
 Route::middleware([
     'auth:sanctum',
