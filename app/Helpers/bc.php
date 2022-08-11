@@ -351,7 +351,7 @@ function getTodoListTodos($todolistId): array
         // for when single record is returned
         $entry = (array)$data['todo-item'];
 
-        if (isset($entry['id'], $entry['name'])) {
+        if (isset($entry['id'])) {
             if ($entry['completed'] !== 'true') {
                 $finalData[$entry['id']] = ucwords($entry['content']);
             }
