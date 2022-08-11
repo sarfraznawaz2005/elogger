@@ -342,12 +342,12 @@ class Entry extends Component
             $this->emit('refreshLivewireDatatable');
             $this->emit('event-entries-updated');
 
+            $this->loading = false;
             $this->success('Selected Entries Uploaded Successfully!');
         } else {
+            $this->loading = false;
             $this->danger('Entries Could Not Be Upload!');
         }
-
-        $this->loading = false;
     }
 
     /** @noinspection ALL */
@@ -370,12 +370,13 @@ class Entry extends Component
         if ($todo->delete()) {
             $this->emit('refreshLivewireDatatable');
             $this->emit('event-entries-updated');
+
+            $this->loading = false;
             $this->success('Entry Deleted Successfully!');
         } else {
+            $this->loading = false;
             $this->danger('Entry Deleted From Basecamp But Could Not Delete Locally!');
         }
-
-        $this->loading = false;
     }
 
     /**
