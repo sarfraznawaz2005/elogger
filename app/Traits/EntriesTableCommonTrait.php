@@ -3,6 +3,7 @@
 namespace App\Traits;
 
 use App\Models\Todo;
+use Illuminate\Support\Str;
 use Mediconesystems\LivewireDatatables\Column;
 use Mediconesystems\LivewireDatatables\NumberColumn;
 
@@ -25,7 +26,15 @@ trait EntriesTableCommonTrait
 
             Column::name('project.project_name')->label('Project')->searchable()->sortable(),
 
-            Column::name('description')->searchable(),
+            Column::callback('description', static function ($description) {
+                $text = Str::limit($description, 30);
+
+                return <<<html
+                    <div class="inline" x-data="{tooltip: '$description'}">
+                        <div x-tooltip="tooltip">$text</div>
+                    </div>
+                html;
+            })->label('Description')->searchable(),
 
             Column::callback('time_start', static function ($time_start) {
                 return date('h:i A', strtotime($time_start));
