@@ -232,12 +232,10 @@ class Calculator extends Component
 
         $daysCount = $this->daysInMonth($month, $year);
 
-        // loop through all days
         for ($i = 1; $i <= $daysCount; $i++) {
-            $date = $year . '/' . $month . '/' . $i; //format date
-            $dayName = substr(date('l', strtotime($date)), 0, 3); // Trim day name to 3 chars
+            $date = $year . '/' . $month . '/' . $i;
+            $dayName = substr(date('l', strtotime($date)), 0, 3);
 
-            //if not a weekend add day to array
             if ($dayName !== 'Sun' && $dayName !== 'Sat') {
                 $workdays[] = $i;
             }
