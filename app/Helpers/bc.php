@@ -214,6 +214,42 @@ function getTotalWorkedHoursThisMonth($bcUserId = 0, $forceRefresh = false): int
     return $hours;
 }
 
+/** @noinspection ALL */
+function getTotalWorkedHoursToday($bcUserId = 0): int|string
+{
+    $hours = 0;
+
+    $userId = bcUserId($bcUserId);
+    $sDate = date('Y-m-d');
+    $eDate = date('Y-m-d');
+
+    $query = "report?&subject_id=$userId&from=$sDate&to=$eDate&commit=Create+report";
+
+    $data = getInfo('time_entries', $query);
+
+    if (isset($data['time-entry'])) {
+
+        // for when single record is returned
+        $entry = (array)$data['time-entry'];
+
+        if (isset($entry['hours'])) {
+            return number_format($entry['hours'], 2);
+        }
+
+        foreach ($data['time-entry'] as $timeEntryXML) {
+            $array = (array)$timeEntryXML;
+
+            if (isset($array['hours'])) {
+                $hours += $array['hours'];
+            }
+        }
+
+        $hours = number_format($hours, 2);
+    }
+
+    return $hours;
+}
+
 function getTotalWorkedHoursThisMonthAllProjects($bcUserId = 0): array
 {
     $finalData = [];

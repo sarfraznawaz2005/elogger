@@ -1,5 +1,8 @@
 https://github.com/spatie/emoji (http://unicode.org/emoji/charts/full-emoji-list.html)
+pending/posted table full width
+view monthly uploaded hours for days so far
 
+--------------------------------------------------------------------------------
 404s Solution:
 Possible solution of 404s: https://stackoverflow.com/questions/69553897/laravel-livewire-how-to-customize-the-global-message-url
 
