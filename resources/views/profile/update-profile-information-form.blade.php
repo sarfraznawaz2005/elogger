@@ -86,7 +86,7 @@
         <!-- Basecamp Company ID -->
         <div class="col-span-6 sm:col-span-4">
             <x-jet-label for="basecamp_org_id" value="{{ __('Basecamp Company ID') }}" />
-            <x-jet-input id="basecamp_org_id" type="text" class="mt-1 block w-full" wire:model.defer="state.basecamp_org_id" autocomplete="basecamp_org_id" />
+            <x-jet-input id="basecamp_org_id" type="text" placeholder="732202" class="mt-1 block w-full" wire:model.defer="state.basecamp_org_id" autocomplete="basecamp_org_id" />
             <x-jet-input-error for="basecamp_org_id" class="mt-2" />
         </div>
 
