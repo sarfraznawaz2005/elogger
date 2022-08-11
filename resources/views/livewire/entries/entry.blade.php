@@ -22,7 +22,7 @@
         {{ __('Add Entry') }}
     </x-jet-button>
 
-    <x-jet-dialog-modal wire:model="isModalOpen">
+    <x-jet-dialog-modal wire:model="isModalOpen" wire:key="entries-modal">
 
         <x-slot name="title">
             {{$modalTitle}}

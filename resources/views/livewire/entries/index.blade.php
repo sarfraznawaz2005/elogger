@@ -1,5 +1,10 @@
 <div>
     <x-panel title="Time Entries">
+
+        <x-slot name="headerRight">
+            <livewire:entries.view-my-hours-log />
+        </x-slot>
+
         <livewire:entries.entry-stats/>
 
         <div class="flex items-center justify-end mt-8 mb-2">

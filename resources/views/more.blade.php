@@ -1,5 +1,5 @@
 https://github.com/spatie/emoji (http://unicode.org/emoji/charts/full-emoji-list.html)
-view monthly uploaded hours for days so far
+date format on table listing
 
 --------------------------------------------------------------------------------
 404s Solution:

@@ -65,6 +65,7 @@
                     </th>
                 </tr>
                 </thead>
+
                 <tbody>
 
                 <tr class="bg-white">
