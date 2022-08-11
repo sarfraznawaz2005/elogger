@@ -165,7 +165,7 @@ function refreshData(): void
         session()->put('month_hours', 'none');
     }
 
-    $uploadedHoursToday = getTotalWorkedHoursToday();
+    $uploadedHoursToday = getTotalWorkedHoursForSingleDate();
 
     session()->put('uploaded_hours_today', $uploadedHoursToday);
 
@@ -199,7 +199,7 @@ function monthProjectedHours($workDayCountMonth, $holidayCount = 0, $forceRefres
     $projectedUntilToday = round($monthHoursUploaded + ($pendingHoursMonth - $pendingHoursToday) + $add);
 
     // if user has already uploaded hours for today, substract them from projection
-    $projectedUntilToday -= getTotalWorkedHoursToday($user->basecamp_api_user_id) > 0 ? $workingHoursCount : 0;
+    $projectedUntilToday -= getTotalWorkedHoursForSingleDate($user->basecamp_api_user_id) > 0 ? $workingHoursCount : 0;
 
     // projected of coming days
     $totalComingDays = round(($workDayCountMonth - (getWorkingDaysCount() - $holidayCount)) * $workingHoursCount);

@@ -215,7 +215,7 @@ function getTotalWorkedHoursThisMonth($bcUserId = 0, $forceRefresh = false): int
 }
 
 /** @noinspection ALL */
-function getTotalWorkedHoursToday($bcUserId = 0): int|string
+function getTotalWorkedHoursForSingleDate($bcUserId = 0): int|string
 {
     $hours = 0;
 
