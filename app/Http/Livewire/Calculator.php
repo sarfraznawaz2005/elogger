@@ -117,7 +117,7 @@ class Calculator extends Component
 
                     $this->items[$index]['working_days'] = $this->getWorkingDaysCount($this->items[$index]['month']);
 
-                    $daysCount = cal_days_in_month(CAL_GREGORIAN, $month, $this->year);
+                    $daysCount = $this->daysInMonth($month, $this->year);
 
                     $this->items[$index]['logged_hours'] =
                         $this->getLoggedHoursTotal(getWorkedHoursDataForPeriod(date("$this->year-$month-1"), date("$this->year-$month-$daysCount")));
@@ -215,13 +215,22 @@ class Calculator extends Component
 
     //// private functions ////
 
+    private function daysInMonth($month, $year): int
+    {
+        if (extension_loaded('calendar')) {
+            return cal_days_in_month(CAL_GREGORIAN, $month, $year);
+        }
+
+        return $month == 2 ? ($year % 4 ? 28 : ($year % 100 ? 29 : ($year % 400 ? 28 : 29))) : (($month - 1) % 7 % 2 ? 30 : 31);
+    }
+
     private function getWorkingDaysCount($month): int
     {
         $workdays = [];
 
         $year = $this->year;
 
-        $daysCount = cal_days_in_month(CAL_GREGORIAN, $month, $year);
+        $daysCount = $this->daysInMonth($month, $year);
 
         // loop through all days
         for ($i = 1; $i <= $daysCount; $i++) {
