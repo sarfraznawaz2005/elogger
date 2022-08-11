@@ -83,7 +83,9 @@ class Calculator extends Component
             $this->years[$i] = $i;
         }
 
-        //// get saved data from db if any ////
+        ################################################################
+        # GET SAVED DATA FROM DB IF ANY
+        ################################################################
 
         if (user()->calculations) {
             $data = json_decode(user()->calculations, false, 512, JSON_THROW_ON_ERROR);
@@ -109,6 +111,8 @@ class Calculator extends Component
 
         if ($propertyName !== 'allowedLeaves' && $propertyName !== 'absents' && $propertyName !== 'year') {
 
+            $workingHoursCount = (int)user()->working_hours_count ?: 8;
+
             $index = explode('.', $propertyName)[1];
 
             if (Str::contains($propertyName, '.month')) {
@@ -130,7 +134,7 @@ class Calculator extends Component
                 }
 
                 if ($this->items[$index]['working_days']) {
-                    $this->items[$index]['required_hours'] = $this->items[$index]['working_days'] * 8;
+                    $this->items[$index]['required_hours'] = $this->items[$index]['working_days'] * $workingHoursCount;
                 }
             }
 
@@ -138,7 +142,7 @@ class Calculator extends Component
                 if ($this->items[$index]['working_days'] < 0) {
                     $this->items[$index]['required_hours'] = '';
                 } else {
-                    $this->items[$index]['required_hours'] = $this->items[$index]['working_days'] * 8;
+                    $this->items[$index]['required_hours'] = $this->items[$index]['working_days'] * $workingHoursCount;
                 }
             }
 
@@ -213,8 +217,11 @@ class Calculator extends Component
         }
     }
 
-    //// private functions ////
+    ################################################################
+    # PRIVATE FUNCTIONS
+    ################################################################
 
+    /** @noinspection ALL */
     private function daysInMonth($month, $year): int
     {
         if (extension_loaded('calendar')) {
