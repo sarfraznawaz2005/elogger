@@ -1,6 +1,4 @@
 https://github.com/spatie/emoji (http://unicode.org/emoji/charts/full-emoji-list.html)
-https://github.com/ryangjchandler/alpine-tooltip
-
 
 404s Solution:
 Possible solution of 404s: https://stackoverflow.com/questions/69553897/laravel-livewire-how-to-customize-the-global-message-url
