@@ -225,8 +225,8 @@ class Entry extends Component
             return;
         }
 
-        $this->emit('event-entries-updated');
         $this->emit('refreshLivewireDatatable');
+        $this->emit('event-entries-updated');
 
         $this->closeModal();
 
@@ -341,8 +341,8 @@ class Entry extends Component
 
             $this->loading = false;
 
-            $this->emit('event-entries-updated');
             $this->emit('refreshLivewireDatatable');
+            $this->emit('event-entries-updated');
 
             $this->success('Selected Entries Uploaded Successfully!');
         } else {
