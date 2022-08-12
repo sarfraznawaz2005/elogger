@@ -29,14 +29,4 @@ class Todo extends Model
     {
         return $this->belongsTo(User::class);
     }
-
-    /**
-     * Gets project of the to do
-     *
-     * @return BelongsTo
-     */
-    public function project(): BelongsTo
-    {
-        return $this->belongsTo(Project::class, 'project_id', 'project_id');
-    }
 }

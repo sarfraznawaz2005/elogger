@@ -25,13 +25,9 @@ trait EntriesTableCommonTrait
 
             Column::name('id')->hide()->label('ID')->defaultSort('desc'),
 
-            DateColumn::name('dated')->label('Date')->sortable(),
+            DateColumn::name('dated')->label('Date'),
 
-            // cannot use project relation from To-do model since it is wrong.
-            //Column::name('project.project_name')->label('Project')->searchable()->sortable(),
-
-            // needed to do this way because of duplication issue in above
-            // note that this is somehow causing search issue as well. tbf
+            // causing search issue as well. tbf
             Column::callback('project_id', static function ($project_id) {
                 return Project::query()->where('project_id', $project_id)->first()->project_name;
             })->label('Project'),
@@ -44,7 +40,7 @@ trait EntriesTableCommonTrait
                         <div x-tooltip="tooltip">$text</div>
                     </div>
                 html;
-            })->label('Description')->searchable(),
+            })->label('Description'),
 
 
             TimeColumn::name('time_start')->label('Time Start')->alignCenter(),
@@ -59,7 +55,7 @@ trait EntriesTableCommonTrait
                     </span>
                 html;
 
-            })->label('Total')->sortable()->alignCenter(),
+            })->label('Total')->alignCenter(),
 
             Column::callback(['id', 'id'], function ($id) {
                 return view('components.table-actions-entry', ['id' => $id, 'isPendingTable' => $this->isPendingTable]);

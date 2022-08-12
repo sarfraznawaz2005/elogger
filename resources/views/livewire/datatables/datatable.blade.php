@@ -28,14 +28,12 @@
                     </div>
                 @endif
             </div>
-            <div>
-                @if (isset($totalSlot))
-                    @include($totalSlot)
-                @endif
-            </div>
         </div>
 
         <div class="flex items-center justify-between mb-1">
+            @if (isset($totalSlot))
+                @include($totalSlot)
+            @endif
             <div class="flex items-center h-10"></div>
 
             @if($this->activeFilters)

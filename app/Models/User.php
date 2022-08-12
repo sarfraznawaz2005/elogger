@@ -98,7 +98,7 @@ class User extends Authenticatable
      */
     public function todos(): HasMany
     {
-        return $this->hasMany(Todo::class)->with('project');
+        return $this->hasMany(Todo::class);
     }
 
     /**
@@ -108,7 +108,7 @@ class User extends Authenticatable
      */
     public function postedTodos(): HasMany
     {
-        return $this->hasMany(Todo::class)->with('project')
+        return $this->hasMany(Todo::class)
             ->where('status', 'posted');
     }
 
@@ -119,14 +119,14 @@ class User extends Authenticatable
      */
     public function pendingTodos(): HasMany
     {
-        return $this->hasMany(Todo::class)->with('project')
+        return $this->hasMany(Todo::class)
             ->where('status', 'pending');
     }
 
     /** @noinspection ALL */
     public function pendingTodosToday(): HasMany
     {
-        return $this->hasMany(Todo::class)->with('project')
+        return $this->hasMany(Todo::class)
             ->where('dated', date('Y-m-d'))
             ->where('status', 'pending');
     }
