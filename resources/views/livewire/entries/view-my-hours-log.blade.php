@@ -16,7 +16,7 @@
         {{ __('View My Hours Log') }}
     </button>
 
-    <x-jet-dialog-modal wire:model="isModalOpen" wire:key="view-my-hours-log-modal">
+    <x-jet-dialog-modal wire:model="isModalOpen" maxWidth="sm" wire:key="view-my-hours-log-modal">
 
         <x-slot name="title">
             My Hours Log This Month

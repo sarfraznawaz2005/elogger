@@ -49,14 +49,31 @@ class ViewMyHoursLog extends Component
     /** @noinspection ALL */
     public function viewMyHoursLog(): void
     {
-        $items = [];
+        $items = $this->parseItems(getWorkedHoursData());
 
-        $data = getWorkedHoursData();
-
-        if (!isset($data['time-entry'])) {
+        if (!$items) {
             $this->loading = false;
             $this->danger('No hours uploaded yet.');
             return;
+        }
+
+        $this->items = collect($items)->sortByDesc('dated');
+
+        $this->items = $this->items->groupBy('date', false)->map(static function ($items) {
+            return $items->sum('hours');
+        });
+
+        $this->loading = false;
+
+        $this->openModal();
+    }
+
+    private function parseItems($data): array
+    {
+        $items = [];
+
+        if (!isset($data['time-entry'])) {
+            return [];
         }
 
         // for when single record is returned
@@ -82,14 +99,6 @@ class ViewMyHoursLog extends Component
             }
         }
 
-        $this->items = collect($items)->sortByDesc('dated');
-
-        $this->items = $this->items->groupBy('date', false)->map(static function ($items) {
-            return $items->sum('hours');
-        });
-
-        $this->loading = false;
-
-        $this->openModal();
+        return $items;
     }
 }
