@@ -22,7 +22,9 @@ trait EntriesTableCommonTrait
 
             Column::name('id')->hide()->label('ID')->defaultSort('desc'),
 
-            Column::name('dated')->searchable()->label('Date')->sortable(),
+            Column::callback('dated', static function ($time_end) {
+                return date('d F Y', strtotime($time_end));
+            })->label('Date')->searchable()->sortable(),
 
             Column::name('project.project_name')->label('Project')->searchable()->sortable(),
 
