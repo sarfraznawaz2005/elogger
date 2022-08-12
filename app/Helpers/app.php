@@ -75,6 +75,32 @@ function getWorkingDatesTillToday(): array
     return $dates;
 }
 
+function getDatesTillToday(): array
+{
+    $dates = [];
+
+    $month = date('n');
+    $year = date('Y');
+
+    $daysCount = date('d');
+
+    for ($i = 1; $i <= $daysCount; $i++) {
+        $date = $year . '/' . $month . '/' . $i;
+        $dates[] = date('d F Y', strtotime($date));
+    }
+
+    return $dates;
+}
+
+function isWeekend($date = ''): bool
+{
+    $date = $date ?: date('Y-m-d');
+
+    $weekDay = date('w', strtotime($date));
+
+    return ($weekDay === "0" || $weekDay === "6");
+}
+
 function getBCHoursDiff($date, $startTime, $endTime, $returnNegative = false): string
 {
     $sTime = Carbon::parse($date . ' ' . $startTime);
@@ -248,7 +274,8 @@ function hasBasecampSetup($user = null): bool
     return $user->basecamp_api_key && $user->basecamp_api_user_id;
 }
 
-function getSql($builder)
+/** @noinspection ALL */
+function getSql($builder): string
 {
     $addSlashes = str_replace('?', "'?'", $builder->toSql());
 

@@ -1,4 +1,6 @@
-view my logs should show hours frm sat/sun in blue if there are any
+
+
+
 
 --------------------------------------------------------------------------------
 404s Solution:

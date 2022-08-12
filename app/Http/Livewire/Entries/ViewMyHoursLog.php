@@ -37,7 +37,7 @@ class ViewMyHoursLog extends Component
     {
         $this->loading = true;
 
-        $this->workingDatesTillToday = getWorkingDatesTillToday();
+        $this->workingDatesTillToday = getDatesTillToday();
         krsort($this->workingDatesTillToday);
 
         if ((!session('uploaded_hours_today')) > 0) {

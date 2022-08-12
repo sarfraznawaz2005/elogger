@@ -36,23 +36,28 @@
 
                     @foreach($workingDatesTillToday as $date)
                         @if($items->has($date))
+
                             @php
                                 $hours = $items->get($date);
+                                $bgColor = $hours < 8 ? ($hours < 1 ? 'bg-red-200' : 'bg-yellow-200') : 'bg-green-200';
+                                $bgColor = isWeekend($date) ? 'bg-blue-200' : $bgColor;
                             @endphp
 
                             <div class="flex items-center justify-between border-t border-gray-300 py-2 px-4">
                                 <div>{{$date}}</div>
-                                <div class="rounded p-1 font-bold w-20 text-center {{$hours < 8 ? ($hours < 1 ? 'bg-red-200' : 'bg-yellow-200') : 'bg-green-200'}}">
+                                <div class="rounded p-1 font-bold w-20 text-center {{$bgColor}}">
                                     {{number_format($hours, 2)}}
                                 </div>
                             </div>
                         @else
-                            <div class="flex items-center justify-between border-t border-gray-300 py-2 px-4">
-                                <div>{{$date}}</div>
-                                <div class="rounded p-1 font-bold w-20 text-center bg-red-200">
-                                    0.00
+                            @if(!isWeekend($date))
+                                <div class="flex items-center justify-between border-t border-gray-300 py-2 px-4">
+                                    <div>{{$date}}</div>
+                                    <div class="rounded p-1 font-bold w-20 text-center bg-red-200">
+                                        0.00
+                                    </div>
                                 </div>
-                            </div>
+                            @endif
                         @endif
                     @endforeach
                 @endif
