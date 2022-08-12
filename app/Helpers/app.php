@@ -165,6 +165,11 @@ function addUserProjects(): void
     }
 }
 
+function getProjectNameForTodo($projectId): string
+{
+    return Project::query()->where('project_id', $projectId)->first()->project_name;
+}
+
 function refreshData(): void
 {
     // eg todos and todolists that were saved from entry page

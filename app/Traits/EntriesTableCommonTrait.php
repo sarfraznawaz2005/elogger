@@ -4,6 +4,7 @@ namespace App\Traits;
 
 use App\Models\Project;
 use App\Models\Todo;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Str;
 use Mediconesystems\LivewireDatatables\Column;
 use Mediconesystems\LivewireDatatables\DateColumn;
@@ -28,12 +29,29 @@ trait EntriesTableCommonTrait
             DateColumn::name('dated')->label('Date'),
 
             // causing search issue as well. tbf
-            Column::callback('project_id', static function ($project_id) {
-                return getProjectNameForTodo($project_id);
+            Column::callback('project_id', function ($project_id) {
+                $limit = 25;
+
+                $text = Str::limit($this->projects->where('project_id', $project_id)->first()->project_name, $limit);
+
+                if (strlen($text) <= $limit) {
+                    return $text;
+                }
+
+                return <<<html
+                    <div class="inline" x-data="{tooltip: '$text'}">
+                        <div x-tooltip="tooltip">$text</div>
+                    </div>
+                html;
             })->label('Project'),
 
             Column::callback('description', static function ($description) {
-                $text = Str::limit($description, 60);
+                $limit = 60;
+                $text = Str::limit($description, $limit);
+
+                if (strlen($text) <= $limit) {
+                    return $text;
+                }
 
                 return <<<html
                     <div class="inline" x-data="{tooltip: '$description'}">
@@ -81,6 +99,12 @@ trait EntriesTableCommonTrait
         $this->selectedItems = [];
         $this->selectedTotal = 0;
         $this->selectedvalues = '';
+    }
+
+    // The advantage of these computed properties is that they are cached between requests until page load.
+    public function getProjectsProperty(): Collection
+    {
+        return Project::all();
     }
 
     public function updated($propertyName): void
