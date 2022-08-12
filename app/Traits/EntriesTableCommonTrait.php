@@ -27,6 +27,7 @@ trait EntriesTableCommonTrait
 
             DateColumn::name('dated')->label('Date')->sortable(),
 
+            // cannot use project relation from To-do model since it is wrong.
             //Column::name('project.project_name')->label('Project')->searchable()->sortable(),
 
             // needed to do this way because of duplication issue in above
