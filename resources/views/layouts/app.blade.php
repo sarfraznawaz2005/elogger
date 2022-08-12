@@ -45,10 +45,6 @@
 
 <livewire:scripts />
 
-<script>
-    window.livewire_app_url = '{{route('dashboard')}}';
-</script>
-
 @stack('js')
 
 <script>
