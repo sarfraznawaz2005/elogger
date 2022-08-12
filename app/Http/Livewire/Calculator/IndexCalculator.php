@@ -88,9 +88,9 @@ class IndexCalculator extends Component
         if (user()->calculations) {
             $data = json_decode(user()->calculations, false, 512, JSON_THROW_ON_ERROR);
 
-            $this->year = $data->year ?: date('Y');
-            $this->absents = $data->absents ?: 0;
-            $this->allowedLeaves = $data->allowed_leaves ?: 72;
+            $this->year = $data->year ?: $this->year;
+            $this->absents = $data->absents ?: '0';
+            $this->allowedLeaves = $data->allowed_leaves ?: '72';
             $this->items = json_decode(json_encode($data->items, JSON_THROW_ON_ERROR), true, 512, JSON_THROW_ON_ERROR);
 
             $this->calculate();
@@ -191,8 +191,8 @@ class IndexCalculator extends Component
         // for hours avg
         $workingDaysSum = $items->sum('working_days');
 
-        if ($workingDaysSum - $this->absents > 0) {
-            $this->hoursAvg = number_format($this->totalLogged / ($workingDaysSum - $this->absents), 2);
+        if ($workingDaysSum - (int)$this->absents > 0) {
+            $this->hoursAvg = number_format($this->totalLogged / ($workingDaysSum - (int)$this->absents), 2);
         } else {
             $this->hoursAvg = '0.00';
         }
