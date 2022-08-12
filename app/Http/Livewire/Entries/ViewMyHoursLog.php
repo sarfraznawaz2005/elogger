@@ -18,8 +18,8 @@ class ViewMyHoursLog extends Component
     use InteractsWithToast;
 
     protected $listeners = [
-        'onLoad' => 'onLoad',
-        'viewMyHoursLog' => 'viewMyHoursLog'
+        'onLoad',
+        'viewMyHoursLog',
     ];
 
     public Collection $items;

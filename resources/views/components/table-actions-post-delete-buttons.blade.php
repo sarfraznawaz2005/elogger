@@ -75,7 +75,7 @@
                             {{ __('Delete Selected') }}
                         </x-jet-danger-button>
 
-                        @include('components.confirm', ['value' => json_encode($selectedItems, JSON_THROW_ON_ERROR), 'function' => 'onDeleteSelected', 'title' => 'Are you sure you want to delete selected entries ?'])
+                        @include('components.confirm', ['value' => json_encode($selectedItems, JSON_THROW_ON_ERROR), 'function' => 'deleteSelected', 'title' => 'Are you sure you want to delete selected entries ?'])
                     </div>
                 </div>
             </div>
@@ -124,7 +124,7 @@
                     {{ __('Delete All') }}
                 </x-jet-danger-button>
 
-                @include('components.confirm', ['value' => $isPendingTable, 'function' => 'onDeleteAllPosted', 'title' => 'Are you sure you want to delete all posted entries ?'])
+                @include('components.confirm', ['value' => $isPendingTable, 'function' => 'deleteAllPosted', 'title' => 'Are you sure you want to delete all posted entries ?'])
             </div>
 
         </div>

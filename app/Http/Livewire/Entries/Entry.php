@@ -18,17 +18,17 @@ class Entry extends Component
     use InteractsWithModal;
 
     protected $listeners = [
-        'onDuplicateEntry' => 'onDuplicateEntry',
-        'onEditEntry' => 'onEditEntry',
-        'edit' => 'edit',
-        'duplicate' => 'duplicate',
-        'onDeleteEntry' => 'delete',
-        'onDeleteAllPosted' => 'deleteAllPosted',
-        'onDeleteSelected' => 'deleteSelected',
-        'onUploadSelected' => 'onUploadSelected',
-        'uploadSelected' => 'uploadSelected',
-        'onDeleteFromBasecamp' => 'onDeleteFromBasecamp',
-        'deleteFromBasecamp' => 'deleteFromBasecamp',
+        'onDuplicateEntry',
+        'duplicate',
+        'onEditEntry',
+        'edit',
+        'delete',
+        'deleteAllPosted',
+        'deleteSelected',
+        'onUploadSelected',
+        'uploadSelected',
+        'onDeleteFromBasecamp',
+        'deleteFromBasecamp',
     ];
 
     public Todo $model;

@@ -29,7 +29,7 @@
             </svg>
         </button>
 
-        @include('components.confirm', ['value' => $id, 'function' => 'onDeleteEntry'])
+        @include('components.confirm', ['value' => $id, 'function' => 'delete'])
     </div>
 
     {{--delete from basecamp --}}

@@ -14,8 +14,8 @@ class Projection extends Component
 
     protected $listeners = [
         'event-entries-updated' => '$refresh',
-        'refreshClicked' => 'refreshClicked',
-        'refresh' => 'refresh',
+        'refreshClicked',
+        'refresh',
     ];
 
     public bool $loading = false;
