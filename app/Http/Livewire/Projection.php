@@ -23,22 +23,29 @@ class Projection extends Component
 
     public function render(): Factory|View|Application
     {
-        $iconColor = '#FFF700';
+        $defaultFace = '🙄';
 
+        $sadFaces = ['😟', '🤒', '🤕', '🤢', '🥺', '😥', '😭', '😡'];
+        $happyFaces = ['😀', '😃', '🙂', '🙃', '😊', '🥰', '🤗', '🤠', '😎'];
+
+        $sadFace = $sadFaces[array_rand($sadFaces)];
+        $happyFace = $happyFaces[array_rand($happyFaces)];
+
+        // default
         if (!session('month_hours')) {
-            $iconColor = '#ccc';
+            $sadFace = $defaultFace;
         }
 
         $sad = <<< icon
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-9 w-9" fill="$iconColor" viewBox="0 0 24 24" stroke="#888" stroke-width="1.5">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-            </svg>
+            <div class="flex items-center">
+                <span style="font-size: 27px; padding-top: 2px;">$sadFace</span>
+            </div>
         icon;
 
         $happy = <<< icon
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-9 w-9" fill="$iconColor" viewBox="0 0 24 24" stroke="#888" stroke-width="1.5">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M14.828 14.828a4 4 0 01-5.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-            </svg>
+            <div class="flex items-center">
+                <span style="font-size: 27px; padding-top: 2px;">$happyFace</span>
+            </div>
         icon;
 
         $monthHoursUploaded = monthHoursUploaded();
