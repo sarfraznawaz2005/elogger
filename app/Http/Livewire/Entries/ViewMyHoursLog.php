@@ -43,8 +43,6 @@ class ViewMyHoursLog extends Component
             array_shift($this->workingDatesTillToday);
         }
 
-        krsort($this->workingDatesTillToday);
-
         $this->emitSelf('viewMyHoursLog');
     }
 

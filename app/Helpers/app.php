@@ -79,13 +79,10 @@ function getDatesTillToday(): array
 {
     $dates = [];
 
-    $month = date('n');
-    $year = date('Y');
-
     $daysCount = date('d');
 
-    for ($i = 1; $i <= $daysCount; $i++) {
-        $date = $year . '/' . $month . '/' . $i;
+    for ($i = $daysCount; $i >= 1; $i--) {
+        $date = date('Y') . '/' . date('n') . '/' . $i;
         $dates[] = date('d F Y', strtotime($date));
     }
 
@@ -246,7 +243,7 @@ function monthProjectedHours($workDayCountMonth, $holidayCount = 0, $forceRefres
     $projectedUntilToday = round($monthHoursUploaded + ($pendingHoursMonth - $pendingHoursToday) + $add);
 
     // if user has already uploaded hours for today, substract them from projection
-    $projectedUntilToday -= getTotalWorkedHoursForSingleDateCurrentMonth(0, $user->basecamp_api_user_id) > 0 ? $workingHoursCount : 0;
+    $projectedUntilToday -= getTotalWorkedHoursForSingleDateCurrentMonth(0, $user->basecamp_api_user_id) >= $workingHoursCount ? $workingHoursCount : 0;
 
     // projected of coming days
     $totalComingDays = round(($workDayCountMonth - (getWorkingDaysCount() - $holidayCount)) * $workingHoursCount);
