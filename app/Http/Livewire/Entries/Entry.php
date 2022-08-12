@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Entries;
 
+use App\Models\Project;
 use App\Models\Todo;
 use App\Traits\InteractsWithModal;
 use App\Traits\InteractsWithToast;
@@ -288,7 +289,7 @@ class Entry extends Component
             foreach ($todos as $todo) {
                 $personId = user()->basecamp_api_user_id;
                 $hours = getBCHoursDiff($todo->dated, $todo->time_start, $todo->time_end);
-                $projectName = $todo->project->project_name;
+                $projectName = Project::query()->where('project_id', $todo->project_id)->first()->project_name;
 
                 // find out action endpoint to post to basecamp
                 $action = 'projects/' . $todo->project_id . '-' . Str::slug($projectName) . '/time_entries.xml';
