@@ -1,5 +1,6 @@
 <?php
 
+use App\Actions\Optimize;
 use App\Http\Livewire\Calculator\IndexCalculator;
 use App\Http\Livewire\Dashboard\IndexDashboard;
 use App\Http\Livewire\Entries\IndexEntries;
@@ -9,6 +10,8 @@ use Rap2hpoutre\LaravelLogViewer\LogViewerController;
 
 // logs
 Route::get('logs', [LogViewerController::class, 'index']);
+
+Route::get('opt', Optimize::class);
 
 Route::middleware([
     'auth:sanctum',
