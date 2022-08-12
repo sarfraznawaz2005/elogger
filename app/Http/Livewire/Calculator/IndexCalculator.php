@@ -7,6 +7,7 @@ use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Str;
+use Illuminate\Validation\ValidationException;
 use JsonException;
 use Livewire\Component;
 
@@ -103,9 +104,12 @@ class IndexCalculator extends Component
         return view('livewire.calculator.index');
     }
 
+    /**
+     * @throws ValidationException
+     */
     public function updated($propertyName): void
     {
-        $this->validate();
+        $this->validateOnly($propertyName);
 
         $excludedProperties = [
             'year',
