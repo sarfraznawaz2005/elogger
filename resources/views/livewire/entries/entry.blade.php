@@ -123,7 +123,7 @@
 
             <div class="mt-8">
                 <x-jet-label for="model.description" value="{{ __('Description') }}"/>
-                <x-jet-input id="model.description" type="text" class="mt-1 block w-full"
+                <x-jet-input wire:keydown.enter="save" id="model.description" type="text" class="mt-1 block w-full"
                              wire:model="model.description"/>
 
                 <x-jet-input-error for="model.description" class="mt-2"/>
