@@ -2,6 +2,7 @@
 
 namespace App\Traits;
 
+use App\Models\Project;
 use App\Models\Todo;
 use Illuminate\Support\Str;
 use Mediconesystems\LivewireDatatables\Column;
@@ -26,7 +27,13 @@ trait EntriesTableCommonTrait
 
             DateColumn::name('dated')->label('Date')->sortable(),
 
-            Column::name('project.project_name')->label('Project')->searchable()->sortable(),
+            //Column::name('project.project_name')->label('Project')->searchable()->sortable(),
+
+            // needed to do this way because of duplication issue in above
+            // note that this is somehow causing search issue as well. tbf
+            Column::callback('project_id', static function ($project_id) {
+                return Project::query()->where('project_id', $project_id)->first()->project_name;
+            })->label('Project'),
 
             Column::callback('description', static function ($description) {
                 $text = Str::limit($description, 60);

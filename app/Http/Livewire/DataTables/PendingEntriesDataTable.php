@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\DataTables;
 
+use App\Models\Todo;
 use App\Traits\EntriesTableCommonTrait;
 use Illuminate\Database\Eloquent\Builder;
 use Mediconesystems\LivewireDatatables\Http\Livewire\LivewireDatatable;
@@ -27,6 +28,7 @@ class PendingEntriesDataTable extends LivewireDatatable
 
     public function builder(): Builder
     {
-        return user()->pendingTodos()->getQuery();
+        //return user()->pendingTodos()->getQuery();
+        return Todo::query()->where('user_id', user()->id)->where('status', 'pending');
     }
 }

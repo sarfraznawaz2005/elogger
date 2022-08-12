@@ -247,3 +247,10 @@ function hasBasecampSetup($user = null): bool
 
     return $user->basecamp_api_key && $user->basecamp_api_user_id;
 }
+
+function getSql($builder)
+{
+    $addSlashes = str_replace('?', "'?'", $builder->toSql());
+
+    return vsprintf(str_replace('?', '%s', $addSlashes), $builder->getBindings());
+}
