@@ -24,6 +24,8 @@ class ViewMyHoursLog extends Component
 
     public Collection $items;
 
+    public array $workingDatesTillToday = [];
+
     public bool $loading = false;
 
     public function render(): Factory|View|Application
@@ -34,6 +36,13 @@ class ViewMyHoursLog extends Component
     public function onLoad(): void
     {
         $this->loading = true;
+
+        $this->workingDatesTillToday = getWorkingDatesTillToday();
+        krsort($this->workingDatesTillToday);
+
+        if ((!session('uploaded_hours_today')) > 0) {
+            array_shift($this->workingDatesTillToday);
+        }
 
         $this->emitSelf('viewMyHoursLog');
     }

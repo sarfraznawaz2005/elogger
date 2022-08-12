@@ -54,6 +54,27 @@ function getWorkingDaysCount($allMonth = false): int
     return count($workdays);
 }
 
+function getWorkingDatesTillToday(): array
+{
+    $dates = [];
+
+    $month = date('n');
+    $year = date('Y');
+
+    $daysCount = date('d');
+
+    for ($i = 1; $i <= $daysCount; $i++) {
+        $date = $year . '/' . $month . '/' . $i;
+        $dayName = substr(date('l', strtotime($date)), 0, 3);
+
+        if ($dayName !== 'Sun' && $dayName !== 'Sat') {
+            $dates[] = date('d F Y', strtotime($date));
+        }
+    }
+
+    return $dates;
+}
+
 function getBCHoursDiff($date, $startTime, $endTime, $returnNegative = false): string
 {
     $sTime = Carbon::parse($date . ' ' . $startTime);

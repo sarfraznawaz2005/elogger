@@ -1,5 +1,4 @@
 https://github.com/spatie/emoji (http://unicode.org/emoji/charts/full-emoji-list.html)
-cdata
 
 --------------------------------------------------------------------------------
 404s Solution:
