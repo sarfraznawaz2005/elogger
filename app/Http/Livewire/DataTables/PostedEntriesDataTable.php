@@ -28,9 +28,6 @@ class PostedEntriesDataTable extends LivewireDatatable
 
     public function builder(): Builder
     {
-        //return user()->postedTodos()->getQuery();
-        return Todo::query()
-            ->where('todos.user_id', user()->id)
-            ->where('status', 'posted');
+        return user()->postedTodos()->getQuery();
     }
 }

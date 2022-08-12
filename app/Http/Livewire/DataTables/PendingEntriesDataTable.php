@@ -28,9 +28,6 @@ class PendingEntriesDataTable extends LivewireDatatable
 
     public function builder(): Builder
     {
-        //return user()->pendingTodos()->getQuery();
-        return Todo::query()
-            ->where('todos.user_id', user()->id)
-            ->where('status', 'pending');
+        return user()->pendingTodos()->getQuery();
     }
 }
