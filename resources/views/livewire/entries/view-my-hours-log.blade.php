@@ -40,18 +40,14 @@
                                 $hours = $items->get($date);
                             @endphp
 
-                            <div
-                                class="flex items-center justify-between border-t border-gray-300 py-2 px-4">
-
+                            <div class="flex items-center justify-between border-t border-gray-300 py-2 px-4">
                                 <div>{{$date}}</div>
                                 <div class="rounded p-1 font-bold w-20 text-center {{$hours < 8 ? ($hours < 1 ? 'bg-red-200' : 'bg-yellow-200') : 'bg-green-200'}}">
                                     {{number_format($hours, 2)}}
                                 </div>
                             </div>
                         @else
-                            <div
-                                class="flex items-center justify-between border-t border-gray-300 py-2 px-4">
-
+                            <div class="flex items-center justify-between border-t border-gray-300 py-2 px-4">
                                 <div>{{$date}}</div>
                                 <div class="rounded p-1 font-bold w-20 text-center bg-red-200">
                                     0.00
