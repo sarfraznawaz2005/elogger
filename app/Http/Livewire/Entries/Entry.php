@@ -241,8 +241,7 @@ class Entry extends Component
     {
         if ($todo->delete()) {
 
-            // if we call refreshLivewireDatatable first celebrate will not work
-            // this is delebrate as we don't want to celebrate on delete
+            $this->resetForm();
 
             $this->emit('refreshLivewireDatatable');
             $this->emit('event-entries-updated');
@@ -256,6 +255,9 @@ class Entry extends Component
     public function deleteSelected($ids): void
     {
         if (Todo::query()->whereIn('id', $ids)->delete()) {
+
+            $this->resetForm();
+
             $this->emit('refreshLivewireDatatable');
             $this->emit('event-entries-updated');
 
@@ -269,6 +271,9 @@ class Entry extends Component
     public function deleteAllPosted(): void
     {
         if (Todo::whereStatus('posted')->delete()) {
+
+            $this->resetForm();
+
             $this->emit('refreshLivewireDatatable');
             $this->emit('event-entries-updated');
 
@@ -341,6 +346,8 @@ class Entry extends Component
             // for strange livewire reasons so that session can persist
             sleep(1);
 
+            $this->resetForm();
+
             $this->emit('refreshLivewireDatatable');
             $this->emit('event-entries-updated');
 
@@ -370,6 +377,9 @@ class Entry extends Component
         }
 
         if ($todo->delete()) {
+
+            $this->resetForm();
+
             $this->emit('refreshLivewireDatatable');
             $this->emit('event-entries-updated');
 
@@ -379,6 +389,14 @@ class Entry extends Component
             $this->loading = false;
             $this->danger('Entry Deleted From Basecamp But Could Not Delete Locally!');
         }
+    }
+
+    /**
+     *  Needed to avoid 404s after deletions, etc
+     */
+    private function resetForm(): void
+    {
+        $this->model = new Todo();
     }
 
     /**
