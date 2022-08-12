@@ -29,7 +29,7 @@ trait EntriesTableCommonTrait
 
             // causing search issue as well. tbf
             Column::callback('project_id', static function ($project_id) {
-                return Project::query()->where('project_id', $project_id)->first()->project_name;
+                return getProjectNameForTodo($project_id);
             })->label('Project'),
 
             Column::callback('description', static function ($description) {
@@ -41,7 +41,7 @@ trait EntriesTableCommonTrait
                     </div>
                 html;
             })->label('Description'),
-            
+
             TimeColumn::name('time_start')->label('Time Start')->alignCenter(),
             TimeColumn::name('time_end')->label('Time End')->alignCenter(),
 

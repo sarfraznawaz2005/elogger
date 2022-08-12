@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Project;
 use App\Models\User;
 
 /**
@@ -273,6 +274,11 @@ function getProjectName($id): string
     $data = getInfo("projects/$id");
 
     return ucwords($data['name']) ?? '';
+}
+
+function getProjectNameForTodo($projectId): string
+{
+    return Project::query()->where('project_id', $projectId)->first()->project_name;
 }
 
 /** @noinspection ALL */
