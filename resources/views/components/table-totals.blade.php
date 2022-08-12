@@ -3,7 +3,7 @@
         <x-label-segmented
             class="font-semibold mr-0"
             color="blue"
-            label="Pending All Months"
+            label="Pending Total"
             value="{{number_format(user()->pendingTodosHours(), 2)}}"/>
     @endif
 
@@ -11,7 +11,7 @@
         <x-label-segmented
             class="font-semibold mr-0"
             color="blue"
-            label="Uploaded All Months"
+            label="Uploaded Total"
             value="{{number_format(user()->postedTodosHours(), 2)}}"/>
     @endif
 </div>
