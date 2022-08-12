@@ -2,7 +2,6 @@
 
 namespace App\Http\Livewire\Entries;
 
-use App\Models\Project;
 use App\Models\Todo;
 use App\Traits\InteractsWithModal;
 use App\Traits\InteractsWithToast;
