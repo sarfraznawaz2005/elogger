@@ -5,7 +5,9 @@ namespace App\Traits;
 use App\Models\Todo;
 use Illuminate\Support\Str;
 use Mediconesystems\LivewireDatatables\Column;
+use Mediconesystems\LivewireDatatables\DateColumn;
 use Mediconesystems\LivewireDatatables\NumberColumn;
+use Mediconesystems\LivewireDatatables\TimeColumn;
 
 trait EntriesTableCommonTrait
 {
@@ -22,9 +24,7 @@ trait EntriesTableCommonTrait
 
             Column::name('id')->hide()->label('ID')->defaultSort('desc'),
 
-            Column::callback('dated', static function ($time_end) {
-                return date('d F Y', strtotime($time_end));
-            })->label('Date')->searchable()->sortable(),
+            DateColumn::name('dated')->label('Date')->sortable(),
 
             Column::name('project.project_name')->label('Project')->searchable()->sortable(),
 
@@ -38,13 +38,9 @@ trait EntriesTableCommonTrait
                 html;
             })->label('Description')->searchable(),
 
-            Column::callback('time_start', static function ($time_start) {
-                return date('h:i A', strtotime($time_start));
-            })->label('Time Start')->alignCenter(),
 
-            Column::callback('time_end', static function ($time_end) {
-                return date('h:i A', strtotime($time_end));
-            })->label('Time End')->alignCenter(),
+            TimeColumn::name('time_start')->label('Time Start')->alignCenter(),
+            TimeColumn::name('time_end')->label('Time End')->alignCenter(),
 
             NumberColumn::callback(['dated', 'time_start', 'time_end'], static function ($dated, $time_start, $time_end) {
                 $hours = getBCHoursDiff($dated, $time_start, $time_end);
