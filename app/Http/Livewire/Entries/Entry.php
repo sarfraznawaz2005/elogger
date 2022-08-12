@@ -333,8 +333,10 @@ class Entry extends Component
 
         if ($posted === 'ok') {
             $monthHours = getUserMonthUploadedHours(0, true);
+            $uploadedHoursToday = getTotalWorkedHoursForSingleDateCurrentMonth();
 
             session(['month_hours' => $monthHours]);
+            session()->put('uploaded_hours_today', $uploadedHoursToday);
 
             // for strange livewire reasons so that session can persist
             sleep(1);
