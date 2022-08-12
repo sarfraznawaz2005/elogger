@@ -41,8 +41,7 @@ trait EntriesTableCommonTrait
                     </div>
                 html;
             })->label('Description'),
-
-
+            
             TimeColumn::name('time_start')->label('Time Start')->alignCenter(),
             TimeColumn::name('time_end')->label('Time End')->alignCenter(),
 

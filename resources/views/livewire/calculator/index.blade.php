@@ -157,13 +157,9 @@
             </table>
 
             <div class="flex justify-center pt-4">
-                <div class="inline" x-data="{ open: false, working: false }" x-cloak wire:key="confirm-calc">
-                    <x-jet-button x-on:click="open = true" class="bg-green-700 ml-4 hover:bg-green-800">
-                        {{ __('Save Calculations') }}
-                    </x-jet-button>
-
-                    @include('components.confirm', ['value' => time(), 'function' => 'onSaveCalculations', 'title' => 'Proceed to save the calculations ?'])
-                </div>
+                <x-jet-button wire:click="save" class="bg-green-700 ml-4 hover:bg-green-800">
+                    {{ __('Save Calculations') }}
+                </x-jet-button>
             </div>
         </div>
 

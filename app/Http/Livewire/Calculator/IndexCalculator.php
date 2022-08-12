@@ -14,8 +14,6 @@ class IndexCalculator extends Component
 {
     use InteractsWithToast;
 
-    protected $listeners = ['onSaveCalculations' => 'save'];
-
     public array $items = [];
 
     public string $allowedLeaves = '72';
