@@ -18,6 +18,7 @@
 
 <x-flash/>
 <x-toast/>
+<x-page-expired/>
 <livewire:refresh/>
 
 <div class="min-h-screen bg-gray-100">
