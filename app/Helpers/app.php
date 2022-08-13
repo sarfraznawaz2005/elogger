@@ -245,6 +245,10 @@ function monthProjectedHours($workDayCountMonth, $holidayCount = 0, $forceRefres
     // projected until today
     $pendingHoursToday = $user->pendingTodosHoursToday();
     $add = $pendingHoursToday > $workingHoursCount ? $pendingHoursToday : $workingHoursCount;
+
+    // do not add 8 in case of weekends
+    $add -= isWeekend() && !$pendingHoursToday ? $workingHoursCount : 0;
+
     $projectedUntilToday = round($monthHoursUploaded + ($pendingHoursMonth - $pendingHoursToday) + $add);
 
     // if user has already uploaded hours for today, substract them from projection

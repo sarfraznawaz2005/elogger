@@ -25,7 +25,7 @@ class Projection extends Component
     {
         $defaultFace = '🙄';
 
-        $sadFaces = ['😟', '🤒', '🤕', '🤢', '🥺', '😥', '😭', '😡'];
+        $sadFaces = ['😟', '🤒', '🤕', '🥺', '😥', '😭', '😡'];
         $happyFaces = ['😀', '😃', '🙂', '🙃', '😊', '🥰', '🤗', '🤠', '😎'];
 
         $sadFace = $sadFaces[array_rand($sadFaces)];
@@ -61,6 +61,10 @@ class Projection extends Component
 
         // projected when adding 8 eg working_hours_count
         $add = $pendingHoursToday > $workingHoursCount ? $pendingHoursToday : $workingHoursCount;
+
+        // do not add 8 in case of weekends
+        $add -= isWeekend() && !$pendingHoursToday ? $workingHoursCount : 0;
+
         $projected = round($monthHoursUploaded + ($pendingHoursMonth - $pendingHoursToday) + $add);
 
         // if user has already uploaded hours for today, substract them from projection
