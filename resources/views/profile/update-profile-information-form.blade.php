@@ -141,3 +141,12 @@
         </x-jet-button>
     </x-slot>
 </x-jet-form-section>
+
+<script>
+    document.addEventListener('livewire:load', function () {
+        @this.on('saved', () => {
+            window.notyf.success('Profile Updated Successfully!');
+            Livewire.emit('event-entries-updated');
+        })
+    })
+</script>
