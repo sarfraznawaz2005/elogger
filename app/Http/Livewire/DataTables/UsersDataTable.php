@@ -35,8 +35,8 @@ class UsersDataTable extends LivewireDatatable
                 $modelInstance = $this->model::find($id);
             })->hide(),
 
-            Column::name('name')->label('Name')->defaultSort('asc')->searchable()->sortable(),
-            Column::name('email')->label('Email')->searchable()->sortable(),
+            Column::name('name')->label('Name')->defaultSort('asc')->sortable(),
+            Column::name('email')->label('Email')->sortable(),
             BooleanColumn::name('is_admin')->label('Admin')->sortable()->alignCenter(),
 
             NumberColumn::callback(['id', 'id'], static function ($id) use (&$modelInstance) {

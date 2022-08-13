@@ -31,10 +31,12 @@
         </div>
 
         <div class="flex items-center justify-between mb-1">
+
             @if (isset($totalSlot))
-                @include($totalSlot)
+                <div class="mb-3">@include($totalSlot)</div>
             @endif
-            <div class="flex items-center h-10"></div>
+
+            {{--<div class="flex items-center h-10"></div>--}}
 
             @if($this->activeFilters)
                 <span class="text-xl text-blue-400 uppercase">@lang('Filter active')</span>
