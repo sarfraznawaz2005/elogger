@@ -150,6 +150,7 @@ class Entry extends Component
         $this->model = new Todo();
         $this->model->dated = date('Y-m-d');
         $this->model->time_start = $this->model->time_end = date('H:i');
+        $this->timeTotal = '0.00';
 
         $this->modalTitle = 'Add Entry';
 
