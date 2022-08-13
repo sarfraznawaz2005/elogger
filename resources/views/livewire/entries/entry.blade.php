@@ -86,8 +86,6 @@
                 @endif
             </div>
 
-            <hr class="my-8">
-
             <div class="inline-flex items-center justify-between w-full">
                 <div>
                     <x-jet-label for="model.dated" value="{{ __('Date') }}"/>
