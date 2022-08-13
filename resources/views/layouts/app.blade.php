@@ -41,9 +41,7 @@
 @stack('modals')
 
 <script src="/js/notyf.min.js"></script>
-<script>
-    window.notyf = new Notyf({duration: 5000, position: {x: 'right', y: 'bottom'}, ripple: false, dismissible: true})
-</script>
+<script src="/js/custom.js"></script>
 
 <x-celebrate/>
 
@@ -51,9 +49,6 @@
 
 @stack('js')
 
-<script>
-    window.paceOptions = {ajax: false, elements: false, restartOnPushState: false, restartOnRequestAfter: false}
-</script>
 <script src="/js/pace.min.js"></script>
 
 </body>
