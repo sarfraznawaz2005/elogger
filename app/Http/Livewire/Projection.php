@@ -64,7 +64,10 @@ class Projection extends Component
         $projected = round($monthHoursUploaded + ($pendingHoursMonth - $pendingHoursToday) + $add);
 
         // if user has already uploaded hours for today, substract them from projection
-        $projected -= session('uploaded_hours_today') >= $workingHoursCount ? $workingHoursCount : 0;
+        $minusTodayIfUploaded = session('uploaded_hours_today') >= $workingHoursCount ? $workingHoursCount : 0;
+        $projected -= $minusTodayIfUploaded;
+
+        $calc = "($monthHoursUploaded + ($pendingHoursMonth - $pendingHoursToday) + $add) - $minusTodayIfUploaded";
 
         $isHappy = !($projected < $totalRequiredTillToday);
 
@@ -92,7 +95,7 @@ class Projection extends Component
 
         return view(
             'livewire.projection',
-            compact('cValue', 'icon', 'title', 'projected')
+            compact('cValue', 'icon', 'title', 'projected', 'calc')
         );
     }
 
