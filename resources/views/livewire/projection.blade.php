@@ -23,7 +23,7 @@
                 label="Progress"
                 value="{{$cValue}}"/>
 
-            <div data-score="{{$calc}}" class="inline" x-data="{tooltip: '{{$title}}'}">
+            <div data-score="{{$calc}} = {{$projected}}" class="inline" x-data="{tooltip: '{{$title}}'}">
                 <div class="cartoon" x-tooltip="tooltip">{!! $icon !!}</div>
             </div>
 
