@@ -40,51 +40,56 @@
             <div wire:key="dropdown_div">
 
                 <div class="my-4">
-                    <x-jet-label for="model.project_id" value="{{ __('Project') }}"/>
-                    <select wire:model="model.project_id" class="mt-1 block w-full"
-                            wire:loading.attr="disabled"
-                            wire:loading.class="disabled:bg-gray-200 disabled:text-gray-800 disabled:border-gray-200 disabled:shadow-none"
-                    >
-                        <option value="" selected>Choose</option>
-                        @foreach($projects as $projectId => $name)
-                            <option value="{{ $projectId }}">{{ $name }}</option>
-                        @endforeach
-                    </select>
-
-                    <x-jet-input-error for="model.project_id" class="mt-2"/>
-                </div>
-
-                @if (isset($model) && $model->project_id)
-                    <div class="my-4" wire:loading.remove wire:target="model.project_id" wire:key="{{$model->project_id}}">
-                        <x-jet-label for="model.todolist_id" value="{{ __('Todolist') }}"/>
-                        <select wire:model="model.todolist_id" class="mt-1 block w-full"
+                    <div class="flex items-center mt-1">
+                        <x-jet-label for="model.project_id" value="{{ __('Project') }}" class="w-20 block"/>
+                        <select wire:model="model.project_id" class="ml-2 block w-full"
                                 wire:loading.attr="disabled"
                                 wire:loading.class="disabled:bg-gray-200 disabled:text-gray-800 disabled:border-gray-200 disabled:shadow-none"
                         >
                             <option value="" selected>Choose</option>
-                            @foreach($todoLists as $todoListId => $name)
-                                <option value="{{ $todoListId }}">{{ $name }}</option>
+                            @foreach($projects as $projectId => $name)
+                                <option value="{{ $projectId }}">{{ $name }}</option>
                             @endforeach
                         </select>
+                    </div>
+                    <x-jet-input-error for="model.project_id" class="mt-2 ml-20"/>
+                </div>
 
-                        <x-jet-input-error for="model.todolist_id" class="mt-2"/>
+                @if (isset($model) && $model->project_id)
+                    <div class="my-4" wire:loading.remove wire:target="model.project_id" wire:key="{{$model->project_id}}">
+                        <div class="flex items-center mt-1">
+                            <x-jet-label for="model.todolist_id" value="{{ __('Todolist') }}" class="w-20 block"/>
+                            <select wire:model="model.todolist_id" class="ml-2 block w-full"
+                                    wire:loading.attr="disabled"
+                                    wire:loading.class="disabled:bg-gray-200 disabled:text-gray-800 disabled:border-gray-200 disabled:shadow-none"
+                            >
+                                <option value="" selected>Choose</option>
+                                @foreach($todoLists as $todoListId => $name)
+                                    <option value="{{ $todoListId }}">{{ $name }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <x-jet-input-error for="model.todolist_id" class="mt-2 ml-20"/>
                     </div>
                 @endif
 
                 @if (isset($model) && $model->todolist_id)
                     <div class="my-4" wire:loading.remove wire:target="model.project_id, model.todolist_id" wire:key="{{$model->todolist_id}}">
-                        <x-jet-label for="model.todo_id" value="{{ __('Todo') }}"/>
-                        <select wire:model="model.todo_id" class="mt-1 block w-full">
-                            <option value="" selected>Choose</option>
-                            @foreach($todos as $todoId => $name)
-                                <option value="{{ $todoId }}">{{ $name }}</option>
-                            @endforeach
-                        </select>
-
-                        <x-jet-input-error for="model.todo_id" class="mt-2"/>
+                        <div class="flex items-center mt-1">
+                            <x-jet-label for="model.todo_id" value="{{ __('Todo') }}" class="w-20 block"/>
+                            <select wire:model="model.todo_id" class="ml-2 block w-full">
+                                <option value="" selected>Choose</option>
+                                @foreach($todos as $todoId => $name)
+                                    <option value="{{ $todoId }}">{{ $name }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <x-jet-input-error for="model.todo_id" class="mt-2 ml-20"/>
                     </div>
                 @endif
             </div>
+
+            <hr class="divide-x mt-8 mb-6">
 
             <div class="inline-flex items-center justify-between w-full">
                 <div>
@@ -113,7 +118,7 @@
                     <div>
                         <x-jet-label for="timeTotal" value="{{ __('Total') }}"/>
                         <x-jet-input id="timeTotal" type="text" style="width:70px;"
-                                     class="text-center bg-green-100 text-green-800 text-md font-semibold"
+                                     class="text-center bg-blue-100 text-md font-semibold"
                                      wire:model="timeTotal" disabled/>
                     </div>
                 </div>
