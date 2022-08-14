@@ -37,6 +37,11 @@ class IndexCalculator extends Component
         'items.*.required_hours' => 'sometimes|integer',
     ];
 
+    protected array $validationAttributes = [
+        'allowedLeaves' => 'Allowed Leaves',
+        'absents' => 'Total Absents',
+    ];
+
     protected array $messages = [
         'items.*.working_days.required' => 'Working Days field :index is required.',
         'items.*.working_days.integer' => 'Working Days field :index must be a number.',
