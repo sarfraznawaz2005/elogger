@@ -51,6 +51,10 @@ class ViewMyHoursLog extends Component
     {
         $items = $this->parseItems(getWorkedHoursData());
 
+        if ($monthPendingDates = $this->pendingHoursMonth()) {
+            $items = $items + $monthPendingDates;
+        }
+
         if (!$items) {
             $this->loading = false;
             $this->danger('No hours uploaded yet.');
@@ -62,6 +66,9 @@ class ViewMyHoursLog extends Component
         $this->items = $this->items->groupBy('date', false)->map(static function ($items) {
             return $items->sum('hours');
         });
+
+        // also add pending hours
+        $PendingTodosHoursTotal = number_format(user()->pendingTodosHoursMonth(), 2);
 
         $this->loading = false;
 
@@ -100,5 +107,34 @@ class ViewMyHoursLog extends Component
         }
 
         return $items;
+    }
+
+    private function pendingHoursMonth(): array
+    {
+        $todos = user()->pendingTodos()
+            ->select('dated', 'time_start', 'time_end')
+            ->whereMonth('dated', date('m'))
+            ->get()
+            ->groupBy(function ($item) {
+                return date('d F Y', strtotime($item->dated));
+            })
+            ->sortByDesc('dated')
+            ->toArray();
+
+        return collect($todos)->map(static function ($items) {
+            $hours = 0;
+
+            foreach ($items as $item) {
+                $diff = (float)getBCHoursDiff($item['dated'], $item['time_start'], $item['time_end']);
+
+                $hours += $diff;
+            }
+
+            return [
+                'dated' => strtotime($items[0]['dated']),
+                'date' => date('d F Y', strtotime($items[0]['dated'])),
+                'hours' => $hours
+            ];
+        })->all();
     }
 }
