@@ -57,7 +57,7 @@ class ViewMyHoursLog extends Component
 
         if (!$items) {
             $this->loading = false;
-            $this->danger('No hours uploaded yet.');
+            $this->danger('No hours yet.');
             return;
         }
 
