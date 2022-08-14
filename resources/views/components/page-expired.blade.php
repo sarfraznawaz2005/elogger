@@ -1,4 +1,5 @@
 <div
+    wire:ignore
     x-data="{expired:false}"
     x-init="Livewire.onPageExpired(() => expired = true)"
 >

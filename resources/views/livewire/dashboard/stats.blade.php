@@ -1,4 +1,4 @@
-<div class="bg-white overflow-hidden shadow-md sm:rounded-lg p-4 mb-6">
+<div class="bg-white overflow-hidden shadow-md sm:rounded-lg p-4 mb-6" wire:ignore>
 
     <div class="grid grid-cols-3 sm:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 gap-6 w-full">
 
