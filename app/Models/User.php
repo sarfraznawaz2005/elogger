@@ -156,11 +156,15 @@ class User extends Authenticatable
 
         if ($userId) {
             $todos = $this->pendingTodos()
+                ->select('dated', 'time_start', 'time_end')
                 ->where('user_id', $userId)
                 ->whereMonth('dated', date('m'))
                 ->get();
         } else {
-            $todos = $this->pendingTodos()->whereMonth('dated', date('m'))->get();
+            $todos = $this->pendingTodos()
+                ->select('dated', 'time_start', 'time_end')
+                ->whereMonth('dated', date('m'))
+                ->get();
         }
 
         foreach ($todos as $todoToday) {
