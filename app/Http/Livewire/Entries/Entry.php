@@ -69,7 +69,6 @@ class Entry extends Component
     public function booted(): void
     {
         $this->loadingMessage = 'Loading...';
-        $this->timeTotal = '0.00';
     }
 
     /**
@@ -107,8 +106,6 @@ class Entry extends Component
                 $this->todos = json_decode($this->fetchTodos($this->model->todolist_id), true, 512, JSON_THROW_ON_ERROR);
             }
         }
-
-        $this->timeTotal = getBCHoursDiff($this->model->dated, $this->model->time_start, $this->model->time_end);
     }
 
     /** @noinspection ALL */
@@ -150,7 +147,6 @@ class Entry extends Component
         $this->model = new Todo();
         $this->model->dated = date('Y-m-d');
         $this->model->time_start = $this->model->time_end = date('H:i');
-        $this->timeTotal = '0.00';
 
         $this->modalTitle = 'Add Entry';
 
@@ -189,8 +185,6 @@ class Entry extends Component
 
         $this->todoLists = json_decode($this->fetchTodoLists($this->model->project_id), true, 512, JSON_THROW_ON_ERROR);
         $this->todos = json_decode($this->fetchTodos($this->model->todolist_id), true, 512, JSON_THROW_ON_ERROR);
-
-        $this->timeTotal = getBCHoursDiff($this->model->dated, $this->model->time_start, $this->model->time_end);
 
         $this->modalTitle = 'Edit Entry';
 

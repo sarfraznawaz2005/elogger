@@ -2,8 +2,11 @@ window.notyf = new Notyf({duration: 5000, position: {x: 'right', y: 'bottom'}, r
 
 window.paceOptions = {ajax: false, elements: false, restartOnPushState: false, restartOnRequestAfter: false}
 
-function getMinutesBetweenDates(startDate, endDate) {
+function getMinutesBetweenDates(date, startTime, endTime) {
+    let startDate = new Date(date.value + ' ' + startTime.value);
+    let endDate = new Date(date.value + ' ' + endTime.value);
+
     const diff = endDate.getTime() - startDate.getTime();
 
-    return ((diff / 60000) / 60).toFixed(2);
+    return diff ? ((diff / 60000) / 60).toFixed(2) : '0.00';
 }

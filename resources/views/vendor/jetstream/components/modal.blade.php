@@ -15,7 +15,7 @@ $maxWidth = [
 
 <div
     x-data="{
-        show: @entangle($attributes->wire('model')).defer,
+        show: @entangle($attributes->wire('model')),
         focusables() {
             // All focusable element types...
             let selector = 'a, button, input:not([type=\'hidden\']), textarea, select, details, [tabindex]:not([tabindex=\'-1\'])'
@@ -39,6 +39,7 @@ $maxWidth = [
             document.body.classList.remove('overflow-y-hidden');
         }
     })"
+    x-on:click.outside="show = false"
     x-on:close.stop="show = false"
     x-on:keydown.escape.window="show = false"
     x-on:keydown.tab.prevent="$event.shiftKey || nextFocusable().focus()"
