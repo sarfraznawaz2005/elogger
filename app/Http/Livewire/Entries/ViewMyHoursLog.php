@@ -118,7 +118,6 @@ class ViewMyHoursLog extends Component
             ->groupBy(function ($item) {
                 return date('d F Y', strtotime($item->dated));
             })
-            ->sortByDesc('dated')
             ->toArray();
 
         return collect($todos)->map(static function ($items) {
