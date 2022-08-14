@@ -144,7 +144,7 @@
                 {{ __('Save Entry')  }}
             </x-jet-button>
 
-            <x-jet-button wire:click="closeModal" wire:loading.attr="disabled">
+            <x-jet-button x-on:click="show = false" wire:click="closeModal" wire:loading.attr="disabled">
                 {{ __('Close')  }}
             </x-jet-button>
         </x-slot>
