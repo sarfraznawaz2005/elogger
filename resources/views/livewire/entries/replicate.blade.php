@@ -31,7 +31,7 @@
                 {{ __('Replicate')  }}
             </x-jet-button>
 
-            <x-jet-button wire:click="closeModal" wire:loading.attr="disabled">
+            <x-jet-button x-on:click="show = false" wire:click="closeModal" wire:loading.attr="disabled">
                 {{ __('Cancel')  }}
             </x-jet-button>
         </x-slot>

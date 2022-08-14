@@ -21,7 +21,7 @@
     @endif
 
     {{--delete--}}
-    <div class="inline" x-data="{ open: false, working: false, tooltip: 'Delete' }" x-cloak wire:key="delete-entry-{{ $id }}">
+    <div class="inline" x-data="{ open: false, working: false, tooltip: 'Delete' }" x-cloak>
 
         <button x-on:click="open = true" x-tooltip="tooltip" class="cursor-pointer inline-table items-center px-2 py-1 text-white bg-red-600 hover:bg-red-800 rounded">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 inline-block" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3">
@@ -34,7 +34,7 @@
 
     {{--delete from basecamp --}}
     @if(!$isPendingTable)
-        <div class="inline" x-data="{ open: false, working: false, tooltip: 'Delete + Basecamp' }" x-cloak wire:key="delete-basecamp-{{ $id }}">
+        <div class="inline" x-data="{ open: false, working: false, tooltip: 'Delete + Basecamp' }" x-cloak>
 
             <button x-on:click="open = true" x-tooltip="tooltip" class="cursor-pointer inline-table items-center px-2 py-1 text-white bg-red-600 hover:bg-red-800 rounded">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 inline-block" viewBox="0 0 20 20" fill="currentColor">

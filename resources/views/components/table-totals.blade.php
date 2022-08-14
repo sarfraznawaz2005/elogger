@@ -1,4 +1,4 @@
-<div class="flex items-center justify-end mb-2" wire:key="table-totals-top">
+<div class="flex items-center justify-end mb-2">
     @if($isPendingTable)
         <x-label-segmented
             class="font-semibold mr-0"

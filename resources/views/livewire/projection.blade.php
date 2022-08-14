@@ -7,7 +7,7 @@
 
         <div class="inline-flex justify-center items-center">
 
-            <div class="inline" x-data="{ open: false, working: false, tooltip: 'Refresh Data' }" x-cloak wire:key="projection-{{ uniqid('', true) }}">
+            <div class="inline" x-data="{ open: false, working: false, tooltip: 'Refresh Data' }" x-cloak>
 
                 <x-jet-button wire:loading.attr="disabled" x-tooltip="tooltip" x-on:click="open = true; working = false" class="bg-green-500 px-2.5 hover:bg-green-600 mr-2 border-0">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
