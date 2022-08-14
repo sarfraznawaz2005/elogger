@@ -11,7 +11,7 @@ use Rap2hpoutre\LaravelLogViewer\LogViewerController;
 // logs
 Route::get('logs', [LogViewerController::class, 'index']);
 
-Route::get('opt', Optimize::class);
+Route::get('optimize', Optimize::class);
 
 Route::middleware([
     'auth:sanctum',

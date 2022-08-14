@@ -3,7 +3,6 @@
 namespace App\Actions;
 
 use Illuminate\Support\Facades\Artisan;
-use Illuminate\Support\Facades\Log;
 
 class Optimize
 {
@@ -12,6 +11,8 @@ class Optimize
         // run php artisan optimize
         Artisan::call('optimize:clear');
 
-        Log::info('Optimized');
+        $output = Artisan::output();
+
+        echo "<pre>$output</pre>";
     }
 }
