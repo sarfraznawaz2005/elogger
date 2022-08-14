@@ -104,7 +104,9 @@ trait EntriesTableCommonTrait
     // The advantage of these computed properties is that they are cached between requests until page load.
     public function getProjectsProperty(): Collection
     {
-        return Project::all();
+        return Project::query()
+            ->where('user_id', user()->id)
+            ->get(['project_id', 'project_name']);
     }
 
     public function updated($propertyName): void

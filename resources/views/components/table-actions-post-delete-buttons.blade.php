@@ -83,22 +83,22 @@
         <input type="hidden" id="checkedValues" wire:model="checkedValues">
 
         <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                document.querySelector('#select-all-checkbox').addEventListener('change', (e) => {
+                    let checkboxes = document.querySelectorAll('#pendingTable .check-entry');
+                    let checkHidden = document.querySelector('#checkedValues');
 
-            document.querySelector('#select-all-checkbox').addEventListener('change', (e) => {
-                const checkboxes = document.querySelectorAll('#pendingTable .check-entry');
-                const checkHidden = document.querySelector('#checkedValues');
+                    checkboxes.forEach(checkbox => checkbox.checked = e.target.checked);
 
-                checkboxes.forEach(checkbox => checkbox.checked = e.target.checked);
+                    // set value of checkedValues with all checked checkboxes
+                    let checkedValues = Array.from(checkboxes).filter(checkbox => checkbox.checked).map(checkbox => checkbox.value);
+                    //console.log(checkedValues.toString());
 
-                // set value of checkedValues with all checked checkboxes
-                const checkedValues = Array.from(checkboxes).filter(checkbox => checkbox.checked).map(checkbox => checkbox.value);
-                //console.log(checkedValues.toString());
+                    checkHidden.value = checkedValues.toString();
+                    checkHidden.dispatchEvent(new Event('input'));
 
-                checkHidden.value = checkedValues.toString();
-                checkHidden.dispatchEvent(new Event('input'));
-
-            }, false);
-
+                }, false);
+            });
         </script>
 
     @endif
