@@ -36,20 +36,7 @@ class UsersDataTable extends LivewireDatatable
             })->hide(),
 
             Column::name('name')->label('Name')->defaultSort('asc')->sortable(),
-
-            Column::callback(['email'], static function ($email) use (&$modelInstance) {
-
-                if ($modelInstance->id === user()->id) {
-                    return $email;
-                }
-
-                $route = route('include', $modelInstance);
-
-                return <<<html
-                    <a href="javascript:void(0)" class="cursor-text" ondblclick="window.location='$route'">$email</a>
-                html;
-            })->label('Email')->sortable(),
-
+            Column::name('email')->label('Email')->sortable(),
             BooleanColumn::name('is_admin')->label('Admin')->sortable()->alignCenter(),
 
             NumberColumn::callback(['id', 'id'], static function ($id) use (&$modelInstance) {
