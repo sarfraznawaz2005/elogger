@@ -44,6 +44,7 @@
 <script src="/js/custom.js?v={{time()}}"></script>
 
 <x-celebrate/>
+<x-login/>
 
 <livewire:scripts />
 

@@ -287,3 +287,13 @@ function getSql($builder): string
 
     return vsprintf(str_replace('?', '%s', $addSlashes), $builder->getBindings());
 }
+
+function forgetUserData()
+{
+    session()->forget('app');
+    session()->forget('all_users_hours');
+    session()->forget('month_hours');
+    session()->forget('uploaded_hours_today');
+
+    sleep(1);
+}

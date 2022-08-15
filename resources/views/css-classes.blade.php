@@ -1,9 +1,9 @@
 {{-- just for build process to generate css classes --}}
 
 <div class="
-    bg-yellow-50 hover:bg-yellow-100 mx-0 bg-yellow-200 bg-red-200
-    bg-green-200 bg-blue-200 bg-yellow-400 bg-red-400 bg-green-400
-    bg-blue-400 pl-2 border-green-500 border-blue-500 border-yellow-500 max-w-64
+    bg-yellow-50 hover:bg-yellow-100 mx-0 bg-yellow-200 bg-red-200 cursor-text
+    bg-green-200 bg-blue-200 bg-yellow-400 bg-red-400 bg-green-400 bottom-8 right-16
+    bg-blue-400 pl-2 border-green-500 border-blue-500 border-yellow-500 max-w-64 bottom-4
     disabled:bg-slate-50 disabled:text-slate-500 disabled:border-slate-200 disabled:shadow-none
     cursor-default border-b-0 text-gray-600 bg-gray-200 hover:bg-gray-100 hover:text-gray-700
     focus:outline-none focus:shadow-outline text-blue-600 hover:text-blue-800 bg-gray-100

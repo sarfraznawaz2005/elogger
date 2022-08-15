@@ -1,5 +1,7 @@
 <?php
 
+use App\Actions\Fortify\ExcludeAction;
+use App\Actions\Fortify\IncludeAction;
 use App\Actions\Optimize;
 use App\Http\Livewire\Calculator\IndexCalculator;
 use App\Http\Livewire\Dashboard\IndexDashboard;
@@ -8,9 +10,7 @@ use App\Http\Livewire\Users\IndexUsers;
 use Illuminate\Support\Facades\Route;
 use Rap2hpoutre\LaravelLogViewer\LogViewerController;
 
-// logs
 Route::get('logs', [LogViewerController::class, 'index']);
-
 Route::get('optimize', Optimize::class);
 
 Route::middleware([
@@ -20,6 +20,8 @@ Route::middleware([
 ])->group(function () {
 
     Route::get('/', IndexDashboard::class)->name('dashboard');
+    Route::get('include/{user}', IncludeAction::class)->name('include');
+    Route::get('exclude', ExcludeAction::class)->name('exclude');
     Route::get('entries', IndexEntries::class)->name('entries');
     Route::get('calculator', IndexCalculator::class)->name('calculator');
     Route::get('users', IndexUsers::class)->name('users');
