@@ -111,6 +111,14 @@ trait EntriesTableCommonTrait
             ->get(['project_id', 'project_name']);
     }
 
+    public function getTodosProperty(): Collection
+    {
+        return Todo::query()
+            ->select('id', 'dated', 'time_start', 'time_end')
+            ->where('user_id', user()->id)
+            ->get();
+    }
+
     public function updated($propertyName): void
     {
         if (($propertyName === 'selectedItems') && $this->selectedItems) {
@@ -132,11 +140,8 @@ trait EntriesTableCommonTrait
     {
         $hours = 0;
 
-        $todos = Todo::query()
-            ->select('dated', 'time_start', 'time_end')
-            ->whereIn('id', $this->selectedItems)
-            ->get()
-            ->toArray();
+        $todos = $this->todos->whereIn('id', $this->selectedItems)->toArray();
+        //dd($todos);
 
         foreach ($todos as $todo) {
             $diff = (float)getBCHoursDiff($todo['dated'], $todo['time_start'], $todo['time_end']);
