@@ -286,6 +286,7 @@ class Entry extends Component
         Todo::query()->whereIn('id', $ids)->chunk(5, function ($todos) use (&$posted) {
             foreach ($todos as $todo) {
                 $personId = user()->basecamp_api_user_id;
+                $description = trim($todo->description);
                 $hours = getBCHoursDiff($todo->dated, $todo->time_start, $todo->time_end);
 
                 $action = 'todo_items/' . $todo->todo_id . '/time_entries.xml';
@@ -295,7 +296,7 @@ class Entry extends Component
                           <person-id>$personId</person-id>
                           <date>$todo->dated</date>
                           <hours>$hours</hours>
-                          <description><![CDATA[$todo->description]]></description>
+                          <description><![CDATA[$description]]></description>
                         </time-entry>
                 data;
 
