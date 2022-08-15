@@ -27,6 +27,9 @@ class PostedEntriesDataTable extends LivewireDatatable
 
     public function builder(): Builder
     {
-        return user()->postedTodos()->getQuery();
+        return user()->postedTodos()
+            ->orderByDesc('dated')
+            ->orderByDesc('time_start')
+            ->getQuery();
     }
 }

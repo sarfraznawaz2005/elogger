@@ -27,6 +27,9 @@ class PendingEntriesDataTable extends LivewireDatatable
 
     public function builder(): Builder
     {
-        return user()->pendingTodos()->getQuery();
+        return user()->pendingTodos()
+            ->orderByDesc('dated')
+            ->orderByDesc('time_start')
+            ->getQuery();
     }
 }
