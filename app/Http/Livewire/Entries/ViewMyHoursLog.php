@@ -39,10 +39,6 @@ class ViewMyHoursLog extends Component
 
         $this->workingDatesTillToday = getDatesTillToday();
 
-        if ((!session('uploaded_hours_today')) > 0) {
-            array_shift($this->workingDatesTillToday);
-        }
-
         $this->emitSelf('viewMyHoursLog');
     }
 
