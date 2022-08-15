@@ -24,7 +24,7 @@ trait EntriesTableCommonTrait
     {
         $columns = [
 
-            Column::name('id')->hide()->label('ID')->defaultSort('desc'),
+            //Column::name('id')->hide()->label('ID')->defaultSort('desc'),
 
             DateColumn::name('dated')->label('Date'),
 
