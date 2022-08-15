@@ -38,6 +38,7 @@ trait EntriesTableCommonTrait
                     return $text;
                 }
 
+                /** @noinspection ALL */
                 return <<<html
                     <div class="inline" x-data="{tooltip: '$text'}">
                         <div x-tooltip="tooltip">$text</div>
@@ -53,6 +54,7 @@ trait EntriesTableCommonTrait
                     return $text;
                 }
 
+                /** @noinspection ALL */
                 return <<<html
                     <div class="inline" x-data="{tooltip: '$description'}">
                         <div x-tooltip="tooltip">$text</div>
