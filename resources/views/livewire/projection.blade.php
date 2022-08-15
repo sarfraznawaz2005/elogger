@@ -21,6 +21,7 @@
             <x-label-segmented
                 color="green"
                 label="Progress"
+                class="hidden sm:flex"
                 value="{{$cValue}}"/>
 
             <div data-score="{{$calc}} = {{$projected}}" class="inline" x-data="{tooltip: '{{$title}}'}">

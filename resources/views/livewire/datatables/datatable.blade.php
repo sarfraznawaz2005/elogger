@@ -126,7 +126,7 @@
         @includeIf($beforeTableSlot)
 
         <div
-            class="relative mt-2 @unless($complex || $this->hidePagination) rounded-b-none @endunless border-0 bg-white max-w-screen @if($this->activeFilters) border-blue-500 @else border-transparent @endif @if($complex) rounded-b-none border-b-0 @endif">
+            class="relative overflow-auto rounded-lg shadow mt-2 @unless($complex || $this->hidePagination) rounded-b-none @endunless border-0 bg-white max-w-screen @if($this->activeFilters) border-blue-500 @else border-transparent @endif @if($complex) rounded-b-none border-b-0 @endif">
 
             <div
                 wire:loading
@@ -134,7 +134,7 @@
             </div>
 
             <div>
-                <div class="table min-w-full align-middle">
+                <div class="table min-w-full align-middle sm:text-xs">
                     @unless($this->hideHeader)
                         <div class="table-row divide-x divide-gray-200">
                             @foreach($this->columns as $index => $column)
@@ -156,7 +156,7 @@
                             @endforeach
                         </div>
                     @endunless
-                    <div class="table-row bg-gray-100 divide-x divide-gray-200">
+                    <div class="table-row bg-gray-100 divide-x divide-gray-200 sm:text-xs">
                         @foreach($this->columns as $index => $column)
                             @if($column['hidden'])
                                 @if($hideable === 'inline')
@@ -169,7 +169,7 @@
                                     {{ $column['label'] ?? '' }}
                                 </div>
                             @else
-                                <div class="table-cell overflow-hidden align-top">
+                                <div class="table-cell overflow-hidden align-top sm:text-xs">
                                     @isset($column['filterable'])
                                         @if( is_iterable($column['filterable']) )
                                             <div wire:key="{{ $index }}">
@@ -186,7 +186,7 @@
                         @endforeach
                     </div>
                     @foreach($this->results as $row)
-                        <div class="table-row p-1  {{ $this->rowClasses($row, $loop) }}">
+                        <div class="table-row p-1 sm:text-xs {{ $this->rowClasses($row, $loop) }}">
                             @foreach($this->columns as $column)
                                 @if($column['hidden'])
                                     @if($hideable === 'inline')
@@ -201,7 +201,7 @@
 
                                     <div
                                         style="font-size: 13px; font-weight: 600;"
-                                        class="border-b border-gray-200 table-cell px-6 py-2 @unless($column['wrappable']) whitespace-nowrap truncate @endunless @if($column['contentAlign'] === 'right') text-right @elseif($column['contentAlign'] === 'center') text-center @else text-left @endif {{ $this->cellClasses($row, $column) }}">
+                                        class="sm:text-xs border-b border-gray-200 table-cell px-6 py-2 @unless($column['wrappable']) whitespace-nowrap truncate @endunless @if($column['contentAlign'] === 'right') text-right @elseif($column['contentAlign'] === 'center') text-center @else text-left @endif {{ $this->cellClasses($row, $column) }}">
                                         {!! $row->{$column['name']} !!}
                                     </div>
                                 @endif

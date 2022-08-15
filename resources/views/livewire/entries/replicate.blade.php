@@ -19,7 +19,7 @@
         <x-slot name="content">
             <div class="col-span-6 sm:col-span-4">
                 <x-jet-label for="replicateMessage"
-                             value="{{ __('(Optional: Replicated stories description ? Leave emtpy to auto-retrive.)') }}"/>
+                             value="{{ __('Optional: Replicated stories description ? Leave emtpy to auto-retrive.') }}"/>
                 <x-jet-input id="replicateMessage" type="text" class="mt-1 block w-full"
                              wire:model.defer="replicateMessage"/>
             </div>

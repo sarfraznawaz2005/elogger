@@ -1,6 +1,6 @@
 <div x-data="{tab: 1}" class="bg-gray-50 rounded-lg shadow-md">
     <div class="p-6 pb-0">
-        <ul class="flex flex-wrap text-sm font-medium text-center text-gray-500">
+        <ul class="flex text-sm md:font-medium text-center text-gray-500">
             <li class="mr-1">
                 <a href="!#0" @click.prevent="tab = 1"
                    :class="{'text-gray-600 bg-gray-200 active': tab === 1, 'text-gray-500 bg-gray-100 hover:bg-gray-200': tab !== 1}"

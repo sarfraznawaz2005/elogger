@@ -8,7 +8,7 @@
 
         <div class="flex w-full justify-between">
 
-            <div class="flex items-center justify-start">
+            <div class="md:flex items-center justify-start">
                 <div class="flex items-center mr-2 py-2 px-4 rounded border border-gray-300 bg-white justify-between"
                      x-data="{checked:false}"
                      x-init="window.livewire.on('refreshLivewireDatatable', () => checked = false)"
@@ -35,8 +35,8 @@
                 </div>
             </div>
 
-            <div class="flex items-center justify-end">
-                <div class="flex items-center mr-2">
+            <div class="md:flex items-center justify-end">
+                <div class="md:flex items-center md:mr-2">
                     <div class="inline" x-data="{ open: false, working: false }" x-cloak>
 
                         <x-jet-button
@@ -44,10 +44,8 @@
                             :disabled="!$selectedItems"
                             wire:loading.attr="disabled"
                             class="bg-green-700 hover:bg-green-800">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24"
-                                 stroke="currentColor" stroke-width="2">
-                                <path stroke-linecap="round" stroke-linejoin="round"
-                                      d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"/>
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"/>
                             </svg>
 
                             {{ __('Upload Selected') }}

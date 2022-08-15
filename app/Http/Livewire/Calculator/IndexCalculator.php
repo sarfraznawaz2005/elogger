@@ -38,7 +38,7 @@ class IndexCalculator extends Component
     ];
 
     protected array $validationAttributes = [
-        'allowedLeaves' => 'Allowed Leaves',
+        'allowedLeaves' => 'Allowed Leaves Hours',
         'absents' => 'Total Absents',
     ];
 

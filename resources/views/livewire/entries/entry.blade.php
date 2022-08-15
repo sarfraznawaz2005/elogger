@@ -107,12 +107,12 @@
             >
                 <div>
                     <x-jet-label for="dated" value="{{ __('Date') }}"/>
-                    <x-jet-input id="dated" type="date" class="block w-48" wire:model="model.dated"/>
+                    <x-jet-input id="dated" type="date" class="block md:w-auto sm:w-full" wire:model="model.dated"/>
 
                     <x-jet-input-error for="model.dated" class="mt-2"/>
                 </div>
 
-                <div class="inline-flex items-center justify-end w-full">
+                <div class="md:inline-flex items-center justify-end md:w-full">
                     <div class="mr-4">
                         <x-jet-label for="time_start" value="{{ __('Start Time') }}"/>
                         <x-jet-input id="time_start" type="time" class="block w-full"
