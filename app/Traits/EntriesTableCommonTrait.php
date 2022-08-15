@@ -113,7 +113,7 @@ trait EntriesTableCommonTrait
 
     public function updated($propertyName): void
     {
-        if ($propertyName === 'selectedItems') {
+        if (($propertyName === 'selectedItems') && $this->selectedItems) {
             $this->setTotalHoursValue();
         }
 
@@ -132,10 +132,14 @@ trait EntriesTableCommonTrait
     {
         $hours = 0;
 
-        $todos = Todo::query()->whereIn('id', $this->selectedItems)->get();
+        $todos = Todo::query()
+            ->select('dated', 'time_start', 'time_end')
+            ->whereIn('id', $this->selectedItems)
+            ->get()
+            ->toArray();
 
         foreach ($todos as $todo) {
-            $diff = (float)getBCHoursDiff($todo->dated, $todo->time_start, $todo->time_end);
+            $diff = (float)getBCHoursDiff($todo['dated'], $todo['time_start'], $todo['time_end']);
 
             $hours += $diff;
         }
