@@ -26,33 +26,39 @@ trait EntriesTableCommonTrait
 
             //Column::name('id')->hide()->label('ID')->defaultSort('desc'),
 
-            DateColumn::name('dated')->label('Date'),
+            DateColumn::name('dated')->label('Date')
+                ->width('130px')
+                ->alignCenter()
+                ->format('d M Y'),
 
             // causing search issue as well. tbf
             Column::callback('project_id', function ($project_id) {
-                $limit = 25;
+                $limit = 20;
 
-                $text = Str::limit($this->projects->where('project_id', $project_id)->first()->project_name, $limit);
+                $text = $this->projects->where('project_id', $project_id)->first()->project_name;
 
                 if (strlen($text) <= $limit) {
                     return $text;
                 }
 
+                $textLimited = Str::limit($text, $limit);
+
                 /** @noinspection ALL */
                 return <<<html
                     <div class="inline" x-data="{tooltip: '$text'}">
-                        <div x-tooltip="tooltip">$text</div>
+                        <div x-tooltip="tooltip">$textLimited</div>
                     </div>
                 html;
             })->label('Project'),
 
             Column::callback('description', static function ($description) {
-                $limit = 60;
-                $text = Str::limit($description, $limit);
+                $limit = 50;
 
-                if (strlen($text) <= $limit) {
-                    return $text;
+                if (strlen($description) <= $limit) {
+                    return $description;
                 }
+
+                $text = Str::limit($description, $limit);
 
                 /** @noinspection ALL */
                 return <<<html
@@ -62,8 +68,8 @@ trait EntriesTableCommonTrait
                 html;
             })->label('Description'),
 
-            TimeColumn::name('time_start')->label('Time Start')->alignCenter(),
-            TimeColumn::name('time_end')->label('Time End')->alignCenter(),
+            TimeColumn::name('time_start')->label('Time Start')->width('125px')->alignCenter(),
+            TimeColumn::name('time_end')->label('Time End')->width('125px')->alignCenter(),
 
             NumberColumn::callback(['dated', 'time_start', 'time_end'], static function ($dated, $time_start, $time_end) {
                 $hours = getBCHoursDiff($dated, $time_start, $time_end);
@@ -74,11 +80,11 @@ trait EntriesTableCommonTrait
                     </span>
                 html;
 
-            })->label('Total')->alignCenter(),
+            })->label('Total')->width('110px')->alignCenter(),
 
             Column::callback(['id', 'id'], function ($id) {
                 return view('components.table-actions-entry', ['id' => $id, 'isPendingTable' => $this->isPendingTable]);
-            })->label('Action')->alignCenter()->excludeFromExport(),
+            })->label('Action')->width('160px')->alignCenter()->excludeFromExport(),
         ];
 
         // add select checkbox to pending table only
@@ -90,7 +96,7 @@ trait EntriesTableCommonTrait
                         <input type="checkbox" class="check-entry" wire:model="selectedItems" value="$id"/>
                     </div>
                 html;
-            })->alignCenter()->excludeFromExport());
+            })->alignCenter()->width('50px')->excludeFromExport());
         }
 
         return $columns;
