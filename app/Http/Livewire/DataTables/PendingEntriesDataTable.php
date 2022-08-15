@@ -2,7 +2,6 @@
 
 namespace App\Http\Livewire\DataTables;
 
-use App\Models\Todo;
 use App\Traits\EntriesTableCommonTrait;
 use Illuminate\Database\Eloquent\Builder;
 use Mediconesystems\LivewireDatatables\Http\Livewire\LivewireDatatable;
