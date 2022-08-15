@@ -8,7 +8,6 @@ use App\Traits\InteractsWithToast;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
-use Illuminate\Support\Str;
 use JsonException;
 use Livewire\Component;
 
