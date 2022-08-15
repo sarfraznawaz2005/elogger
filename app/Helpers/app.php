@@ -288,6 +288,7 @@ function getSql($builder): string
     return vsprintf(str_replace('?', '%s', $addSlashes), $builder->getBindings());
 }
 
+/** @noinspection ALL */
 function forgetUserData()
 {
     session()->forget('app');
