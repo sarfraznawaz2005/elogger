@@ -288,18 +288,15 @@ class Entry extends Component
             foreach ($todos as $todo) {
                 $personId = user()->basecamp_api_user_id;
                 $hours = getBCHoursDiff($todo->dated, $todo->time_start, $todo->time_end);
-                $projectName = getProjectNameForTodo($todo->project_id);
 
-                // find out action endpoint to post to basecamp
-                $action = 'projects/' . $todo->project_id . '-' . Str::slug($projectName) . '/time_entries.xml';
+                $action = 'todo_items/' . $todo->todo_id . '/time_entries.xml';
 
                 $xmlData = <<<data
                         <time-entry>
-                          <date>$todo->dated</date>
-                          <description><![CDATA[$todo->description]]></description>
-                          <hours>$hours</hours>
                           <person-id>$personId</person-id>
-                          <todo-item-id>$todo->todo_id</todo-item-id>
+                          <date>$todo->dated</date>
+                          <hours>$hours</hours>
+                          <description><![CDATA[$todo->description]]></description>
                         </time-entry>
                 data;
 
