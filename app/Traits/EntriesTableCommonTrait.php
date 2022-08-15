@@ -84,7 +84,7 @@ trait EntriesTableCommonTrait
             array_unshift($columns, Column::callback(['id'], static function ($id) {
                 /** @noinspection ALL */
                 return <<<html
-                    <div wire:ignore>
+                    <div>
                         <input type="checkbox" class="check-entry" wire:model="selectedItems" value="$id"/>
                     </div>
                 html;
