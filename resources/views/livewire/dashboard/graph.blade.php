@@ -21,7 +21,7 @@
                     </td>
                     <td class="py-2 px-6" style="text-align: right;">
                         <span
-                            class="font-bold bg-green-100 text-green-800 text-sm font-semibold mx-0 px-2 py-1 rounded">
+                            class="font-bold bg-green-200 text-gray-700 text-sm font-semibold mx-0 px-2 py-1 text-center rounded w-20 inline-block">
                             {{number_format($project['hours'], 2)}}
                         </span>
                     </td>

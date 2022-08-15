@@ -8,7 +8,7 @@
 
                     <p class="mt-3 text-sm text-gray-600">
                         <strong>
-                        <span class="bg-green-100 text-green-800 text-2xl font-bold mr-2 px-2.5 py-1 rounded-lg">
+                        <span class="bg-green-200 text-gray-600 text-2xl font-bold mr-2 px-2.5 py-1 rounded-lg w-32 inline-block">
                             {{$PendingTodosHoursToday}}
                         </span>
                         </strong>
@@ -24,7 +24,7 @@
 
                     <p class="mt-3 text-sm text-gray-600">
                         <strong>
-                        <span class="bg-green-100 text-green-800 text-2xl font-bold mr-2 px-2.5 py-1 rounded-lg">
+                        <span class="bg-green-200 text-gray-600 text-2xl font-bold mr-2 px-2.5 py-1 rounded-lg w-32 inline-block">
                             {{$PendingTodosHoursTotal}}
                         </span>
                         </strong>
@@ -40,7 +40,7 @@
 
                     <p class="mt-3 text-sm text-gray-600">
                         <strong>
-                        <span class="bg-green-100 text-green-800 text-2xl font-bold mr-2 px-2.5 py-1 rounded-lg">
+                        <span class="bg-green-200 text-gray-600 text-2xl font-bold mr-2 px-2.5 py-1 rounded-lg w-32 inline-block">
                             {{$PostedTodosHoursTotal}}
                         </span>
                         </strong>
