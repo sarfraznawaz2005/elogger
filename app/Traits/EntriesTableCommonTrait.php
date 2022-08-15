@@ -49,7 +49,7 @@ trait EntriesTableCommonTrait
                         <div x-tooltip="tooltip">$textLimited</div>
                     </div>
                 html;
-            })->label('Project'),
+            })->label('Project')->alignCenter(),
 
             Column::callback('description', static function ($description) {
                 $limit = 50;
@@ -66,7 +66,7 @@ trait EntriesTableCommonTrait
                         <div x-tooltip="tooltip">$text</div>
                     </div>
                 html;
-            })->label('Description'),
+            })->label('Description')->alignCenter(),
 
             TimeColumn::name('time_start')->label('Time Start')->width('125px')->alignCenter(),
             TimeColumn::name('time_end')->label('Time End')->width('125px')->alignCenter(),
