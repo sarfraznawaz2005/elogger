@@ -6,8 +6,6 @@
     asort($todos);
     ?>
 
-    <x-animated-ok/>
-
     <x-status-modal wire:model="loading">
         {{$loadingMessage}}
     </x-status-modal>
@@ -173,4 +171,6 @@
         </x-slot>
 
     </x-jet-dialog-modal>
+
+    <x-animated-ok/>
 </div>
