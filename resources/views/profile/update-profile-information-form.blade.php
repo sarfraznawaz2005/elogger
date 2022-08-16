@@ -107,7 +107,7 @@
         <!-- Basecamp User ID -->
         <div class="col-span-6 sm:col-span-4">
             <x-jet-label for="basecamp_api_user_id" value="{{ __('Basecamp User ID') }}" />
-            <x-jet-input id="basecamp_api_user_id" type="text" class="mt-1 block w-full" wire:model.defer="state.basecamp_api_user_id" autocomplete="basecamp_api_user_id" />
+            <x-jet-input id="basecamp_api_user_id" type="text" placeholder="00000000" class="mt-1 block w-full" wire:model.defer="state.basecamp_api_user_id" autocomplete="basecamp_api_user_id" />
             <x-jet-input-error for="basecamp_api_user_id" class="mt-2" />
         </div>
 
