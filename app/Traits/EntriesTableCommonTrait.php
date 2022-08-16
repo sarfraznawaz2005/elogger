@@ -13,13 +13,6 @@ use Mediconesystems\LivewireDatatables\TimeColumn;
 
 trait EntriesTableCommonTrait
 {
-    // custom options
-    public array $selectedItems = [];
-    public float $selectedTotal = 0;
-
-    // for select all functionality
-    public string $checkedValues = '';
-
     public function columns(): array
     {
         $columns = [
@@ -74,8 +67,9 @@ trait EntriesTableCommonTrait
             NumberColumn::callback(['dated', 'time_start', 'time_end'], static function ($dated, $time_start, $time_end) {
                 $hours = getBCHoursDiff($dated, $time_start, $time_end);
 
+                /** @noinspection ALL */
                 return <<<html
-                    <span class="bg-green-200 text-gray-700 text-md font-semibold px-2 py-1 rounded inline-block w-16">
+                    <span class="hours bg-green-200 text-gray-700 text-md font-semibold px-2 py-1 rounded inline-block w-16">
                         $hours
                     </span>
                 html;
@@ -93,20 +87,13 @@ trait EntriesTableCommonTrait
                 /** @noinspection ALL */
                 return <<<html
                     <div>
-                        <input type="checkbox" class="check-entry" wire:model="selectedItems" value="$id"/>
+                        <input type="checkbox" class="check-entry" value="$id"/>
                     </div>
                 html;
             })->alignCenter()->width('50px')->excludeFromExport());
         }
 
         return $columns;
-    }
-
-    public function booted(): void
-    {
-        $this->selectedItems = [];
-        $this->selectedTotal = 0;
-        $this->selectedvalues = '';
     }
 
     // The advantage of these computed properties is that they are cached between requests until page load.
@@ -123,37 +110,5 @@ trait EntriesTableCommonTrait
             ->select('id', 'dated', 'time_start', 'time_end')
             ->where('user_id', user()->id)
             ->get();
-    }
-
-    public function updated($propertyName): void
-    {
-        if (($propertyName === 'selectedItems') && $this->selectedItems) {
-            $this->setTotalHoursValue();
-        }
-
-        if ($propertyName === 'checkedValues') {
-            if ($this->checkedValues) {
-                $this->selectedItems = explode(',', $this->checkedValues);
-                $this->setTotalHoursValue();
-            } else {
-                $this->selectedItems = [];
-                $this->selectedTotal = 0;
-            }
-        }
-    }
-
-    private function setTotalHoursValue(): void
-    {
-        $hours = 0;
-
-        $todos = $this->todos->whereIn('id', $this->selectedItems)->toArray();
-
-        foreach ($todos as $todo) {
-            $diff = (float)getBCHoursDiff($todo['dated'], $todo['time_start'], $todo['time_end']);
-
-            $hours += $diff;
-        }
-
-        $this->selectedTotal = $hours;
     }
 }

@@ -22,6 +22,8 @@
         {{ __('Add Entry') }}
     </x-jet-button>
 
+        {{--<pre>{{print_r($selectedItems)}}</pre>--}}
+
     <x-jet-dialog-modal wire:model="isModalOpen">
 
         <x-slot name="title">

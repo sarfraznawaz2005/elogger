@@ -23,6 +23,7 @@ class Entry extends Component
         'edit',
         'delete',
         'deleteAllPosted',
+        'setSelectedItems',
         'deleteSelected',
         'onUploadSelected',
         'uploadSelected',
@@ -38,6 +39,9 @@ class Entry extends Component
 
     // others
     public string $timeTotal = '0.00';
+
+    // from table
+    public array $selectedItems = [];
 
     public bool $loading = false;
     public string $loadingMessage = 'Loading...';
@@ -107,6 +111,11 @@ class Entry extends Component
         }
     }
 
+    public function setSelectedItems($values): void
+    {
+        $this->selectedItems = explode(',', $values);
+    }
+
     /** @noinspection ALL */
     public function onDuplicateEntry(Todo $todo): void
     {
@@ -124,12 +133,12 @@ class Entry extends Component
     }
 
     /** @noinspection ALL */
-    public function onUploadSelected($ids): void
+    public function onUploadSelected(): void
     {
         $this->loadingMessage = 'Please wait...';
         $this->loading = true;
 
-        $this->emitSelf('uploadSelected', $ids);
+        $this->emitSelf('uploadSelected');
     }
 
     /** @noinspection ALL */
@@ -246,8 +255,15 @@ class Entry extends Component
         }
     }
 
-    public function deleteSelected($ids): void
+    public function deleteSelected(): void
     {
+        $ids = $this->selectedItems;
+
+        if (!$ids) {
+            $this->danger('There was an error, please try again!');
+            return;
+        }
+
         if (Todo::query()->whereIn('id', $ids)->delete()) {
 
             $this->resetForm();
@@ -261,25 +277,16 @@ class Entry extends Component
         }
     }
 
-    /** @noinspection ALL */
-    public function deleteAllPosted(): void
-    {
-        if (Todo::whereStatus('posted')->delete()) {
-
-            $this->resetForm();
-
-            $this->emit('refreshLivewireDatatable');
-            $this->emit('event-entries-updated');
-
-            $this->success('All Posted Entries Deleted Successfully!');
-        } else {
-            $this->danger('Unable to delete entries!');
-        }
-    }
-
-    public function uploadSelected($ids): void
+    public function uploadSelected(): void
     {
         set_time_limit(0);
+
+        $ids = $this->selectedItems;
+
+        if (!$ids) {
+            $this->danger('There was an error, please try again!');
+            return;
+        }
 
         $posted = '';
 
@@ -349,6 +356,22 @@ class Entry extends Component
         } else {
             $this->loading = false;
             $this->danger('Entries Could Not Be Upload!');
+        }
+    }
+
+    /** @noinspection ALL */
+    public function deleteAllPosted(): void
+    {
+        if (Todo::whereStatus('posted')->delete()) {
+
+            $this->resetForm();
+
+            $this->emit('refreshLivewireDatatable');
+            $this->emit('event-entries-updated');
+
+            $this->success('All Posted Entries Deleted Successfully!');
+        } else {
+            $this->danger('Unable to delete entries!');
         }
     }
 
