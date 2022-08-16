@@ -10,6 +10,8 @@
     x-init="
 
         document.addEventListener('animated-ok', () => {
+            show = true;
+
             animation = bodymovin.loadAnimation({
                 container: $refs.icon,
                 path: '{{ asset('animated-ok.json') }}',
@@ -17,8 +19,6 @@
                 loop: false,
                 autoplay: true
             });
-
-            show = true;
 
             animation.onComplete = () => {
                 show = false;

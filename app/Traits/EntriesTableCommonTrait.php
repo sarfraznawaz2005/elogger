@@ -147,7 +147,6 @@ trait EntriesTableCommonTrait
         $hours = 0;
 
         $todos = $this->todos->whereIn('id', $this->selectedItems)->toArray();
-        //dd($todos);
 
         foreach ($todos as $todo) {
             $diff = (float)getBCHoursDiff($todo['dated'], $todo['time_start'], $todo['time_end']);
