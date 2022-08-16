@@ -113,7 +113,8 @@
                                 .map(checkbox => checkbox.value)
                                 .toString();
 
-                            elSelectedTotal.innerHTML = Array.from(checkboxes).filter(checkbox => checkbox.checked)
+                            elSelectedTotal.innerHTML = Array.from(checkboxes)
+                                .filter(checkbox => checkbox.checked)
                                 .map(checkbox => checkbox.parentNode.parentNode.parentNode.querySelector('.hours').innerText.replace('\s/g', ''))
                                 .reduce((a, b) => parseFloat(a) + parseFloat(b), 0)
                                 .toFixed(2);
