@@ -109,7 +109,7 @@
             >
                 <div>
                     <x-jet-label for="dated" value="{{ __('Date') }}"/>
-                    <x-jet-input id="dated" type="date" class="block md:w-auto sm:w-full" wire:model="model.dated"/>
+                    <x-jet-input id="dated" type="date" class="block md:w-auto sm:w-full" wire:model="model.dated" max="{{date('Y-m-d')}}"/>
 
                     <x-jet-input-error for="model.dated" class="mt-2"/>
                 </div>
