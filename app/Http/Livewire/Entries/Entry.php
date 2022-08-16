@@ -344,7 +344,8 @@ class Entry extends Component
             $this->emit('event-entries-updated');
 
             $this->loading = false;
-            $this->success('Selected Entries Uploaded Successfully!');
+            //$this->success('Selected Entries Uploaded Successfully!');
+            $this->dispatchBrowserEvent('animated-ok');
         } else {
             $this->loading = false;
             $this->danger('Entries Could Not Be Upload!');
