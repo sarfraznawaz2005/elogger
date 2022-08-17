@@ -70,13 +70,7 @@
 
                                     //console.log(`checked: ${checkedValues}`);
 
-                                    // finally sent event to set values accordingly
-                                    window.livewire.emitTo('entries.entry', 'setSelectedItems', this.checkedValues);
-
-                                    // enable buttons later so that above event sets ids first to Entry component
-                                    setTimeout(() => {
-                                        this.uploadedButton.disabled = this.deleteButton.disabled = !this.checkedValues.length > 0;
-                                    }, 200);
+                                    this.uploadedButton.disabled = this.deleteButton.disabled = !this.checkedValues.length > 0;
 
                                 }, false);
                             });
@@ -103,7 +97,8 @@
             <div class="md:flex items-center justify-start" wire:ignore>
                 <div class="flex items-center mr-2 py-2 px-4 rounded border border-gray-300 bg-white justify-between">
 
-                    <input x-ref="selectAll" id="select-all-checkbox" type="checkbox" class="w-4 h-4 focus:outline-none">
+                    <input x-ref="selectAll" id="select-all-checkbox" type="checkbox"
+                           class="w-4 h-4 focus:outline-none">
 
                     <label for="select-all-checkbox"
                            class="ml-2 text-sm font-medium text-gray-900 select-none">
@@ -126,7 +121,7 @@
                     <x-jet-button
                         disabled
                         x-ref="uploadedButton"
-                        x-on:click="sendBrowserEvent('confirm', 'onUploadSelected', null, 'Are you sure you want to upload selected entries ?')"
+                        x-on:click="sendBrowserEvent('confirm', 'onUploadSelected', checkedValues, 'Are you sure you want to upload selected entries ?')"
                         wire:loading.attr="disabled"
                         class="bg-green-700 hover:bg-green-800">
 
@@ -144,7 +139,7 @@
                     <x-jet-danger-button
                         disabled
                         x-ref="deleteButton"
-                        x-on:click="sendBrowserEvent('confirm', 'deleteSelected', null, 'Are you sure you want to delete selected entries ?')"
+                        x-on:click="sendBrowserEvent('confirm', 'deleteSelected', checkedValues, 'Are you sure you want to delete selected entries ?')"
                         wire:loading.attr="disabled"
                         class="bg-red-700 hover:bg-red-800">
 

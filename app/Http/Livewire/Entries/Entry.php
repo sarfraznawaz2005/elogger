@@ -23,7 +23,6 @@ class Entry extends Component
         'edit',
         'delete',
         'deleteAllPosted',
-        'setSelectedItems',
         'deleteSelected',
         'onUploadSelected',
         'uploadSelected',
@@ -39,9 +38,6 @@ class Entry extends Component
 
     // others
     public string $timeTotal = '0.00';
-
-    // from table
-    public array $selectedItems = [];
 
     public bool $loading = false;
     public string $loadingMessage = 'Loading...';
@@ -109,11 +105,6 @@ class Entry extends Component
                 $this->todos = json_decode($this->fetchTodos($this->model->todolist_id), true, 512, JSON_THROW_ON_ERROR);
             }
         }
-    }
-
-    public function setSelectedItems($values): void
-    {
-        $this->selectedItems = explode(',', $values);
     }
 
     /** @noinspection ALL */
@@ -255,9 +246,9 @@ class Entry extends Component
         }
     }
 
-    public function deleteSelected(): void
+    public function deleteSelected($ids): void
     {
-        $ids = $this->selectedItems;
+        $ids = explode(',', $ids);
 
         if (!$ids) {
             $this->danger('There was an error, please try again!');
@@ -277,11 +268,11 @@ class Entry extends Component
         }
     }
 
-    public function uploadSelected(): void
+    public function uploadSelected($ids): void
     {
         set_time_limit(0);
 
-        $ids = $this->selectedItems;
+        $ids = explode(',', $ids);
 
         if (!$ids) {
             $this->danger('There was an error, please try again!');
