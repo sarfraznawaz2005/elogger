@@ -20,21 +20,27 @@
          x-transition:leave="ease-in duration-200"
          x-transition:leave-start="opacity-100 translate-y-0 sm:scale-100"
          x-transition:leave-end="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
-         class="relative bg-gray-100 rounded-lg px-4 pt-5 pb-4 overflow-hidden shadow-xl transform transition-all sm:max-w-lg sm:w-full sm:p-6">
+         class="relative bg-gray-100 rounded-lg pt-5 pb-4 overflow-hidden shadow-xl transform transition-all sm:max-w-lg sm:w-full sm:p-6">
 
-        <div class="w-full">
-            <div class="mt-3 text-center">
-                <h3 class="text-lg leading-6 font-medium text-gray-900">
+        <div class="w-auto">
+            <div class="text-center">
+                <h3 class="text-lg leading-4 font-medium text-gray-900">
                     {{ __($title ?? 'Are you sure you want to delete ?') }}
                 </h3>
                 <div class="mt-2">
                     <div class="mt-10 flex justify-center">
-                        <x-jet-danger-button class="ml-3 mr-8" wire:click="$emit('{{$function}}', {{$value}})"
+                        <x-jet-danger-button class="ml-3 mr-8 w-32 justify-center"
+                                             wire:click="$emit('{{$function}}', {{$value}})"
                                              x-on:click="open = false" x-bind:disabled="!open">
+
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1" viewBox="0 0 20 20" fill="currentColor">
+                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+                            </svg>
+
                             {{ __('Confirm') }}
                         </x-jet-danger-button>
 
-                        <x-jet-button x-on:click="open = false">
+                        <x-jet-button x-on:click="open = false" class="w-32 justify-center">
                             {{ __('Cancel') }}
                         </x-jet-button>
                     </div>
