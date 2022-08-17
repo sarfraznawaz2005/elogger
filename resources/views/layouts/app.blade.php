@@ -21,6 +21,7 @@
 
 <x-flash/>
 <x-toast/>
+<x-confirm/>
 <x-page-expired/>
 <livewire:refresh/>
 

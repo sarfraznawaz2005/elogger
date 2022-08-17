@@ -27,46 +27,37 @@
                 </div>
             </div>
 
-            <div class="md:flex items-center justify-end">
+            <div class="md:flex items-center justify-end" wire:ignore>
                 <div class="md:flex items-center md:mr-2">
-                    <div class="inline" x-data="{ open: false, working: false }" x-cloak>
+                    <x-jet-button
+                        disabled
+                        id="uploadSelectedButton"
+                        x-on:click="sendBrowserEvent('confirm', 'onUploadSelected', null, 'Are you sure you want to upload selected entries ?')"
+                        wire:loading.attr="disabled"
+                        class="bg-green-700 hover:bg-green-800">
 
-                        <x-jet-button
-                            disabled
-                            id="uploadSelectedButton"
-                            x-on:click="open = true; working = false"
-                            wire:loading.attr="disabled"
-                            class="bg-green-700 hover:bg-green-800">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"/>
+                        </svg>
 
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"/>
-                            </svg>
-
-                            {{ __('Upload Selected') }}
-                        </x-jet-button>
-                        @include('components.confirm', ['value' => $isPendingTable, 'function' => 'onUploadSelected', 'title' => 'Are you sure you want to upload selected entries ?'])
-                    </div>
+                        {{ __('Upload Selected') }}
+                    </x-jet-button>
                 </div>
 
-                <div class="flex items-center">
-                    <div class="inline" x-data="{ open: false, working: false }" x-cloak>
+                <div class="flex items-center" wire:ignore>
+                    <x-jet-danger-button
+                        disabled
+                        id="deleteSelectedButton"
+                        x-on:click="sendBrowserEvent('confirm', 'deleteSelected', null, 'Are you sure you want to delete selected entries ?')"
+                        wire:loading.attr="disabled"
+                        class="bg-red-700 hover:bg-red-800">
 
-                        <x-jet-danger-button
-                            disabled
-                            id="deleteSelectedButton"
-                            x-on:click="open = true; working = false"
-                            wire:loading.attr="disabled"
-                            class="bg-red-700 hover:bg-red-800">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
+                        </svg>
 
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
-                            </svg>
-
-                            {{ __('Delete Selected') }}
-                        </x-jet-danger-button>
-
-                        @include('components.confirm', ['value' => $isPendingTable, 'function' => 'deleteSelected', 'title' => 'Are you sure you want to delete selected entries ?'])
-                    </div>
+                        {{ __('Delete Selected') }}
+                    </x-jet-danger-button>
                 </div>
             </div>
 
@@ -150,24 +141,17 @@
 
     @if(!$isPendingTable && !$this->results->isEmpty())
         <div class="flex items-center justify-end w-full">
+            <x-jet-danger-button
+                wire:ignore
+                x-on:click="sendBrowserEvent('confirm', 'deleteAllPosted', null, 'Are you sure you want to delete all posted entries ?')"
+                wire:loading.attr="disabled"
+                class="bg-red-700 hover:bg-red-800">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
+                </svg>
 
-            <div class="inline" x-data="{ open: false, working: false }" x-cloak>
-
-                <x-jet-danger-button
-                    x-on:click="open = true; working = false"
-                    wire:loading.attr="disabled"
-                    class="bg-red-700 hover:bg-red-800">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24"
-                         stroke="currentColor" stroke-width="2">
-                        <path stroke-linecap="round" stroke-linejoin="round"
-                              d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
-                    </svg>
-
-                    {{ __('Delete All') }}
-                </x-jet-danger-button>
-
-                @include('components.confirm', ['value' => $isPendingTable, 'function' => 'deleteAllPosted', 'title' => 'Are you sure you want to delete all posted entries ?'])
-            </div>
+                {{ __('Delete All') }}
+            </x-jet-danger-button>
 
         </div>
     @endif

@@ -10,3 +10,13 @@ function getMinutesBetweenDates(date, startTime, endTime) {
 
     return diff ? ((diff / 60000) / 60).toFixed(2) : '0.00';
 }
+
+function sendBrowserEvent(eventName, triggerEventName, value, title) {
+    document.dispatchEvent(new CustomEvent(eventName, {
+        detail: {
+            event: triggerEventName,
+            value: value,
+            title: title ? title : 'Are you sure you want to delete ?'
+        }
+    }));
+}
