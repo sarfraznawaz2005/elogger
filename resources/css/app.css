@@ -6,39 +6,6 @@
 
 /* custom css */
 
-/* fonts */
-@font-face {
-    font-family: 'Nunito';
-    font-style: normal;
-    font-weight: 400;
-    src: local(''),
-    url('../../fonts/nunito-v25-latin-regular.woff2') format('woff2'),
-    url('../../fonts/nunito-v25-latin-regular.woff') format('woff');
-    font-display: swap;
-}
-
-/* nunito-600 - latin */
-@font-face {
-    font-family: 'Nunito';
-    font-style: normal;
-    font-weight: 600;
-    src: local(''),
-    url('../../fonts/nunito-v25-latin-600.woff2') format('woff2'),
-    url('../../fonts/nunito-v25-latin-600.woff') format('woff');
-    font-display: swap;
-}
-
-/* nunito-700 - latin */
-@font-face {
-    font-family: 'Nunito';
-    font-style: normal;
-    font-weight: 700;
-    src: local(''),
-    url('../../fonts/nunito-v25-latin-700.woff2') format('woff2'),
-    url('../../fonts/nunito-v25-latin-700.woff') format('woff');
-    font-display: swap;
-}
-
 /* misc */
 [x-cloak] {
     display: none !important;
