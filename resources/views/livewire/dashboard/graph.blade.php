@@ -13,7 +13,7 @@
             <tr class="bg-gray-100 border-b">
                 <td class="py-2 px-6">
                         <span
-                            class="font-bold text-sm font-semibold rounded mx-0">
+                            class="font-bold text-sm font-semibold rounded mx-0 text-gray-600">
                             {{$project['project_name']}}
                         </span>
                 </td>

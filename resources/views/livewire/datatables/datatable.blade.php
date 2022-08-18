@@ -126,7 +126,7 @@
         @includeIf($beforeTableSlot)
 
         <div
-            class="relative overflow-auto rounded-lg shadow mt-2 @unless($complex || $this->hidePagination) rounded-b-none @endunless border-0 bg-white max-w-screen @if($this->activeFilters) border-blue-500 @else border-transparent @endif @if($complex) rounded-b-none border-b-0 @endif">
+            class="relative overflow-auto mt-2 @unless($complex || $this->hidePagination) rounded-b-none @endunless border-0 bg-white max-w-screen @if($this->activeFilters) border-blue-500 @else border-transparent @endif @if($complex) rounded-b-none border-b-0 @endif">
 
             <div
                 wire:loading
@@ -236,8 +236,8 @@
 
         @unless($this->hidePagination)
             <div
-                class="max-w-screen bg-white @unless($complex) @endunless border-4 border-t-0 border-b-0 @if($this->activeFilters) border-blue-500 @else border-transparent @endif">
-                <div class="items-center justify-between p-2 sm:flex">
+                class="max-w-screen bg-white @unless($complex) @endunless border-0 border-t-0 border-b-0 @if($this->activeFilters) border-blue-500 @else border-transparent @endif">
+                <div class="items-center justify-between p-2 px-3 sm:flex">
                     {{-- check if there is any data --}}
                     @if(count($this->results))
 
@@ -286,6 +286,4 @@
 
     @includeIf($afterTableSlot)
 
-    <span
-        class="hidden text-sm text-left text-center text-right text-gray-900 bg-gray-100 bg-yellow-100 leading-5 bg-gray-50"></span>
 </div>

@@ -7,7 +7,9 @@
 
         <livewire:entries.entry-stats/>
 
-        <div class="flex items-center justify-end mt-8">
+        <x-jet-section-border />
+
+        <div class="flex items-center justify-end">
             @if(user()->basecamp_api_user_id === '11816315')
                 <livewire:entries.replicate/>
             @endif
@@ -15,7 +17,7 @@
             <livewire:entries.entry/>
         </div>
 
-        <div class="md:-mt-8 sm:mb-4">
+        <div class="md:-mt-8">
             @include('livewire.entries.tabs')
         </div>
     </x-panel>
