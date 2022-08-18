@@ -70,7 +70,10 @@
 
                                     //console.log(`checked: ${this.checkedValues}`);
 
-                                    this.uploadedButton.disabled = this.deleteButton.disabled = !this.checkedValues.length > 0;
+                                    // feels good
+                                    setTimeout(() => {
+                                        this.uploadedButton.disabled = this.deleteButton.disabled = !this.checkedValues.length > 0;
+                                    }, 200);
 
                                 }, false);
                             });
