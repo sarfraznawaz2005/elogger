@@ -37,12 +37,9 @@ class Entry extends Component
     public array $todos = [];
 
     // others
-    public string $timeTotal = '0.00';
-
     public bool $loading = false;
-    public string $loadingMessage = 'Loading...';
-
-    public string $modalTitle = 'Time Entry';
+    public string $loadingMessage = '';
+    public string $modalTitle = '';
 
     protected array $rules = [
         'model.project_id' => 'required',
@@ -68,6 +65,7 @@ class Entry extends Component
     public function booted(): void
     {
         $this->loadingMessage = 'Loading...';
+        $this->modalTitle = 'Time Entry';
     }
 
     /**
