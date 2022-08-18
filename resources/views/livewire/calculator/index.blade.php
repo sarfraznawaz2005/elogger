@@ -22,7 +22,7 @@
                             <div class="overflow-x-auto mx-auto mb-4">
                                 <div class="overflow-x-auto flex items-center">
                                     <x-jet-label for="allowedLeaves" value="{{ __('Allowed Leaves Hours') }}" class="mr-2 font-bold"/>
-                                    <x-jet-input id="allowedLeaves" type="text" class="w-16 text-center" wire:model="allowedLeaves"/>
+                                    <x-jet-input id="allowedLeaves" type="text" class="w-16 text-center" wire:model.debounce.500ms="allowedLeaves"/>
                                 </div>
                             </div>
                         </th>
@@ -30,7 +30,7 @@
                             <div class="overflow-x-auto mx-auto mb-4 ml-2">
                                 <div class="overflow-x-auto flex items-center">
                                     <x-jet-label for="absents" value="{{ __('Total Absents') }}" class="mr-2 font-bold"/>
-                                    <x-jet-input id="absents" type="text" class="w-16 text-center" wire:model="absents"/>
+                                    <x-jet-input id="absents" type="text" class="w-16 text-center" wire:model.debounce.500ms="absents"/>
                                 </div>
                             </div>
                         </th>
@@ -38,7 +38,7 @@
                             <div class="overflow-x-auto mx-auto mb-4">
                                 <div class="overflow-x-auto flex items-center justify-end">
                                     <x-jet-label for="year" value="{{ __('Year') }}" class="mr-2 font-bold"/>
-                                    <select wire:model="year" class="w-32">
+                                    <select wire:model.debounce.500ms="year" class="w-32">
                                         @foreach($years as $year)
                                             <option value="{{ $year }}">{{ $year }}</option>
                                         @endforeach
@@ -100,10 +100,10 @@
                                 </select>
                             </td>
                             <td class="py-1 px-6">
-                                <x-jet-input type="text" class="w-16 text-center" wire:model="items.{{$index}}.working_days"/>
+                                <x-jet-input type="text" class="w-16 text-center" wire:model.debounce.300ms="items.{{$index}}.working_days"/>
                             </td>
                             <td class="py-1 px-6">
-                                <x-jet-input type="text" class="w-16 text-center" wire:model="items.{{$index}}.required_hours"/>
+                                <x-jet-input type="text" class="w-16 text-center" wire:model.debounce.300ms="items.{{$index}}.required_hours"/>
                             </td>
                             <td class="py-1 px-6">
                                 <x-jet-input type="text" disabled
