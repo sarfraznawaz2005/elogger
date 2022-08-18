@@ -68,7 +68,7 @@
                                         .reduce((a, b) => parseFloat(a) + parseFloat(b), 0)
                                         .toFixed(2);
 
-                                    //console.log(`checked: ${checkedValues}`);
+                                    //console.log(`checked: ${this.checkedValues}`);
 
                                     this.uploadedButton.disabled = this.deleteButton.disabled = !this.checkedValues.length > 0;
 

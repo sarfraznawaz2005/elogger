@@ -124,12 +124,12 @@ class Entry extends Component
     }
 
     /** @noinspection ALL */
-    public function onUploadSelected(): void
+    public function onUploadSelected($ids): void
     {
         $this->loadingMessage = 'Please wait...';
         $this->loading = true;
 
-        $this->emitSelf('uploadSelected');
+        $this->emitSelf('uploadSelected', $ids);
     }
 
     /** @noinspection ALL */
