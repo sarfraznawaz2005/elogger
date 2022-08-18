@@ -1,0 +1,1 @@
+php floyer deploy --ansi
