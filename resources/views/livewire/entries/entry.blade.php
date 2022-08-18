@@ -109,7 +109,7 @@
             >
                 <div>
                     <x-jet-label for="dated" value="{{ __('Date') }}"/>
-                    <x-jet-input id="dated" type="date" class="block md:w-auto sm:w-full" wire:model="model.dated" max="{{date('Y-m-d')}}"/>
+                    <x-jet-input id="dated" type="date" class="block md:w-auto sm:w-full" wire:model.defer="model.dated" max="{{date('Y-m-d')}}"/>
 
                     <x-jet-input-error for="model.dated" class="mt-2"/>
                 </div>
@@ -119,7 +119,7 @@
                         <x-jet-label for="time_start" value="{{ __('Start Time') }}"/>
                         <x-jet-input id="time_start" type="time" class="block w-full"
                                      x-on:input="timeTotal.value = getMinutesBetweenDates(dated, timeStart, timeEnd)"
-                                     wire:model="model.time_start"/>
+                                     wire:model.defer="model.time_start"/>
 
                         <x-jet-input-error for="model.time_start" class="mt-2"/>
                     </div>
@@ -128,7 +128,7 @@
                         <x-jet-label for="time_end" value="{{ __('End Time') }}"/>
                         <x-jet-input id="time_end" type="time" class="block w-full"
                                      x-on:input="timeTotal.value = getMinutesBetweenDates(dated, timeStart, timeEnd)"
-                                     wire:model="model.time_end"/>
+                                     wire:model.defer="model.time_end"/>
 
                         <x-jet-input-error for="model.time_end" class="mt-2"/>
                     </div>
@@ -145,7 +145,7 @@
             <div class="mt-8">
                 <x-jet-label for="model.description" value="{{ __('Description') }}"/>
                 <x-jet-input wire:keydown.enter="save" id="model.description" type="text" class="mt-1 block w-full"
-                             wire:model="model.description"/>
+                             wire:model.defer="model.description"/>
 
                 <x-jet-input-error for="model.description" class="mt-2"/>
             </div>
