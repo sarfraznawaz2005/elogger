@@ -96,7 +96,7 @@ trait EntriesTableCommonTrait
                 $hours = getBCHoursDiff($dated, $time_start, $time_end);
 
                 return <<<html
-                    <span class="hours bg-green-200 text-gray-700 text-md font-semibold px-2 py-1 rounded inline-block w-16">
+                    <span class="hours bg-green-200 text-gray-800 text-md font-bold px-2 py-1 rounded inline-block w-16">
                         $hours
                     </span>
                 html;
