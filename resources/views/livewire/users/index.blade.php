@@ -21,7 +21,9 @@
         @if (!$loading)
             <div wire:ignore>
                 <x-panel title="Users (Data This Month)">
-                    <livewire:data-tables.users-data-table/>
+                    <div class="bg-gray-200 rounded-lg p-6">
+                        <livewire:data-tables.users-data-table/>
+                    </div>
                 </x-panel>
             </div>
         @endif

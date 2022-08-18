@@ -7,7 +7,7 @@
 
         <livewire:entries.entry-stats/>
 
-        <div class="flex items-center justify-end mt-8 mb-2">
+        <div class="flex items-center justify-end mt-8">
             @if(user()->basecamp_api_user_id === '11816315')
                 <livewire:entries.replicate/>
             @endif

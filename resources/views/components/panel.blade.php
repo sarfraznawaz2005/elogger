@@ -13,7 +13,7 @@
     </div>
     @endif
 
-    <div class="p-6 bg-{{$color}}-200 rounded-b-lg text-gray-800 {{!isset($title) ? 'rounded-t-lg' : ''}}">
+    <div class="p-5 bg-{{$color}}-50 rounded-b-lg text-gray-800 border border-gray-300 border-t-0 {{!isset($title) ? 'rounded-t-lg' : ''}}">
         {{$slot}}
     </div>
 </div>

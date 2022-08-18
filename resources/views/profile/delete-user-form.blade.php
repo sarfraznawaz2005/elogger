@@ -1,4 +1,4 @@
-<x-jet-action-section>
+<x-jet-action-section class="bg-gray-200 p-5 rounded-lg">
     <x-slot name="title">
         {{ __('Delete Account') }}
     </x-slot>
