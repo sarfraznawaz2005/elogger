@@ -23,6 +23,7 @@
 
 <div x-data="confirm"
      x-show="open"
+     wire:ignore
      x-cloak
      class="fixed z-50 bottom-0 inset-x-0 px-4 pb-4 sm:inset-0 sm:flex sm:items-center sm:justify-center">
 
