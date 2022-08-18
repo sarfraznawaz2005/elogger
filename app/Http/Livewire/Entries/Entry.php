@@ -64,8 +64,8 @@ class Entry extends Component
 
     public function booted(): void
     {
-        $this->loadingMessage = 'Loading...';
         $this->modalTitle = 'Time Entry';
+        $this->loadingMessage = 'Loading...';
     }
 
     /**
