@@ -1,4 +1,4 @@
-<div class="mb-6" wire:ignore>
+<div class="mb-12" wire:ignore>
 
     <div class="grid grid-cols-3 sm:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 gap-6 w-full">
 

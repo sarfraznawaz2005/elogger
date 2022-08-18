@@ -15,6 +15,8 @@
             <livewire:entries.entry/>
         </div>
 
-        @include('livewire.entries.tabs')
+        <div class="md:-mt-8 sm:mb-4">
+            @include('livewire.entries.tabs')
+        </div>
     </x-panel>
 </div>
