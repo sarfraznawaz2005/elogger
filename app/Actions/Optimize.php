@@ -14,6 +14,10 @@ class Optimize
 
         $output = Artisan::output();
 
+        Artisan::call('optimize');
+
+        $output .= Artisan::output();
+
         Log::info('Optimize: ' . $output);
 
         echo "<pre>$output</pre>";
