@@ -140,13 +140,18 @@
             <x-icons.ok/> {{ __('Save') }}
         </x-jet-button>
     </x-slot>
-</x-jet-form-section>
 
-<script>
-    document.addEventListener('livewire:load', function () {
-        @this.on('saved', () => {
-            window.notyf.success('Profile Updated Successfully!');
-            Livewire.emit('event-entries-updated');
-        })
-    })
-</script>
+
+    @push('js')
+        <script>
+            document.addEventListener('livewire:load', function () {
+                @this.on('saved', () => {
+                    window.notyf.success('Profile Updated Successfully!');
+                    Livewire.emit('event-entries-updated');
+                })
+            })
+        </script>
+    @endpush
+
+
+</x-jet-form-section>
