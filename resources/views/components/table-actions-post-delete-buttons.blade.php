@@ -64,7 +64,7 @@
 
                                     this.selectedTotal = Array.from(this.checkboxes)
                                         .filter(checkbox => checkbox.checked)
-                                        .map(checkbox => checkbox.parentNode.parentNode.parentNode.querySelector('.hours').innerText.replace('\s/g', ''))
+                                        .map(checkbox => checkbox.parentNode.parentNode.querySelector('.hours').innerText.replace('\s/g', ''))
                                         .reduce((a, b) => parseFloat(a) + parseFloat(b), 0)
                                         .toFixed(2);
 
