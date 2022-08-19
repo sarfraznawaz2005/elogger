@@ -145,13 +145,12 @@
     @push('js')
         <script>
             document.addEventListener('livewire:load', function () {
-                @this.on('saved', () => {
+                Livewire.on('saved', () => {
                     window.notyf.success('Profile Updated Successfully!');
                     Livewire.emit('event-entries-updated');
                 })
             })
         </script>
     @endpush
-
 
 </x-jet-form-section>
