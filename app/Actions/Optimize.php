@@ -14,9 +14,11 @@ class Optimize
 
         $output = Artisan::output();
 
-        Artisan::call('optimize');
+        if (app()->isProduction()) {
+            Artisan::call('optimize');
 
-        $output .= Artisan::output();
+            $output .= Artisan::output();
+        }
 
         Log::info('Optimize: ' . $output);
 
