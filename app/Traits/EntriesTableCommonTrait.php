@@ -103,20 +103,17 @@ trait EntriesTableCommonTrait
 
             })->label('Total')->width('1px')->alignCenter(),
 
-            Column::callback(['id', 'id'], function ($id) {
-                return view('components.table-actions-entry', ['id' => $id, 'isPendingTable' => $this->isPendingTable]);
-            })->label('Action')->width('160px')->alignCenter()->excludeFromExport(),
+            Column::callback(['id', 'id'],
+                fn($id) => view('components.table-actions-entry', ['id' => $id, 'isPendingTable' => $this->isPendingTable])
+            )->label('Action')->width('160px')->alignCenter()->excludeFromExport(),
         ];
 
         // add select checkbox to pending table only
         if ($this->isPendingTable) {
-            array_unshift($columns, Column::callback(['id'], static function ($id) {
-                return <<<html
-                    <div>
-                        <input type="checkbox" class="check-entry" value="$id"/>
-                    </div>
-                html;
-            })->alignCenter()->width('1px')->excludeFromExport());
+            array_unshift($columns, Column::callback(['id'], static fn($id) => <<<html
+                    <input type="checkbox" class="check-entry" value="$id"/>
+                html
+            )->alignCenter()->width('1px')->excludeFromExport());
         }
 
         return $columns;
