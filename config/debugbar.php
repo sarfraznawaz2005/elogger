@@ -153,7 +153,7 @@ return [
         'messages' => false,  // Messages
         'time' => true,  // Time Datalogger
         'memory' => true,  // Memory usage
-        'exceptions' => true,  // Exception displayer
+        'exceptions' => false,  // Exception displayer
         'log' => false,  // Logs from Monolog (merged in messages if enabled)
         'db' => true,  // Show database (PDO) queries and bindings
         'views' => false,  // Views with their data
