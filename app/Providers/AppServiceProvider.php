@@ -17,7 +17,10 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        // load helpers
+        foreach (glob(__DIR__ . '/../Helpers/*.php') as $file) {
+            require_once($file);
+        }
     }
 
     /**
@@ -29,11 +32,8 @@ class AppServiceProvider extends ServiceProvider
     {
         Model::preventLazyLoading(!app()->isProduction());
 
-        DB::disableQueryLog();
-
-        // load helpers
-        foreach (glob(__DIR__ . '/../Helpers/*.php') as $filename) {
-            require_once($filename);
+        if (app()->isProduction()) {
+            DB::disableQueryLog();
         }
     }
 }
