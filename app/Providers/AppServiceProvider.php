@@ -31,29 +31,9 @@ class AppServiceProvider extends ServiceProvider
 
         DB::disableQueryLog();
 
-        //$this->dumpQueries();
-
         // load helpers
         foreach (glob(__DIR__ . '/../Helpers/*.php') as $filename) {
             require_once($filename);
         }
-    }
-
-    /** @noinspection ALL */
-    private function dumpQueries(): void
-    {
-        DB::enableQueryLog();
-
-        DB::listen(static function ($query) {
-            $bindings = collect($query->bindings)->map(function ($param) {
-                if (is_numeric($param)) {
-                    return $param;
-                }
-
-                return "'$param'";
-            });
-
-            dump(Str::replaceArray('?', $bindings->toArray(), $query->sql));
-        });
     }
 }

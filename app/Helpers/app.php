@@ -11,6 +11,7 @@ use App\Models\User;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 
 /**
  * Returns instance of logged in user.
@@ -297,4 +298,22 @@ function forgetUserData()
     session()->forget('uploaded_hours_today');
 
     sleep(1);
+}
+
+/** @noinspection ALL */
+function dumpQueries(): void
+{
+    DB::enableQueryLog();
+
+    DB::listen(static function ($query) {
+        $bindings = collect($query->bindings)->map(function ($param) {
+            if (is_numeric($param)) {
+                return $param;
+            }
+
+            return "'$param'";
+        });
+
+        dump(Str::replaceArray('?', $bindings->toArray(), $query->sql));
+    });
 }
