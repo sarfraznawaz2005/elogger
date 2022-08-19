@@ -92,17 +92,17 @@
 
             <div class="inline-flex items-center justify-between w-full"
                  x-data="{
-                    getMinutesBetweenDates: function () {
-                        let startDate = new Date(dated.value + ' ' + time_start.value);
-                        let endDate = new Date(dated.value + ' ' + time_end.value);
+                        getMinutesBetweenDates: function () {
+                            let startDate = new Date(dated.value + ' ' + time_start.value);
+                            let endDate = new Date(dated.value + ' ' + time_end.value);
 
-                        const diff = endDate.getTime() - startDate.getTime();
+                            const diff = endDate.getTime() - startDate.getTime();
 
-                        timeTotal.value = diff ? ((diff / 60000) / 60).toFixed(2) : '0.00';
-                    },
-                    isModalOpen: @entangle('isModalOpen').defer}
+                            timeTotal.value = diff ? ((diff / 60000) / 60).toFixed(2) : '0.00';
+                        }
+                    }
                  "
-                 x-init="$watch('isModalOpen', getMinutesBetweenDates);"
+                 x-effect="getMinutesBetweenDates()"
             >
                 <div>
                     <x-jet-label for="dated" value="{{ __('Date') }}"/>
