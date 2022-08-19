@@ -111,7 +111,7 @@ trait EntriesTableCommonTrait
         // add select checkbox to pending table only
         if ($this->isPendingTable) {
             array_unshift($columns, Column::callback(['id'], static fn($id) => <<<html
-                    <div><input type="checkbox" class="check-entry" value="$id"/></div>
+                    <input type="checkbox" class="check-entry" value="$id"/>
                 html
             )->alignCenter()->width('1px')->excludeFromExport());
         }
