@@ -92,11 +92,11 @@
 
             <div class="inline-flex items-center justify-between w-full"
                  x-data="{
-                    isModalOpen: @entangle('isModalOpen').defer},
-                    dated = document.querySelector('#dated'),
-                    timeStart = document.querySelector('#time_start'),
-                    timeEnd = document.querySelector('#time_end'),
-                    timeTotal = document.querySelector('#timeTotal')
+                    dated: document.querySelector('#dated'),
+                    timeStart: document.querySelector('#time_start'),
+                    timeEnd: document.querySelector('#time_end'),
+                    timeTotal: document.querySelector('#timeTotal'),
+                    isModalOpen: @entangle('isModalOpen').defer}
                  "
                  x-init="
                  $watch('isModalOpen', value => {
