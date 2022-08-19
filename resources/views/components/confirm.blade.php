@@ -45,12 +45,7 @@
                         class="w-32 justify-center mr-8"
                         x-on:click="open = false; window.livewire.emit(event, value)"
                         x-bind:disabled="!open">
-
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1" viewBox="0 0 20 20" fill="currentColor">
-                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
-                        </svg>
-
-                        {{ __('Confirm') }}
+                        <x-icons.ok/> {{ __('Confirm') }}
                     </x-jet-danger-button>
 
                     <x-jet-button x-on:click="open = false" class="w-32 justify-center">

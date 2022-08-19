@@ -14,12 +14,7 @@
         wire:loading.attr="disabled"
         wire:click="create"
         class="bg-green-700 ml-4 hover:bg-green-800">
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24"
-             stroke="currentColor" stroke-width="2">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"/>
-        </svg>
-
-        {{ __('Add Entry') }}
+        <x-icons.plus/> {{ __('Add Entry') }}
     </x-jet-button>
 
         {{--<pre>{{print_r($selectedItems)}}</pre>--}}
@@ -163,11 +158,7 @@
                 wire:loading.attr="disabled"
                 class="mr-2 bg-blue-700 hover:bg-blue-800">
 
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1" viewBox="0 0 20 20" fill="currentColor">
-                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
-                </svg>
-
-                {{ __('Save Entry')  }}
+                <x-icons.ok/> {{ __('Save Entry')  }}
             </x-jet-button>
 
             <x-jet-button x-on:click="show = false" wire:click="closeModal" wire:loading.attr="disabled">
