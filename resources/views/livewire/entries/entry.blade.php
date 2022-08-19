@@ -92,24 +92,26 @@
 
             <div class="inline-flex items-center justify-between w-full"
                  x-data="{
-                    dated: document.querySelector('#dated'),
-                    timeStart: document.querySelector('#time_start'),
-                    timeEnd: document.querySelector('#time_end'),
-                    timeTotal: document.querySelector('#timeTotal'),
+                    getMinutesBetweenDates: function () {
+                        let startDate = new Date(dated.value + ' ' + time_start.value);
+                        let endDate = new Date(dated.value + ' ' + time_end.value);
+
+                        const diff = endDate.getTime() - startDate.getTime();
+
+                        timeTotal.value = diff ? ((diff / 60000) / 60).toFixed(2) : '0.00';
+                    },
                     isModalOpen: @entangle('isModalOpen').defer}
                  "
                  x-init="
-                 $watch('isModalOpen', value => {
-                    if (value) {
-                        timeTotal.value = getMinutesBetweenDates(dated, timeStart, timeEnd);
-                    } else {
-                        timeTotal.value = '0.00';
-                    }
-                 })"
+                        $watch('isModalOpen', getMinutesBetweenDates);
+                    "
             >
                 <div>
                     <x-jet-label for="dated" value="{{ __('Date') }}"/>
-                    <x-jet-input id="dated" type="date" class="block md:w-auto sm:w-full" wire:model.defer="model.dated" max="{{date('Y-m-d')}}"/>
+                    <x-jet-input id="dated" type="date" class="block md:w-auto sm:w-full"
+                                 wire:model.defer="model.dated"
+                                 x-ref="dated"
+                                 max="{{date('Y-m-d')}}"/>
 
                     <x-jet-input-error for="model.dated" class="mt-2"/>
                 </div>
@@ -118,7 +120,8 @@
                     <div class="mr-4">
                         <x-jet-label for="time_start" value="{{ __('Start Time') }}"/>
                         <x-jet-input id="time_start" type="time" class="block w-full"
-                                     x-on:input="timeTotal.value = getMinutesBetweenDates(dated, timeStart, timeEnd)"
+                                     x-ref="time_start"
+                                     x-on:input="getMinutesBetweenDates()"
                                      wire:model.defer="model.time_start"/>
 
                         <x-jet-input-error for="model.time_start" class="mt-2"/>
@@ -127,7 +130,8 @@
                     <div class="mr-4">
                         <x-jet-label for="time_end" value="{{ __('End Time') }}"/>
                         <x-jet-input id="time_end" type="time" class="block w-full"
-                                     x-on:input="timeTotal.value = getMinutesBetweenDates(dated, timeStart, timeEnd)"
+                                     x-ref="time_end"
+                                     x-on:input="getMinutesBetweenDates()"
                                      wire:model.defer="model.time_end"/>
 
                         <x-jet-input-error for="model.time_end" class="mt-2"/>
@@ -136,6 +140,7 @@
                     <div>
                         <x-jet-label for="timeTotal" value="{{ __('Total') }}"/>
                         <x-jet-input id="timeTotal" type="text" style="width:70px;"
+                                     x-ref="timeTotal"
                                      class="text-center bg-blue-100 text-md font-semibold"
                                      disabled/>
                     </div>
