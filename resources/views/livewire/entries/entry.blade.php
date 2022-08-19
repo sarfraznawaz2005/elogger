@@ -102,9 +102,7 @@
                     },
                     isModalOpen: @entangle('isModalOpen').defer}
                  "
-                 x-init="
-                        $watch('isModalOpen', getMinutesBetweenDates);
-                    "
+                 x-init="$watch('isModalOpen', getMinutesBetweenDates);"
             >
                 <div>
                     <x-jet-label for="dated" value="{{ __('Date') }}"/>
