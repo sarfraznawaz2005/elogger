@@ -136,9 +136,13 @@ class User extends Authenticatable
         $hours = 0;
 
         if ($userId) {
-            $todos = $this->pendingTodosToday()->where('user_id', $userId)->get();
+            $todos = $this->pendingTodosToday()
+                ->select('dated', 'time_start', 'time_end')
+                ->where('user_id', $userId)->get();
         } else {
-            $todos = $this->pendingTodosToday;
+            $todos = $this->pendingTodosToday()
+                ->select('dated', 'time_start', 'time_end')
+                ->get();
         }
 
         foreach ($todos as $todoToday) {
@@ -181,9 +185,13 @@ class User extends Authenticatable
         $hours = 0;
 
         if ($userId) {
-            $todos = $this->pendingTodos()->where('user_id', $userId)->get();
+            $todos = $this->pendingTodos()
+                ->select('dated', 'time_start', 'time_end')
+                ->where('user_id', $userId)->get();
         } else {
-            $todos = $this->pendingTodos;
+            $todos = $this->pendingTodos()
+                ->select('dated', 'time_start', 'time_end')
+                ->get();
         }
 
         foreach ($todos as $todoToday) {
@@ -201,9 +209,13 @@ class User extends Authenticatable
         $hours = 0;
 
         if ($userId) {
-            $todos = $this->postedTodos()->where('user_id', $userId)->get();
+            $todos = $this->postedTodos()
+                ->select('dated', 'time_start', 'time_end')
+                ->where('user_id', $userId)->get();
         } else {
-            $todos = $this->postedTodos;
+            $todos = $this->postedTodos()
+                ->select('dated', 'time_start', 'time_end')
+                ->get();
         }
 
         foreach ($todos as $todoToday) {

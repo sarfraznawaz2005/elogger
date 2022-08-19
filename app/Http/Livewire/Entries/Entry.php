@@ -73,8 +73,10 @@ class Entry extends Component
      */
     public function render(): Factory|View|Application
     {
-        $projects = user()->projectsAll->pluck('project_name', 'project_id')->toArray();
-        asort($projects);
+        $projects = user()->projectsAll()
+            ->get(['project_id', 'project_name'])
+            ->pluck('project_name', 'project_id')
+            ->toArray();
 
         return view('livewire.entries.entry', compact('projects'));
     }

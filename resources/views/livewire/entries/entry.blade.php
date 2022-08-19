@@ -2,6 +2,7 @@
 
     <?php
     // https://github.com/livewire/livewire/issues/900
+    asort($projects);
     asort($todoLists);
     asort($todos);
     ?>
