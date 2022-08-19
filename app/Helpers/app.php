@@ -20,12 +20,6 @@ use Illuminate\Support\Str;
  */
 function user(): User|Authenticatable
 {
-    if (session()->has('user')) {
-        return session('user');
-    }
-
-    session()->put('user', auth()->user());
-
     return auth()->user();
 }
 
