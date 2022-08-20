@@ -14,6 +14,7 @@
                 <livewire:entries.replicate/>
             @endif
 
+            <livewire:entries.todos/>
             <livewire:entries.entry/>
         </div>
 

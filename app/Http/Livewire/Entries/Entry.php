@@ -287,7 +287,7 @@ class Entry extends Component
                 $description = trim($todo->description);
                 $hours = getBCHoursDiff($todo->dated, $todo->time_start, $todo->time_end);
 
-                $action = 'todo_items/' . $todo->todo_id . '/time_entries.xml';
+                $action = "todo_items/$todo->todo_id/time_entries.xml";
 
                 $xmlData = <<<data
                         <time-entry>

@@ -1,7 +1,5 @@
 <?php
 
-use App\Models\User;
-
 /**
  * Created by PhpStorm.
  * User: Sarfraz

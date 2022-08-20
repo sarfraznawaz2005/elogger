@@ -5,7 +5,7 @@
     @if (isset($title))
     <div class="bg-{{$color}}-300 text-gray-600 {{isset($headerRight) ? 'py-2' : 'py-3'}} px-6 font-bold rounded-t-lg">
         <div class="flex justify-between items-center">
-            <div class="uppercase">{{$title}}</div>
+            <div>{{$title}}</div>
             @if (isset($headerRight))
                 <div>{{$headerRight}}</div>
             @endif
