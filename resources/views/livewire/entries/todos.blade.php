@@ -10,7 +10,7 @@
         Please wait...
     </x-status-modal>
 
-    <x-jet-button wire:loading.attr="disabled" wire:click="create" class="bg-yellow-600 hover:bg-yellow-800 ml-4">
+    <x-jet-button wire:loading.attr="disabled" wire:click="create" class="bg-purple-700 hover:bg-purple-800 ml-4">
         <x-icons.plus/> {{ __('Create Todos') }}
     </x-jet-button>
 
