@@ -346,7 +346,7 @@ class Entry extends Component
             $this->dispatchBrowserEvent('animated-ok');
         } else {
             $this->loading = false;
-            $this->danger('Error: Probably project|todolist|todo you are uploading to has been deleted from Basecamp.');
+            $this->danger('Probably project|todolist|todo you are uploading to has been deleted from Basecamp.');
         }
     }
 
