@@ -51,9 +51,18 @@
 
 <livewire:scripts />
 
+{{-- turbo start --}}
+<script type="module" src="https://cdn.skypack.dev/pin/@hotwired/turbo@v7.1.0-V83RMQBlYCPK9CvTqQoL/mode=imports,min/optimized/@hotwired/turbo.js"></script>
+
+<script src="https://cdn.jsdelivr.net/gh/livewire/turbolinks@v0.1.x/dist/livewire-turbolinks.js"
+        data-turbolinks-eval="false"
+        data-turbo-eval="false">
+</script>
+{{-- turbo end --}}
+
 @stack('js')
 
-<script src="/js/pace.min.js"></script>
+{{--<script src="/js/pace.min.js"></script>--}}
 
 </body>
 </html>
