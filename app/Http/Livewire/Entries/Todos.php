@@ -60,7 +60,7 @@ class Todos extends Component
             $this->selectedTodolistId = null;
 
             if ($this->selectedProjectId) {
-                $this->todoLists = json_decode($this->fetchTodoLists($this->selectedProjectId), true, 512, JSON_THROW_ON_ERROR);
+                $this->todoLists = json_decode(fetchTodoLists($this->selectedProjectId), true, 512, JSON_THROW_ON_ERROR);
             }
         }
     }
@@ -143,17 +143,5 @@ class Todos extends Component
         $this->selectedTodolistId = '';
 
         $this->clearValidation();
-    }
-
-    /**
-     * @throws JsonException
-     */
-    public function fetchTodoLists($projectId): bool|string
-    {
-        try {
-            return json_encode(getProjectTodoLists($projectId), JSON_THROW_ON_ERROR);
-        } catch (JsonException) {
-            return json_encode([], JSON_THROW_ON_ERROR);
-        }
     }
 }

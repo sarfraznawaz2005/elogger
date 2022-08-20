@@ -166,6 +166,7 @@ function addUserProjects(): void
     }
 }
 
+/* @noinspection ALL */
 function getProjectNameForTodo($projectId): string
 {
     return Project::query()->where('project_id', $projectId)->first()->project_name;
@@ -316,4 +317,28 @@ function dumpQueries(): void
 
         dump(Str::replaceArray('?', $bindings->toArray(), $query->sql));
     });
+}
+
+/**
+ * @throws JsonException
+ */
+function fetchTodoLists($projectId): bool|string
+{
+    try {
+        return json_encode(getProjectTodoLists($projectId), JSON_THROW_ON_ERROR);
+    } catch (JsonException) {
+        return json_encode([], JSON_THROW_ON_ERROR);
+    }
+}
+
+/**
+ * @throws JsonException
+ */
+function fetchTodos($todolistId): bool|string
+{
+    try {
+        return json_encode(getTodoListTodos($todolistId), JSON_THROW_ON_ERROR);
+    } catch (JsonException) {
+        return json_encode([], JSON_THROW_ON_ERROR);
+    }
 }

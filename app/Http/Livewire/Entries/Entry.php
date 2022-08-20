@@ -93,7 +93,7 @@ class Entry extends Component
             $this->model->todo_id = null;
 
             if ($this->model->project_id) {
-                $this->todoLists = json_decode($this->fetchTodoLists($this->model->project_id), true, 512, JSON_THROW_ON_ERROR);
+                $this->todoLists = json_decode(fetchTodoLists($this->model->project_id), true, 512, JSON_THROW_ON_ERROR);
             }
         }
 
@@ -102,7 +102,7 @@ class Entry extends Component
             $this->model->todo_id = null;
 
             if ($this->model->todolist_id) {
-                $this->todos = json_decode($this->fetchTodos($this->model->todolist_id), true, 512, JSON_THROW_ON_ERROR);
+                $this->todos = json_decode(fetchTodos($this->model->todolist_id), true, 512, JSON_THROW_ON_ERROR);
             }
         }
     }
@@ -164,8 +164,8 @@ class Entry extends Component
         $this->model->dated = date('Y-m-d');
         $this->model->time_start = $this->model->time_end = date('H:i');
 
-        $this->todoLists = json_decode($this->fetchTodoLists($this->model->project_id), true, 512, JSON_THROW_ON_ERROR);
-        $this->todos = json_decode($this->fetchTodos($this->model->todolist_id), true, 512, JSON_THROW_ON_ERROR);
+        $this->todoLists = json_decode(fetchTodoLists($this->model->project_id), true, 512, JSON_THROW_ON_ERROR);
+        $this->todos = json_decode(fetchTodos($this->model->todolist_id), true, 512, JSON_THROW_ON_ERROR);
 
         $this->modalTitle = 'Add Entry';
 
@@ -182,8 +182,8 @@ class Entry extends Component
     {
         $this->model = $todo;
 
-        $this->todoLists = json_decode($this->fetchTodoLists($this->model->project_id), true, 512, JSON_THROW_ON_ERROR);
-        $this->todos = json_decode($this->fetchTodos($this->model->todolist_id), true, 512, JSON_THROW_ON_ERROR);
+        $this->todoLists = json_decode(fetchTodoLists($this->model->project_id), true, 512, JSON_THROW_ON_ERROR);
+        $this->todos = json_decode(fetchTodos($this->model->todolist_id), true, 512, JSON_THROW_ON_ERROR);
 
         $this->modalTitle = 'Edit Entry';
 
@@ -404,53 +404,5 @@ class Entry extends Component
     private function resetForm(): void
     {
         $this->model = new Todo();
-    }
-
-    /**
-     * @throws JsonException
-     */
-    public function fetchTodoLists($projectId): bool|string
-    {
-        try {
-
-            if (session()->has('app.todo-list-' . $projectId)) {
-                return session('app.todo-list-' . $projectId);
-            }
-
-            $todoLists = json_encode(getProjectTodoLists($projectId), JSON_THROW_ON_ERROR);
-
-            if ($todoLists) {
-                session()->put('app.todo-list-' . $projectId, $todoLists);
-            }
-
-            return $todoLists;
-
-        } catch (JsonException) {
-            return json_encode([], JSON_THROW_ON_ERROR);
-        }
-    }
-
-    /**
-     * @throws JsonException
-     */
-    public function fetchTodos($todolistId): bool|string
-    {
-        try {
-
-            if (session()->has('app.todos-' . $todolistId)) {
-                return session('app.todos-' . $todolistId);
-            }
-
-            $todos = json_encode(getTodoListTodos($todolistId), JSON_THROW_ON_ERROR);
-
-            if ($todos) {
-                session()->put('app.todos-' . $todolistId, $todos);
-            }
-
-            return $todos;
-
-        } catch (JsonException) {
-            return json_encode([], JSON_THROW_ON_ERROR);
-        }
     }
 }
