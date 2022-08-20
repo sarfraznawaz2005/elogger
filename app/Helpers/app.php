@@ -174,9 +174,6 @@ function getProjectNameForTodo($projectId): string
 
 function refreshData(): void
 {
-    // eg todos and todolists that were saved from entry page
-    session()->forget('app');
-
     set_time_limit(0);
 
     $allUsersHours = [];
@@ -293,7 +290,6 @@ function getSql($builder): string
 /** @noinspection ALL */
 function forgetUserData()
 {
-    session()->forget('app');
     session()->forget('all_users_hours');
     session()->forget('month_hours');
     session()->forget('uploaded_hours_today');

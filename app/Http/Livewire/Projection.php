@@ -136,7 +136,6 @@ class Projection extends Component
         session()->forget('not_connected');
 
         refreshData();
-        // session()->forget('app');
 
         $this->success('Data Refreshed Successfully!');
 

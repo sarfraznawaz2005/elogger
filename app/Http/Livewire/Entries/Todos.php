@@ -89,10 +89,6 @@ class Todos extends Component
 
         $this->loading = true;
 
-        # important
-        session()->forget('app');
-        sleep(1);
-
         if ($this->type === 'todolist') {
 
             $action = "projects/$this->selectedProjectId/todo_lists.xml";
