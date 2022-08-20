@@ -41,7 +41,7 @@
 </div>
 
 <div class="mx-auto p-0 border-0 mb-6">
-    <div class="bg-gray-200 text-gray-500 pt-3 px-6 font-semibold rounded-t-lg">
+    <div class="bg-gray-200 text-gray-700 pt-3 px-6 font-semibold rounded-t-lg">
         Project Wise Distribution Chart
     </div>
 
@@ -61,7 +61,7 @@
 
 @if (count($allUsersHours) && user()->isAdmin())
     <div class="mx-auto p-0 border-0">
-        <div class="bg-gray-200 text-gray-500 pt-3 px-6 font-semibold rounded-t-lg">
+        <div class="bg-gray-200 text-gray-700 pt-3 px-6 font-semibold rounded-t-lg">
             All Users Hours Chart
         </div>
 
