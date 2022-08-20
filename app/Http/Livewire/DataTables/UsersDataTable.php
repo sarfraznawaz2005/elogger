@@ -35,11 +35,11 @@ class UsersDataTable extends LivewireDatatable
             })->hide(),
 
             Column::name('name')->label('Name')->defaultSort('asc')->sortable(),
-            Column::name('email')->label('Email')->sortable(),
+            Column::name('email')->label('Email'),
             BooleanColumn::name('is_admin')->label('Admin')->sortable()->alignCenter(),
 
             NumberColumn::callback(['id', 'id'], static function ($id) use (&$modelInstance) {
-                $hours = round($modelInstance->pendingTodosHoursMonth($id));
+                $hours = number_format($modelInstance->pendingTodosHoursMonth($id), 2);
 
                 return <<<html
                     <span class="bg-yellow-200 text-gray-700 text-md font-semibold px-2 py-1 rounded w-16 inline-block">
@@ -47,20 +47,20 @@ class UsersDataTable extends LivewireDatatable
                     </span>
                 html;
 
-            })->label('Pending Hours')->sortable()->alignCenter(),
+            })->label('Pending Hours')->alignCenter(),
 
             NumberColumn::callback(['id', 'id', 'id', 'id'], static function ($id) use (&$modelInstance) {
 
                 if (!hasBasecampSetup($modelInstance)) {
                     return <<<html
                         <span class="bg-green-200 text-gray-700 text-md font-semibold px-2 py-1 rounded w-16 inline-block">
-                            0
+                            0.00
                         </span>
                     html;
                 }
 
                 $hours = getUserMonthUploadedHours($modelInstance->basecamp_api_user_id, true);
-                $hours = round($hours);
+                $hours = number_format($hours, 2);
 
                 return <<<html
                     <span class="bg-green-200 text-gray-700 text-md font-semibold px-2 py-1 rounded w-16 inline-block">
@@ -68,7 +68,7 @@ class UsersDataTable extends LivewireDatatable
                     </span>
                 html;
 
-            })->label('Uploaded Hours')->sortable()->alignCenter(),
+            })->label('Uploaded Hours')->alignCenter(),
 
             Column::callback(['basecamp_api_user_id', 'holidays_count', 'working_hours_count'], static function ($bcId, $holidaysCount, $workingHoursCount) use (&$modelInstance) {
                 $workDayCountMonth = workDayCountMonth($holidaysCount);
