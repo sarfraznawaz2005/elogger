@@ -89,6 +89,10 @@ class Todos extends Component
 
         $this->loading = true;
 
+        # important
+        session()->forget('app');
+        sleep(1);
+
         if ($this->type === 'todolist') {
 
             $action = "projects/$this->selectedProjectId/todo_lists.xml";
@@ -120,9 +124,6 @@ class Todos extends Component
         // check to see if it was posted successfully to BC
         if ($response && $response['code'] === 201) {
             $this->resetForm();
-
-            session()->forget('app');
-            sleep(1);
 
             $this->loading = false;
 
