@@ -3,8 +3,6 @@
 namespace App\Traits;
 
 use App\Models\Project;
-use App\Models\Todo;
-use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Str;
 use Mediconesystems\LivewireDatatables\Column;
@@ -16,6 +14,11 @@ trait EntriesTableCommonTrait
 {
     public function columns(): array
     {
+        $projects = Project::query()
+            ->select(['project_id', 'project_name'])
+            ->where('user_id', user()->id)
+            ->get();
+
         $columns = [
 
             //Column::name('id')->hide()->label('ID')->defaultSort('desc'),
@@ -36,10 +39,10 @@ trait EntriesTableCommonTrait
             })->label('Date')->width('1px')->alignCenter(),
 
             // causing search issue as well. tbf
-            Column::callback('project_id', function ($project_id) {
+            Column::callback('project_id', static function ($project_id) use ($projects) {
                 $limit = 20;
 
-                $text = $this->projects->where('project_id', $project_id)->first()->project_name;
+                $text = $projects->where('project_id', $project_id)->first()->project_name;
 
                 if (strlen($text) <= $limit) {
                     return $text;
@@ -117,21 +120,5 @@ trait EntriesTableCommonTrait
         }
 
         return $columns;
-    }
-
-    // The advantage of these computed properties is that they are cached between requests until page load.
-    public function getProjectsProperty(): Collection
-    {
-        return Project::query()
-            ->where('user_id', user()->id)
-            ->get(['project_id', 'project_name']);
-    }
-
-    public function getTodosProperty(): Collection
-    {
-        return Todo::query()
-            ->select('id', 'dated', 'time_start', 'time_end')
-            ->where('user_id', user()->id)
-            ->get();
     }
 }
