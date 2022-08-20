@@ -17,7 +17,7 @@
     @endif
 
     {{--delete--}}
-    <div class="inline" x-data="{tooltip: 'Delete'}" x-cloak>
+    <div class="inline" x-data="{tooltip: 'Delete'}">
 
         <button
             x-on:click="sendBrowserEvent('confirm', 'delete', '{{$id}}')"
@@ -30,7 +30,7 @@
 
     {{--delete from basecamp --}}
     @if(!$isPendingTable)
-        <div class="inline" x-data="{tooltip: 'Delete + Basecamp'}" x-cloak>
+        <div class="inline" x-data="{tooltip: 'Delete + Basecamp'}">
             <button
                 x-on:click="sendBrowserEvent('confirm', 'onDeleteFromBasecamp', '{{$id}}', 'Sure to delete entry here plus basecamp ?')"
                 x-tooltip="tooltip"

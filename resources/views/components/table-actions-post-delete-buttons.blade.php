@@ -115,6 +115,7 @@
                     <div
                         x-text="selectedTotal"
                         class="inline-flex justify-center items-center ml-1 p-2 text-gray-800 text-sm font-bold bg-yellow-400">
+                        0.00
                     </div>
                 </div>
             </div>
