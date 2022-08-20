@@ -51,6 +51,8 @@
 
 <livewire:scripts />
 
+@stack('js')
+
 {{-- turbo start --}}
 <script type="module" src="https://cdn.skypack.dev/pin/@hotwired/turbo@v7.1.0-V83RMQBlYCPK9CvTqQoL/mode=imports,min/optimized/@hotwired/turbo.js"></script>
 
@@ -60,7 +62,6 @@
 </script>
 {{-- turbo end --}}
 
-@stack('js')
 
 {{--<script src="/js/pace.min.js"></script>--}}
 
