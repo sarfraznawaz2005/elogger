@@ -23,6 +23,9 @@ class Todos extends Component
     public ?string $type = '';
     public array $todoLists = [];
 
+    // others
+    public bool $loading = false;
+
     protected array $validationAttributes = [
         'selectedProjectId' => 'Project',
         'selectedTodolistId' => 'Todolist',
@@ -82,6 +85,8 @@ class Todos extends Component
 
         set_time_limit(0);
 
+        $this->closeModal();
+
         $this->loading = true;
 
         if ($this->type === 'todolist') {
@@ -117,8 +122,6 @@ class Todos extends Component
             $this->resetForm();
 
             $this->loading = false;
-
-            $this->closeModal();
 
             //$this->success('Selected Entries Uploaded Successfully!');
             $this->dispatchBrowserEvent('animated-ok');
