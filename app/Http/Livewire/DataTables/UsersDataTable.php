@@ -19,7 +19,6 @@ class UsersDataTable extends LivewireDatatable
     public $persistComplexQuery = false;
     public $persistHiddenColumns = false;
     public $persistSort = false;
-    public $persistPerPage = false;
     public $persistFilters = false;
 
     public bool $hidePageSize = false;
@@ -40,10 +39,10 @@ class UsersDataTable extends LivewireDatatable
             BooleanColumn::name('is_admin')->label('Admin')->sortable()->alignCenter(),
 
             NumberColumn::callback(['id', 'id'], static function ($id) use (&$modelInstance) {
-                $hours = number_format($modelInstance->pendingTodosHoursMonth($id), 2);
+                $hours = round($modelInstance->pendingTodosHoursMonth($id));
 
                 return <<<html
-                    <span class="bg-yellow-200 text-gray-700 text-md font-semibold px-2 py-1 rounded w-20 inline-block">
+                    <span class="bg-yellow-200 text-gray-700 text-md font-semibold px-2 py-1 rounded w-16 inline-block">
                         $hours
                     </span>
                 html;
@@ -54,17 +53,17 @@ class UsersDataTable extends LivewireDatatable
 
                 if (!hasBasecampSetup($modelInstance)) {
                     return <<<html
-                        <span class="bg-green-200 text-gray-700 text-md font-semibold px-2 py-1 rounded w-20 inline-block">
-                            0.00
+                        <span class="bg-green-200 text-gray-700 text-md font-semibold px-2 py-1 rounded w-16 inline-block">
+                            0
                         </span>
                     html;
                 }
 
                 $hours = getUserMonthUploadedHours($modelInstance->basecamp_api_user_id, true);
-                $hours = number_format($hours, 2);
+                $hours = round($hours);
 
                 return <<<html
-                    <span class="bg-green-200 text-gray-700 text-md font-semibold px-2 py-1 rounded w-20 inline-block">
+                    <span class="bg-green-200 text-gray-700 text-md font-semibold px-2 py-1 rounded w-16 inline-block">
                         $hours
                     </span>
                 html;

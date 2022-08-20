@@ -15,7 +15,7 @@
         wire:loading.attr="disabled"
         wire:click="create"
         class="bg-green-700 ml-4 hover:bg-green-800">
-        <x-icons.plus/> {{ __('Add Entry') }}
+        <x-icons.plus/> {{ __('Create Entry') }}
     </x-jet-button>
 
     <x-jet-dialog-modal wire:model="isModalOpen">
