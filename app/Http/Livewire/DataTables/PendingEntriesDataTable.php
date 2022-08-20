@@ -15,7 +15,6 @@ class PendingEntriesDataTable extends LivewireDatatable
     public $persistComplexQuery = false;
     public $persistHiddenColumns = false;
     public $persistSort = false;
-    public $persistPerPage = false;
     public $persistFilters = false;
 
     public $beforeTableSlot = 'components.table-actions-post-delete-buttons';
