@@ -121,6 +121,9 @@ class Todos extends Component
         if ($response && $response['code'] === 201) {
             $this->resetForm();
 
+            session()->forget('app');
+            sleep(1);
+
             $this->loading = false;
 
             //$this->success('Selected Entries Uploaded Successfully!');
