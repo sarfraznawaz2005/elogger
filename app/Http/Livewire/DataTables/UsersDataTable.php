@@ -42,7 +42,7 @@ class UsersDataTable extends LivewireDatatable
                 $hours = number_format($modelInstance->pendingTodosHoursMonth($id), 2);
 
                 return <<<html
-                    <span class="bg-yellow-200 text-gray-700 text-md font-semibold px-2 py-1 rounded w-20 inline-block">
+                    <span class="yellow-light-box text-gray-700 text-md font-semibold px-2 py-1 rounded w-20 inline-block">
                         $hours
                     </span>
                 html;
@@ -53,7 +53,7 @@ class UsersDataTable extends LivewireDatatable
 
                 if (!hasBasecampSetup($modelInstance)) {
                     return <<<html
-                        <span class="bg-green-200 text-gray-700 text-md font-semibold px-2 py-1 rounded w-20 inline-block">
+                        <span class="green-light-box text-gray-700 text-md font-semibold px-2 py-1 rounded w-20 inline-block">
                             0.00
                         </span>
                     html;
@@ -63,7 +63,7 @@ class UsersDataTable extends LivewireDatatable
                 $hours = number_format($hours, 2);
 
                 return <<<html
-                    <span class="bg-green-200 text-gray-700 text-md font-semibold px-2 py-1 rounded w-20 inline-block">
+                    <span class="green-light-box text-gray-700 text-md font-semibold px-2 py-1 rounded w-20 inline-block">
                         $hours
                     </span>
                 html;
@@ -77,7 +77,7 @@ class UsersDataTable extends LivewireDatatable
                 $hoursProjected = monthProjectedHours($workDayCountMonth, $holidaysCount, true, $bcId, $workingHoursCount, $modelInstance);
 
                 return <<<html
-                    <span class="bg-blue-200 text-gray-700 text-md font-semibold px-2 py-1 rounded w-24 inline-block">
+                    <span class="blue-light-box text-gray-700 text-md font-semibold px-2 py-1 rounded w-24 inline-block">
                         $hoursProjected of $hoursTotal
                     </span>
                 html;

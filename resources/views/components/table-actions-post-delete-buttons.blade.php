@@ -110,11 +110,11 @@
                 </div>
 
                 <div
-                    class="inline-flex items-center pl-2 text-sm font-semibold text-center bg-yellow-200 border-yellow-500 mr-2">
+                    class="inline-flex items-center pl-2 text-sm font-semibold text-center bg-yellow-200 border-yellow-500 mr-2 text-gray-900 rounded">
                     Selected Total
                     <div
                         x-text="selectedTotal"
-                        class="inline-flex justify-center items-center ml-1 p-2 text-gray-800 text-sm font-bold bg-yellow-400">
+                        class="inline-flex justify-center items-center ml-1 p-2 text-gray-900 text-sm font-bold bg-yellow-300 rounded-r">
                         0.00
                     </div>
                 </div>

@@ -5,7 +5,7 @@
     </x-status-modal>
 
     <button type="button"
-            class="inline-flex items-center px-4 py-2 bg-blue-700 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-blue-800 active:bg-blue-900 focus:outline-none disabled:opacity-25 transition"
+            class="inline-flex items-center px-4 py-2 bg-blue-700 hover:bg-blue-800 active:bg-blue-900 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest focus:outline-none disabled:opacity-25 transition"
             wire:click="$emitSelf('onLoad')">
 
         <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24"

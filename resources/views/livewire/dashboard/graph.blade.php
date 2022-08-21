@@ -19,7 +19,7 @@
                 </td>
                 <td class="py-2 px-6" style="text-align: right;">
                         <span
-                            class="font-bold bg-green-200 text-gray-700 text-sm font-semibold mx-0 px-2 py-1 text-center rounded w-20 inline-block">
+                            class="font-bold green-light-box text-gray-800 text-sm font-semibold mx-0 px-2 py-1 text-center rounded w-20 inline-block">
                             {{number_format($project['hours'], 2)}}
                         </span>
                 </td>
@@ -49,12 +49,12 @@
         <div id="projects_chart">
             <div class="flex justify-center items-center mb-4" x-data="{show: @entangle('loading')}">
                 <div x-show="show">
-                    <x-icons.spinner />
+                    <x-icons.spinner/>
                     <span class="font-semibold">Loading...</span>
                 </div>
             </div>
 
-            <x-bc-error />
+            <x-bc-error/>
         </div>
     </div>
 </div>
@@ -69,12 +69,12 @@
             <div id="users_chart">
                 <div class="flex justify-center items-center mb-4" x-data="{show: @entangle('loading')}">
                     <div x-show="show">
-                        <x-icons.spinner />
+                        <x-icons.spinner/>
                         <span class="font-semibold">Loading...</span>
                     </div>
                 </div>
 
-                <x-bc-error />
+                <x-bc-error/>
             </div>
         </div>
     </div>
@@ -99,7 +99,7 @@
                         $color = substr(md5(mt_rand()), 0, 6);
 
                         foreach ($projects as $index => $project) {
-                            $color = substr(md5($index + mt_rand()), 0, 6);
+                            $color = mt_rand(0, 4) . mt_rand(0, 4) . mt_rand(0, 4);
                             echo "['$project[project_name]', $project[hours], '$color'],\n";
                         }
                         ?>
@@ -109,6 +109,13 @@
                     const options = {
                         "legend": "top",
                         "title": "",
+                        "animation": {
+                            "duration": 2000,
+                            "startup": true
+                        },
+                        "chartArea": {
+                            "backgroundColor": "#fff"
+                        },
                         "pieHole": 0.4,
                         "vAxis": {title: "Hours"},
                         "hAxis": {title: "Project", "minValue": 1, "maxValue": 5},
@@ -135,16 +142,21 @@
                         ?>
                     ]);
 
-                    // Optional; add a title and set the width and height of the chart
                     const options = {
                         "legend": "none",
                         "title": "",
+                        "animation": {
+                            "duration": 2000,
+                            "startup": true
+                        },
+                        "chartArea": {
+                            "backgroundColor": "#fff"
+                        },
                         "vAxis": {title: "Hours"},
                         "hAxis": {title: "User", "minValue": 1, "maxValue": 5},
                         "height": 500
                     };
 
-                    // Display the chart inside the <div> element with id="piechart"
                     const chart = new google.visualization.ColumnChart(document.querySelector('#users_chart'));
                     chart.draw(data, options);
                 });

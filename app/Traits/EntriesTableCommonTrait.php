@@ -24,15 +24,15 @@ trait EntriesTableCommonTrait
             //Column::name('id')->hide()->label('ID')->defaultSort('desc'),
 
             DateColumn::callback(['dated'], static function ($date) {
-                $color = 'gray';
+                $color = 'gray-light-box';
                 $date = date('d M Y', strtotime($date));
 
                 if (Carbon::parse($date)->isToday()) {
-                    $color = 'green';
+                    $color = 'green-light-box';
                 }
 
                 return <<<html
-                    <span class="bg-$color-200 text-gray-700 text-md font-semibold px-2 py-1 rounded inline-block w-24">
+                    <span class="$color text-gray-800 text-md font-semibold px-2 py-1 rounded inline-block w-24">
                         $date
                     </span>
                 html;
@@ -79,7 +79,7 @@ trait EntriesTableCommonTrait
                 $time = date('h:i A', strtotime($time_start));
 
                 return <<<html
-                    <span class="bg-lime-200 text-gray-700 text-md font-semibold px-2 py-1 rounded inline-block w-20">
+                    <span class="lime-light-box text-gray-800 text-md font-semibold px-2 py-1 rounded inline-block w-20">
                         $time
                     </span>
                 html;
@@ -89,7 +89,7 @@ trait EntriesTableCommonTrait
                 $time = date('h:i A', strtotime($time_end));
 
                 return <<<html
-                    <span class="bg-lime-200 text-gray-700 text-md font-semibold px-2 py-1 rounded inline-block w-20">
+                    <span class="lime-light-box text-gray-800 text-md font-semibold px-2 py-1 rounded inline-block w-20">
                         $time
                     </span>
                 html;
@@ -99,7 +99,7 @@ trait EntriesTableCommonTrait
                 $hours = getBCHoursDiff($dated, $time_start, $time_end);
 
                 return <<<html
-                    <span class="hours bg-green-200 text-gray-800 text-md font-bold px-2 py-1 rounded inline-block w-16">
+                    <span class="hours green-light-box text-gray-900 text-md font-bold px-2 py-1 rounded inline-block w-16">
                         $hours
                     </span>
                 html;

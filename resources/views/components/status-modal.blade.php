@@ -22,7 +22,7 @@
              class="relative bg-gray-100 rounded-lg overflow-hidden shadow-xl transform transition-all sm:max-w-lg">
 
             <div class="w-auto">
-                <span class="py-4 px-5 mr-2 text-lg text-white font-bold bg-blue-700 rounded-lg border inline-flex items-center w-full">
+                <span class="py-4 px-5 mr-2 text-lg text-white font-bold blue-box rounded-lg border inline-flex items-center w-full">
                     <x-icons.spinner/>
 
                     {{ $slot }}

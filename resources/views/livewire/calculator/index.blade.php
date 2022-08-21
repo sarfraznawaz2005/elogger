@@ -10,7 +10,7 @@
                 <x-icons.spinner />
             </div>
 
-            <div class="bg-gray-200 rounded-lg p-6">
+            <div class="gray-box rounded-lg p-6">
                 <table class="table-auto overflow-x-auto text-sm text-center text-gray-700 mx-auto">
                     <thead>
 
@@ -88,7 +88,7 @@
                                 <select wire:model="items.{{$index}}.month" class="w-full"
                                         x-on:change="loading = $event.target.value"
                                         wire:loading.attr="disabled"
-                                        wire:loading.class="disabled:bg-gray-200 disabled:text-gray-800 disabled:border-gray-200 disabled:shadow-none"
+                                        wire:loading.class="gray-box disabled:text-gray-800 disabled:border-gray-200 disabled:shadow-none"
                                 >
                                     <option value="" selected>Choose</option>
                                     @foreach(json_decode($months, false, 512, JSON_THROW_ON_ERROR) as $monthValue => $monthName)
@@ -104,11 +104,11 @@
                             </td>
                             <td class="py-1 px-6">
                                 <x-jet-input type="text" disabled
-                                             class="w-16 text-center disabled:bg-gray-200 disabled:text-gray-800 disabled:border-gray-200 disabled:shadow-none"
+                                             class="w-16 text-center gray-box disabled:text-gray-800 disabled:border-gray-200 disabled:shadow-none"
                                              wire:model="items.{{$index}}.logged_hours"/>
                             </td>
                             <td class="py-1 px-6">
-                                <x-jet-input disabled type="text" class="w-16 text-center {{$items[$index]['diff'] < 0 ? 'bg-red-200' : 'bg-green-200'}}" wire:model="items.{{$index}}.diff"/>
+                                <x-jet-input disabled type="text" class="w-16 text-center {{$items[$index]['diff'] < 0 ? 'red-box' : 'green-light-box'}}" wire:model="items.{{$index}}.diff"/>
                             </td>
                         </tr>
                     @endforeach
@@ -125,13 +125,13 @@
                         <td class="font-bold text-md py-4 uppercase py-2 px-6 text-left">Total</td>
                         <td>&nbsp;</td>
                         <td>
-                            <x-jet-input disabled type="text" class="w-20 font-semibold text-center bg-gray-200 text-sm" value="{{$totalRequired}}"/>
+                            <x-jet-input disabled type="text" class="w-20 font-semibold text-center gray-box text-sm" value="{{$totalRequired}}"/>
                         </td>
                         <td>
-                            <x-jet-input disabled type="text" class="w-20 font-semibold text-center bg-gray-200 text-sm" value="{{$totalLogged}}"/>
+                            <x-jet-input disabled type="text" class="w-20 font-semibold text-center gray-box text-sm" value="{{$totalLogged}}"/>
                         </td>
                         <td>
-                            <x-jet-input disabled type="text" class="w-20 font-semibold text-center text-sm {{$totalDiff < 0 ? 'bg-red-200' : 'bg-gray-200'}}" value="{{$totalDiff}}"/>
+                            <x-jet-input disabled type="text" class="w-20 font-semibold text-center text-sm {{$totalDiff < 0 ? 'red-box' : 'gray-box'}}" value="{{$totalDiff}}"/>
                         </td>
                     </tr>
 
@@ -139,7 +139,7 @@
                         <td class="font-bold text-md py-4 uppercase py-2 px-6 text-left">Final Hours</td>
                         <td colspan="3">&nbsp;</td>
                         <td>
-                            <x-jet-input disabled type="text" class="w-20 font-bold text-center text-md {{$finalHours && $finalHours < 0 ? 'bg-red-200' : 'bg-green-200'}}" value="{{$finalHours}}"/>
+                            <x-jet-input disabled type="text" class="w-20 font-bold text-center text-md {{$finalHours && $finalHours < 0 ? 'red-box' : 'green-light-box'}}" value="{{$finalHours}}"/>
                         </td>
                     </tr>
 
@@ -147,7 +147,7 @@
                         <td class="font-bold text-md py-4 uppercase py-2 px-6 text-left">Hours Average</td>
                         <td colspan="3">&nbsp;</td>
                         <td>
-                            <x-jet-input disabled type="text" class="w-20 font-bold text-center text-md {{$hoursAvg !== '0.00' && $hoursAvg < 8 ? 'bg-red-200' : 'bg-green-200'}}" value="{{$hoursAvg}}"/>
+                            <x-jet-input disabled type="text" class="w-20 font-bold text-center text-md {{$hoursAvg !== '0.00' && $hoursAvg < 8 ? 'red-box' : 'green-light-box'}}" value="{{$hoursAvg}}"/>
                         </td>
                     </tr>
 

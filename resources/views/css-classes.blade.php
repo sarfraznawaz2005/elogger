@@ -12,7 +12,8 @@
     bg-yellow-600 min-w-screen w-screen sm:max-w-sm sm:max-w-md sm:max-w-lg sm:max-w-xl
     divide-x divide-y divide-gray-100 text-sm text-gray-900 bg-white hover:bg-gray-100 w-64
     hover:text-gray-600 hover:bg-gray-100 border-l border-t border-r bg-blue-500 sm:max-w-4xl
-    bg-orange-200 bg-lime-200 bg-amber-200
+    bg-orange-200 bg-lime-200 bg-amber-200 bg-green-300 bg-blue-300 bg-yellow-300 bg-red-300
+    rounded-r
 ">
 
 </div>
