@@ -24,7 +24,7 @@
 
         <x-slot name="content">
 
-            <div class="overflow-y-auto">
+            <div class="overflow-y-hidden">
                 <x-bc-error/>
 
                 @if(isset($items) && $count = $items->count())

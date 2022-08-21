@@ -35,7 +35,7 @@
                 x-on:click="sendBrowserEvent('confirm', 'onDeleteFromBasecamp', '{{$id}}', 'Sure to delete entry here plus basecamp ?')"
                 x-tooltip="tooltip"
                 wire:loading.attr="disabled"
-                class="cursor-pointer inline-table items-center px-2 py-1 text-white bg-red-600 hover:bg-red-800 rounded">
+                class="cursor-pointer inline-table items-center px-2 py-1 text-white bg-orange-600 hover:bg-orange-800 rounded">
                 <x-icons.delete2/>
             </button>
         </div>
