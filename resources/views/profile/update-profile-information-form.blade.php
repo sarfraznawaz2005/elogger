@@ -1,4 +1,4 @@
-<x-jet-form-section submit="updateProfileInformation" class="bg-gray-200 p-5 rounded-lg">
+<x-jet-form-section submit="updateProfileInformation" class="gray-box p-5 rounded-lg">
 
     <x-slot name="title">
         {{ __('Profile Information') }}
