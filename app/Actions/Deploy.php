@@ -12,7 +12,7 @@ class Deploy
         $output = '';
 
         if (!app()->isProduction()) {
-            exit('Only for production!');
+            exit('Only for Production!');
         }
 
         if (!defined('STDIN')) {
