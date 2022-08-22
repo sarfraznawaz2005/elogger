@@ -8,7 +8,7 @@
                 <p class="mt-2 text-sm">
                         <span
                             class="green-box text-white md:text-lg sm:text-xs font-bold px-2.5 py-1 rounded-md sm:w-24 inline-block">
-                                {{$PendingTodosHoursToday}}
+                                {{number_format(user()->pendingTodosHoursToday(), 2)}}
                         </span>
                 </p>
             </div>
@@ -23,7 +23,7 @@
                 <p class="mt-2 text-sm">
                         <span
                             class="green-box text-white md:text-lg sm:text-xs font-bold px-2.5 py-1 rounded-md sm:w-24 inline-block">
-                                {{$PendingTodosHoursTotal}}
+                                {{number_format(user()->pendingTodosHoursMonth(), 2)}}
                         </span>
                 </p>
             </div>
@@ -38,7 +38,7 @@
                 <p class="mt-2 text-sm">
                         <span
                             class="green-box text-white md:text-lg sm:text-xs font-bold px-2.5 py-1 rounded-md sm:w-24 inline-block">
-                                {{$PostedTodosHoursTotal}}
+                                {{number_format(monthHoursUploaded(), 2)}}
                         </span>
                 </p>
             </div>
