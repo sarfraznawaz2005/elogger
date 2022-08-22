@@ -45,15 +45,16 @@ class Deploy
     {
         shell_exec('git reset --hard');
 
+        /* @noinspection ALL */
         $output = shell_exec('git pull origin main' . ' 2>&1');
 
-        $this->copyEnv();
-        //
+        //$this->copyEnv();
 
         return $output;
     }
 
     // unfortunately have to do this because .env has been versioned
+    /* @noinspection ALL */
     private function copyEnv(): void
     {
         $basePath = base_path();
