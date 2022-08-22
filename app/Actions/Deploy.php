@@ -45,7 +45,7 @@ class Deploy
     {
         $this->copyEnv();
 
-        shell_exec('git reset --hard');
+        //shell_exec('git reset --hard');
 
         $output = shell_exec('git pull origin main' . ' 2>&1');
 
