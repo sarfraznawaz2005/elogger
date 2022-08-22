@@ -49,7 +49,7 @@ class Deploy
         $output = shell_exec('git pull origin main' . ' 2>&1');
 
         if (Str::contains($output, 'Updating')) {
-            $this->copyEnv();
+            //$this->copyEnv();
         }
 
         return $output;
