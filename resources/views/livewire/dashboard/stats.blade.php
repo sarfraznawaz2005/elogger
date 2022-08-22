@@ -29,7 +29,7 @@
         <div class="flex items-center relative p-3 w-full gray-box rounded-md">
             <div class="w-full text-center">
                 <div class="px-4 sm:px-0">
-                    <h3 class="text-sm font-medium text-gray-900 sm:text-lg">Hours Projected</h3>
+                    <h3 class="text-sm font-medium text-gray-900 sm:text-lg">Hours Projectedddd</h3>
 
                     <p class="mt-2 text-sm text-gray-600">
                         <strong class="md:text-2xl sm:text-xs">{{$hoursProjected}} of {{$hoursTotal}}</strong>
