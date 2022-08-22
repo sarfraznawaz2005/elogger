@@ -4,7 +4,6 @@ namespace App\Actions;
 
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Str;
 
 class Deploy
 {
@@ -48,9 +47,7 @@ class Deploy
 
         $output = shell_exec('git pull origin main' . ' 2>&1');
 
-        if (Str::contains($output, 'Updating')) {
-            //$this->copyEnv();
-        }
+        $this->copyEnv();
 
         return $output;
     }
@@ -60,7 +57,6 @@ class Deploy
     {
         $basePath = base_path();
 
-        shell_exec("rm -rf $basePath/.env");
-        shell_exec("cp $basePath.env-backup, $basePath.env");
+        shell_exec("\cp -r $basePath.env-backup, $basePath.env");
     }
 }
