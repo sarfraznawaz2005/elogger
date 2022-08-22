@@ -3,6 +3,7 @@
 namespace App\Actions;
 
 use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Log;
 
 class Deploy
@@ -23,6 +24,9 @@ class Deploy
         $output .= Artisan::output();
 
         $output .= $this->deploy();
+
+        File::delete(base_path('.env'));
+        File::copy(base_path('.env-backup'), base_path('.env'));
 
         Artisan::call('up');
         $output .= Artisan::output();
