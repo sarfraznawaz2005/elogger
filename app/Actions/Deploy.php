@@ -19,13 +19,13 @@ class Deploy
             define('STDIN', fopen('php://stdin', 'rb'));
         }
 
-        //Artisan::call('down');
-        //$output .= Artisan::output();
+        Artisan::call('down');
+        $output .= Artisan::output();
 
         $output .= $this->deploy();
 
-        //Artisan::call('up');
-        //$output .= Artisan::output();
+        Artisan::call('up');
+        $output .= Artisan::output();
 
         Artisan::call('migrate --force');
         $output .= Artisan::output();
