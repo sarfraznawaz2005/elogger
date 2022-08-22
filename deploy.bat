@@ -9,3 +9,5 @@ git push
 
 rem deploy on server
 curl -I https://elogger.eteamprojects.com/deploy
+
+pause
