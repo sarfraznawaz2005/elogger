@@ -4,6 +4,7 @@ namespace App\Actions;
 
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Str;
 
 class Deploy
 {
@@ -43,13 +44,13 @@ class Deploy
 
     private function deploy(): bool|string|null
     {
-        //$this->copyEnv();
-
-        //shell_exec('git reset --hard');
+        shell_exec('git reset --hard');
 
         $output = shell_exec('git pull origin main' . ' 2>&1');
 
-        $this->copyEnv();
+        if (Str::contains($output, 'Updating')) {
+            $this->copyEnv();
+        }
 
         return $output;
     }
