@@ -2,7 +2,6 @@ rem php floyer deploy --ansi
 
 rem push code
 
-git pull
 git status
 git add .
 git commit -am "updated"
