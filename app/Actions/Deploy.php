@@ -43,15 +43,23 @@ class Deploy
 
     private function deploy(): bool|string|null
     {
-        $basePath = base_path();
+        $this->copyEnv();
 
         shell_exec('git reset --hard');
 
         $output = shell_exec('git pull origin main' . ' 2>&1');
 
-        shell_exec("rm -rf $basePath/.env");
-        shell_exec("cp $basePath.env-backup, $basePath.env");
+        $this->copyEnv();
 
         return $output;
+    }
+
+    // unfortunately have to do this because .env has been versioned
+    private function copyEnv(): void
+    {
+        $basePath = base_path();
+
+        shell_exec("rm -rf $basePath/.env");
+        shell_exec("cp $basePath.env-backup, $basePath.env");
     }
 }
