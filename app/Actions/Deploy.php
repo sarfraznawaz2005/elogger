@@ -3,7 +3,6 @@
 namespace App\Actions;
 
 use Illuminate\Support\Facades\Artisan;
-use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Log;
 
 class Deploy
@@ -25,9 +24,6 @@ class Deploy
 
         $output .= $this->deploy();
 
-        File::delete(base_path('.env'));
-        File::copy(base_path('.env-backup'), base_path('.env'));
-
         Artisan::call('up');
         $output .= Artisan::output();
 
@@ -47,8 +43,15 @@ class Deploy
 
     private function deploy(): bool|string|null
     {
-        shell_exec('git reset --hard' . ' 2>&1');
+        $basePath = base_path();
 
-        return shell_exec('git pull origin main' . ' 2>&1');
+        shell_exec('git reset --hard');
+
+        $output = shell_exec('git pull origin main' . ' 2>&1');
+
+        shell_exec("rm -rf $basePath/.env");
+        shell_exec("cp $basePath.env-backup, $basePath.env");
+
+        return $output;
     }
 }
