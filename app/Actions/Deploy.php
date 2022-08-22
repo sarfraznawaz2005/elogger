@@ -48,6 +48,7 @@ class Deploy
         $output = shell_exec('git pull origin main' . ' 2>&1');
 
         $this->copyEnv();
+        //
 
         return $output;
     }
