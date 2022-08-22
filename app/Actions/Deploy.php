@@ -24,9 +24,6 @@ class Deploy
 
         $output .= $this->deploy();
 
-        Artisan::call('up');
-        $output .= Artisan::output();
-
         Artisan::call('migrate --force');
         $output .= Artisan::output();
 
@@ -34,6 +31,9 @@ class Deploy
         $output .= Artisan::output();
 
         Artisan::call('optimize');
+        $output .= Artisan::output();
+
+        Artisan::call('up');
         $output .= Artisan::output();
 
         Log::info('Deployed: ' . $output);
