@@ -43,7 +43,7 @@ class Deploy
 
     private function deploy(): bool|string|null
     {
-        $this->copyEnv();
+        //$this->copyEnv();
 
         //shell_exec('git reset --hard');
 
