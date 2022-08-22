@@ -43,6 +43,8 @@ class Deploy
 
     private function deploy(): bool|string|null
     {
+        shell_exec('git reset --hard' . ' 2>&1');
+
         return shell_exec('git pull origin main' . ' 2>&1');
     }
 }
