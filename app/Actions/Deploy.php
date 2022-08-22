@@ -59,6 +59,6 @@ class Deploy
     {
         $basePath = base_path();
 
-        shell_exec("\cp -r $basePath.env-backup, $basePath.env");
+        shell_exec("\cp -r $basePath.env-backup $basePath.env");
     }
 }
