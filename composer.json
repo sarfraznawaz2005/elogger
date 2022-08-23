@@ -19,6 +19,7 @@
         "livewire/livewire": "^2.5",
         "maatwebsite/excel": "^3.1",
         "mediconesystems/livewire-datatables": "^0.9.5",
+        "mistic100/randomcolor": "^1.0",
         "rap2hpoutre/laravel-log-viewer": "^2.2",
         "symfony/dom-crawler": "^6.0"
     },

@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Dashboard;
 
+use Colors\RandomColor;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
@@ -27,16 +28,31 @@ class IndexDashboard extends Component
         $projects = collect([]);
 
         if (session('month_hours')) {
-            $projects = collect(getUserProjectlyHours())->sortByDesc('hours');
+            $projects = collect(getUserProjectlyHours())
+                ->sortByDesc('hours')
+                ->pluck('project_name', 'hours')
+                ->toArray();
         }
 
         if (session('all_users_hours') && user()->isAdmin()) {
             $allUsersHours = session('all_users_hours');
         }
 
+        // colors
+        $pieColors = RandomColor::many(count($projects), ['luminosity' => 'dark', 'hue' => 'random', 'format' => 'rgbCss']);
+        $barColors = RandomColor::many(count($allUsersHours), ['luminosity' => 'dark', 'hue' => 'random', 'format' => 'rgbCss']);
+
         return view(
             'livewire.dashboard.index',
-            compact('workDays', 'hoursUploaded', 'hoursProjected', 'hoursTotal', 'projects', 'allUsersHours')
+            compact('workDays',
+                'hoursUploaded',
+                'hoursProjected',
+                'hoursTotal',
+                'projects',
+                'allUsersHours',
+                'pieColors',
+                'barColors'
+            )
         );
     }
 

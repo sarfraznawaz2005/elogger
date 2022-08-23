@@ -9,18 +9,18 @@
         </thead>
         <tbody>
 
-        @forelse($projects as $project)
+        @forelse($projects as $hours => $projectName)
             <tr class="bg-gray-100 border-b">
                 <td class="py-2 px-6">
                         <span
                             class="font-bold text-sm font-semibold rounded mx-0 text-gray-600">
-                            {{$project['project_name']}}
+                            {{$projectName}}
                         </span>
                 </td>
                 <td class="py-2 px-6" style="text-align: right;">
                         <span
                             class="font-bold green-light-box text-gray-800 text-sm font-semibold mx-0 px-2 py-1 text-center rounded w-20 inline-block">
-                            {{number_format($project['hours'], 2)}}
+                            {{number_format($hours, 2)}}
                         </span>
                 </td>
             </tr>
@@ -45,16 +45,18 @@
         Project Wise Distribution Chart
     </div>
 
-    <div class="p-5 pt-2 bg-gray-200 rounded-b-lg text-gray-800">
-        <div id="projects_chart">
-            <div class="flex justify-center items-center mb-4" x-data="{show: @entangle('loading')}">
-                <div x-show="show">
-                    <x-icons.spinner/>
-                    <span class="font-semibold">Loading...</span>
-                </div>
+    <div class="p-5 pt-2 bg-gray-200 rounded-b-lg">
+        <div class="flex justify-center items-center mb-4" x-data="{show: @entangle('loading')}">
+            <div x-show="show">
+                <x-icons.spinner/>
+                <span class="font-semibold">Loading...</span>
             </div>
+        </div>
 
-            <x-bc-error/>
+        <x-bc-error/>
+
+        <div class="bg-gray-50 rounded-lg">
+            <canvas id="projects_chart" class="p-6" height="400"></canvas>
         </div>
     </div>
 </div>
@@ -65,16 +67,18 @@
             All Users Hours Chart
         </div>
 
-        <div class="p-5 pt-2 bg-gray-200 rounded-b-lg text-gray-800">
-            <div id="users_chart">
-                <div class="flex justify-center items-center mb-4" x-data="{show: @entangle('loading')}">
-                    <div x-show="show">
-                        <x-icons.spinner/>
-                        <span class="font-semibold">Loading...</span>
-                    </div>
+        <div class="p-5 pt-2 bg-gray-200 rounded-b-lg">
+            <div class="flex justify-center items-center mb-4" x-data="{show: @entangle('loading')}">
+                <div x-show="show">
+                    <x-icons.spinner/>
+                    <span class="font-semibold">Loading...</span>
                 </div>
+            </div>
 
-                <x-bc-error/>
+            <x-bc-error/>
+
+            <div class="bg-gray-50 rounded-lg">
+                <canvas id="users_chart" class="p-6" height="400"></canvas>
             </div>
         </div>
     </div>
@@ -82,85 +86,60 @@
 
 <div wire:init="loadCharts">
 
-    <script src="/js/charts.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1/dist/chart.min.js" defer></script>
 
     @if (!$loading)
 
-        <script>
-            google.charts.load('current', {'packages': ['corechart']});
-        </script>
-
         @if (count($projects))
             <script>
-                google.charts.setOnLoadCallback(function () {
-                    const data = google.visualization.arrayToDataTable([
-                        ['Person', 'Hours', {role: 'style'}],
-                        <?php
-                        $color = substr(md5(mt_rand()), 0, 6);
+                const ctx = document.getElementById('projects_chart').getContext('2d');
 
-                        foreach ($projects as $index => $project) {
-                            $color = mt_rand(0, 4) . mt_rand(0, 4) . mt_rand(0, 4);
-                            echo "['$project[project_name]', $project[hours], '$color'],\n";
-                        }
-                        ?>
-                    ]);
-
-                    // Optional; add a title and set the width and height of the chart
-                    const options = {
-                        "legend": "top",
-                        "title": "",
-                        "animation": {
-                            "duration": 2000,
-                            "startup": true
-                        },
-                        "chartArea": {
-                            "backgroundColor": "#fff"
-                        },
-                        "pieHole": 0.4,
-                        "vAxis": {title: "Hours"},
-                        "hAxis": {title: "Project", "minValue": 1, "maxValue": 5},
-                        "height": 500
-                    };
-
-                    // Display the chart inside the <div> element with id="piechart"
-                    const chart = new google.visualization.PieChart(document.querySelector('#projects_chart'));
-                    chart.draw(data, options);
+                const myChart = new Chart(ctx, {
+                    type: 'doughnut',
+                    data: {
+                        labels: {{Js::from(array_values($projects))}},
+                        datasets: [{
+                            label: '',
+                            data: {{Js::from(array_keys($projects))}},
+                            borderWidth: 1,
+                            backgroundColor: {{Js::from($pieColors)}},
+                            hoverOffset: 4
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        animation: {duration: 3000}
+                    }
                 });
             </script>
         @endif
 
         @if (count($allUsersHours) && user()->isAdmin())
             <script>
-                google.charts.setOnLoadCallback(function () {
-                    const data = google.visualization.arrayToDataTable([
-                        ['Person', 'Hours', {role: 'style'}],
-                        <?php
-                        foreach ($allUsersHours as $index => $user) {
-                            $color = substr(md5($index + mt_rand()), 0, 6);
-                            echo "['$user[name]', $user[hours], '$color'],\n";
-                        }
-                        ?>
-                    ]);
+                const ctx = document.getElementById('users_chart').getContext('2d');
 
-                    const options = {
-                        "legend": "none",
-                        "title": "",
-                        "animation": {
-                            "duration": 2000,
-                            "startup": true
-                        },
-                        "chartArea": {
-                            "backgroundColor": "#fff"
-                        },
-                        "vAxis": {title: "Hours"},
-                        "hAxis": {title: "User", "minValue": 1, "maxValue": 5},
-                        "height": 500
-                    };
-
-                    const chart = new google.visualization.ColumnChart(document.querySelector('#users_chart'));
-                    chart.draw(data, options);
+                const myChart = new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: {{Js::from($allUsersHours->pluck('name')->toArray())}},
+                        datasets: [{
+                            label: 'Hours',
+                            fill: true,
+                            axis: 'y',
+                            data: {{Js::from($allUsersHours->pluck('hours')->toArray())}},
+                            borderWidth: 1,
+                            backgroundColor: {{Js::from($barColors)}},
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        animation: {duration: 3000}
+                    }
                 });
             </script>
         @endif
+
     @endif
 </div>

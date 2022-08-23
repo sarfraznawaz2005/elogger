@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "e0a25a5c05540f021b35b304a38a29d7",
+    "content-hash": "95c4759df097650a1b93b475a43f1944",
     "packages": [
         {
             "name": "bacon/bacon-qr-code",
@@ -2397,6 +2397,50 @@
                 "source": "https://github.com/MedicOneSystems/livewire-datatables/tree/v0.9.5"
             },
             "time": "2022-06-16T11:36:38+00:00"
+        },
+        {
+            "name": "mistic100/randomcolor",
+            "version": "1.0.5",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/mistic100/RandomColor.php.git",
+                "reference": "662257f8641632bc4297868c6aff01640eb52966"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/mistic100/RandomColor.php/zipball/662257f8641632bc4297868c6aff01640eb52966",
+                "reference": "662257f8641632bc4297868c6aff01640eb52966",
+                "shasum": ""
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Colors\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Damien \"Mistic\" Sorel",
+                    "email": "contact@git.strangeplanet.fr",
+                    "homepage": "http://www.strangeplanet.fr"
+                }
+            ],
+            "description": "Generate attractive random colors",
+            "homepage": "https://github.com/mistic100/RandomColor.php",
+            "keywords": [
+                "color",
+                "generator",
+                "random"
+            ],
+            "support": {
+                "issues": "https://github.com/mistic100/RandomColor.php/issues",
+                "source": "https://github.com/mistic100/RandomColor.php/tree/1.0.5"
+            },
+            "time": "2022-01-16T14:18:33+00:00"
         },
         {
             "name": "mobiledetect/mobiledetectlib",
@@ -6904,5 +6948,5 @@
         "ext-simplexml": "*"
     },
     "platform-dev": [],
-    "plugin-api-version": "2.1.0"
+    "plugin-api-version": "2.3.0"
 }
