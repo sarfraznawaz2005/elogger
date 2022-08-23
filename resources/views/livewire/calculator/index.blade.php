@@ -10,7 +10,7 @@
                 <x-icons.spinner />
             </div>
 
-            <div class="gray-box rounded-lg p-6">
+            <div class="bg-gray-200 rounded-lg p-6">
                 <table class="table-auto overflow-x-auto text-sm text-center text-gray-800 mx-auto">
                     <thead>
 
@@ -67,7 +67,7 @@
                     <tbody>
 
                     <tr class="bg-white">
-                        <td colspan="99">&nbsp;</td>
+                        <td colspan="99"><p class="h-3"></p></td>
                     </tr>
 
                     <tr class="bg-white">
@@ -125,29 +125,33 @@
                         <td class="font-bold text-md py-4 uppercase py-2 px-6 text-left">Total</td>
                         <td>&nbsp;</td>
                         <td>
-                            <x-jet-input disabled type="text" class="w-20 font-semibold text-center rounded-none bg-gray-200" value="{{$totalRequired}}"/>
+                            <x-jet-input disabled type="text" class="w-20 font-semibold p-1 m-0 text-center rounded-none bg-gray-200" value="{{$totalRequired}}"/>
                         </td>
                         <td>
-                            <x-jet-input disabled type="text" class="w-20 font-semibold text-center rounded-none bg-gray-200" value="{{$totalLogged}}"/>
+                            <x-jet-input disabled type="text" class="w-20 font-semibold p-1 m-0 text-center rounded-none bg-gray-200" value="{{$totalLogged}}"/>
                         </td>
                         <td>
-                            <x-jet-input disabled type="text" class="w-20 font-semibold text-center rounded-none {{$totalDiff < 0 ? 'bg-red-300' : 'bg-green-300'}}" value="{{$totalDiff}}"/>
+                            <x-jet-input disabled type="text" class="w-20 font-semibold p-1 m-0 text-center rounded-none {{$totalDiff < 0 ? 'bg-red-300' : 'bg-green-300'}}" value="{{$totalDiff}}"/>
                         </td>
                     </tr>
 
+                    <tr class="bg-gray-200">
+                        <td colspan="99"><p class="h-1"></p></td>
+                    </tr>
+
                     <tr class="bg-white border-b">
-                        <td class="font-bold text-md py-4 uppercase py-2 px-6 text-left">Final Hours</td>
+                        <td class="font-bold text-md uppercase py-4 pl-3 text-left">Final Hours</td>
                         <td colspan="3">&nbsp;</td>
                         <td>
-                            <x-jet-input disabled type="text" class="w-20 font-bold text-center rounded-none text-lg {{$finalHours && $finalHours < 0 ? 'bg-red-300' : 'bg-green-300'}}" value="{{$finalHours}}"/>
+                            <x-jet-input disabled type="text" class="w-20 font-bold p-1 m-0 text-center rounded-none text-lg {{$finalHours && $finalHours < 0 ? 'bg-red-300' : 'bg-green-300'}}" value="{{$finalHours}}"/>
                         </td>
                     </tr>
 
                     <tr class="bg-white">
-                        <td class="font-bold text-md py-4 uppercase py-2 px-6 text-left">Hours Average</td>
+                        <td class="font-bold text-md uppercase py-4 pl-3 text-left">Hours Average</td>
                         <td colspan="3">&nbsp;</td>
                         <td>
-                            <x-jet-input disabled type="text" class="w-20 font-bold text-center rounded-none text-lg {{$hoursAvg !== '0.00' && $hoursAvg < 8 ? 'bg-red-300' : 'bg-green-300'}}" value="{{$hoursAvg}}"/>
+                            <x-jet-input disabled type="text" class="w-20 font-bold p-1 m-0 text-center rounded-none text-lg {{$hoursAvg !== '0.00' && $hoursAvg < 8 ? 'bg-red-300' : 'bg-green-300'}}" value="{{$hoursAvg}}"/>
                         </td>
                     </tr>
 
