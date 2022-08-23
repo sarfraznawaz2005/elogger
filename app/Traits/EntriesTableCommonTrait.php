@@ -24,15 +24,15 @@ trait EntriesTableCommonTrait
             //Column::name('id')->hide()->label('ID')->defaultSort('desc'),
 
             DateColumn::callback(['dated'], static function ($date) {
-                $color = 'gray-light-box';
+                $font = 'font-semibold';
                 $date = date('d M Y', strtotime($date));
 
                 if (Carbon::parse($date)->isToday()) {
-                    $color = 'green-light-box';
+                    $font = 'font-bold';
                 }
 
                 return <<<html
-                    <span class="$color text-gray-900 text-md font-semibold px-2 py-1 rounded inline-block w-24">
+                    <span class="$font text-md px-2 py-1 rounded inline-block w-24">
                         $date
                     </span>
                 html;
