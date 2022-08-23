@@ -2,7 +2,7 @@
 
 namespace App\Http\Livewire\Dashboard;
 
-use Colors\RandomColor;
+use App\Support\RandomColor;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
@@ -39,8 +39,13 @@ class IndexDashboard extends Component
         }
 
         // colors
-        $pieColors = RandomColor::many(count($projects), ['luminosity' => 'dark', 'hue' => 'random', 'format' => 'rgbCss']);
-        $barColors = RandomColor::many(count($allUsersHours), ['luminosity' => 'dark', 'hue' => 'random', 'format' => 'rgbCss']);
+        $pieColors = RandomColor::many(
+            count($projects), ['luminosity' => 'dark', 'hue' => 'random', 'format' => 'rgbCss', 'opacity' => '0.7']
+        );
+
+        $barColors = RandomColor::many(
+            count($allUsersHours), ['luminosity' => 'dark', 'hue' => 'random', 'format' => 'rgbCss', 'opacity' => '0.7']
+        );
 
         return view(
             'livewire.dashboard.index',
