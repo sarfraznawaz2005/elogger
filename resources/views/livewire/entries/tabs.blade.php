@@ -30,7 +30,7 @@
             </div>
         </div>
 
-        <div x-show="tab === 2" id="postedTable" wire:key="table-table-posted" x-transition.duration>
+        <div x-show="tab === 2" id="postedTable" wire:key="table-table-posted" x-cloak x-transition.duration>
             <div class="mx-auto">
                 <div class="p-5 bg-gray-200 text-gray-800 rounded-b-lg rounded-r-lg">
                     <livewire:data-tables.posted-entries-data-table />

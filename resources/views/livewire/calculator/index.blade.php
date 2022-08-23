@@ -11,7 +11,7 @@
             </div>
 
             <div class="gray-box rounded-lg p-6">
-                <table class="table-auto overflow-x-auto text-sm text-center text-gray-700 mx-auto">
+                <table class="table-auto overflow-x-auto text-sm text-center text-gray-800 mx-auto">
                     <thead>
 
                     <tr>
@@ -19,7 +19,7 @@
                             <div class="overflow-x-auto mx-auto mb-4">
                                 <div class="overflow-x-auto flex items-center">
                                     <x-jet-label for="allowedLeaves" value="{{ __('Allowed Leaves Hours') }}" class="mr-2 font-bold"/>
-                                    <x-jet-input id="allowedLeaves" type="text" class="w-16 text-center" wire:model.debounce.500ms="allowedLeaves"/>
+                                    <x-jet-input id="allowedLeaves" type="text" class="w-16 text-center rounded-none" wire:model.debounce.500ms="allowedLeaves"/>
                                 </div>
                             </div>
                         </th>
@@ -27,7 +27,7 @@
                             <div class="overflow-x-auto mx-auto mb-4 ml-2">
                                 <div class="overflow-x-auto flex items-center">
                                     <x-jet-label for="absents" value="{{ __('Total Absents') }}" class="mr-2 font-bold"/>
-                                    <x-jet-input id="absents" type="text" class="w-16 text-center" wire:model.debounce.500ms="absents"/>
+                                    <x-jet-input id="absents" type="text" class="w-16 text-center rounded-none" wire:model.debounce.500ms="absents"/>
                                 </div>
                             </div>
                         </th>
@@ -88,7 +88,7 @@
                                 <select wire:model="items.{{$index}}.month" class="w-full"
                                         x-on:change="loading = $event.target.value"
                                         wire:loading.attr="disabled"
-                                        wire:loading.class="gray-box disabled:text-gray-800 disabled:border-gray-200 disabled:shadow-none"
+                                        wire:loading.class="bg-gray-300 disabled:text-gray-800 disabled:border-gray-200 disabled:shadow-none"
                                 >
                                     <option value="" selected>Choose</option>
                                     @foreach(json_decode($months, false, 512, JSON_THROW_ON_ERROR) as $monthValue => $monthName)
@@ -97,18 +97,18 @@
                                 </select>
                             </td>
                             <td class="py-1 px-6">
-                                <x-jet-input type="text" class="w-16 text-center" wire:model.debounce.300ms="items.{{$index}}.working_days"/>
+                                <x-jet-input type="text" class="w-16 text-center rounded-none" wire:model.debounce.300ms="items.{{$index}}.working_days"/>
                             </td>
                             <td class="py-1 px-6">
-                                <x-jet-input type="text" class="w-16 text-center" wire:model.debounce.300ms="items.{{$index}}.required_hours"/>
+                                <x-jet-input type="text" class="w-16 text-center rounded-none" wire:model.debounce.300ms="items.{{$index}}.required_hours"/>
                             </td>
                             <td class="py-1 px-6">
                                 <x-jet-input type="text" disabled
-                                             class="w-16 text-center gray-box disabled:text-gray-800 disabled:border-gray-200 disabled:shadow-none"
+                                             class="w-16 text-center rounded-none bg-gray-200 disabled:text-gray-800 disabled:border-gray-200 disabled:shadow-none"
                                              wire:model="items.{{$index}}.logged_hours"/>
                             </td>
                             <td class="py-1 px-6">
-                                <x-jet-input disabled type="text" class="w-16 text-center {{$items[$index]['diff'] < 0 ? 'red-box' : 'green-light-box'}}" wire:model="items.{{$index}}.diff"/>
+                                <x-jet-input disabled type="text" class="w-16 text-center rounded-none {{$items[$index]['diff'] < 0 ? 'bg-red-300' : 'bg-green-300'}}" wire:model="items.{{$index}}.diff"/>
                             </td>
                         </tr>
                     @endforeach
@@ -125,13 +125,13 @@
                         <td class="font-bold text-md py-4 uppercase py-2 px-6 text-left">Total</td>
                         <td>&nbsp;</td>
                         <td>
-                            <x-jet-input disabled type="text" class="w-20 font-semibold text-center gray-box text-sm" value="{{$totalRequired}}"/>
+                            <x-jet-input disabled type="text" class="w-20 font-semibold text-center rounded-none bg-gray-200" value="{{$totalRequired}}"/>
                         </td>
                         <td>
-                            <x-jet-input disabled type="text" class="w-20 font-semibold text-center gray-box text-sm" value="{{$totalLogged}}"/>
+                            <x-jet-input disabled type="text" class="w-20 font-semibold text-center rounded-none bg-gray-200" value="{{$totalLogged}}"/>
                         </td>
                         <td>
-                            <x-jet-input disabled type="text" class="w-20 font-semibold text-center text-sm {{$totalDiff < 0 ? 'red-box' : 'gray-box'}}" value="{{$totalDiff}}"/>
+                            <x-jet-input disabled type="text" class="w-20 font-semibold text-center rounded-none {{$totalDiff < 0 ? 'bg-red-300' : 'bg-green-300'}}" value="{{$totalDiff}}"/>
                         </td>
                     </tr>
 
@@ -139,7 +139,7 @@
                         <td class="font-bold text-md py-4 uppercase py-2 px-6 text-left">Final Hours</td>
                         <td colspan="3">&nbsp;</td>
                         <td>
-                            <x-jet-input disabled type="text" class="w-20 font-bold text-center text-md {{$finalHours && $finalHours < 0 ? 'red-box' : 'green-light-box'}}" value="{{$finalHours}}"/>
+                            <x-jet-input disabled type="text" class="w-20 font-bold text-center rounded-none text-lg {{$finalHours && $finalHours < 0 ? 'bg-red-300' : 'bg-green-300'}}" value="{{$finalHours}}"/>
                         </td>
                     </tr>
 
@@ -147,7 +147,7 @@
                         <td class="font-bold text-md py-4 uppercase py-2 px-6 text-left">Hours Average</td>
                         <td colspan="3">&nbsp;</td>
                         <td>
-                            <x-jet-input disabled type="text" class="w-20 font-bold text-center text-md {{$hoursAvg !== '0.00' && $hoursAvg < 8 ? 'red-box' : 'green-light-box'}}" value="{{$hoursAvg}}"/>
+                            <x-jet-input disabled type="text" class="w-20 font-bold text-center rounded-none text-lg {{$hoursAvg !== '0.00' && $hoursAvg < 8 ? 'bg-red-300' : 'bg-green-300'}}" value="{{$hoursAvg}}"/>
                         </td>
                     </tr>
 
