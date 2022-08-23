@@ -32,7 +32,7 @@ trait EntriesTableCommonTrait
                 }
 
                 return <<<html
-                    <span class="$class text-md px-2 py-1 rounded inline-block w-24">
+                    <span class="$class text-md px-2 py-1 text-gray-900 rounded inline-block w-24">
                         $date
                     </span>
                 html;
@@ -79,7 +79,7 @@ trait EntriesTableCommonTrait
                 $time = date('h:i A', strtotime($time_start));
 
                 return <<<html
-                    <span class="blue-light-box text-gray-800 text-md font-semibold px-2 py-1 rounded inline-block w-20">
+                    <span class="blue-light-box text-gray-900 text-md font-semibold px-2 py-1 rounded inline-block w-20">
                         $time
                     </span>
                 html;
@@ -89,7 +89,7 @@ trait EntriesTableCommonTrait
                 $time = date('h:i A', strtotime($time_end));
 
                 return <<<html
-                    <span class="blue-light-box text-gray-800 text-md font-semibold px-2 py-1 rounded inline-block w-20">
+                    <span class="blue-light-box text-gray-900 text-md font-semibold px-2 py-1 rounded inline-block w-20">
                         $time
                     </span>
                 html;

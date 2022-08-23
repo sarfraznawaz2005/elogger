@@ -114,7 +114,7 @@
                     @endforeach
 
                     <tr class="bg-white">
-                        <td colspan="99">&nbsp;</td>
+                        <td colspan="99"><p class="h-2"></p></td>
                     </tr>
 
                     <tr class="bg-white">
@@ -159,7 +159,7 @@
                 </table>
 
                 <div class="flex justify-center pt-6">
-                    <x-jet-button wire:click="save" wire:loading.attr="disabled" class="bg-green-700 ml-4 hover:bg-green-800">
+                    <x-jet-button wire:click="save" wire:loading.attr="disabled" class="bg-green-600 hover:bg-green-700">
                         <x-icons.ok/> {{ __('Save Calculations') }}
                     </x-jet-button>
                 </div>

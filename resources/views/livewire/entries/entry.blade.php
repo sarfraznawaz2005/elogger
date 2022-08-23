@@ -14,7 +14,7 @@
     <x-jet-button
         wire:loading.attr="disabled"
         wire:click="create"
-        class="bg-green-700 ml-4 hover:bg-green-800">
+        class="bg-green-600 ml-4 hover:bg-green-700">
         <x-icons.plus/> {{ __('Create Entry') }}
     </x-jet-button>
 
