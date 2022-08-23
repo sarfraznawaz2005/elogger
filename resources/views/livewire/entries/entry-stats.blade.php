@@ -6,10 +6,10 @@
                 <h3 class="text-sm font-medium text-gray-900 sm:text-lg">Pending Hours Today</h3>
 
                 <p class="mt-2 text-sm">
-                        <span
-                            class="green-box text-white md:text-lg sm:text-xs font-bold px-2.5 py-1 rounded-md sm:w-24 inline-block">
-                                {{number_format(user()->pendingTodosHoursToday(), 2)}}
-                        </span>
+                    <span
+                        class="green-box text-white md:text-lg sm:text-xs font-bold px-2.5 py-1 rounded-md sm:w-24 inline-block">
+                            {{number_format(user()->pendingTodosHoursToday(), 2)}}
+                    </span>
                 </p>
             </div>
         </div>
@@ -21,10 +21,10 @@
                 <h3 class="text-sm font-medium text-gray-900 sm:text-lg">Pending Hours Month</h3>
 
                 <p class="mt-2 text-sm">
-                        <span
-                            class="green-box text-white md:text-lg sm:text-xs font-bold px-2.5 py-1 rounded-md sm:w-24 inline-block">
-                                {{number_format(user()->pendingTodosHoursMonth(), 2)}}
-                        </span>
+                    <span
+                        class="green-box text-white md:text-lg sm:text-xs font-bold px-2.5 py-1 rounded-md sm:w-24 inline-block">
+                            {{number_format(user()->pendingTodosHoursMonth(), 2)}}
+                    </span>
                 </p>
             </div>
         </div>
@@ -36,10 +36,10 @@
                 <h3 class="text-sm font-medium text-gray-900 sm:text-lg">Uploaded Hours Month</h3>
 
                 <p class="mt-2 text-sm">
-                        <span
-                            class="green-box text-white md:text-lg sm:text-xs font-bold px-2.5 py-1 rounded-md sm:w-24 inline-block">
-                                {{number_format(monthHoursUploaded(), 2)}}
-                        </span>
+                    <span
+                        class="green-box text-white md:text-lg sm:text-xs font-bold px-2.5 py-1 rounded-md sm:w-24 inline-block">
+                            {{number_format(monthHoursUploaded(), 2)}}
+                    </span>
                 </p>
             </div>
         </div>
