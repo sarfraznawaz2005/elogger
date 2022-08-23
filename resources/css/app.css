@@ -24,6 +24,9 @@
 .red-box{
     background-image:linear-gradient(to bottom,#ff7877 45%,#ed5554 102%);
 }
+.red-light-box{
+    background-image:linear-gradient(to bottom,#ffbdbd 45%,#ffa5a5 102%);
+}
 .sky-box{
     background-image:linear-gradient(to bottom,#52aeff 45%,#3d9cef 102%);
 }
@@ -37,7 +40,7 @@
     background-image:linear-gradient(to bottom,#22C55E 45%,#1fad53 102%);
 }
 .green-light-box{
-    background-image:linear-gradient(to bottom,#9bfcb9 45%,#95f6b3 102%);
+    background-image:linear-gradient(to bottom,#9bfcb9 45%,#93eaad 102%);
 }
 .lime-box{
     background-image:linear-gradient(to bottom,#87B81A 45%,#7faa19 102%);

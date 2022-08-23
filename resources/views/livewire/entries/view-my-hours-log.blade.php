@@ -31,7 +31,7 @@
 
                     <div class="flex justify-between py-2 px-4">
                         <div>Total</div>
-                        <div class="rounded p-1 font-bold w-20 text-lg text-center bg-gray-200">{{number_format($items->sum(), 2)}}</div>
+                        <div class="rounded p-1 font-bold w-20 text-lg text-center gray-box">{{number_format($items->sum(), 2)}}</div>
                     </div>
 
                     @foreach($workingDatesTillToday as $date)
@@ -39,8 +39,8 @@
 
                             @php
                                 $hours = $items->get($date);
-                                $bgColor = $hours < 8 ? ($hours < 1 ? 'bg-red-200' : 'bg-yellow-200') : 'bg-green-200';
-                                $bgColor = isWeekend($date) ? 'bg-blue-200' : $bgColor;
+                                $bgColor = $hours < 8 ? ($hours < 1 ? 'red-light-box' : 'yellow-light-box') : 'green-light-box';
+                                $bgColor = isWeekend($date) ? 'blue-light-box' : $bgColor;
                             @endphp
 
                             <div class="flex items-center justify-between border-t border-gray-300 py-2 px-4">
@@ -53,7 +53,7 @@
                             @if(!isWeekend($date))
                                 <div class="flex items-center justify-between border-t border-gray-300 py-2 px-4">
                                     <div>{{$date}}</div>
-                                    <div class="rounded p-1 font-bold w-20 text-center bg-red-200">
+                                    <div class="rounded p-1 font-bold w-20 text-center red-light-box">
                                         0.00
                                     </div>
                                 </div>
