@@ -67,7 +67,7 @@
                     <tbody>
 
                     <tr class="bg-white">
-                        <td colspan="99"><p class="h-3"></p></td>
+                        <td colspan="99"><p class="h-2"></p></td>
                     </tr>
 
                     <tr class="bg-white">
@@ -136,7 +136,7 @@
                     </tr>
 
                     <tr class="bg-gray-200">
-                        <td colspan="99"><p class="h-1"></p></td>
+                        <td colspan="99"><p class="h-2"></p></td>
                     </tr>
 
                     <tr class="bg-white border-b">
