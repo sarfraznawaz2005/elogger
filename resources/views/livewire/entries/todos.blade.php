@@ -51,7 +51,7 @@
 
                     <div class="flex items-center">
                         <x-jet-label for="selectedProjectId" value="{{ __('Project') }}" class="w-20 block"/>
-                        <select wire:model="selectedProjectId" class="block w-full"
+                        <select wire:model="selectedProjectId" class="block w-full focus:border focus:ring-0 border-gray-300 focus:border-blue-600 focus:ring focus:ring-blue-200 shadow-sm rounded-md"
                                 wire:loading.attr="disabled"
                                 wire:loading.class="disabled:bg-gray-200 disabled:text-gray-800 disabled:border-gray-200 disabled:shadow-none"
                         >
@@ -68,7 +68,7 @@
                              wire:target="selectedProjectId" wire:key="todos-{{$selectedProjectId}}">
                             <div class="flex items-center">
                                 <x-jet-label for="selectedTodolistId" value="{{ __('Todolist') }}" class="w-20 block"/>
-                                <select wire:model="selectedTodolistId" class="block w-full">
+                                <select wire:model="selectedTodolistId" class="block w-full focus:border focus:ring-0 border-gray-300 focus:border-blue-600 focus:ring focus:ring-blue-200 shadow-sm rounded-md">
                                     <option value="" selected>Choose</option>
                                     @foreach($todoLists as $todoListId => $name)
                                         <option value="{{ $todoListId }}">{{ $name }}</option>

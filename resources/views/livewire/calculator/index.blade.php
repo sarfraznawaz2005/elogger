@@ -35,7 +35,7 @@
                             <div class="overflow-x-auto mx-auto mb-4">
                                 <div class="overflow-x-auto flex items-center justify-end">
                                     <x-jet-label for="year" value="{{ __('Year') }}" class="mr-2 font-bold"/>
-                                    <select wire:model.debounce.500ms="year" class="w-32">
+                                    <select wire:model.debounce.500ms="year" class="w-32 focus:border focus:ring-0 border-gray-300 focus:border-blue-600 focus:ring focus:ring-blue-200 shadow-sm">
                                         @foreach($years as $year)
                                             <option value="{{ $year }}">{{ $year }}</option>
                                         @endforeach
@@ -85,7 +85,7 @@
                     @foreach($items as $index => $item)
                         <tr class="bg-white text-sm text-gray-900 bg-white" wire:key="row-{{$index}}">
                             <td class="py-1 px-6">
-                                <select wire:model="items.{{$index}}.month" class="w-full"
+                                <select wire:model="items.{{$index}}.month" class="w-full focus:border focus:ring-0 border-gray-300 focus:border-blue-600 focus:ring focus:ring-blue-200 shadow-sm"
                                         x-on:change="loading = $event.target.value"
                                         wire:loading.attr="disabled"
                                         wire:loading.class="bg-gray-300 disabled:text-gray-800 disabled:border-gray-200 disabled:shadow-none"

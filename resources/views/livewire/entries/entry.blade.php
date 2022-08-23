@@ -36,7 +36,7 @@
             <div class="my-4">
                 <div class="flex items-center mt-1">
                     <x-jet-label for="model.project_id" value="{{ __('Project') }}" class="w-20 block"/>
-                    <select wire:model="model.project_id" class="ml-2 block w-full"
+                    <select wire:model="model.project_id" class="ml-2 block w-full focus:border focus:ring-0 border-gray-300 focus:border-blue-600 focus:ring focus:ring-blue-200 shadow-sm rounded-md"
                             wire:loading.attr="disabled"
                             wire:loading.class="disabled:bg-gray-200 disabled:text-gray-800 disabled:border-gray-200 disabled:shadow-none"
                     >
@@ -53,7 +53,7 @@
                 <div class="my-4" wire:loading.remove wire:target="model.project_id" wire:key="{{$model->project_id}}">
                     <div class="flex items-center mt-1">
                         <x-jet-label for="model.todolist_id" value="{{ __('Todolist') }}" class="w-20 block"/>
-                        <select wire:model="model.todolist_id" class="ml-2 block w-full"
+                        <select wire:model="model.todolist_id" class="ml-2 block w-full focus:border focus:ring-0 border-gray-300 focus:border-blue-600 focus:ring focus:ring-blue-200 shadow-sm rounded-md"
                                 wire:loading.attr="disabled"
                                 wire:loading.class="disabled:bg-gray-200 disabled:text-gray-800 disabled:border-gray-200 disabled:shadow-none"
                         >
@@ -71,7 +71,7 @@
                 <div class="my-4" wire:loading.remove wire:target="model.project_id, model.todolist_id" wire:key="{{$model->todolist_id}}">
                     <div class="flex items-center mt-1">
                         <x-jet-label for="model.todo_id" value="{{ __('Todo') }}" class="w-20 block"/>
-                        <select wire:model="model.todo_id" class="ml-2 block w-full">
+                        <select wire:model="model.todo_id" class="ml-2 block w-full focus:border focus:ring-0 border-gray-300 focus:border-blue-600 focus:ring focus:ring-blue-200 shadow-sm rounded-md">
                             <option value="" selected>Choose</option>
                             @foreach($todos as $todoId => $name)
                                 <option value="{{ $todoId }}">{{ $name }}</option>

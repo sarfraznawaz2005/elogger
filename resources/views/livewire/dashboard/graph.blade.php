@@ -10,7 +10,7 @@
         <tbody>
 
         @forelse($projects as $hours => $projectName)
-            <tr class="bg-gray-100 border-b">
+            <tr class="bg-gray-100 border-b hover:bg-white">
                 <td class="py-2 px-6">
                         <span
                             class="font-bold text-sm font-semibold rounded mx-0 text-gray-600">
@@ -19,7 +19,7 @@
                 </td>
                 <td class="py-2 px-6" style="text-align: right;">
                         <span
-                            class="font-bold green-light-box text-gray-800 text-sm font-semibold mx-0 px-2 py-1 text-center rounded w-20 inline-block">
+                            class="font-bold gray-box text-gray-800 text-sm font-semibold mx-0 px-2 py-1 text-center rounded w-20 inline-block">
                             {{number_format($hours, 2)}}
                         </span>
                 </td>
