@@ -93,11 +93,14 @@ class Todos extends Component
 
             $action = "projects/$this->selectedProjectId/todo_lists.xml";
 
+            $description = 'Created via eLogger by ' . user()->name;
+
             $xmlData = <<<data
                     <todo-list>
                       <name><![CDATA[$this->name]]></name>
                       <private type="boolean">false</private>
                       <tracked type="boolean">true</tracked>
+                      <description><![CDATA[$description]]></description>
                     </todo-list>
                 data;
 

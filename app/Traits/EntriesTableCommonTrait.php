@@ -32,7 +32,7 @@ trait EntriesTableCommonTrait
                 }
 
                 return <<<html
-                    <span class="$color text-gray-800 text-md font-semibold px-2 py-1 rounded inline-block w-24">
+                    <span class="$color text-gray-900 text-md font-semibold px-2 py-1 rounded inline-block w-24">
                         $date
                     </span>
                 html;
