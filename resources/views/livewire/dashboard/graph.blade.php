@@ -102,8 +102,7 @@
                             label: '',
                             data: {{Js::from(array_keys($projects))}},
                             borderWidth: 1,
-                            backgroundColor: {{Js::from($pieColors)}},
-                            hoverOffset: 4
+                            backgroundColor: {{Js::from($pieColors)}}
                         }]
                     },
                     options: {
@@ -128,7 +127,7 @@
                             fill: true,
                             axis: 'y',
                             data: {{Js::from($allUsersHours->pluck('hours')->toArray())}},
-                            borderWidth: 1,
+                            borderWidth: 0,
                             backgroundColor: {{Js::from($barColors)}},
                         }]
                     },
