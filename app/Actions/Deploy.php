@@ -43,6 +43,7 @@ class Deploy
 
     private function deploy(): bool|string|null
     {
+		// ignore any changes made on online code and sync with pushed version
         shell_exec('git reset --hard');
 
         /* @noinspection ALL */
