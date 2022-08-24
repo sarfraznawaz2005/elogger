@@ -127,7 +127,7 @@
                         x-ref="uploadedButton"
                         x-on:click="sendBrowserEvent('confirm', 'onUploadSelected', checkedValues, 'Are you sure you want to upload selected entries ?')"
                         wire:loading.attr="disabled"
-                        class="bg-green-700 hover:bg-green-800">
+                        class="bg-green-600 ml-4 hover:bg-green-700">
 
                         <x-icons.upload/>
 
