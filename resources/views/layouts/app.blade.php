@@ -13,6 +13,8 @@
 
     @vite(['resources/js/app.js'])
 
+    {{--<script src="https://tailwind-jit.beyondco.de/tailwind.js"></script>--}}
+
     <livewire:styles />
 
     @stack('css')
