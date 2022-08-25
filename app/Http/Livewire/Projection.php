@@ -70,7 +70,7 @@ class Projection extends Component
         $add = $pendingHoursToday > $workingHoursCount ? $pendingHoursToday : $workingHoursCount;
 
         // do not add 8 in case of weekends
-        $add -= isWeekend() && !$pendingHoursToday ? $workingHoursCount : 0;
+        $add -= isWeekend() && $pendingHoursToday <= 0 ? $workingHoursCount : 0;
 
         $projected = round($monthHoursUploaded + ($pendingHoursMonth - $pendingHoursToday) + $add);
 
