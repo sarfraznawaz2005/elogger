@@ -75,7 +75,8 @@ class Projection extends Component
         $projected = round($monthHoursUploaded + ($pendingHoursMonth - $pendingHoursToday) + $add);
 
         // if user has already uploaded hours for today, substract them from projection
-        $minusTodayIfUploaded = session('uploaded_hours_today') >= $workingHoursCount ? $workingHoursCount : 0;
+        //$minusTodayIfUploaded = session('uploaded_hours_today') >= $workingHoursCount ? $workingHoursCount : 0;
+        $minusTodayIfUploaded = session('uploaded_hours_today');
         $projected -= $minusTodayIfUploaded;
 
         $calc = "($monthHoursUploaded + ($pendingHoursMonth - $pendingHoursToday) + $add) - $minusTodayIfUploaded";
