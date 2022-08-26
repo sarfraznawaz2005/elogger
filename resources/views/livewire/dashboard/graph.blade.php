@@ -66,8 +66,8 @@
 
         <div class="bg-gray-50 rounded-lg relative">
             <canvas id="projects_chart" class="p-6" height="400"></canvas>
-			
-			<div class="absolute-center text-center gray-box rounded-lg p-3 hidden" id="doughnut_center">
+
+			<div class="absolute-center text-center gray-box rounded-full p-3 hidden ring-1 ring-gray-300 w-20" id="doughnut_center">
 				<p class="text-lg sm:text:sm">Total</p>
 				<strong class="font-bold text-lg sm:text:sm">{{round(array_sum(array_keys($projects)))}}</strong>
 			</div>
@@ -102,7 +102,7 @@
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1/dist/chart.min.js" defer></script>
     <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2" defer></script>
-    
+
     @if (!$loading)
 
         @if (count($projects))
@@ -137,14 +137,14 @@
 						},
 						plugins: {
 							datalabels: {
-								display: true,
-								anchor: 'center',
-								align: 'center',
-								formatter: Math.round,
-								backgroundColor: '#fff',
-								color:'#777',
-								borderRadius: 3,
-								font: {weight: 'bold', size: 14}
+                                display: true,
+                                anchor: 'center',
+                                align: 'center',
+                                formatter: Math.round,
+                                backgroundColor: '#eee',
+                                color: '#333',
+                                borderRadius: 3,
+                                font: {weight: 'bold', size: 14}
 							}
 						}
                     }
@@ -182,7 +182,7 @@
 								color:'#777',
 								font: {weight: 'bold', size: 15}
 							}
-						}                        
+						}
                     }
                 });
             </script>
