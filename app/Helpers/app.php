@@ -282,14 +282,6 @@ function hasBasecampSetup($user = null): bool
 }
 
 /** @noinspection ALL */
-function getSql($builder): string
-{
-    $addSlashes = str_replace('?', "'?'", $builder->toSql());
-
-    return vsprintf(str_replace('?', '%s', $addSlashes), $builder->getBindings());
-}
-
-/** @noinspection ALL */
 function forgetUserData()
 {
     session()->forget('all_users_hours');
