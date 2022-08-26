@@ -40,6 +40,15 @@
 
 </div>
 
+<style>
+.absolute-center {
+	position:absolute;
+	top: 53%;
+	left: 50.3%;
+	transform: translate(-50%, -50%);
+}
+</style>
+
 <div class="mx-auto p-0 border-0 mb-6">
     <div class="bg-gray-200 text-gray-700 pt-3 px-6 font-semibold rounded-t-lg">
         Project Wise Distribution Chart
@@ -55,8 +64,13 @@
 
         <x-bc-error/>
 
-        <div class="bg-gray-50 rounded-lg">
+        <div class="bg-gray-50 rounded-lg relative">
             <canvas id="projects_chart" class="p-6" height="400"></canvas>
+			
+			<div class="absolute-center text-center gray-box rounded-lg p-3 hidden" id="doughnut_center">
+				<p class="text-lg sm:text:sm">Total</p>
+				<strong class="font-bold text-lg sm:text:sm">{{round(array_sum(array_keys($projects)))}}</strong>
+			</div>
         </div>
     </div>
 </div>
@@ -87,15 +101,18 @@
 <div wire:init="loadCharts">
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1/dist/chart.min.js" defer></script>
-
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2" defer></script>
+    
     @if (!$loading)
 
         @if (count($projects))
             <script>
-                const ctx = document.getElementById('projects_chart').getContext('2d');
 
-                const myChart = new Chart(ctx, {
+                const ctx = document.getElementById('projects_chart');
+
+                new Chart(ctx, {
                     type: 'doughnut',
+                    plugins: [ChartDataLabels],
                     data: {
                         labels: {{Js::from(array_values($projects))}},
                         datasets: [{
@@ -108,7 +125,28 @@
                     options: {
                         responsive: true,
                         maintainAspectRatio: false,
-                        animation: {duration: 3000}
+                        animation: {
+							duration: 3000,
+							onComplete: function() {document.getElementById("doughnut_center").style.display = "block";}
+						},
+						scales: {
+							y: {
+								ticks: {display: false},
+								grid: {drawBorder: false}
+							}
+						},
+						plugins: {
+							datalabels: {
+								display: true,
+								anchor: 'center',
+								align: 'center',
+								formatter: Math.round,
+								backgroundColor: '#fff',
+								color:'#777',
+								borderRadius: 3,
+								font: {weight: 'bold', size: 14}
+							}
+						}
                     }
                 });
             </script>
@@ -116,10 +154,11 @@
 
         @if (count($allUsersHours) && user()->isAdmin())
             <script>
-                const ctx = document.getElementById('users_chart').getContext('2d');
+                const ctx = document.getElementById('users_chart');
 
-                const myChart = new Chart(ctx, {
+                new Chart(ctx, {
                     type: 'bar',
+                    plugins: [ChartDataLabels],
                     data: {
                         labels: {{Js::from($allUsersHours->pluck('name')->toArray())}},
                         datasets: [{
@@ -134,7 +173,16 @@
                     options: {
                         responsive: true,
                         maintainAspectRatio: false,
-                        animation: {duration: 3000}
+                        animation: {duration: 3000},
+						plugins: {
+							datalabels: {
+								anchor: 'end',
+								align: 'top',
+								formatter: Math.round,
+								color:'#777',
+								font: {weight: 'bold', size: 15}
+							}
+						}                        
                     }
                 });
             </script>
