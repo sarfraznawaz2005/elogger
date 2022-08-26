@@ -54,8 +54,8 @@
         Project Wise Distribution Chart
     </div>
 
-    <div class="p-5 pt-2 bg-gray-200 rounded-b-lg">
-        <div class="flex justify-center items-center mb-4" x-data="{show: @entangle('loading')}">
+    <div class="p-5 pt-0 bg-gray-200 rounded-b-lg">
+        <div class="flex justify-center items-center mb-2" x-data="{show: @entangle('loading')}">
             <div x-show="show">
                 <x-icons.spinner/>
                 <span class="font-semibold">Loading...</span>
@@ -81,8 +81,8 @@
             All Users Hours Chart
         </div>
 
-        <div class="p-5 pt-2 bg-gray-200 rounded-b-lg">
-            <div class="flex justify-center items-center mb-4" x-data="{show: @entangle('loading')}">
+        <div class="p-5 pt-0 bg-gray-200 rounded-b-lg">
+            <div class="flex justify-center items-center mb-2" x-data="{show: @entangle('loading')}">
                 <div x-show="show">
                     <x-icons.spinner/>
                     <span class="font-semibold">Loading...</span>
