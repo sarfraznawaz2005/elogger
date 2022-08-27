@@ -67,10 +67,12 @@
         <div class="bg-gray-50 rounded-lg relative">
             <canvas id="projects_chart" class="p-6" height="400"></canvas>
 
-			<div class="absolute-center text-center gray-box rounded-full p-3 hidden ring-1 ring-gray-300 w-20" id="doughnut_center">
-				<p class="text-lg sm:text:sm">Total</p>
-				<strong class="font-bold text-lg sm:text:sm">{{round(array_sum(array_keys($projects)))}}</strong>
-			</div>
+            @if (count($projects))
+                <div class="absolute-center text-center gray-box rounded-full p-3 hidden ring-1 ring-gray-300 w-20" id="doughnut_center">
+                    <p class="text-lg sm:text:sm">Total</p>
+                    <strong class="font-bold text-lg sm:text:sm">{{round(array_sum(array_keys($projects)))}}</strong>
+                </div>
+            @endif
         </div>
     </div>
 </div>
