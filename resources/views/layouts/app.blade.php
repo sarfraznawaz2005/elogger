@@ -18,6 +18,14 @@
     <livewire:styles />
 
     @stack('css')
+
+    <style>
+        /* perf */
+        main {
+            content-visibility: auto;
+            contain-intrinsic-size: 0 500px;
+        }
+    </style>
 </head>
 <body class="font-sans antialiased">
 
