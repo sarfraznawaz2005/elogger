@@ -21,7 +21,7 @@
 
     <style>
         /* perf */
-        main {
+        .wrapper {
             content-visibility: auto;
             contain-intrinsic-size: 0 500px;
         }
@@ -35,7 +35,7 @@
 <x-page-expired/>
 <livewire:refresh/>
 
-<div class="min-h-screen bg-gray-100">
+<div class="min-h-screen bg-gray-100 wrapper">
     <livewire:navigation-menu/>
 
     <main>
@@ -62,6 +62,15 @@
 <livewire:scripts />
 
 @stack('js')
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/quicklink/2.3.0/quicklink.umd.js"></script>
+<script>
+    window.addEventListener('load', () => {
+        quicklink.listen({
+            el: document.querySelector('nav')
+        });
+    });
+</script>
 
 <!--
 <script type="module" src="https://cdn.skypack.dev/pin/@hotwired/turbo@v7.1.0-V83RMQBlYCPK9CvTqQoL/mode=imports,min/optimized/@hotwired/turbo.js"></script>
