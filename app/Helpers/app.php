@@ -252,8 +252,15 @@ function monthProjectedHours($workDayCountMonth, $holidayCount = 0, $forceRefres
 
     // if user has already uploaded hours for today, substract them from projection
     $uploadedToday = getTotalWorkedHoursForSingleDateCurrentMonth(0, $user->basecamp_api_user_id);
-    //$projectedUntilToday -= getTotalWorkedHoursForSingleDateCurrentMonth(0, $user->basecamp_api_user_id) >= $workingHoursCount ? $workingHoursCount : 0;
-    $projectedUntilToday -= $uploadedToday;
+    //$projectedUntilToday -= $uploadedToday >= $workingHoursCount ? $workingHoursCount : 0;
+
+    if ($uploadedToday >= $workingHoursCount) {
+        $projectedUntilToday -= $workingHoursCount;
+    } else {
+        $projectedUntilToday -= $uploadedToday;
+    }
+
+    //$projectedUntilToday -= $uploadedToday;
 
     // projected of coming days
     $totalComingDays = round(($workDayCountMonth - (getWorkingDaysCount() - $holidayCount)) * $workingHoursCount);

@@ -71,10 +71,6 @@ class UsersDataTable extends LivewireDatatable
             })->label('Uploaded Hours')->alignCenter(),
 
             Column::callback(['basecamp_api_user_id', 'holidays_count', 'working_hours_count'], static function ($bcId, $holidaysCount, $workingHoursCount) use (&$modelInstance) {
-
-                $holidaysCount = \user()->holidays_count;
-                $workingHoursCount = \user()->working_hours_count;
-
                 $workDayCountMonth = workDayCountMonth($holidaysCount);
 
                 $hoursTotal = workMonthRequiredHours($workDayCountMonth, $workingHoursCount);
