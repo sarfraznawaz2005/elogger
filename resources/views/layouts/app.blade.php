@@ -47,7 +47,7 @@
 @stack('modals')
 
 <script src="/js/notyf.min.js"></script>
-<script src="/js/custom.js?v={{time()}}"></script>
+<script src="/js/custom.js"></script>
 
 <x-celebrate/>
 
