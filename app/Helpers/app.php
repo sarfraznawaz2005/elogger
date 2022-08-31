@@ -251,7 +251,12 @@ function monthProjectedHours($workDayCountMonth, $holidayCount = 0, $forceRefres
     $projectedUntilToday = round($monthHoursUploaded + ($pendingHoursMonth - $pendingHoursToday) + $add);
 
     // if user has already uploaded hours for today, substract them from projection
-    $uploadedToday = getTotalWorkedHoursForSingleDateCurrentMonth(0, $user->basecamp_api_user_id);
+    if ($forceRefresh) {
+        $uploadedToday = getTotalWorkedHoursForSingleDateCurrentMonth(0, $user->basecamp_api_user_id);
+    } else {
+        $uploadedToday = session('uploaded_hours_today') ?? 0;
+    }
+
     //$projectedUntilToday -= $uploadedToday >= $workingHoursCount ? $workingHoursCount : 0;
 
     if ($uploadedToday >= $workingHoursCount) {
