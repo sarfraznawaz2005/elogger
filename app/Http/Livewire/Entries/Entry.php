@@ -160,7 +160,6 @@ class Entry extends Component
     {
         $this->model = $todo->replicate();
 
-        $this->model->description = '';
         $this->model->dated = date('Y-m-d');
         $this->model->time_start = $this->model->time_end = date('H:i');
 
