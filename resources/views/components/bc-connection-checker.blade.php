@@ -1,8 +1,8 @@
 @if(session()->has('not_connected'))
     <div class="w-auto inline-block flex justify-center items-center mb-4" wire:ignore x-data>
-        <div class="p-3 text-sm text-white break-words flex items-center justify-center text-center rounded-lg red-box">
+        <div class="p-3 text-sm text-white break-words flex font-bold items-center justify-center text-center rounded-lg red-box">
             <div>
-                <div class="uppercase font-bold mb-4">
+                <div class="uppercase mb-4">
                     Your Data Might Be Off !
                 </div>
 
