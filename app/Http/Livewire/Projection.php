@@ -6,7 +6,6 @@ use App\Traits\InteractsWithFlash;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
-use Illuminate\Support\Facades\Route;
 use Livewire\Component;
 
 class Projection extends Component
@@ -21,12 +20,6 @@ class Projection extends Component
 
     public bool $loading = false;
     public bool $celebrated = false;
-
-    public function mount(): void
-    {
-        /** @noinspection ALL */
-        session()->put('lastUrl', Route::current()->getName());
-    }
 
     public function render(): Factory|View|Application
     {
@@ -147,6 +140,6 @@ class Projection extends Component
 
         $this->success('Data Refreshed Successfully!');
 
-        return redirect()->to(\route(session()->get('lastUrl') ?? '/'));
+        return redirect()->to('/');
     }
 }
