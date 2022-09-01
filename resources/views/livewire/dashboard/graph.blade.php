@@ -142,7 +142,7 @@
                                 display: true,
                                 anchor: 'center',
                                 align: 'center',
-                                formatter: Math.round,
+                                //formatter: Math.round,
                                 backgroundColor: '#eee',
                                 color: '#333',
                                 borderRadius: 3,
