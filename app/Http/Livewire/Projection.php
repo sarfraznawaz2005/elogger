@@ -76,10 +76,17 @@ class Projection extends Component
 
         // if user has already uploaded hours for today, substract them from projection
         //$minusTodayIfUploaded = session('uploaded_hours_today') ?? 0 >= $workingHoursCount ? $workingHoursCount : 0;
-        $minusTodayIfUploaded = session('uploaded_hours_today') ?? 0;
-        $projected -= $minusTodayIfUploaded;
+        $uploadedToday = session('uploaded_hours_today') ?? 0;
 
-        $calc = "($monthHoursUploaded + ($pendingHoursMonth - $pendingHoursToday) + $add) - $minusTodayIfUploaded";
+        if ($uploadedToday >= $workingHoursCount) {
+            $projected -= $workingHoursCount;
+        } else {
+            $projected -= $uploadedToday;
+        }
+
+        //$projected -= $minusTodayIfUploaded;
+
+        $calc = "($monthHoursUploaded + ($pendingHoursMonth - $pendingHoursToday) + $add) - $uploadedToday";
 
         $isHappy = !($projected < $totalRequiredTillToday);
 
