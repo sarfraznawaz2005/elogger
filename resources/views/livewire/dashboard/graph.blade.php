@@ -142,7 +142,7 @@
                                 display: true,
                                 anchor: 'center',
                                 align: 'center',
-                                formatter: (val) => {return parseFloat(val).toFixed(1);},
+                                formatter: (val) => parseFloat(val).toFixed(1),
                                 backgroundColor: '#eee',
                                 color: '#333',
                                 borderRadius: 3,
