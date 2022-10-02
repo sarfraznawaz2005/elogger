@@ -14,7 +14,7 @@
 
     @vite(['resources/js/app.js'])
 
-{{--    <script src="https://unpkg.com/tailwindcss-jit-cdn"></script>--}}
+{{--    <script src="https://cdn.tailwindcss.com"></script>--}}
 
     <livewire:styles />
 
