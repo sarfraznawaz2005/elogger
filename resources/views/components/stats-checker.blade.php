@@ -1,4 +1,4 @@
-@if(getWorkingDaysCount() - user()->holidays_count <= 0)
+@if(getWorkingDaysCount() - user()->holidays_count < 0)
     <div class="w-auto inline-block flex justify-center items-center mb-4" wire:ignore>
         <div class="p-3 text-sm break-words flex items-center rounded-lg sky-box">
             <div class="flex items-center justify-center text-center">
