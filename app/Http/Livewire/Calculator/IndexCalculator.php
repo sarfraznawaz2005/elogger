@@ -83,7 +83,7 @@ class IndexCalculator extends Component
         $this->year = date('Y');
 
         // add few years in past and future
-        for ($i = (int)date('Y') - 5; $i <= (int)date('Y'); $i++) {
+        for ($i = (int)date('Y') - 4; $i <= (int)date('Y'); $i++) {
             $this->years[$i] = $i;
         }
 
