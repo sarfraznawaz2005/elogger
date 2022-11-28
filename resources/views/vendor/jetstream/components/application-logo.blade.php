@@ -1,1 +1,1 @@
-<img src="/logo.png?v={{time()}}" width="40" height="40" />
+<img src="/public/logo.png" width="40" height="40" />
