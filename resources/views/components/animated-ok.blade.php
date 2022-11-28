@@ -1,5 +1,5 @@
 @push('js')
-    <script src="/js/lottie.min.js" defer></script>
+    <script src="/public/js/lottie.min.js" defer></script>
 @endpush
 
 <div

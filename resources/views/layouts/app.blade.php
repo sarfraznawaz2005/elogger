@@ -48,8 +48,8 @@
 
 @stack('modals')
 
-<script src="/js/notyf.min.js"></script>
-<script src="/js/custom.js"></script>
+<script src="/public/js/notyf.min.js"></script>
+<script src="/public/js/custom.js"></script>
 
 <x-celebrate/>
 
@@ -75,7 +75,7 @@
 </script>
 -->
 
-<script src="/js/pace.min.js"></script>
+<script src="/public/js/pace.min.js"></script>
 
 </body>
 </html>
