@@ -54,9 +54,9 @@ return [
     |
     */
 
-    //'asset_url' => null, // original
+    'asset_url' => null, // original
     //'asset_url' => env('APP_URL', 'http://localhost'),
-    'asset_url' => '/public',
+    //'asset_url' => '/public',
 
     /*
     |--------------------------------------------------------------------------
@@ -70,7 +70,7 @@ return [
     |
     */
 
-    'app_url' => null,
+    'app_url' => env('APP_URL', 'http://localhost'),
 
     /*
     |--------------------------------------------------------------------------
