@@ -344,3 +344,8 @@ function fetchTodos($todolistId): bool|string
         return json_encode([], JSON_THROW_ON_ERROR);
     }
 }
+
+function isLocalhost(): bool
+{
+    return $_SERVER['REMOTE_ADDR'] === '127.0.0.1';
+}

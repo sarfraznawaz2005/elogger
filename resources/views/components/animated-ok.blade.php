@@ -1,5 +1,9 @@
 @push('js')
-    <script src="/public/js/lottie.min.js" defer></script>
+    @if (!isLocalhost())
+        <script src="/public/js/lottie.min.js" defer></script>
+    @else
+        <script src="/js/lottie.min.js" defer></script>
+    @endif
 @endpush
 
 <div

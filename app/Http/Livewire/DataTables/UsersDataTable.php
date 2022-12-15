@@ -28,7 +28,7 @@ class UsersDataTable extends LivewireDatatable
     {
         $modelInstance = null;
 
-        return [
+        $columns = [
 
             NumberColumn::callback(['id'], function ($id) use (&$modelInstance) {
                 $modelInstance = $this->model::find($id);
@@ -70,19 +70,34 @@ class UsersDataTable extends LivewireDatatable
 
             })->label('Uploaded Hours')->alignCenter(),
 
-            Column::callback(['basecamp_api_user_id', 'holidays_count', 'working_hours_count'], static function ($bcId, $holidaysCount, $workingHoursCount) use (&$modelInstance) {
-                $workDayCountMonth = workDayCountMonth($holidaysCount);
+            Column::callback(['basecamp_api_user_id', 'holidays_count', 'working_hours_count'],
+                static function ($bcId, $holidaysCount, $workingHoursCount) use (&$modelInstance) {
+                    $workDayCountMonth = workDayCountMonth($holidaysCount);
 
-                $hoursTotal = workMonthRequiredHours($workDayCountMonth, $workingHoursCount);
-                $hoursProjected = monthProjectedHours($workDayCountMonth, $holidaysCount, true, $bcId, $workingHoursCount, $modelInstance);
+                    $hoursTotal = workMonthRequiredHours($workDayCountMonth, $workingHoursCount);
+                    $hoursProjected = monthProjectedHours($workDayCountMonth, $holidaysCount, true, $bcId, $workingHoursCount, $modelInstance);
 
-                return <<<html
+                    return <<<html
                     <span class="blue-light-box text-gray-700 text-md font-semibold px-2 py-1 rounded w-24 inline-block">
                         $hoursProjected of $hoursTotal
                     </span>
                 html;
 
-            })->label('Month Projection')->alignCenter(),
+                })->label('Month Projection')->alignCenter(),
         ];
+
+        if (user()->isAdmin()) {
+            $columns[] = Column::callback(['id', 'email'], function ($id, $email) {
+
+                if ($email === auth()->user()->email) {
+                    return 'N/A';
+                }
+
+                return view('components.table-actions-user', ['id' => $id]);
+
+            })->label('Action')->width('160px')->alignCenter()->excludeFromExport();
+        }
+
+        return $columns;
     }
 }

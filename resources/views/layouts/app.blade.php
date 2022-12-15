@@ -4,8 +4,11 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
     <meta name="author" content="Sarfraz Ahmed (sarfraznawaz2005@gmail.com)">
+
+    @if (!isLocalhost())
+        <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+    @endif
 
     <title>{{ config('app.name', 'Laravel') }}</title>
 
@@ -15,9 +18,9 @@
 
     @vite(['resources/js/app.js'])
 
-{{--    <script src="https://cdn.tailwindcss.com"></script>--}}
+    {{--    <script src="https://cdn.tailwindcss.com"></script>--}}
 
-    <livewire:styles />
+    <livewire:styles/>
 
     @stack('css')
 </head>
@@ -48,12 +51,17 @@
 
 @stack('modals')
 
-<script src="/public/js/notyf.min.js"></script>
-<script src="/public/js/custom.js"></script>
+@if (!isLocalhost())
+    <script src="/public/js/notyf.min.js"></script>
+    <script src="/public/js/custom.js"></script>
+@else
+    <script src="/js/notyf.min.js"></script>
+    <script src="/js/custom.js"></script>
+@endif
 
 <x-celebrate/>
 
-<livewire:scripts />
+<livewire:scripts/>
 
 @stack('js')
 
@@ -75,7 +83,11 @@
 </script>
 -->
 
-<script src="/public/js/pace.min.js"></script>
+@if (!isLocalhost())
+    <script src="/public/js/pace.min.js"></script>
+@else
+    <script src="/js/pace.min.js"></script>
+@endif
 
 </body>
 </html>
