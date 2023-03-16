@@ -185,7 +185,7 @@ function refreshData(): void
     if ($users && user()->isAdmin()) {
         foreach ($users as $userId => $user) {
             $nameArray = explode(' ', $user);
-            $name = $nameArray[0] . ' ' . $nameArray[1][0];
+            $name = $nameArray[0] . ' ' . $nameArray[1];
 
             $hours = getUserMonthUploadedHours($userId, true);
 
