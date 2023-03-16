@@ -184,7 +184,18 @@
 								color:'#777',
 								font: {weight: 'bold', size: 15}
 							}
-						}
+						},
+                        scales: {
+                            x: {
+                                ticks: {
+                                    callback: function(val, index) {
+                                        let valueArray = this.getLabelForValue(val).split(' ');
+                                        
+                                        return valueArray[0] + ' ' + valueArray[1][0];
+                                    }
+                                }
+                            }
+                        }						
                     }
                 });
             </script>
