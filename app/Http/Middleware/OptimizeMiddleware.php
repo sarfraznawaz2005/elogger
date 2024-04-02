@@ -38,6 +38,10 @@ final class OptimizeMiddleware
     {
         $response = $next($request);
 
+        $response->headers->add([
+            'jSGCacheBypass' => 1, // bypass SG dynamic cache.
+        ]);
+
         /*
         if (isLocalhost()) {
             return $response;
