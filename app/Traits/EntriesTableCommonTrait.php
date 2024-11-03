@@ -40,6 +40,11 @@ trait EntriesTableCommonTrait
 
             // causing search issue as well. tbf
             Column::callback('project_id', static function ($project_id) use ($projects) {
+
+                if (!$project_id) {
+                    return '';
+                }
+
                 $limit = 20;
 
                 $text = $projects->where('project_id', $project_id)->first()->project_name;

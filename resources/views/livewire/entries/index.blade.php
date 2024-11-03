@@ -15,6 +15,7 @@
             @endif
 
             <livewire:entries.todos/>
+            <livewire:entries.import-entries/>
             <livewire:entries.entry/>
         </div>
 
