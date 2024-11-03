@@ -42,7 +42,11 @@ trait EntriesTableCommonTrait
             Column::callback('project_id', static function ($project_id) use ($projects) {
 
                 if (!$project_id) {
-                    return '';
+                    $class = 'red-light-box';
+
+                    return <<<html
+                    <span class="$class text-md px-2 py-1 text-gray-900 rounded inline-block w-24"></span>
+                html;
                 }
 
                 $limit = 20;
