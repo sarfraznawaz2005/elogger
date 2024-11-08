@@ -44,11 +44,17 @@ class ImportEntries extends Component
 
             $rows = array_map('str_getcsv', file($this->csvFile->getRealPath()));
 
+            $this->loadingMessage = 'Please wait...';
+            $this->loading = true;
+
             // remove first header row
             array_shift($rows);
+            $total = count($rows);
 
             $data = [];
+            $count = 0;
             foreach ($rows as $row) {
+                $count++;
 
                 $exists = Todo::query()
                     ->where('dated', date('Y-m-d', strtotime($row[0])))
@@ -85,13 +91,15 @@ class ImportEntries extends Component
                 $this->emit('refreshLivewireDatatable');
                 $this->emit('event-entries-updated');
 
-                $this->success('Entry Imported Successfully!');
+                $this->success("$count of $total Entries Imported Successfully!");
             } else {
                 $this->closeModal();
                 $this->danger('No new entries to import!');
             }
         } catch (Exception $e) {
             $this->danger($e->getMessage());
+        } finally {
+            $this->loading = false;
         }
     }
 
