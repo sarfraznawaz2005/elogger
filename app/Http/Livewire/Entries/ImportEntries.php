@@ -103,6 +103,11 @@ class ImportEntries extends Component
         }
     }
 
+    public function downloadSample()
+    {
+        return response()->download(base_path('time-log-sample.csv'));
+    }
+
     public function render(): Factory|View|Application
     {
         return view('livewire.entries.import-entries');
