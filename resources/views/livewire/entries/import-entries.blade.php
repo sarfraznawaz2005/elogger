@@ -28,7 +28,7 @@
 
         <x-slot name="footer">
             <div class="flex justify-between w-full">
-                <x-jet-button wire:click="downloadSample" class="px-4 py-2">
+                <x-jet-button wire:click="downloadSample" class="w-32">
                     {{ __('Download Sample') }}
                 </x-jet-button>
 
@@ -36,12 +36,12 @@
                     <x-jet-button
                         wire:click="save"
                         wire:loading.attr="disabled"
-                        class="mr-2 bg-blue-700 hover:bg-blue-800 px-4 py-2">
+                        class="mr-2 bg-blue-700 hover:bg-blue-800 w-32">
 
                         <x-icons.ok/> {{ __('Import')  }}
                     </x-jet-button>
 
-                    <x-jet-button x-on:click="show = false" wire:click="closeModal" wire:loading.attr="disabled" class="px-4 py-2">
+                    <x-jet-button x-on:click="show = false" wire:click="closeModal" wire:loading.attr="disabled" class="w-32">
                         {{ __('Close')  }}
                     </x-jet-button>
                 </div>
